@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react'
 import Layout from './components/Layout'
-import { DISCORD_URL, PRICE, SITE_URL } from './config'
+import { PRICE, SITE_URL, SOCIALS } from './config'
 import { articles, PUBLISHED } from './content/articles'
 import { legal } from './content/legal'
 import type { Meta } from './head'
@@ -25,7 +25,7 @@ const org = {
   name: 'Winvest Capital',
   url: SITE_URL + '/',
   logo: url('/logo.jpeg'),
-  sameAs: [DISCORD_URL],
+  sameAs: SOCIALS.map((s) => s.url),
 }
 
 const faqLd = (faq: [string, string][]) => ({

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { DISCORD_URL } from '../config'
+import { DISCORD_URL, SOCIALS } from '../config'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import Ticker from './Ticker'
@@ -92,8 +92,20 @@ export default function Layout({ lang, alternate, children }: Props) {
             <a href={p.home} className="hover:text-white">{lang === 'nl' ? 'Home' : 'Home'}</a>
             <a href={p.learn} className="hover:text-white">{lang === 'nl' ? 'Leren' : 'Learn'}</a>
             <a href={p.calculator} className="hover:text-white">{lang === 'nl' ? 'Lotgrootte-calculator' : 'Lot size calculator'}</a>
-            <a href={DISCORD_URL} className="hover:text-white">Discord</a>
           </nav>
+          <div className="mt-6">
+            <p className="text-xs font-semibold tracking-wide text-white/40 uppercase">{lang === 'nl' ? 'Volg ons' : 'Follow us'}</p>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {SOCIALS.map((s) => (
+                <li key={s.name}>
+                  <a href={s.url} target="_blank" rel="noopener me" className="group inline-flex items-center gap-2 rounded-full border border-white/15 px-3.5 py-1.5 text-white/75 transition hover:border-[var(--wc-red)] hover:text-white">
+                    <span className="font-semibold">{s.name}</span>
+                    <span className="text-xs text-white/40 group-hover:text-white/70">{s.handle}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
           <p className="mt-4 max-w-3xl">
             {lang === 'nl'
               ? 'Disclaimer: alle content, analyses en output van Market Whisper AI van Winvest Capital zijn uitsluitend educatief en geen financieel advies. Handelen in aandelen, crypto en FX brengt een hoog risico op verlies met zich mee. Doe je eigen onderzoek en riskeer alleen wat je kunt missen.'
