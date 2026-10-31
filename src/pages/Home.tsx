@@ -1,5 +1,4 @@
-import { useState, type FormEvent } from 'react'
-import { DISCORD_URL, NEWSLETTER_EMAIL_FIELD, NEWSLETTER_FORM_ACTION, PRICE, STRIPE_PAYMENT_LINK, WHOP_REVIEWS_URL } from '../config'
+import { DISCORD_URL, PRICE, STRIPE_PAYMENT_LINK, WHOP_REVIEWS_URL } from '../config'
 import { reviews } from '../content/reviews'
 import { articles } from '../content/articles'
 import TradingViewWidget from '../components/TradingViewWidget'
@@ -78,14 +77,6 @@ export const homeCopy = {
     learnP: 'Free guides on the core ideas we use in the community.',
     learnAll: 'All guides',
     newsH2: 'Get the weekly market recap',
-    newsP: 'Key levels, upcoming events and new guides in your inbox. No spam, unsubscribe anytime.',
-    newsPlaceholder: 'Your email address',
-    newsBtn: 'Subscribe',
-    newsSoon: 'Coming soon',
-    newsSoonP: 'The newsletter launches soon. Join the free Discord in the meantime.',
-    newsDone: 'Almost done! Check your inbox and click the link to confirm your subscription.',
-    newsError: 'Something went wrong. Please try again later.',
-    newsPrivacy: 'We only use your email address for the newsletter. See our privacy policy.',
     faqH2: 'Questions',
     faqs: [
       ['Is the community really free?', 'Yes. Joining the Winvest Capital community costs nothing. The One Percent Club is an optional one-time upgrade.'],
@@ -164,14 +155,6 @@ export const homeCopy = {
     learnP: 'Gratis uitleg over de kernideeën die we in de community gebruiken.',
     learnAll: 'Alle uitleg',
     newsH2: 'Ontvang de wekelijkse marktupdate',
-    newsP: 'Belangrijke levels, komende events en nieuwe uitleg in je inbox. Geen spam, altijd af te melden.',
-    newsPlaceholder: 'Je e-mailadres',
-    newsBtn: 'Aanmelden',
-    newsSoon: 'Binnenkort',
-    newsSoonP: 'De nieuwsbrief start binnenkort. Word in de tussentijd gratis lid van de Discord.',
-    newsDone: 'Bijna klaar! Check je inbox en klik op de link om je aanmelding te bevestigen.',
-    newsError: 'Er ging iets mis. Probeer het later opnieuw.',
-    newsPrivacy: 'We gebruiken je e-mailadres alleen voor de nieuwsbrief. Zie onze privacyverklaring.',
     faqH2: 'Veelgestelde vragen',
     faqs: [
       ['Is de community echt gratis?', 'Ja. Lid worden van de Winvest Capital community kost niets. De One Percent Club is een optionele eenmalige upgrade.'],
@@ -183,56 +166,6 @@ export const homeCopy = {
     endH2: 'Word vandaag lid van Winvest Capital',
     endP: 'Gratis toegang tot de community, inclusief Market Whisper AI.',
   },
-}
-
-function Newsletter({ lang }: { lang: Lang }) {
-  const c = homeCopy[lang]
-  const live = NEWSLETTER_FORM_ACTION !== ''
-  const [state, setState] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
-  async function submit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    if (!live) return
-    setState('sending')
-    const data = new FormData(e.currentTarget)
-    data.append('ml-submit', '1')
-    data.append('anticsrf', 'true')
-    try {
-      // MailerLite does not send CORS headers; the request still goes through.
-      await fetch(NEWSLETTER_FORM_ACTION, { method: 'POST', body: data, mode: 'no-cors' })
-      setState('done')
-    } catch {
-      setState('error')
-    }
-  }
-  return (
-    <section id="newsletter" className="border-t border-white/10">
-      <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6">
-        <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{c.newsH2}</h2>
-        <p className="mt-3 text-white/60">{live ? c.newsP : c.newsSoonP}</p>
-        {state === 'done' ? (
-          <p role="status" className="mx-auto mt-6 max-w-md rounded-2xl border border-[var(--wc-red)]/50 bg-[var(--wc-red)]/10 px-5 py-4 font-semibold">{c.newsDone}</p>
-        ) : (
-          <form onSubmit={submit} className="mx-auto mt-6 flex max-w-md flex-col gap-3 sm:flex-row">
-            <label className="sr-only" htmlFor="nl-email">{c.newsPlaceholder}</label>
-            <input
-              id="nl-email"
-              type="email"
-              name={NEWSLETTER_EMAIL_FIELD}
-              required
-              disabled={!live || state === 'sending'}
-              placeholder={c.newsPlaceholder}
-              className="flex-1 rounded-full border border-white/15 bg-white/[0.04] px-5 py-3 text-white placeholder:text-white/40 focus:border-[var(--wc-red)] focus:outline-none disabled:opacity-50"
-            />
-            <button type="submit" disabled={!live || state === 'sending'} className="rounded-full bg-[var(--wc-red)] px-6 py-3 font-semibold transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50">
-              {live ? c.newsBtn : c.newsSoon}
-            </button>
-          </form>
-        )}
-        {state === 'error' && <p role="alert" className="mt-3 text-sm text-[var(--wc-red-soft)]">{c.newsError}</p>}
-        {live && state !== 'done' && <p className="mt-3 text-xs text-white/40">{c.newsPrivacy}</p>}
-      </div>
-    </section>
-  )
 }
 
 export default function Home({ lang }: { lang: Lang }) {
@@ -464,8 +397,6 @@ export default function Home({ lang }: { lang: Lang }) {
           </div>
         </div>
       </section>
-
-      <Newsletter lang={lang} />
 
       <section className="border-t border-white/10 bg-[var(--wc-ink)]">
         <div className="mx-auto max-w-6xl px-4 py-20 text-center sm:px-6">
