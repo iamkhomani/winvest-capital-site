@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Winvest Capital welcome series for Listmonk.
 
-Sends a series of transactional emails to every newly confirmed subscriber of the
-newsletter list: email 1 right after confirmation, then the next emails after the
+Sends a series of transactional emails to every new subscriber of the newsletter
+list (with double opt-in: after confirmation): email 1 right away, then the next emails after the
 configured number of days. Stops for anyone who unsubscribes or is disabled.
 
 Runs every few minutes via a systemd timer. Python standard library only.
@@ -18,6 +18,9 @@ LIST_ID = int(os.environ.get('LIST_ID', '2'))
 TEMPLATE_IDS = [int(x) for x in os.environ.get('SERIES_TEMPLATE_IDS', os.environ.get('WELCOME_TEMPLATE_ID', '6')).split(',')]
 DELAYS = [float(x) for x in os.environ.get('SERIES_DELAYS_DAYS', '0,2,5').split(',')][:len(TEMPLATE_IDS)]
 FROM = os.environ.get('FROM_EMAIL', 'Winvest Capital <info@winvestcapital.nl>')
+# 'single': everyone on the list who has not unsubscribed gets the series (no confirmation step).
+# 'double': only subscribers who clicked the confirmation link get it.
+OPTIN = os.environ.get('LIST_OPTIN', 'single').lower()
 STATE = os.environ.get('STATE_FILE', '/var/lib/winvest-welcome/state.json')
 OLD_STATE = os.path.join(os.path.dirname(STATE), 'sent.json')
 
@@ -34,7 +37,9 @@ def confirmed_subscribers():
         d = api('GET', f'/api/subscribers?list_id={LIST_ID}&per_page=100&page={page}')['data']
         for s in d.get('results') or []:
             sub = next((l for l in s.get('lists', []) if l.get('id') == LIST_ID), None)
-            if s.get('status') == 'enabled' and sub and sub.get('subscription_status') == 'confirmed':
+            ok = sub and (sub.get('subscription_status') == 'confirmed' or
+                          (OPTIN == 'single' and sub.get('subscription_status') == 'unconfirmed'))
+            if s.get('status') == 'enabled' and ok:
                 out[str(s['id'])] = s
         if page * 100 >= d.get('total', 0):
             return out
