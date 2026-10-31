@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+:root {
+  --wc-red: #fe0000;
+  --wc-red-soft: #ff4d4d;
+  --wc-black: #0a0a0b;
+  --wc-ink: #111113;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--wc-black);
+}
+
+body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; color: #fff; }
