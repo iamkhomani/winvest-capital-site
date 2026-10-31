@@ -22,7 +22,7 @@ export const calcCopy = {
     ] as [string, string][],
     learnMore: 'Learn more about risk management',
     ctaH: 'Want this inside Discord?',
-    ctaP: 'One Percent Club members get the lot size calculator built into Market Whisper AI, plus market and fundamental analysis.',
+    ctaP: 'Every member of the free Discord can use the lot size calculator in Market Whisper AI. The One Percent Club adds market and fundamental analysis.',
     ctaBtn: 'Join the free Discord',
   },
   nl: {
@@ -42,7 +42,7 @@ export const calcCopy = {
     ] as [string, string][],
     learnMore: 'Meer over risicobeheer',
     ctaH: 'Wil je dit in Discord?',
-    ctaP: 'Leden van de One Percent Club krijgen de lotgrootte-calculator ingebouwd in Market Whisper AI, plus markt- en fundamentele analyse.',
+    ctaP: 'Ieder lid van de gratis Discord kan de lotgrootte-calculator in Market Whisper AI gebruiken. De One Percent Club voegt markt- en fundamentele analyse toe.',
     ctaBtn: 'Word gratis lid van de Discord',
   },
 }

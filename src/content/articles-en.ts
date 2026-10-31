@@ -384,7 +384,7 @@ export const en: Record<string, ArticleContent> = {
       {
         h: 'Use a calculator',
         p: [
-          'Doing the maths by hand before every trade is error-prone. One Percent Club members get the lot size calculator in Market Whisper AI, which works out the position size from your account, risk percentage and stop loss.',
+          'Doing the maths by hand before every trade is error-prone. Use the free lot size calculator on this website, or the one in Market Whisper AI in our free Discord, which works out the position size from your account, risk percentage and stop loss.',
         ],
       },
     ],

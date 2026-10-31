@@ -382,7 +382,7 @@ export const nl: Record<string, ArticleContent> = {
       {
         h: 'Gebruik een calculator',
         p: [
-          'Vóór elke trade met de hand rekenen is foutgevoelig. Leden van de One Percent Club krijgen de lotgrootte-calculator in Market Whisper AI, die je positiegrootte berekent op basis van je account, risicopercentage en stop-loss.',
+          'Vóór elke trade met de hand rekenen is foutgevoelig. Gebruik de gratis lotgrootte-calculator op deze website, of die in Market Whisper AI in onze gratis Discord, die je positiegrootte berekent op basis van je account, risicopercentage en stop-loss.',
         ],
       },
     ],
