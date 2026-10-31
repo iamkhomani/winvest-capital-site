@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { DISCORD_URL, NEWSLETTER_EMAIL_FIELD, NEWSLETTER_FORM_ACTION, NEWSLETTER_LIST_UUID, PRICE, STRIPE_PAYMENT_LINK, TRUSTPILOT_URL, WHOP_REVIEWS_URL } from '../config'
+import { DISCORD_URL, NEWSLETTER_EMAIL_FIELD, NEWSLETTER_FORM_ACTION, NEWSLETTER_LIST_UUID, PRICE, STRIPE_PAYMENT_LINK, TRUSTPILOT_URL } from '../config'
 import { reviews } from '../content/reviews'
 import { articles } from '../content/articles'
 import TradingViewWidget from '../components/TradingViewWidget'
@@ -50,10 +50,9 @@ export const homeCopy = {
       'Market Whisper AI: fundamental analysis on crypto projects and assets',
     ],
     revH2: 'What members say',
-    revP: 'Real reviews from members of the Winvest Capital community.',
-    revLink: 'Reviews on Whop',
+    revP: 'Real reviews from members of the Winvest Capital community, as posted on Trustpilot.',
     revKicker: 'Reviews',
-    revVerified: 'Review on Whop',
+    revVerified: 'Review on Trustpilot',
     tpTitle: 'See our reviews on Trustpilot',
     tpSub: 'Read or write a review',
     calcH2: 'Free lot size calculator',
@@ -138,10 +137,9 @@ export const homeCopy = {
       'Market Whisper AI: fundamentele analyse van cryptoprojecten en assets',
     ],
     revH2: 'Wat leden zeggen',
-    revP: 'Echte reviews van leden van de Winvest Capital community (oorspronkelijk in het Engels).',
-    revLink: 'Reviews op Whop',
+    revP: 'Echte reviews van leden van de Winvest Capital community, zoals geplaatst op Trustpilot (in het Engels).',
     revKicker: 'Reviews',
-    revVerified: 'Review op Whop',
+    revVerified: 'Review op Trustpilot',
     tpTitle: 'Bekijk ons op Trustpilot',
     tpSub: 'Lees of schrijf een review',
     calcH2: 'Gratis lotgrootte-calculator',
@@ -325,13 +323,6 @@ export default function Home({ lang }: { lang: Lang }) {
               <p className="mt-3 text-white/60">{c.revP}</p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <a href={WHOP_REVIEWS_URL} className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3 transition hover:border-[var(--wc-red)]/60">
-                <span className="text-4xl font-bold">5.0</span>
-                <span>
-                  <Stars />
-                  <span className="mt-1 block text-xs text-white/50 group-hover:text-white/80">{c.revLink} →</span>
-                </span>
-              </a>
               <a href={TRUSTPILOT_URL} target="_blank" rel="noopener" className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3 transition hover:border-[var(--wc-red)]/60">
                 <img src="/brand/trustpilot-star.png" alt="Trustpilot" width={40} height={38} className="h-9 w-auto" />
                 <span>
@@ -341,13 +332,13 @@ export default function Home({ lang }: { lang: Lang }) {
               </a>
             </div>
           </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-2 md:grid-rows-2">
+          <div className="mt-10 grid gap-6 md:grid-cols-2 md:grid-rows-3">
             {reviews.map((r, i) => (
               <figure
                 key={r.id}
                 className={`group relative flex flex-col overflow-hidden rounded-3xl border p-7 transition ${
                   i === 0
-                    ? 'border-[var(--wc-red)]/50 bg-gradient-to-br from-[var(--wc-red)]/20 via-white/[0.03] to-transparent md:row-span-2 md:p-9'
+                    ? 'border-[var(--wc-red)]/50 bg-gradient-to-br from-[var(--wc-red)]/20 via-white/[0.03] to-transparent md:row-span-3 md:p-9'
                     : 'border-white/10 bg-white/[0.03] hover:border-[var(--wc-red)]/40'
                 }`}
               >
