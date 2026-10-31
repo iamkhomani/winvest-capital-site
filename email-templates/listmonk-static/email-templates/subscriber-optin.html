@@ -1,0 +1,17 @@
+{{ define "subscriber-optin" }}
+{{ template "header" . }}
+<p class="kicker">One more step</p>
+<h1>Confirm your subscription</h1>
+<p>Hi{{ if .Subscriber.FirstName }} {{ .Subscriber.FirstName }}{{ end }},</p>
+<p>Thank you for signing up on winvestcapital.nl. Please confirm that you want to receive:</p>
+<ul>
+    {{ range $i, $l := .Lists }}
+        {{ if eq .Type "public" }}<li>{{ .Name }}</li>{{ end }}
+    {{ end }}
+</ul>
+<p>
+    <a href="{{ .OptinURL }}" class="button">Confirm subscription</a>
+</p>
+<p class="muted">Every two weeks you will get our market update. Did not sign up? Then you can ignore this email and you will not hear from us again, or <a href="{{ .UnsubURL }}?manage=true">unsubscribe here</a>.</p>
+{{ template "footer" }}
+{{ end }}

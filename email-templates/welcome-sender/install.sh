@@ -7,7 +7,7 @@ chmod 755 /usr/local/bin/winvest-welcome.py
 curl -fsSL "$BASE/winvest-welcome.service" -o /etc/systemd/system/winvest-welcome.service
 curl -fsSL "$BASE/winvest-welcome.timer" -o /etc/systemd/system/winvest-welcome.timer
 if [ ! -f /etc/winvest-welcome.env ]; then
-  printf 'LISTMONK_URL=http://192.168.68.14:9000\nLISTMONK_API_USER=welcome-bot\nLISTMONK_API_TOKEN=PASTE_TOKEN_HERE\n' > /etc/winvest-welcome.env
+  printf 'LISTMONK_URL=http://192.168.68.14:9000\nLISTMONK_API_USER=welcome-bot\nLISTMONK_API_TOKEN=PASTE_TOKEN_HERE\nSERIES_TEMPLATE_IDS=7,8,9\nSERIES_DELAYS_DAYS=0,2,5\n' > /etc/winvest-welcome.env
 fi
 chmod 600 /etc/winvest-welcome.env
 systemctl daemon-reload
