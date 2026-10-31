@@ -139,7 +139,7 @@ export const nl: Record<string, ArticleContent> = {
           'Bullish order block: de laatste bearish (dalende) candle vóór een krachtige stijging die de marktstructuur breekt.',
           'Bearish order block: de laatste bullish (stijgende) candle vóór een krachtige daling die de marktstructuur breekt.',
         ],
-        p: ['De zone wordt meestal getekend van de top tot de bodem van die candle. Sommige traders gebruiken alleen de body voor een smallere zone.'],
+        p: ['De zone wordt meestal getekend van de top tot de bodem van de order block-candle. Sommige traders gebruiken alleen de body voor een smallere zone.'],
       },
       {
         h: 'Waarom order blocks kunnen werken',

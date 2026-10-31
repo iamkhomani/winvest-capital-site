@@ -140,7 +140,7 @@ export const en: Record<string, ArticleContent> = {
           'Bearish order block: the last bullish (up) candle before a strong move down that breaks market structure.',
         ],
         p: [
-          'The zone is usually drawn from the high to the low of that candle. Some traders use only the candle body to get a tighter zone.',
+          'The zone is usually drawn from the high to the low of the order block candle. Some traders use only the candle body to get a tighter zone.',
         ],
       },
       {

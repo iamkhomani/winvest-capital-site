@@ -334,13 +334,13 @@ export default function Home({ lang }: { lang: Lang }) {
           <p className="mt-3 max-w-2xl text-white/60">{c.calP}</p>
           <div className="mt-8 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] p-2">
             <TradingViewWidget
-              className="h-[520px]"
+              className="min-h-[550px]"
               script="embed-widget-events.js"
               config={{
                 colorTheme: 'dark',
                 isTransparent: true,
                 width: '100%',
-                height: '100%',
+                height: 550,
                 locale: lang === 'nl' ? 'nl_NL' : 'en',
                 importanceFilter: '0,1',
                 countryFilter: 'us,eu,gb,jp,ch,ca,au,nz,cn',
