@@ -8,11 +8,12 @@ export const PRICE = '€150'
 // Public Whop page with the original reviews.
 export const WHOP_REVIEWS_URL = 'https://whop.com/winvestcapital/'
 
-// Newsletter: paste the form action URL from your provider (e.g. MailerLite, Buttondown).
+// Newsletter (MailerLite): paste the form action URL from your embedded form,
+// e.g. 'https://assets.mailerlite.com/jsonp/123456/forms/987654321/subscribe'.
 // Leave empty to show the section as "coming soon".
 export const NEWSLETTER_FORM_ACTION = ''
 // Name of the email field your provider expects (MailerLite: 'fields[email]', Buttondown: 'email').
-export const NEWSLETTER_EMAIL_FIELD = 'email'
+export const NEWSLETTER_EMAIL_FIELD = 'fields[email]'
 
 // Legal details shown on the legal pages. Empty values are hidden.
 export const LEGAL = {
@@ -20,5 +21,5 @@ export const LEGAL = {
   owner: '', // e.g. 'Khalil ...' (eenmanszaak owner)
   kvk: '', // Chamber of Commerce (KvK) number
   address: '',
-  email: '',
+  email: 'info@winvestcapital.nl',
 }

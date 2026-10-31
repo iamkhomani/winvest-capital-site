@@ -10,13 +10,13 @@ const nav = {
   en: [
     ['Membership', '/#membership'],
     ['Market Whisper AI', '/#market-whisper'],
-    ['Calendar', '/#calendar'],
+    ['Economic calendar', '/#calendar'],
     ['Learn', '/learn/'],
   ],
   nl: [
     ['Lidmaatschap', '/nl/#membership'],
     ['Market Whisper AI', '/nl/#market-whisper'],
-    ['Kalender', '/nl/#calendar'],
+    ['Economische kalender', '/nl/#calendar'],
     ['Leren', '/nl/leren/'],
   ],
 }
