@@ -11,7 +11,7 @@ export const WHOP_REVIEWS_URL = 'https://whop.com/winvestcapital/'
 // Newsletter (MailerLite): paste the form action URL from your embedded form,
 // e.g. 'https://assets.mailerlite.com/jsonp/123456/forms/987654321/subscribe'.
 // Leave empty to show the section as "coming soon".
-export const NEWSLETTER_FORM_ACTION: string = 'https://assets.mailerlite.com/jsonp/2757873/forms/202843176421033096/subscribe'
+export const NEWSLETTER_FORM_ACTION: string = ''
 // Name of the email field your provider expects (MailerLite: 'fields[email]', Buttondown: 'email').
 export const NEWSLETTER_EMAIL_FIELD = 'fields[email]'
 
