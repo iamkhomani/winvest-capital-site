@@ -1,4 +1,5 @@
 import { DISCORD_URL, PRICE, STRIPE_PAYMENT_LINK } from './config'
+import Ticker from './Ticker'
 
 const FREE_URL = DISCORD_URL
 const PAID_URL = STRIPE_PAYMENT_LINK
@@ -90,6 +91,8 @@ export default function Home() {
           </a>
         </div>
       </header>
+
+      <Ticker />
 
       {/* Hero */}
       <section id="top" className="relative overflow-hidden">
