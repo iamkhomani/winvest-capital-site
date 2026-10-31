@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { DISCORD_URL, NEWSLETTER_EMAIL_FIELD, NEWSLETTER_FORM_ACTION, NEWSLETTER_LIST_UUID, PRICE, STRIPE_PAYMENT_LINK, WHOP_REVIEWS_URL } from '../config'
+import { DISCORD_URL, NEWSLETTER_EMAIL_FIELD, NEWSLETTER_FORM_ACTION, NEWSLETTER_LIST_UUID, PRICE, STRIPE_PAYMENT_LINK, TRUSTPILOT_URL, WHOP_REVIEWS_URL } from '../config'
 import { reviews } from '../content/reviews'
 import { articles } from '../content/articles'
 import TradingViewWidget from '../components/TradingViewWidget'
@@ -54,6 +54,8 @@ export const homeCopy = {
     revLink: 'Reviews on Whop',
     revKicker: 'Reviews',
     revVerified: 'Review on Whop',
+    tpTitle: 'See our reviews on Trustpilot',
+    tpSub: 'Read or write a review',
     calcH2: 'Free lot size calculator',
     calcP: 'Work out the right lot size for forex, gold, crypto and stocks from your balance, risk and stop loss. Free for everyone.',
     calcBtn: 'Open the calculator',
@@ -140,6 +142,8 @@ export const homeCopy = {
     revLink: 'Reviews op Whop',
     revKicker: 'Reviews',
     revVerified: 'Review op Whop',
+    tpTitle: 'Bekijk ons op Trustpilot',
+    tpSub: 'Lees of schrijf een review',
     calcH2: 'Gratis lotgrootte-calculator',
     calcP: 'Bereken de juiste lotgrootte voor forex, goud, crypto en aandelen op basis van je saldo, risico en stop-loss. Gratis voor iedereen.',
     calcBtn: 'Open de calculator',
@@ -320,13 +324,24 @@ export default function Home({ lang }: { lang: Lang }) {
               <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">{c.revH2}</h2>
               <p className="mt-3 text-white/60">{c.revP}</p>
             </div>
-            <a href={WHOP_REVIEWS_URL} className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3 transition hover:border-[var(--wc-red)]/60">
-              <span className="text-4xl font-bold">5.0</span>
-              <span>
-                <Stars />
-                <span className="mt-1 block text-xs text-white/50 group-hover:text-white/80">{c.revLink} →</span>
-              </span>
-            </a>
+            <div className="flex flex-wrap gap-3">
+              <a href={WHOP_REVIEWS_URL} className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3 transition hover:border-[var(--wc-red)]/60">
+                <span className="text-4xl font-bold">5.0</span>
+                <span>
+                  <Stars />
+                  <span className="mt-1 block text-xs text-white/50 group-hover:text-white/80">{c.revLink} →</span>
+                </span>
+              </a>
+              <a href={TRUSTPILOT_URL} target="_blank" rel="noopener" className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3 transition hover:border-[var(--wc-red)]/60">
+                <span className="flex size-10 items-center justify-center rounded-xl bg-[var(--wc-red)]/15 text-[var(--wc-red)] ring-1 ring-[var(--wc-red)]/40">
+                  <svg viewBox="0 0 20 20" className="size-5" fill="currentColor" aria-hidden="true"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L10 14.8l-5.2 2.8 1-5.8L1.5 7.7l5.9-.8z" /></svg>
+                </span>
+                <span>
+                  <span className="block font-semibold">{c.tpTitle}</span>
+                  <span className="mt-0.5 block text-xs text-white/50 group-hover:text-white/80">{c.tpSub} →</span>
+                </span>
+              </a>
+            </div>
           </div>
           <div className="mt-10 grid gap-6 md:grid-cols-2 md:grid-rows-2">
             {reviews.map((r, i) => (

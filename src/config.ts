@@ -7,6 +7,8 @@ export const STRIPE_PAYMENT_LINK = 'https://go.paybotapp.com/RTTDqS3p/rCK4CxHl'
 export const PRICE = '€150'
 // Public Whop page with the original reviews.
 export const WHOP_REVIEWS_URL = 'https://whop.com/winvestcapital/'
+// Trustpilot profile.
+export const TRUSTPILOT_URL = 'https://nl.trustpilot.com/review/winvestcapital.nl'
 
 // Newsletter: self-hosted Listmonk (public subscription form endpoint).
 // Leave NEWSLETTER_FORM_ACTION empty to show the section as "coming soon".
