@@ -17,7 +17,7 @@ html {
 
 html,
 body,
-#app {
+#root {
   min-height: 100%;
 }
 
@@ -26,4 +26,4 @@ body {
   background: var(--wc-black);
 }
 
-body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; color: #fff; }
+body { font-family: 'Inter Variable', ui-sans-serif, system-ui, sans-serif; color: #fff; }
