@@ -33,7 +33,7 @@ def pitch(topic):
       b.card(
         section_label('One Percent Club') +
         f'<p style="margin:0 0 10px;font-family:{F};font-size:19px;font-weight:800;color:{INK}">Go from tools to personal guidance</p>' +
-        b.p('The One Percent Club adds the projects I am looking at, my time to research and analyse assets and charts with you, and Market Whisper AI market and fundamental analysis.', size=15) +
+        b.p('The One Percent Club adds the projects I am looking at, my time to research and analyse assets and charts with you, and the full Market Whisper AI toolkit: interactive conversations about the markets, plus market and fundamental analysis.', size=15) +
         f'<p style="margin:0;font-family:{F};font-size:22px;font-weight:800;color:{INK}">€150 <span style="font-size:14px;font-weight:600;color:{MUTED}">one-time payment, no subscription</span></p>' +
         b.btn('Join the One Percent Club', PAY), accent=True) +
       b.rule() + b.p('This edition shares scenarios and education, not recommendations or financial advice. Always do your own research and manage your risk.', muted=True, size=13))

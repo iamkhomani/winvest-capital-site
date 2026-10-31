@@ -15,7 +15,7 @@ def li(t): return f'<li style="margin:0 0 8px;font-family:{F};font-size:15px;lin
 e3 = (b.kicker('One Percent Club') + b.h1('From free tools to personal guidance') +
   b.p('By now you have seen the free side of Winvest Capital: the Discord, the SMC guides and Market Whisper AI with your member card, news, FX calendar events and the lot size calculator.') +
   b.p('The <strong>One Percent Club</strong> is for traders who want more than tools:') +
-  f'<ul style="margin:0 0 16px;padding-left:20px">{li("The projects I am looking at, released regularly")}{li("My time: research and analysis of assets and FX charts, to help and guide you")}{li("Market Whisper AI market analysis on crypto and stocks")}{li("Market Whisper AI fundamental analysis on crypto projects and assets")}</ul>' +
+  f'<ul style="margin:0 0 16px;padding-left:20px">{li("The projects I am looking at, released regularly")}{li("My time: research and analysis of assets and FX charts, to help and guide you")}{li("Interactive conversations with Market Whisper AI about the markets, with useful insights and information")}{li("Market Whisper AI market analysis on crypto and stocks")}{li("Market Whisper AI fundamental analysis on crypto projects and assets")}</ul>' +
   b.card(f'<p style="margin:0;font-family:{F};font-size:24px;font-weight:800;color:{INK}">€150 <span style="font-size:14px;font-weight:600;color:{MUTED}">one-time payment, no subscription</span></p>' +
          b.btn('Join the One Percent Club', PAY) +
          f'<p style="margin:0;font-family:{F};font-size:13px;line-height:1.55;color:{MUTED}">Secure payment via Stripe. Your One Percent Club role is added to Discord automatically. EU customers have a 14-day right of withdrawal.</p>', accent=True) +
