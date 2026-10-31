@@ -46,6 +46,7 @@ export const homeCopy = {
       'Everything in the free community',
       'Projects I am looking at, released regularly',
       'My time: research and analysis of assets and FX charts to help guide you',
+      'Market Whisper AI: interactive conversations about the markets',
       'Market Whisper AI: market analysis on crypto and stocks',
       'Market Whisper AI: fundamental analysis on crypto projects and assets',
     ],
@@ -70,6 +71,7 @@ export const homeCopy = {
       ['Lot size calculator', 'Size positions to your risk before you enter.'],
     ],
     whisperPaid: [
+      ['Interactive conversations', 'Chat with Market Whisper AI about the markets. Ask follow-up questions and get useful insights, context and information, whenever you need it.'],
       ['Market analysis', 'Analysis on crypto and stocks.'],
       ['Fundamental analysis', 'Fundamentals on crypto projects and assets.'],
     ],
@@ -91,7 +93,7 @@ export const homeCopy = {
     faqs: [
       ['Is the community really free?', 'Yes. Joining the Winvest Capital community costs nothing. The One Percent Club is an optional one-time upgrade.'],
       ['What is the difference with the One Percent Club?', 'One Percent Club members get the projects I am watching, my time to research and analyse assets or FX charts with them, and the full Market Whisper AI toolkit. It is a one-time payment, no subscription.'],
-      ['What is Market Whisper AI?', 'An AI bot I built that helps members analyse stocks and crypto. Every member can create a member card, get news and FX calendar events, and use the lot size calculator. One Percent Club members also unlock market analysis and fundamental analysis.'],
+      ['What is Market Whisper AI?', 'An AI bot I built that helps members analyse stocks and crypto. Every member can create a member card, get news and FX calendar events, and use the lot size calculator. One Percent Club members can also have interactive conversations with Market Whisper AI about the markets, and unlock market analysis and fundamental analysis.'],
       ['Is this financial advice?', 'No. Everything shared in Winvest Capital, including Market Whisper AI output, is for educational purposes only. Always do your own research.'],
       ['How do I join?', 'The free community is on Discord: click a Join free button. For the One Percent Club, pay securely through Stripe and your One Percent Club role is added to your Discord account automatically.'],
     ],
@@ -133,6 +135,7 @@ export const homeCopy = {
       'Alles uit de gratis community',
       'Projecten waar ik naar kijk, regelmatig gedeeld',
       'Mijn tijd: research en analyse van assets en FX-charts om je te helpen en te begeleiden',
+      'Market Whisper AI: interactieve gesprekken over de markten',
       'Market Whisper AI: marktanalyse van crypto en aandelen',
       'Market Whisper AI: fundamentele analyse van cryptoprojecten en assets',
     ],
@@ -157,6 +160,7 @@ export const homeCopy = {
       ['Lotgrootte-calculator', 'Bepaal je positiegrootte op basis van je risico, vóór je instapt.'],
     ],
     whisperPaid: [
+      ['Interactieve gesprekken', 'Praat met Market Whisper AI over de markten. Stel vervolgvragen en krijg bruikbare inzichten, context en informatie, wanneer jij het nodig hebt.'],
       ['Marktanalyse', 'Analyses van crypto en aandelen.'],
       ['Fundamentele analyse', 'Fundamentals van cryptoprojecten en assets.'],
     ],
@@ -178,7 +182,7 @@ export const homeCopy = {
     faqs: [
       ['Is de community echt gratis?', 'Ja. Lid worden van de Winvest Capital community kost niets. De One Percent Club is een optionele eenmalige upgrade.'],
       ['Wat is het verschil met de One Percent Club?', 'Leden van de One Percent Club krijgen de projecten waar ik naar kijk, mijn tijd om samen assets of FX-charts te onderzoeken en te analyseren, en de volledige Market Whisper AI-toolkit. Het is een eenmalige betaling, geen abonnement.'],
-      ['Wat is Market Whisper AI?', 'Een AI-bot die ik heb gebouwd om leden te helpen aandelen en crypto te analyseren. Ieder lid kan een ledenkaart maken, krijgt nieuws en FX-kalenderevents en kan de lotgrootte-calculator gebruiken. Leden van de One Percent Club ontgrendelen ook marktanalyse en fundamentele analyse.'],
+      ['Wat is Market Whisper AI?', 'Een AI-bot die ik heb gebouwd om leden te helpen aandelen en crypto te analyseren. Ieder lid kan een ledenkaart maken, krijgt nieuws en FX-kalenderevents en kan de lotgrootte-calculator gebruiken. Leden van de One Percent Club kunnen ook interactieve gesprekken voeren met Market Whisper AI over de markten, en ontgrendelen marktanalyse en fundamentele analyse.'],
       ['Is dit financieel advies?', 'Nee. Alles wat binnen Winvest Capital wordt gedeeld, inclusief de output van Market Whisper AI, is uitsluitend educatief. Doe altijd je eigen onderzoek.'],
       ['Hoe word ik lid?', 'De gratis community zit op Discord: klik op een knop "Gratis lid worden". Voor de One Percent Club betaal je veilig via Stripe en krijg je automatisch de One Percent Club-rol in Discord.'],
     ],
