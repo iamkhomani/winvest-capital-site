@@ -1,0 +1,9 @@
+[Unit]
+Description=Winvest Capital welcome email sender (Listmonk)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/winvest-welcome.env
+ExecStart=/usr/bin/python3 /usr/local/bin/winvest-welcome.py
