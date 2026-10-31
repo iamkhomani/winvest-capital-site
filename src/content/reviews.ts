@@ -4,19 +4,16 @@ export const reviews = [
   {
     id: 'rev_pou4brxoSw1uvv',
     name: 'Rico G.',
-    date: { en: 'Dec 2023', nl: 'dec 2023' },
     text: 'Very helpfull group. They take the time to explain what they are doing and are very responsive to your questions. I have learned a ton already, and will continue to do so. Recommend Winvest Capital to every (beginning) trader!',
   },
   {
     id: 'rev_jnviJdq0HfixpK',
     name: 'jeffreymasters',
-    date: { en: 'Jan 2024', nl: 'jan 2024' },
     text: "Winvest Capital has been a game-changer for my trading journey. The insights and strategies I've learned here have sgnificantly boosted my confidence and results. The support and valuable resources make it very trustworthy for traders to elevate their trading. Truly grateful for the learning experience!",
   },
   {
     id: 'rev_4uVogCgYeRy1SP',
     name: 'Jaw',
-    date: { en: 'Dec 2023', nl: 'dec 2023' },
     text: 'Great knowledge!',
   },
 ]

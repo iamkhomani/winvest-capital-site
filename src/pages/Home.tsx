@@ -50,8 +50,13 @@ export const homeCopy = {
       'Market Whisper AI: fundamental analysis on crypto projects and assets',
     ],
     revH2: 'What members say',
-    revP: 'Real reviews from members, originally posted on Whop.',
-    revLink: 'View the reviews on Whop',
+    revP: 'Real reviews from members of the Winvest Capital community.',
+    revLink: 'Reviews on Whop',
+    revKicker: 'Reviews',
+    revVerified: 'Review on Whop',
+    calcH2: 'Free lot size calculator',
+    calcP: 'Work out the right lot size for forex, gold, crypto and stocks from your balance, risk and stop loss. Free for everyone.',
+    calcBtn: 'Open the calculator',
     wBadge: 'Built by Winvest Capital',
     wP: 'The AI bot I built for members. It helps you analyse stocks and crypto so you can make more calculated investment decisions. Every member gets the free tools; the One Percent Club unlocks the full toolkit.',
     wFree: 'Free for every member',
@@ -131,8 +136,13 @@ export const homeCopy = {
       'Market Whisper AI: fundamentele analyse van cryptoprojecten en assets',
     ],
     revH2: 'Wat leden zeggen',
-    revP: 'Echte reviews van leden, oorspronkelijk geplaatst op Whop (in het Engels).',
-    revLink: 'Bekijk de reviews op Whop',
+    revP: 'Echte reviews van leden van de Winvest Capital community (oorspronkelijk in het Engels).',
+    revLink: 'Reviews op Whop',
+    revKicker: 'Reviews',
+    revVerified: 'Review op Whop',
+    calcH2: 'Gratis lotgrootte-calculator',
+    calcP: 'Bereken de juiste lotgrootte voor forex, goud, crypto en aandelen op basis van je saldo, risico en stop-loss. Gratis voor iedereen.',
+    calcBtn: 'Open de calculator',
     wBadge: 'Gebouwd door Winvest Capital',
     wP: 'De AI-bot die ik voor leden heb gebouwd. Hij helpt je aandelen en crypto te analyseren, zodat je beter onderbouwde beleggingsbeslissingen neemt. Ieder lid krijgt de gratis tools; de One Percent Club ontgrendelt de volledige toolkit.',
     wFree: 'Gratis voor ieder lid',
@@ -301,23 +311,45 @@ export default function Home({ lang }: { lang: Lang }) {
         </div>
       </section>
 
-      <section id="reviews" className="border-t border-white/10">
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-          <div className="flex flex-wrap items-end justify-between gap-4">
+      <section id="reviews" className="relative overflow-hidden border-t border-white/10">
+        <div className="pointer-events-none absolute top-1/2 left-0 h-[420px] w-[620px] -translate-x-1/3 -translate-y-1/2 rounded-full bg-[var(--wc-red)]/10 blur-[120px]" />
+        <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{c.revH2}</h2>
+              <span className="text-sm font-semibold tracking-wide text-[var(--wc-red-soft)] uppercase">{c.revKicker}</span>
+              <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">{c.revH2}</h2>
               <p className="mt-3 text-white/60">{c.revP}</p>
             </div>
-            <a href={WHOP_REVIEWS_URL} className="text-sm text-white/60 underline-offset-4 hover:text-white hover:underline">{c.revLink} →</a>
-          </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {reviews.map((r) => (
-              <figure key={r.id} className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+            <a href={WHOP_REVIEWS_URL} className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3 transition hover:border-[var(--wc-red)]/60">
+              <span className="text-4xl font-bold">5.0</span>
+              <span>
                 <Stars />
-                <blockquote className="mt-4 flex-1 text-white/85">“{r.text}”</blockquote>
-                <figcaption className="mt-5 text-sm">
-                  <span className="font-semibold">{r.name}</span>
-                  <span className="text-white/45"> · {r.date[lang]} · Whop</span>
+                <span className="mt-1 block text-xs text-white/50 group-hover:text-white/80">{c.revLink} →</span>
+              </span>
+            </a>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-2 md:grid-rows-2">
+            {reviews.map((r, i) => (
+              <figure
+                key={r.id}
+                className={`group relative flex flex-col overflow-hidden rounded-3xl border p-7 transition ${
+                  i === 0
+                    ? 'border-[var(--wc-red)]/50 bg-gradient-to-br from-[var(--wc-red)]/20 via-white/[0.03] to-transparent md:row-span-2 md:p-9'
+                    : 'border-white/10 bg-white/[0.03] hover:border-[var(--wc-red)]/40'
+                }`}
+              >
+                <span aria-hidden="true" className={`pointer-events-none absolute -top-6 right-5 font-serif leading-none text-[var(--wc-red)] ${i === 0 ? 'text-[10rem] opacity-30' : 'text-8xl opacity-20'}`}>“</span>
+                <Stars />
+                <blockquote className={`relative mt-5 flex-1 text-white/90 ${i === 0 ? 'text-xl leading-relaxed sm:text-2xl' : 'leading-relaxed'}`}>{r.text}</blockquote>
+                <figcaption className="relative mt-6 flex items-center gap-3">
+                  <span className="flex size-11 items-center justify-center rounded-full bg-gradient-to-br from-[var(--wc-red)] to-[#7a0000] text-lg font-bold uppercase ring-2 ring-black">{r.name[0]}</span>
+                  <span>
+                    <span className="block font-semibold">{r.name}</span>
+                    <span className="flex items-center gap-1.5 text-xs text-white/50">
+                      <svg viewBox="0 0 20 20" className="size-3.5 text-[var(--wc-red)]" fill="currentColor" aria-hidden="true"><path d="M10 1l2.4 2.1 3.2-.2.7 3.1 2.7 1.8-1.2 3 1.2 3-2.7 1.8-.7 3.1-3.2-.2L10 19l-2.4-2.1-3.2.2-.7-3.1L1 12.2l1.2-3L1 6.2l2.7-1.8.7-3.1 3.2.2z" /><path d="M6.5 10.2l2.3 2.3 4.7-4.8" stroke="#000" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                      {c.revVerified}
+                    </span>
+                  </span>
                 </figcaption>
               </figure>
             ))}
@@ -378,6 +410,21 @@ export default function Home({ lang }: { lang: Lang }) {
               }}
             />
           </div>
+        </div>
+      </section>
+
+      <section id="calculator" className="border-t border-white/10 bg-[var(--wc-ink)]">
+        <div className="mx-auto flex max-w-6xl flex-col items-start gap-6 px-4 py-14 sm:px-6 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-start gap-5">
+            <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-[var(--wc-red)]/15 text-[var(--wc-red)] ring-1 ring-[var(--wc-red)]/40">
+              <svg viewBox="0 0 24 24" className="size-7" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><rect x="4" y="2.5" width="16" height="19" rx="2.5" /><path d="M8 6.5h8M8 11h.01M12 11h.01M16 11h.01M8 14.5h.01M12 14.5h.01M16 14.5h.01M8 18h.01M12 18h.01M16 18h.01" strokeLinecap="round" /></svg>
+            </span>
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{c.calcH2}</h2>
+              <p className="mt-2 max-w-xl text-white/60">{c.calcP}</p>
+            </div>
+          </div>
+          <a href={paths[lang].calculator} className="shrink-0 rounded-full bg-[var(--wc-red)] px-6 py-3 font-semibold transition hover:brightness-110">{c.calcBtn}</a>
         </div>
       </section>
 

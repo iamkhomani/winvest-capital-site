@@ -2,6 +2,7 @@ export const paths = {
   en: {
     home: '/',
     learn: '/learn/',
+    calculator: '/lot-size-calculator/',
     terms: '/legal/terms/',
     privacy: '/legal/privacy/',
     refunds: '/legal/refunds/',
@@ -9,6 +10,7 @@ export const paths = {
   nl: {
     home: '/nl/',
     learn: '/nl/leren/',
+    calculator: '/nl/lotgrootte-calculator/',
     terms: '/nl/voorwaarden/',
     privacy: '/nl/privacy/',
     refunds: '/nl/terugbetaling/',

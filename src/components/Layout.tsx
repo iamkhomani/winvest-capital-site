@@ -12,12 +12,14 @@ const nav = {
     ['Market Whisper AI', '/#market-whisper'],
     ['Economic calendar', '/#calendar'],
     ['Learn', '/learn/'],
+    ['Lot size calculator', '/lot-size-calculator/'],
   ],
   nl: [
     ['Lidmaatschap', '/nl/#membership'],
     ['Market Whisper AI', '/nl/#market-whisper'],
     ['Economische kalender', '/nl/#calendar'],
     ['Leren', '/nl/leren/'],
+    ['Lotgrootte-calculator', '/nl/lotgrootte-calculator/'],
   ],
 }
 
@@ -61,7 +63,7 @@ export default function Layout({ lang, alternate, children }: Props) {
           <a href={p.home} className="flex items-center gap-3">
             <Brand />
           </a>
-          <nav className="hidden items-center gap-6 text-sm text-white/70 lg:flex">
+          <nav className="hidden items-center gap-5 text-sm text-white/70 xl:flex">
             {nav[lang].map(([label, href]) => (
               <a key={href} href={href} className="hover:text-white">
                 {label}
@@ -89,6 +91,7 @@ export default function Layout({ lang, alternate, children }: Props) {
           <nav className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-white/60">
             <a href={p.home} className="hover:text-white">{lang === 'nl' ? 'Home' : 'Home'}</a>
             <a href={p.learn} className="hover:text-white">{lang === 'nl' ? 'Leren' : 'Learn'}</a>
+            <a href={p.calculator} className="hover:text-white">{lang === 'nl' ? 'Lotgrootte-calculator' : 'Lot size calculator'}</a>
             <a href={DISCORD_URL} className="hover:text-white">Discord</a>
           </nav>
           <p className="mt-4 max-w-3xl">

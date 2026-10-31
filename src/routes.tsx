@@ -6,6 +6,7 @@ import { legal } from './content/legal'
 import type { Meta } from './head'
 import type { Lang } from './i18n'
 import Article from './pages/Article'
+import CalculatorPage, { calcCopy } from './pages/CalculatorPage'
 import Home, { homeCopy } from './pages/Home'
 import LearnIndex, { learnCopy } from './pages/LearnIndex'
 import Legal from './pages/Legal'
@@ -80,6 +81,29 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
     jsonLd: [crumbs([['Home', p.home], [L ? 'Leren' : 'Learn', p.learn]])],
     element: wrap(lang, o.learn, <LearnIndex lang={lang} />),
   }
+  const calculator: Route = {
+    path: p.calculator,
+    alternate: o.calculator,
+    lang,
+    title: calcCopy[lang].metaTitle,
+    description: calcCopy[lang].description,
+    jsonLd: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'WebApplication',
+        name: calcCopy[lang].h1,
+        url: url(p.calculator),
+        applicationCategory: 'FinanceApplication',
+        operatingSystem: 'Any',
+        inLanguage: lang,
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+        publisher: org,
+      },
+      crumbs([['Home', p.home], [calcCopy[lang].h1, p.calculator]]),
+      faqLd(calcCopy[lang].faq),
+    ],
+    element: wrap(lang, o.calculator, <CalculatorPage lang={lang} />),
+  }
   const arts: Route[] = articles.map((a) => {
     const c = a[lang]
     return {
@@ -126,7 +150,7 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
     description: L ? 'Je betaling is ontvangen.' : 'Your payment has been received.',
     element: wrap(lang, L ? '/welcome/' : '/nl/welkom/', <Welcome lang={lang} />),
   }
-  return [home, learn, ...arts, ...docs, welcome]
+  return [home, calculator, learn, ...arts, ...docs, welcome]
 })
 
 export function findRoute(pathname: string): Route | undefined {
