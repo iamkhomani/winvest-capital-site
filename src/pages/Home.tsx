@@ -333,9 +333,7 @@ export default function Home({ lang }: { lang: Lang }) {
                 </span>
               </a>
               <a href={TRUSTPILOT_URL} target="_blank" rel="noopener" className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3 transition hover:border-[var(--wc-red)]/60">
-                <span className="flex size-10 items-center justify-center rounded-xl bg-[var(--wc-red)]/15 text-[var(--wc-red)] ring-1 ring-[var(--wc-red)]/40">
-                  <svg viewBox="0 0 20 20" className="size-5" fill="currentColor" aria-hidden="true"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L10 14.8l-5.2 2.8 1-5.8L1.5 7.7l5.9-.8z" /></svg>
-                </span>
+                <img src="/brand/trustpilot-star.png" alt="Trustpilot" width={40} height={38} className="h-9 w-auto" />
                 <span>
                   <span className="block font-semibold">{c.tpTitle}</span>
                   <span className="mt-0.5 block text-xs text-white/50 group-hover:text-white/80">{c.tpSub} →</span>
