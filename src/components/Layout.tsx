@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
 import { DISCORD_URL, SOCIALS } from '../config'
 import type { Lang } from '../i18n'
@@ -9,23 +10,25 @@ type Props = { lang: Lang; alternate?: string; children: ReactNode }
 
 const nav = {
   en: [
-    ['Membership', '/#membership'],
-    ['Market Whisper AI', '/#market-whisper'],
-    ['Calendar', '/#calendar'],
-    ['Learn', '/learn/'],
-    ['Lot size calculator', '/lot-size-calculator/'],
+    ['Home', '/'],
     ['Markets', '/markets/'],
     ['DeFi scanner', '/defi-scanner/'],
+    ['Lot size calculator', '/lot-size-calculator/'],
+    ['Learn', '/learn/'],
+    ['Membership', '/#membership'],
+    ['Market Whisper AI', '/#market-whisper'],
+    ['Economic calendar', '/#calendar'],
     ['Partners', '/partners/'],
   ],
   nl: [
-    ['Lidmaatschap', '/nl/#membership'],
-    ['Market Whisper AI', '/nl/#market-whisper'],
-    ['Kalender', '/nl/#calendar'],
-    ['Leren', '/nl/leren/'],
-    ['Lotgrootte-calculator', '/nl/lotgrootte-calculator/'],
+    ['Home', '/nl/'],
     ['Markten', '/nl/markten/'],
     ['DeFi-scanner', '/nl/defi-scanner/'],
+    ['Lotgrootte-calculator', '/nl/lotgrootte-calculator/'],
+    ['Leren', '/nl/leren/'],
+    ['Lidmaatschap', '/nl/#membership'],
+    ['Market Whisper AI', '/nl/#market-whisper'],
+    ['Economische kalender', '/nl/#calendar'],
     ['Partners', '/nl/partners/'],
   ],
 }
@@ -61,6 +64,54 @@ export function Brand({ size = 'size-9' }: { size?: string }) {
   )
 }
 
+function Menu({ lang }: { lang: Lang }) {
+  const ref = useRef<HTMLDetailsElement>(null)
+  const close = () => ref.current?.removeAttribute('open')
+  useEffect(() => {
+    const onDoc = (e: MouseEvent) => {
+      if (ref.current?.open && !ref.current.contains(e.target as Node)) close()
+    }
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close()
+    document.addEventListener('click', onDoc)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('click', onDoc)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [])
+  const nl = lang === 'nl'
+  return (
+    <details ref={ref} className="group relative">
+      <summary
+        aria-label={nl ? 'Menu' : 'Menu'}
+        className="flex size-10 cursor-pointer list-none items-center justify-center rounded-full border border-white/15 text-white/80 transition hover:border-white/40 hover:text-white [&::-webkit-details-marker]:hidden"
+      >
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+          <path className="group-open:hidden" d="M4 7h16M4 12h16M4 17h16" />
+          <path className="hidden group-open:block" d="M6 6l12 12M18 6 6 18" />
+        </svg>
+      </summary>
+      <nav
+        aria-label={nl ? 'Hoofdmenu' : 'Main menu'}
+        className="absolute right-0 top-12 z-30 w-[min(20rem,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-white/10 bg-[#111113] p-2 shadow-2xl shadow-black/60"
+      >
+        <ul>
+          {nav[lang].map(([label, href]) => (
+            <li key={href}>
+              <a href={href} onClick={close} className="block rounded-xl px-4 py-2.5 text-[15px] text-white/80 transition hover:bg-white/[0.06] hover:text-white">
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a href={DISCORD_URL} onClick={close} className="mt-2 block rounded-xl bg-[var(--wc-red)] px-4 py-2.5 text-center text-[15px] font-semibold text-white transition hover:brightness-110">
+          {nl ? 'Word gratis lid van de Discord' : 'Join the Discord, free'}
+        </a>
+      </nav>
+    </details>
+  )
+}
+
 export default function Layout({ lang, alternate, children }: Props) {
   const p = paths[lang]
   return (
@@ -70,18 +121,12 @@ export default function Layout({ lang, alternate, children }: Props) {
           <a href={p.home} className="flex items-center gap-3">
             <Brand />
           </a>
-          <nav className="hidden items-center gap-5 text-sm text-white/70 xl:flex">
-            {nav[lang].map(([label, href]) => (
-              <a key={href} href={href} className="hover:text-white">
-                {label}
-              </a>
-            ))}
-          </nav>
           <div className="flex items-center gap-2 sm:gap-3">
             <LangSwitch lang={lang} alternate={alternate} />
-            <a href={DISCORD_URL} className="rounded-full bg-[var(--wc-red)] px-4 py-2 text-sm font-semibold text-white transition hover:brightness-110">
+            <a href={DISCORD_URL} className="hidden rounded-full bg-[var(--wc-red)] px-4 py-2 text-sm font-semibold text-white transition hover:brightness-110 sm:inline-block">
               {lang === 'nl' ? 'Gratis lid' : 'Join free'}
             </a>
+            <Menu lang={lang} />
           </div>
         </div>
       </header>
