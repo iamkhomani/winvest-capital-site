@@ -6,7 +6,7 @@
 //   POST /rpc/xdc      -> https://rpc.xdc.org                    (XDC Network JSON-RPC, read-only methods)
 
 const ALLOWED_ORIGINS = ['https://winvestcapital.nl', 'https://www.winvestcapital.nl', 'http://localhost:5173']
-const RPC = { xdc: 'https://rpc.xdc.org' }
+const RPC = { xdc: 'https://rpc.xinfin.network' }
 const RPC_METHODS = new Set([
   'eth_blockNumber', 'eth_getBalance', 'eth_getCode', 'eth_getTransactionCount', 'eth_call',
   'eth_getTransactionByHash', 'eth_getTransactionReceipt', 'eth_getBlockByNumber', 'eth_chainId',

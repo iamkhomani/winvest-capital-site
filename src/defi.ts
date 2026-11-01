@@ -1,6 +1,6 @@
 // DeFi scanner data layer: detects what the visitor typed and fetches public blockchain data.
 // Sources (no API keys): DexScreener, GoPlus Security, public RPC nodes, XRPL cluster,
-// Blockstream (Bitcoin) and the Winvest Cloudflare Worker (DEFI_PROXY_URL) for XDC.
+// Blockstream (Bitcoin) and the official XinFin RPC for XDC (DEFI_PROXY_URL is an optional fallback proxy).
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DEFI_PROXY_URL } from './config'
 
@@ -12,7 +12,7 @@ export const CHAINS: Record<ChainId, { name: string; symbol: string; explorer: s
   base: { name: 'Base', symbol: 'ETH', explorer: 'https://basescan.org', goplus: '8453', rpc: 'https://base-rpc.publicnode.com', decimals: 18 },
   arbitrum: { name: 'Arbitrum', symbol: 'ETH', explorer: 'https://arbiscan.io', goplus: '42161', rpc: 'https://arbitrum-one-rpc.publicnode.com', decimals: 18 },
   polygon: { name: 'Polygon', symbol: 'POL', explorer: 'https://polygonscan.com', goplus: '137', rpc: 'https://polygon-bor-rpc.publicnode.com', decimals: 18 },
-  xdc: { name: 'XDC Network', symbol: 'XDC', explorer: 'https://xdcscan.com', rpc: DEFI_PROXY_URL ? DEFI_PROXY_URL + '/rpc/xdc' : '', decimals: 18 },
+  xdc: { name: 'XDC Network', symbol: 'XDC', explorer: 'https://xdcscan.com', rpc: DEFI_PROXY_URL ? DEFI_PROXY_URL + '/rpc/xdc' : 'https://rpc.xinfin.network', decimals: 18 },
   solana: { name: 'Solana', symbol: 'SOL', explorer: 'https://solscan.io', goplus: 'solana', rpc: 'https://solana-rpc.publicnode.com', decimals: 9 },
   xrpl: { name: 'XRP Ledger', symbol: 'XRP', explorer: 'https://xrpscan.com', rpc: 'https://xrplcluster.com', decimals: 6 },
   bitcoin: { name: 'Bitcoin', symbol: 'BTC', explorer: 'https://mempool.space', decimals: 8 },
