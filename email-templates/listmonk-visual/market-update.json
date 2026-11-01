@@ -14,8 +14,8 @@
     "block-wc0010",
     "block-wc0011",
     "block-wc0012",
-    "block-wc0013",
     "block-wc0014",
+    "block-wc0013",
     "block-wc0018",
     "block-wc0022",
     "block-wc0026",
@@ -128,6 +128,22 @@
   }
  },
  "block-wc0013": {
+  "type": "Html",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 0,
+     "bottom": 0,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "contents": "<p style=\"margin:0;padding:4px 32px 8px;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px;color:#5F5B55\">Prices as of {{ .Campaign.Attribs.prices_asof | default \"the time of sending\" }}. Change over the last {{ .Campaign.Attribs.chg_label | default \"7 days\" }}. Updated automatically.</p>"
+   }
+  }
+ },
+ "block-wc0014": {
   "type": "Heading",
   "data": {
    "style": {
@@ -145,83 +161,51 @@
    }
   }
  },
- "block-wc0014": {
-  "type": "Text",
-  "data": {
-   "style": {
-    "color": "#5F5B55",
-    "fontSize": 13,
-    "fontWeight": "normal",
-    "padding": {
-     "top": 4,
-     "bottom": 8,
-     "left": 32,
-     "right": 32
-    }
-   },
-   "props": {
-    "text": "Prices at [time, date]. Change over the last two weeks.",
-    "markdown": true
-   }
-  }
- },
  "block-wc0015": {
-  "type": "Text",
+  "type": "Html",
   "data": {
    "style": {
-    "color": "#5F5B55",
-    "fontSize": 12,
-    "fontWeight": "bold",
-    "textAlign": "left",
     "padding": {
-     "top": 8,
-     "bottom": 8,
+     "top": 0,
+     "bottom": 0,
      "left": 0,
      "right": 0
     }
    },
    "props": {
-    "text": "Asset"
+    "contents": "<p style=\"margin:0;padding:8px 0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;color:#5F5B55;text-align:left\">Asset</p>"
    }
   }
  },
  "block-wc0016": {
-  "type": "Text",
+  "type": "Html",
   "data": {
    "style": {
-    "color": "#5F5B55",
-    "fontSize": 12,
-    "fontWeight": "bold",
-    "textAlign": "right",
     "padding": {
-     "top": 8,
-     "bottom": 8,
+     "top": 0,
+     "bottom": 0,
      "left": 0,
      "right": 0
     }
    },
    "props": {
-    "text": "Price"
+    "contents": "<p style=\"margin:0;padding:8px 0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;color:#5F5B55;text-align:right\">Price</p>"
    }
   }
  },
  "block-wc0017": {
-  "type": "Text",
+  "type": "Html",
   "data": {
    "style": {
-    "color": "#5F5B55",
-    "fontSize": 12,
-    "fontWeight": "bold",
-    "textAlign": "right",
     "padding": {
-     "top": 8,
-     "bottom": 8,
+     "top": 0,
+     "bottom": 0,
      "left": 0,
      "right": 0
     }
    },
    "props": {
-    "text": "2 weeks"
+    "contents": "<p style=\"margin:0;padding:8px 0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;color:#5F5B55;text-align:right\">{{ .Campaign.Attribs.chg_label | default \"7 days\" }}</p>"
    }
   }
  },
@@ -234,8 +218,7 @@
      "bottom": 0,
      "left": 32,
      "right": 32
-    },
-    "borderColor": "#E4E0D8"
+    }
    },
    "props": {
     "columnsCount": 3,
@@ -267,62 +250,50 @@
   }
  },
  "block-wc0019": {
-  "type": "Text",
+  "type": "Html",
   "data": {
    "style": {
-    "color": "#141414",
-    "fontSize": 15,
-    "fontWeight": "bold",
-    "textAlign": "left",
     "padding": {
-     "top": 8,
-     "bottom": 8,
+     "top": 0,
+     "bottom": 0,
      "left": 0,
      "right": 0
     }
    },
    "props": {
-    "text": "Bitcoin"
+    "contents": "<p style=\"margin:0;padding:8px 0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:#141414;text-align:left\">Bitcoin</p>"
    }
   }
  },
  "block-wc0020": {
-  "type": "Text",
+  "type": "Html",
   "data": {
    "style": {
-    "color": "#141414",
-    "fontSize": 15,
-    "fontWeight": "normal",
-    "textAlign": "right",
     "padding": {
-     "top": 8,
-     "bottom": 8,
+     "top": 0,
+     "bottom": 0,
      "left": 0,
      "right": 0
     }
    },
    "props": {
-    "text": "[price]"
+    "contents": "<p style=\"margin:0;padding:8px 0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;font-weight:400;color:#141414;text-align:right\">{{ .Campaign.Attribs.btc_price | default \"–\" }}</p>"
    }
   }
  },
  "block-wc0021": {
-  "type": "Text",
+  "type": "Html",
   "data": {
    "style": {
-    "color": "#1E7B4A",
-    "fontSize": 15,
-    "fontWeight": "normal",
-    "textAlign": "right",
     "padding": {
-     "top": 8,
-     "bottom": 8,
+     "top": 0,
+     "bottom": 0,
      "left": 0,
      "right": 0
     }
    },
    "props": {
-    "text": "▲ +0.0%"
+    "contents": "<p style=\"margin:0;padding:8px 0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:#141414;text-align:right\">{{ with .Campaign.Attribs.btc_chg_html }}{{ Safe . }}{{ else }}–{{ end }}</p>"
    }
   }
  },
@@ -335,8 +306,7 @@
      "bottom": 0,
      "left": 32,
      "right": 32
-    },
-    "borderColor": "#E4E0D8"
+    }
    },
    "props": {
     "columnsCount": 3,
@@ -368,62 +338,50 @@
   }
  },
  "block-wc0023": {
-  "type": "Text",
+  "type": "Html",
   "data": {
    "style": {
-    "color": "#141414",
-    "fontSize": 15,
-    "fontWeight": "bold",
-    "textAlign": "left",
     "padding": {
-     "top": 8,
-     "bottom": 8,
+     "top": 0,
+     "bottom": 0,
      "left": 0,
      "right": 0
     }
    },
    "props": {
-    "text": "Ethereum"
+    "contents": "<p style=\"margin:0;padding:8px 0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:#141414;text-align:left\">Ethereum</p>"
    }
   }
  },
  "block-wc0024": {
-  "type": "Text",
+  "type": "Html",
   "data": {
    "style": {
-    "color": "#141414",
-    "fontSize": 15,
-    "fontWeight": "normal",
-    "textAlign": "right",
     "padding": {
-     "top": 8,
-     "bottom": 8,
+     "top": 0,
+     "bottom": 0,
      "left": 0,
      "right": 0
     }
    },
    "props": {
-    "text": "[price]"
+    "contents": "<p style=\"margin:0;padding:8px 0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;font-weight:400;color:#141414;text-align:right\">{{ .Campaign.Attribs.eth_price | default \"–\" }}</p>"
    }
   }
  },
  "block-wc0025": {
-  "type": "Text",
+  "type": "Html",
   "data": {
    "style": {
-    "color": "#9E1B12",
-    "fontSize": 15,
-    "fontWeight": "normal",
-    "textAlign": "right",
     "padding": {
-     "top": 8,
-     "bottom": 8,
+     "top": 0,
+     "bottom": 0,
      "left": 0,
      "right": 0
     }
    },
    "props": {
-    "text": "▼ −0.0%"
+    "contents": "<p style=\"margin:0;padding:8px 0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:#141414;text-align:right\">{{ with .Campaign.Attribs.eth_chg_html }}{{ Safe . }}{{ else }}–{{ end }}</p>"
    }
   }
  },
@@ -436,8 +394,7 @@
      "bottom": 0,
      "left": 32,
      "right": 32
-    },
-    "borderColor": "#E4E0D8"
+    }
    },
    "props": {
     "columnsCount": 3,
@@ -469,62 +426,50 @@
   }
  },
  "block-wc0027": {
-  "type": "Text",
+  "type": "Html",
   "data": {
    "style": {
-    "color": "#141414",
-    "fontSize": 15,
-    "fontWeight": "bold",
-    "textAlign": "left",
     "padding": {
-     "top": 8,
-     "bottom": 8,
+     "top": 0,
+     "bottom": 0,
      "left": 0,
      "right": 0
     }
    },
    "props": {
-    "text": "S&P 500"
+    "contents": "<p style=\"margin:0;padding:8px 0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:#141414;text-align:left\">S&P 500</p>"
    }
   }
  },
  "block-wc0028": {
-  "type": "Text",
+  "type": "Html",
   "data": {
    "style": {
-    "color": "#141414",
-    "fontSize": 15,
-    "fontWeight": "normal",
-    "textAlign": "right",
     "padding": {
-     "top": 8,
-     "bottom": 8,
+     "top": 0,
+     "bottom": 0,
      "left": 0,
      "right": 0
     }
    },
    "props": {
-    "text": "[price]"
+    "contents": "<p style=\"margin:0;padding:8px 0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;font-weight:400;color:#141414;text-align:right\">{{ .Campaign.Attribs.spx_price | default \"–\" }}</p>"
    }
   }
  },
  "block-wc0029": {
-  "type": "Text",
+  "type": "Html",
   "data": {
    "style": {
-    "color": "#1E7B4A",
-    "fontSize": 15,
-    "fontWeight": "normal",
-    "textAlign": "right",
     "padding": {
-     "top": 8,
-     "bottom": 8,
+     "top": 0,
+     "bottom": 0,
      "left": 0,
      "right": 0
     }
    },
    "props": {
-    "text": "▲ +0.0%"
+    "contents": "<p style=\"margin:0;padding:8px 0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:#141414;text-align:right\">{{ with .Campaign.Attribs.spx_chg_html }}{{ Safe . }}{{ else }}–{{ end }}</p>"
    }
   }
  },
@@ -537,8 +482,7 @@
      "bottom": 0,
      "left": 32,
      "right": 32
-    },
-    "borderColor": "#E4E0D8"
+    }
    },
    "props": {
     "columnsCount": 3,
@@ -570,62 +514,50 @@
   }
  },
  "block-wc0031": {
-  "type": "Text",
+  "type": "Html",
   "data": {
    "style": {
-    "color": "#141414",
-    "fontSize": 15,
-    "fontWeight": "bold",
-    "textAlign": "left",
     "padding": {
-     "top": 8,
-     "bottom": 8,
+     "top": 0,
+     "bottom": 0,
      "left": 0,
      "right": 0
     }
    },
    "props": {
-    "text": "EUR/USD"
+    "contents": "<p style=\"margin:0;padding:8px 0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:#141414;text-align:left\">EUR/USD</p>"
    }
   }
  },
  "block-wc0032": {
-  "type": "Text",
+  "type": "Html",
   "data": {
    "style": {
-    "color": "#141414",
-    "fontSize": 15,
-    "fontWeight": "normal",
-    "textAlign": "right",
     "padding": {
-     "top": 8,
-     "bottom": 8,
+     "top": 0,
+     "bottom": 0,
      "left": 0,
      "right": 0
     }
    },
    "props": {
-    "text": "[price]"
+    "contents": "<p style=\"margin:0;padding:8px 0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;font-weight:400;color:#141414;text-align:right\">{{ .Campaign.Attribs.eurusd_price | default \"–\" }}</p>"
    }
   }
  },
  "block-wc0033": {
-  "type": "Text",
+  "type": "Html",
   "data": {
    "style": {
-    "color": "#1E7B4A",
-    "fontSize": 15,
-    "fontWeight": "normal",
-    "textAlign": "right",
     "padding": {
-     "top": 8,
-     "bottom": 8,
+     "top": 0,
+     "bottom": 0,
      "left": 0,
      "right": 0
     }
    },
    "props": {
-    "text": "▲ +0.0%"
+    "contents": "<p style=\"margin:0;padding:8px 0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:#141414;text-align:right\">{{ with .Campaign.Attribs.eurusd_chg_html }}{{ Safe . }}{{ else }}–{{ end }}</p>"
    }
   }
  },
@@ -638,8 +570,7 @@
      "bottom": 0,
      "left": 32,
      "right": 32
-    },
-    "borderColor": "#E4E0D8"
+    }
    },
    "props": {
     "columnsCount": 3,
@@ -671,62 +602,50 @@
   }
  },
  "block-wc0035": {
-  "type": "Text",
+  "type": "Html",
   "data": {
    "style": {
-    "color": "#141414",
-    "fontSize": 15,
-    "fontWeight": "bold",
-    "textAlign": "left",
     "padding": {
-     "top": 8,
-     "bottom": 8,
+     "top": 0,
+     "bottom": 0,
      "left": 0,
      "right": 0
     }
    },
    "props": {
-    "text": "Gold"
+    "contents": "<p style=\"margin:0;padding:8px 0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:#141414;text-align:left\">Gold</p>"
    }
   }
  },
  "block-wc0036": {
-  "type": "Text",
+  "type": "Html",
   "data": {
    "style": {
-    "color": "#141414",
-    "fontSize": 15,
-    "fontWeight": "normal",
-    "textAlign": "right",
     "padding": {
-     "top": 8,
-     "bottom": 8,
+     "top": 0,
+     "bottom": 0,
      "left": 0,
      "right": 0
     }
    },
    "props": {
-    "text": "[price]"
+    "contents": "<p style=\"margin:0;padding:8px 0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;font-weight:400;color:#141414;text-align:right\">{{ .Campaign.Attribs.gold_price | default \"–\" }}</p>"
    }
   }
  },
  "block-wc0037": {
-  "type": "Text",
+  "type": "Html",
   "data": {
    "style": {
-    "color": "#1E7B4A",
-    "fontSize": 15,
-    "fontWeight": "normal",
-    "textAlign": "right",
     "padding": {
-     "top": 8,
-     "bottom": 8,
+     "top": 0,
+     "bottom": 0,
      "left": 0,
      "right": 0
     }
    },
    "props": {
-    "text": "▲ +0.0%"
+    "contents": "<p style=\"margin:0;padding:8px 0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:#141414;text-align:right\">{{ with .Campaign.Attribs.gold_chg_html }}{{ Safe . }}{{ else }}–{{ end }}</p>"
    }
   }
  },
@@ -739,8 +658,7 @@
      "bottom": 0,
      "left": 32,
      "right": 32
-    },
-    "borderColor": "#E4E0D8"
+    }
    },
    "props": {
     "columnsCount": 3,

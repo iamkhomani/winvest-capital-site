@@ -17,6 +17,19 @@ PAYBOT = 'https://go.paybotapp.com/RTTDqS3p/rCK4CxHl'
 SITE = 'https://winvestcapital.nl'
 FONT = "Inter,'Segoe UI',Helvetica,Arial,sans-serif"
 
+
+def attr(key):
+    """Live value from campaign attributes, set by price-updater/winvest-prices.py."""
+    return '{{ .Campaign.Attribs.%s | default "–" }}' % key
+
+
+def attr_html(key):
+    return '{{ with .Campaign.Attribs.%s }}{{ Safe . }}{{ else }}–{{ end }}' % key
+
+
+CHG_LABEL = '{{ .Campaign.Attribs.chg_label | default "7 days" }}'
+ASOF = '{{ .Campaign.Attribs.prices_asof | default "the time of sending" }}'
+
 _ids = itertools.count(1)
 
 
@@ -71,19 +84,21 @@ class Doc:
         return self.add('Container', {'style': {'padding': outer or self.pad(8, 8, 24, 24)}, 'props': {'childrenIds': [inner]}})
 
     def row(self, cells, header=False):
-        """A 3-column table row: asset | price | change."""
+        """A 3-column table row: asset | price | change.
+        cells = [label, key] for live prices (filled in by winvest-prices.py), or 3 header labels."""
+        if header:
+            texts = [cells[0], cells[1], CHG_LABEL]
+        else:
+            label, key = cells
+            texts = [label, attr(f'{key}_price'), attr_html(f'{key}_chg_html')]
         cols = []
-        for i, c in enumerate(cells):
-            color = MUTED if header else (INK if i < 2 else UP if '▲' in c else DOWN if '▼' in c else INK)
-            weight = 'bold' if (header or i == 0) else 'normal'
+        for i, t in enumerate(texts):
             align = 'left' if i == 0 else 'right'
-            cols.append({'childrenIds': [self.add('Text', {'style': {'color': color, 'fontSize': 12 if header else 15, 'fontWeight': weight,
-                                                                       'textAlign': align, 'padding': self.pad(8, 8, 0, 0)},
-                                                             'props': {'text': c}})]})
-        r = self.add('ColumnsContainer', {'style': {'padding': self.pad(0, 0, 32, 32), 'borderColor': LINE},
-                                          'props': {'columnsCount': 3, 'columnsGap': 8, 'contentAlignment': 'middle',
-                                                    'fixedWidths': [250, 140, 110], 'columns': cols}})
-        return r
+            size, weight, color = (12, 700, MUTED) if header else (15, 700 if i != 1 else 400, INK)
+            cols.append({'childrenIds': [self.html(f'<p style="margin:0;padding:8px 0;font-family:{FONT};font-size:{size}px;font-weight:{weight};color:{color};text-align:{align}">{t}</p>')]})
+        return self.add('ColumnsContainer', {'style': {'padding': self.pad(0, 0, 32, 32)},
+                                             'props': {'columnsCount': 3, 'columnsGap': 8, 'contentAlignment': 'middle',
+                                                       'fixedWidths': [250, 140, 110], 'columns': cols}})
 
     def build(self, children):
         root = {'type': 'EmailLayout', 'data': {'backdropColor': SURFACE, 'canvasColor': WHITE, 'textColor': INK,
@@ -111,9 +126,9 @@ def intro(d, eyebrow_text, headline, body):
     return [d.eyebrow(eyebrow_text, padding=d.pad(28, 0)), d.heading(headline, 'h1', padding=d.pad(6, 4)), d.text(body, size=16)]
 
 
-def price_table(d, title, note, rows):
-    out = [d.heading(title, 'h2', padding=d.pad(8, 0)), d.text(note, size=13, color=MUTED, padding=d.pad(4, 8)),
-           d.row(['Asset', 'Price', '2 weeks'], header=True)]
+def price_table(d, title, note_prefix, rows):
+    note = d.html(f'<p style="margin:0;padding:4px 32px 8px;font-family:{FONT};font-size:13px;color:{MUTED}">{note_prefix} {ASOF}. Change over the last {CHG_LABEL}. Updated automatically.</p>')
+    out = [d.heading(title, 'h2', padding=d.pad(8, 0)), note, d.row(['Asset', 'Price', ''], header=True)]
     out += [d.row(r) for r in rows]
     return out
 
@@ -165,9 +180,8 @@ def crypto_radar():
     ch += intro(d, 'CRYPTO RADAR · EDITION [#] · [DATE]', '[Headline: the main crypto theme of these two weeks]',
                 '[Two or three sentences on the big picture in crypto: what moved, what the market is focused on.]')
     ch.append(d.divider())
-    ch += price_table(d, 'Top crypto prices', 'Prices in USD at [time, date]. Change over the last two weeks.',
-                      [['Bitcoin (BTC)', '[price]', '▲ +0.0%'], ['Ethereum (ETH)', '[price]', '▼ −0.0%'], ['XRP', '[price]', '▲ +0.0%'],
-                       ['BNB', '[price]', '▲ +0.0%'], ['Solana (SOL)', '[price]', '▼ −0.0%']])
+    ch += price_table(d, 'Top crypto prices', 'Prices in USD as of',
+                      [['Bitcoin (BTC)', 'btc'], ['Ethereum (ETH)', 'eth'], ['XRP', 'xrp'], ['BNB', 'bnb'], ['Solana (SOL)', 'sol']])
     ch.append(d.spacer(12))
     ch.append(events_box(d, 'Token unlocks, network upgrades, ETF news and macro data can move crypto fast.'))
     ch.append(d.heading('On the radar this edition', 'h2', padding=d.pad(24, 0)))
@@ -183,12 +197,11 @@ def stock_watch():
     ch += intro(d, 'STOCK WATCH · EDITION [#] · [DATE]', '[Headline: the main stock market theme of these two weeks]',
                 '[Two or three sentences on the big picture in stocks: what moved, what the market is focused on.]')
     ch.append(d.divider())
-    ch += price_table(d, 'Indices', 'Levels at [time, date]. Change over the last two weeks.',
-                      [['S&P 500', '[price]', '▲ +0.0%'], ['Nasdaq 100', '[price]', '▲ +0.0%'], ['Dow Jones', '[price]', '▼ −0.0%']])
+    ch += price_table(d, 'Indices', 'Levels as of',
+                      [['S&P 500', 'spx'], ['Nasdaq 100', 'ndx'], ['Dow Jones', 'dji']])
     ch.append(d.spacer(8))
-    ch += price_table(d, 'Largest stocks', 'Prices in USD at [time, date]. Change over the last two weeks.',
-                      [['Nvidia (NVDA)', '[price]', '▲ +0.0%'], ['Apple (AAPL)', '[price]', '▲ +0.0%'], ['Microsoft (MSFT)', '[price]', '▼ −0.0%'],
-                       ['Alphabet (GOOGL)', '[price]', '▲ +0.0%'], ['Amazon (AMZN)', '[price]', '▲ +0.0%']])
+    ch += price_table(d, 'Largest stocks', 'Prices in USD as of',
+                      [['Nvidia (NVDA)', 'nvda'], ['Apple (AAPL)', 'aapl'], ['Microsoft (MSFT)', 'msft'], ['Alphabet (GOOGL)', 'googl'], ['Amazon (AMZN)', 'amzn']])
     ch.append(d.spacer(12))
     ch.append(events_box(d, 'Earnings reports, interest rate decisions, inflation and jobs data can move stocks fast.'))
     ch.append(d.heading('On the watchlist this edition', 'h2', padding=d.pad(24, 0)))
@@ -204,9 +217,8 @@ def market_update():
     ch += intro(d, 'MARKET UPDATE · [DATE]', '[Headline: the one thing that matters this fortnight]',
                 '[Two or three sentences with the big picture: what happened in the last two weeks and what we focus on next.]')
     ch.append(d.divider())
-    ch += price_table(d, 'Market snapshot', 'Prices at [time, date]. Change over the last two weeks.',
-                      [['Bitcoin', '[price]', '▲ +0.0%'], ['Ethereum', '[price]', '▼ −0.0%'], ['S&P 500', '[price]', '▲ +0.0%'],
-                       ['EUR/USD', '[price]', '▲ +0.0%'], ['Gold', '[price]', '▲ +0.0%']])
+    ch += price_table(d, 'Market snapshot', 'Prices as of',
+                      [['Bitcoin', 'btc'], ['Ethereum', 'eth'], ['S&P 500', 'spx'], ['EUR/USD', 'eurusd'], ['Gold', 'gold']])
     ch.append(d.heading('What we are watching', 'h2', padding=d.pad(28, 0)))
     for n in (1, 2):
         ch.append(d.container([

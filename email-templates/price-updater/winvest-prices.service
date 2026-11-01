@@ -1,0 +1,9 @@
+[Unit]
+Description=Winvest Capital live prices for Listmonk campaigns
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/winvest-prices.env
+ExecStart=/usr/bin/python3 /usr/local/bin/winvest-prices.py
