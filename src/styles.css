@@ -27,3 +27,11 @@ body {
 }
 
 body { font-family: 'Inter Variable', ui-sans-serif, system-ui, sans-serif; color: #fff; }
+
+/* Installed web app (PWA): bottom tab bar. `pwa` class is set on <html> by index.html. */
+.app-tabbar { display: none; padding-bottom: env(safe-area-inset-bottom); }
+.app-tabbar a[aria-current='page'] { color: #fff; }
+.app-tabbar a[aria-current='page'] svg { color: var(--wc-red); }
+.pwa .app-tabbar { display: block; }
+.pwa body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+.pwa #wc-consent, .pwa #wc-install { bottom: calc(76px + env(safe-area-inset-bottom)) !important; }

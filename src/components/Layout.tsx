@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { DISCORD_URL, SOCIALS } from '../config'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
+import AppTabBar from './AppTabBar'
 import Ticker from './Ticker'
 
 type Props = { lang: Lang; alternate?: string; children: ReactNode }
@@ -129,6 +130,7 @@ export default function Layout({ lang, alternate, children }: Props) {
           </div>
         </div>
       </footer>
+      <AppTabBar lang={lang} />
     </div>
   )
 }
