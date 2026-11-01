@@ -12,6 +12,7 @@ import LearnIndex, { learnCopy } from './pages/LearnIndex'
 import Legal from './pages/Legal'
 import Partners, { partnersCopy } from './pages/Partners'
 import DefiScanner, { scannerCopy } from './pages/DefiScanner'
+import Markets, { marketsCopy } from './pages/Markets'
 import Welcome from './pages/Welcome'
 import { paths } from './paths'
 
@@ -127,6 +128,15 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
     ],
     element: wrap(lang, o.scanner, <DefiScanner lang={lang} />),
   }
+  const markets: Route = {
+    path: p.markets,
+    alternate: o.markets,
+    lang,
+    title: marketsCopy[lang].metaTitle,
+    description: marketsCopy[lang].description,
+    jsonLd: [crumbs([['Home', p.home], [marketsCopy[lang].h1, p.markets]])],
+    element: wrap(lang, o.markets, <Markets lang={lang} />),
+  }
   const arts: Route[] = articles.map((a) => {
     const c = a[lang]
     return {
@@ -173,7 +183,7 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
     description: L ? 'Je betaling is ontvangen.' : 'Your payment has been received.',
     element: wrap(lang, L ? '/welcome/' : '/nl/welkom/', <Welcome lang={lang} />),
   }
-  return [home, calculator, scanner, partners, learn, ...arts, ...docs, welcome]
+  return [home, calculator, markets, scanner, partners, learn, ...arts, ...docs, welcome]
 })
 
 export function findRoute(pathname: string): Route | undefined {

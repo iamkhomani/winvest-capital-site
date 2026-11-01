@@ -375,7 +375,8 @@ export default function DefiScanner({ lang }: { lang: Lang }) {
           {view.s === 'results' && <Results results={view.results} c={c} />}
         </div>
 
-        <p className="mt-10 max-w-3xl text-sm text-white/45">{c.supports}</p>
+        <a href={paths[lang].markets} className="mt-10 inline-block rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white/80 hover:border-[var(--wc-red)] hover:text-white">{lang === 'nl' ? 'Bekijk de top 50 crypto en populaire aandelen →' : 'See the top 50 crypto and popular stocks →'}</a>
+        <p className="mt-6 max-w-3xl text-sm text-white/45">{c.supports}</p>
         <p className="mt-3 max-w-3xl text-sm text-white/45">{c.disclaimer}</p>
 
         <aside className="mt-10 max-w-3xl rounded-2xl border border-[var(--wc-red)]/50 bg-gradient-to-b from-[var(--wc-red)]/15 to-white/[0.02] p-6 sm:p-8">
