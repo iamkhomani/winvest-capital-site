@@ -3,7 +3,7 @@ export const SITE_URL = 'https://winvestcapital.nl'
 export const DISCORD_URL = 'https://discord.gg/2ApK2MSnxZ'
 // Social profiles (shown in the footer, in this order).
 export const SOCIALS: { name: string; icon?: string; handle: string; url: string }[] = [
-  { name: 'Discord', handle: 'Winvest Capital', url: 'https://discord.gg/2ApK2MSnxZ' },
+  { name: 'Discord', icon: '/social/discord.png', handle: 'Winvest Capital', url: 'https://discord.gg/2ApK2MSnxZ' },
   { name: 'Instagram', icon: '/social/instagram.png', handle: '@winvest_capital', url: 'https://www.instagram.com/winvest_capital/' },
   { name: 'X', icon: '/social/x.png', handle: '@winvest_capital', url: 'https://x.com/winvest_capital' },
   { name: 'TikTok', icon: '/social/tiktok.png', handle: '@winvestcapital', url: 'https://www.tiktok.com/@winvestcapital' },
