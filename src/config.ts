@@ -7,7 +7,7 @@ export const DEFI_PROXY_URL: string = ''
 export const SOCIALS: { name: string; icon?: string; handle: string; url: string }[] = [
   { name: 'Discord', icon: '/social/discord.png', handle: 'Winvest Capital', url: 'https://discord.gg/2ApK2MSnxZ' },
   { name: 'Instagram', icon: '/social/instagram.png', handle: '@winvest_capital', url: 'https://www.instagram.com/winvest_capital/' },
-  { name: 'X', icon: '/social/x.png', handle: '@winvest_capital', url: 'https://x.com/winvest_capital' },
+  { name: 'X', icon: '/social/x-2.png', handle: '@winvest_capital', url: 'https://x.com/winvest_capital' },
   { name: 'TikTok', icon: '/social/tiktok-2.png', handle: '@winvestcapital', url: 'https://www.tiktok.com/@winvestcapital' },
   { name: 'TradingView', icon: '/social/tradingview.png', handle: 'winvestcapital', url: 'https://www.tradingview.com/u/winvestcapital/' },
 ]
