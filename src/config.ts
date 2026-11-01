@@ -1,6 +1,8 @@
 // Edit these values; everything on the site reads from here.
 export const SITE_URL = 'https://winvestcapital.nl'
 export const DISCORD_URL = 'https://discord.gg/2ApK2MSnxZ'
+// Cloudflare Worker for the DeFi scanner (Bitcoin and XDC lookups). Empty = Bitcoin via mempool.space directly, XDC wallet lookups off.
+export const DEFI_PROXY_URL: string = ''
 // Social profiles (shown in the footer, in this order).
 export const SOCIALS: { name: string; icon?: string; handle: string; url: string }[] = [
   { name: 'Discord', icon: '/social/discord.png', handle: 'Winvest Capital', url: 'https://discord.gg/2ApK2MSnxZ' },

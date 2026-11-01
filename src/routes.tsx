@@ -11,6 +11,7 @@ import Home, { homeCopy } from './pages/Home'
 import LearnIndex, { learnCopy } from './pages/LearnIndex'
 import Legal from './pages/Legal'
 import Partners, { partnersCopy } from './pages/Partners'
+import DefiScanner, { scannerCopy } from './pages/DefiScanner'
 import Welcome from './pages/Welcome'
 import { paths } from './paths'
 
@@ -114,6 +115,18 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
     jsonLd: [crumbs([['Home', p.home], ['Partners', p.partners]])],
     element: wrap(lang, o.partners, <Partners lang={lang} />),
   }
+  const scanner: Route = {
+    path: p.scanner,
+    alternate: o.scanner,
+    lang,
+    title: scannerCopy[lang].metaTitle,
+    description: scannerCopy[lang].description,
+    jsonLd: [
+      { '@context': 'https://schema.org', '@type': 'WebApplication', name: scannerCopy[lang].h1, url: url(p.scanner), applicationCategory: 'FinanceApplication', operatingSystem: 'Any', inLanguage: lang, offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' }, publisher: org },
+      crumbs([['Home', p.home], [scannerCopy[lang].h1, p.scanner]]),
+    ],
+    element: wrap(lang, o.scanner, <DefiScanner lang={lang} />),
+  }
   const arts: Route[] = articles.map((a) => {
     const c = a[lang]
     return {
@@ -160,7 +173,7 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
     description: L ? 'Je betaling is ontvangen.' : 'Your payment has been received.',
     element: wrap(lang, L ? '/welcome/' : '/nl/welkom/', <Welcome lang={lang} />),
   }
-  return [home, calculator, partners, learn, ...arts, ...docs, welcome]
+  return [home, calculator, scanner, partners, learn, ...arts, ...docs, welcome]
 })
 
 export function findRoute(pathname: string): Route | undefined {

@@ -7,7 +7,7 @@ const icons = {
   home: <path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" />,
   learn: <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zM4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5M8 7h8M8 11h6" />,
   calc: <path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8v3H8zM8 14h.01M12 14h.01M16 14h.01M8 17.5h.01M12 17.5h.01M16 17.5h.01" />,
-  partners: <path d="M12 3 3 7v2h18V7zM5 9v8M9.5 9v8M14.5 9v8M19 9v8M3 20h18" />,
+  scan: <path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4" />,
   discord: <path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12zM9 12h.01M12 12h.01M15 12h.01" />,
 }
 
@@ -18,7 +18,7 @@ export default function AppTabBar({ lang }: { lang: Lang }) {
     ['home', 'Home', p.home, false],
     ['learn', nl ? 'Leren' : 'Learn', p.learn, false],
     ['calc', 'Calculator', p.calculator, false],
-    ['partners', 'Partners', p.partners, false],
+    ['scan', 'Scanner', p.scanner, false],
     ['discord', 'Discord', DISCORD_URL, true],
   ]
   return (
