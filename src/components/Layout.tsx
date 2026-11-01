@@ -99,6 +99,7 @@ export default function Layout({ lang, alternate, children }: Props) {
               {SOCIALS.map((s) => (
                 <li key={s.name}>
                   <a href={s.url} target="_blank" rel="noopener me" className="group inline-flex items-center gap-2 rounded-full border border-white/15 px-3.5 py-1.5 text-white/75 transition hover:border-[var(--wc-red)] hover:text-white">
+                    {s.icon && <img src={s.icon} alt="" width={20} height={20} loading="lazy" className="size-5 object-contain" />}
                     <span className="font-semibold">{s.name}</span>
                     <span className="text-xs text-white/40 group-hover:text-white/70">{s.handle}</span>
                   </a>
@@ -116,6 +117,8 @@ export default function Layout({ lang, alternate, children }: Props) {
             <a href={p.terms} className="hover:text-white/60">{lang === 'nl' ? 'Voorwaarden' : 'Terms'}</a>
             <a href={p.privacy} className="hover:text-white/60">Privacy</a>
             <a href={p.refunds} className="hover:text-white/60">{lang === 'nl' ? 'Terugbetaling' : 'Refunds'}</a>
+            <a href="#cookie-settings" data-cookie-settings className="hover:text-white/60">{lang === 'nl' ? 'Cookie-instellingen' : 'Cookie settings'}</a>
+            <a href="https://icons8.com" target="_blank" rel="noopener" className="hover:text-white/60">{lang === 'nl' ? 'Iconen door Icons8' : 'Icons by Icons8'}</a>
           </div>
         </div>
       </footer>

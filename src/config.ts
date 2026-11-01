@@ -2,12 +2,12 @@
 export const SITE_URL = 'https://winvestcapital.nl'
 export const DISCORD_URL = 'https://discord.gg/2ApK2MSnxZ'
 // Social profiles (shown in the footer, in this order).
-export const SOCIALS = [
+export const SOCIALS: { name: string; icon?: string; handle: string; url: string }[] = [
   { name: 'Discord', handle: 'Winvest Capital', url: 'https://discord.gg/2ApK2MSnxZ' },
-  { name: 'Instagram', handle: '@winvest_capital', url: 'https://www.instagram.com/winvest_capital/' },
-  { name: 'X', handle: '@winvest_capital', url: 'https://x.com/winvest_capital' },
-  { name: 'TikTok', handle: '@winvestcapital', url: 'https://www.tiktok.com/@winvestcapital' },
-  { name: 'TradingView', handle: 'winvestcapital', url: 'https://www.tradingview.com/u/winvestcapital/' },
+  { name: 'Instagram', icon: '/social/instagram.png', handle: '@winvest_capital', url: 'https://www.instagram.com/winvest_capital/' },
+  { name: 'X', icon: '/social/x.png', handle: '@winvest_capital', url: 'https://x.com/winvest_capital' },
+  { name: 'TikTok', icon: '/social/tiktok.png', handle: '@winvestcapital', url: 'https://www.tiktok.com/@winvestcapital' },
+  { name: 'TradingView', icon: '/social/tradingview.png', handle: 'winvestcapital', url: 'https://www.tradingview.com/u/winvestcapital/' },
 ]
 // PayBot checkout (Stripe). Gives the @One Percent Club role in Discord automatically.
 export const STRIPE_PAYMENT_LINK = 'https://go.paybotapp.com/RTTDqS3p/rCK4CxHl'
