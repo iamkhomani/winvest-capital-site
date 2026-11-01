@@ -134,13 +134,13 @@ function CryptoTable({ lang }: { lang: Lang }) {
       {!coins && !error ? <p className="mt-6 text-white/60">{c.loading}</p> : null}
       {coins ? (
         <div className="mt-4 overflow-x-auto rounded-2xl border border-white/10">
-          <table className="w-full min-w-[720px] text-sm">
+          <table className="w-full min-w-[480px] text-sm">
             <thead className="bg-white/[0.04] text-left text-xs text-white/50">
               <tr>
-                <th className="px-3 py-2.5 font-medium">#</th>
+                <th className="hidden px-3 py-2.5 font-medium sm:table-cell">#</th>
                 <th className="px-3 py-2.5 font-medium">{c.cols.name}</th>
                 <th className="px-3 py-2.5 text-right font-medium">{c.cols.price}</th>
-                <th className="px-3 py-2.5 text-right font-medium">{c.cols.h1}</th>
+                <th className="hidden px-3 py-2.5 text-right font-medium sm:table-cell">{c.cols.h1}</th>
                 <th className="px-3 py-2.5 text-right font-medium">{c.cols.h24}</th>
                 <th className="px-3 py-2.5 text-right font-medium">{c.cols.d7}</th>
                 <th className="hidden px-3 py-2.5 text-right font-medium md:table-cell">{c.cols.mcap}</th>
@@ -152,16 +152,16 @@ function CryptoTable({ lang }: { lang: Lang }) {
             <tbody className="divide-y divide-white/5">
               {shown.map((x) => (
                 <tr key={x.id} className="hover:bg-white/[0.03]">
-                  <td className="px-3 py-2.5 text-white/45">{x.market_cap_rank}</td>
+                  <td className="hidden px-3 py-2.5 text-white/45 sm:table-cell">{x.market_cap_rank}</td>
                   <td className="px-3 py-2.5">
                     <span className="flex items-center gap-2.5">
                       <img src={x.image} alt="" width={22} height={22} loading="lazy" className="size-[22px] rounded-full" />
                       <span className="font-semibold">{x.name}</span>
-                      <span className="text-xs uppercase text-white/45">{x.symbol}</span>
+                      <span className="hidden text-xs uppercase text-white/45 sm:inline">{x.symbol}</span>
                     </span>
                   </td>
                   <td className="px-3 py-2.5 text-right font-semibold tabular-nums">{price(x.current_price)}</td>
-                  <td className="px-3 py-2.5 text-right tabular-nums"><Pct v={x.price_change_percentage_1h_in_currency} /></td>
+                  <td className="hidden px-3 py-2.5 text-right tabular-nums sm:table-cell"><Pct v={x.price_change_percentage_1h_in_currency} /></td>
                   <td className="px-3 py-2.5 text-right tabular-nums"><Pct v={x.price_change_percentage_24h_in_currency} /></td>
                   <td className="px-3 py-2.5 text-right tabular-nums"><Pct v={x.price_change_percentage_7d_in_currency} /></td>
                   <td className="hidden px-3 py-2.5 text-right tabular-nums text-white/70 md:table-cell">{big(x.market_cap)}</td>
