@@ -13,6 +13,7 @@ import Legal from './pages/Legal'
 import Partners, { partnersCopy } from './pages/Partners'
 import DefiScanner, { scannerCopy } from './pages/DefiScanner'
 import Markets, { marketsCopy } from './pages/Markets'
+import MarketWhisper, { whisperCopy } from './pages/MarketWhisper'
 import Welcome from './pages/Welcome'
 import { paths } from './paths'
 
@@ -137,6 +138,19 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
     jsonLd: [crumbs([['Home', p.home], [marketsCopy[lang].h1, p.markets]])],
     element: wrap(lang, o.markets, <Markets lang={lang} />),
   }
+  const whisper: Route = {
+    path: p.whisper,
+    alternate: o.whisper,
+    lang,
+    title: whisperCopy[lang].metaTitle,
+    description: whisperCopy[lang].description,
+    jsonLd: [
+      { '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'Market Whisper AI', applicationCategory: 'FinanceApplication', operatingSystem: 'Discord', url: url(p.whisper), image: url('/brand/market-whisper-symbol-dark.svg'), publisher: org, offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' } },
+      crumbs([['Home', p.home], ['Market Whisper AI', p.whisper]]),
+      faqLd(whisperCopy[lang].faqs),
+    ],
+    element: wrap(lang, o.whisper, <MarketWhisper lang={lang} />),
+  }
   const arts: Route[] = articles.map((a) => {
     const c = a[lang]
     return {
@@ -183,7 +197,7 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
     description: L ? 'Je betaling is ontvangen.' : 'Your payment has been received.',
     element: wrap(lang, L ? '/welcome/' : '/nl/welkom/', <Welcome lang={lang} />),
   }
-  return [home, calculator, markets, scanner, partners, learn, ...arts, ...docs, welcome]
+  return [home, calculator, markets, whisper, scanner, partners, learn, ...arts, ...docs, welcome]
 })
 
 export function findRoute(pathname: string): Route | undefined {

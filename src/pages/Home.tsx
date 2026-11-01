@@ -371,6 +371,8 @@ export default function Home({ lang }: { lang: Lang }) {
             <span className="text-sm font-semibold tracking-wide text-[var(--wc-red-soft)] uppercase">{c.wBadge}</span>
             <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Market Whisper AI</h2>
             <p className="mt-4 text-white/65">{c.wP}</p>
+            <img src="/brand/market-whisper-symbol-dark.svg" alt="" width={256} height={256} className="mt-8 hidden size-40 md:block" />
+            <a href={paths[lang].whisper} className="mt-6 inline-block font-semibold text-[var(--wc-red-soft)] hover:underline">{lang === 'nl' ? 'Meer over Market Whisper AI →' : 'More about Market Whisper AI →'}</a>
           </div>
           <div className="space-y-6">
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
