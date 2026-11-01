@@ -1,6 +1,6 @@
 // Winvest Capital service worker: makes the site installable and usable offline.
 // Pages: network first, cached copy when offline. Hashed assets and icons: cache first.
-const VERSION = 'wc-v3'
+const VERSION = 'wc-v4'
 const CORE = ['/', '/nl/', '/lot-size-calculator/', '/nl/lotgrootte-calculator/', '/app-icon-192.png', '/logo.jpeg']
 
 self.addEventListener('install', (e) => {
@@ -20,11 +20,16 @@ self.addEventListener('fetch', (e) => {
   if (req.method !== 'GET' || url.origin !== location.origin) return // TradingView, Analytics etc. go straight to the network
 
   if (req.mode === 'navigate') {
+    // Revalidate with the server (cache: 'no-cache') so an old redirect stored in the browser
+    // (e.g. the former Linkme forward of the homepage) can never be reused.
+    const fresh = new Request(req.url, { cache: 'no-cache', redirect: 'manual', credentials: 'same-origin' })
     e.respondWith(
-      fetch(req)
+      fetch(fresh)
         .then((res) => {
-          const copy = res.clone()
-          caches.open(VERSION).then((c) => c.put(req, copy))
+          if (res.ok && res.type === 'basic') {
+            const copy = res.clone()
+            caches.open(VERSION).then((c) => c.put(req, copy))
+          }
           return res
         })
         .catch(async () => (await caches.match(req)) || (await caches.match(url.pathname.startsWith('/nl/') ? '/nl/' : '/'))),
