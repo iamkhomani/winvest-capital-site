@@ -6,7 +6,8 @@
 //   POST /rpc/xdc      -> https://rpc.xdc.org                    (XDC Network JSON-RPC, read-only methods)
 
 const ALLOWED_ORIGINS = ['https://winvestcapital.nl', 'https://www.winvestcapital.nl', 'http://localhost:5173']
-const RPC = { xdc: 'https://rpc.xinfin.network' }
+// Several public XDC nodes: the first one that answers is used.
+const RPC = { xdc: ['https://rpc.xinfin.network', 'https://earpc.xinfin.network', 'https://rpc.ankr.com/xdc', 'https://xdc.public-rpc.com', 'https://erpc.xdcrpc.com'] }
 const RPC_METHODS = new Set([
   'eth_blockNumber', 'eth_getBalance', 'eth_getCode', 'eth_getTransactionCount', 'eth_call',
   'eth_getTransactionByHash', 'eth_getTransactionReceipt', 'eth_getBlockByNumber', 'eth_chainId',
@@ -34,8 +35,21 @@ export default {
       try { body = await request.json() } catch { return json({ error: 'bad json' }, 400, origin) }
       const calls = Array.isArray(body) ? body : [body]
       if (calls.length > 10 || calls.some((c) => !RPC_METHODS.has(c && c.method))) return json({ error: 'method not allowed' }, 400, origin)
-      const up = await fetch(RPC[m[1]], { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
-      return new Response(up.body, { status: up.status, headers: { 'Content-Type': 'application/json', ...cors(origin) } })
+      const payload = JSON.stringify(body)
+      let last = 'no upstream'
+      for (const upstream of RPC[m[1]]) {
+        try {
+          const up = await fetch(upstream, { method: 'POST', headers: { 'Content-Type': 'application/json', 'User-Agent': 'winvest-defi-proxy' }, body: payload })
+          const text = await up.text()
+          if (up.ok && (text.trim().startsWith('{') || text.trim().startsWith('['))) {
+            return new Response(text, { status: 200, headers: { 'Content-Type': 'application/json', 'X-Upstream': new URL(upstream).host, ...cors(origin) } })
+          }
+          last = `${new URL(upstream).host}: ${up.status}`
+        } catch (e) {
+          last = `${new URL(upstream).host}: ${e.message}`
+        }
+      }
+      return json({ error: 'all upstreams failed', last }, 502, origin)
     }
 
     return json({ error: 'not found' }, 404, origin)
