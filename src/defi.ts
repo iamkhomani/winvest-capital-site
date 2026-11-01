@@ -1,6 +1,6 @@
 // DeFi scanner data layer: detects what the visitor typed and fetches public blockchain data.
 // Sources (no API keys): DexScreener, GoPlus Security, public RPC nodes, XRPL cluster,
-// and the Winvest Cloudflare Worker (DEFI_PROXY_URL) for Bitcoin and XDC.
+// Blockstream (Bitcoin) and the Winvest Cloudflare Worker (DEFI_PROXY_URL) for XDC.
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DEFI_PROXY_URL } from './config'
 
@@ -47,7 +47,7 @@ export function detect(input: string): Query | null {
 }
 
 async function getJson(url: string, init?: RequestInit): Promise<any> {
-  const r = await fetch(url, init)
+  const r = await fetch(url, { ...init, signal: AbortSignal.timeout(15000) })
   if (!r.ok) throw new Error(`${r.status}`)
   return r.json()
 }
@@ -165,7 +165,8 @@ export async function evmAddress(address: string, chains: ChainId[]): Promise<Re
         rpc(ch.rpc, 'eth_getTransactionCount', [address, 'latest']),
         rpc(ch.rpc, 'eth_getCode', [address, 'latest']),
       ])
-      const isContract = code && code !== '0x'
+      const delegated = typeof code === 'string' && code.toLowerCase().startsWith('0xef0100') // EIP-7702 smart account
+      const isContract = code && code !== '0x' && !delegated
       const balance = weiTo(bal, ch.decimals)
       const sent = hexToNum(nonce)
       if (!isContract && balance === 0 && sent === 0) return // nothing on this chain
@@ -176,7 +177,7 @@ export async function evmAddress(address: string, chains: ChainId[]): Promise<Re
         explorer: `${ch.explorer}/address/${shown}`,
         rows: [
           ['Address', short(shown)],
-          ['Type', isContract ? 'Smart contract' : 'Wallet (EOA)'],
+          ['Type', isContract ? 'Smart contract' : delegated ? 'Wallet (EIP-7702 smart account)' : 'Wallet (EOA)'],
           [`Balance (${ch.symbol})`, fmt(balance)],
           ['Transactions sent', fmt(sent, 0)],
         ],
@@ -276,7 +277,7 @@ export async function xrplAddress(address: string): Promise<Result | null> {
     ['Sequence', fmt(d.Sequence, 0)],
     ['Trust lines (tokens)', fmt((lines.lines || []).length, 0)],
   ]
-  for (const l of (lines.lines || []).slice(0, 8)) rows.push([`Token ${l.currency.length > 3 ? hexCurrency(l.currency) : l.currency}`, fmt(Number(l.balance))])
+  for (const l of (lines.lines || []).filter((x: any) => Number(x.balance) > 0).slice(0, 8)) rows.push([`Token ${l.currency.length > 3 ? hexCurrency(l.currency) : l.currency}`, fmt(Number(l.balance))])
   return {
     title: 'XRP Ledger account',
     chain: 'xrpl',
@@ -322,7 +323,7 @@ export async function hash64(hash: string): Promise<Result | null> {
 }
 
 function btcBase() {
-  return DEFI_PROXY_URL ? DEFI_PROXY_URL + '/btc/' : 'https://mempool.space/api/'
+  return 'https://blockstream.info/api/' // same API as mempool.space, with CORS
 }
 
 export async function btcAddress(address: string): Promise<Result | null> {

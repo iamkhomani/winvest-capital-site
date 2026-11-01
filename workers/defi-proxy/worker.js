@@ -3,7 +3,6 @@
 // browser directly (no CORS). No API keys needed. Responses are cached briefly.
 //
 // Routes:
-//   GET  /btc/<path>   -> https://mempool.space/api/<path>      (Bitcoin addresses and transactions)
 //   POST /rpc/xdc      -> https://rpc.xdc.org                    (XDC Network JSON-RPC, read-only methods)
 
 const ALLOWED_ORIGINS = ['https://winvestcapital.nl', 'https://www.winvestcapital.nl', 'http://localhost:5173']
@@ -23,25 +22,10 @@ function json(data, status, origin) {
 }
 
 export default {
-  async fetch(request, env, ctx) {
+  async fetch(request) {
     const origin = request.headers.get('Origin') || ''
     if (request.method === 'OPTIONS') return new Response(null, { headers: cors(origin) })
     const url = new URL(request.url)
-
-    // Bitcoin: read-only GET requests to mempool.space
-    if (url.pathname.startsWith('/btc/') && request.method === 'GET') {
-      const path = url.pathname.slice(5)
-      if (!/^(address\/[A-Za-z0-9]{20,100}(\/txs)?|tx\/[0-9a-fA-F]{64}(\/status)?|blocks\/tip\/height)$/.test(path)) return json({ error: 'not allowed' }, 400, origin)
-      const cache = caches.default
-      const key = new Request('https://cache.winvest/btc/' + path)
-      let res = await cache.match(key)
-      if (!res) {
-        const up = await fetch('https://mempool.space/api/' + path, { headers: { Accept: 'application/json' } })
-        res = new Response(up.body, { status: up.status, headers: { 'Content-Type': up.headers.get('Content-Type') || 'application/json', 'Cache-Control': 'public, max-age=30' } })
-        if (up.ok) ctx.waitUntil(cache.put(key, res.clone()))
-      }
-      return new Response(res.body, { status: res.status, headers: { 'Content-Type': res.headers.get('Content-Type') || 'application/json', ...cors(origin) } })
-    }
 
     // EVM JSON-RPC (XDC): only read-only methods
     const m = url.pathname.match(/^\/rpc\/([a-z]+)$/)

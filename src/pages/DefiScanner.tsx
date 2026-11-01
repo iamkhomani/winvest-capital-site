@@ -18,7 +18,7 @@ export const scannerCopy = {
     loading: 'Fetching live data…',
     nothing: 'Nothing found. Check the address or try a token name or ticker.',
     error: 'The data source did not respond. Please try again in a moment.',
-    results: (n: number) => `${n} markets found, sorted by liquidity`,
+    results: (n: number) => `${n} markets found, sorted by liquidity. Anyone can create a token with the same name: always check the contract address.`,
     price: 'Price', h24: '24h', liq: 'Liquidity', vol: 'Volume 24h', fdv: 'FDV', mcap: 'Market cap', age: 'Pair age', txns: 'Trades 24h', dex: 'DEX',
     secH: 'Security check',
     secNone: 'No automated security check is available for this chain.',
@@ -28,7 +28,7 @@ export const scannerCopy = {
     open: 'Open',
     recent: 'Recent transactions',
     walletOn: 'Found on',
-    proxyMissing: 'Bitcoin and XDC lookups are being set up.',
+    proxyMissing: 'XDC wallet lookups are being set up.',
     supports: 'Supported: tokens on 80+ chains via DexScreener (incl. Ethereum, Solana, XRP Ledger, BNB Chain, Base, Arbitrum, Polygon), wallets and transactions on Ethereum, BNB Chain, Base, Arbitrum, Polygon, XDC, Solana, XRP Ledger and Bitcoin.',
     disclaimer: 'Data comes from third parties (DexScreener, GoPlus Security, public blockchain nodes) and can be delayed or incomplete. Nothing on this page is financial advice. New tokens carry a high risk of scams and total loss.',
     ctaH: 'Want a second opinion on a project?',
@@ -47,7 +47,7 @@ export const scannerCopy = {
     loading: 'Live data ophalen…',
     nothing: 'Niets gevonden. Controleer het adres of probeer een tokennaam of ticker.',
     error: 'De databron reageerde niet. Probeer het zo nog eens.',
-    results: (n: number) => `${n} markten gevonden, gesorteerd op liquidity`,
+    results: (n: number) => `${n} markten gevonden, gesorteerd op liquidity. Iedereen kan een token met dezelfde naam maken: controleer altijd het contractadres.`,
     price: 'Prijs', h24: '24u', liq: 'Liquidity', vol: 'Volume 24u', fdv: 'FDV', mcap: 'Market cap', age: 'Leeftijd pair', txns: 'Trades 24u', dex: 'DEX',
     secH: 'Security check',
     secNone: 'Voor deze chain is geen automatische security check beschikbaar.',
@@ -57,7 +57,7 @@ export const scannerCopy = {
     open: 'Openen',
     recent: 'Recente transacties',
     walletOn: 'Gevonden op',
-    proxyMissing: 'Bitcoin- en XDC-zoekopdrachten worden nog ingericht.',
+    proxyMissing: 'XDC-walletzoekopdrachten worden nog ingericht.',
     supports: 'Ondersteund: tokens op 80+ chains via DexScreener (o.a. Ethereum, Solana, XRP Ledger, BNB Chain, Base, Arbitrum, Polygon), wallets en transacties op Ethereum, BNB Chain, Base, Arbitrum, Polygon, XDC, Solana, XRP Ledger en Bitcoin.',
     disclaimer: 'De data komt van derden (DexScreener, GoPlus Security, publieke blockchain-nodes) en kan vertraagd of onvolledig zijn. Niets op deze pagina is financieel advies. Nieuwe tokens hebben een hoog risico op scams en volledig verlies.',
     ctaH: 'Een second opinion over een project?',
@@ -73,6 +73,7 @@ type View =
   | { s: 'loading' }
   | { s: 'error' }
   | { s: 'empty' }
+  | { s: 'xdc-off' }
   | { s: 'pairs'; pairs: Pair[] }
   | { s: 'token'; pairs: Pair[]; flags: Flag[] | null; from?: Pair[] }
   | { s: 'results'; results: Result[] }
@@ -109,6 +110,7 @@ async function run(input: string): Promise<View> {
     case 'evm-address': {
       const pairs = await tokenPairs(q.address).catch(() => [])
       if (pairs.length) return { s: 'token', pairs, flags: await security(pairs[0].chainId, q.address).catch(() => null) }
+      if (q.xdcPrefix && !CHAINS.xdc.rpc) return { s: 'xdc-off' }
       const res = await evmAddress(q.address, q.xdcPrefix ? ['xdc'] : EVM_CHAINS)
       return res.length ? { s: 'results', results: res } : { s: 'empty' }
     }
@@ -367,6 +369,7 @@ export default function DefiScanner({ lang }: { lang: Lang }) {
           {view.s === 'loading' && <p className="text-white/60">{c.loading}</p>}
           {view.s === 'error' && <p className="text-[var(--wc-red-soft)]">{c.error}</p>}
           {view.s === 'empty' && <p className="text-white/60">{c.nothing}</p>}
+          {view.s === 'xdc-off' && <p className="text-white/60">{c.proxyMissing}</p>}
           {view.s === 'pairs' && <PairList pairs={view.pairs} c={c} onPick={(p) => void pick(p)} />}
           {view.s === 'token' && <TokenView view={view} c={c} lang={lang} onBack={(pairs) => setView({ s: 'pairs', pairs })} />}
           {view.s === 'results' && <Results results={view.results} c={c} />}
