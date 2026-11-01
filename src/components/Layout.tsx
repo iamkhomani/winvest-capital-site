@@ -93,7 +93,7 @@ function Menu({ lang }: { lang: Lang }) {
       </summary>
       <nav
         aria-label={nl ? 'Hoofdmenu' : 'Main menu'}
-        className="absolute right-0 top-12 z-30 w-[min(20rem,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-white/10 bg-[#111113] p-2 shadow-2xl shadow-black/60"
+        className="absolute right-0 top-12 z-30 max-h-[calc(100dvh-10rem)] w-[min(20rem,calc(100vw-2rem))] overflow-y-auto rounded-2xl border border-white/10 bg-[#111113] p-2 shadow-2xl shadow-black/60"
       >
         <ul>
           {nav[lang].map(([label, href]) => (
