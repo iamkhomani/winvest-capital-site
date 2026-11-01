@@ -252,7 +252,9 @@ export default function Markets({ lang }: { lang: Lang }) {
         <div className="mt-6">
           {tab === 'crypto' ? (
             <>
-              <h2 className="text-2xl font-bold tracking-tight">{c.cHeatH}</h2>
+              <h2 className="mb-4 text-2xl font-bold tracking-tight">{c.crypto}</h2>
+              <CryptoTable lang={lang} />
+              <h2 className="mt-10 text-2xl font-bold tracking-tight">{c.cHeatH}</h2>
               <p className="mt-2 text-sm text-white/55">{c.cHeatP}</p>
               <div className="mt-4 overflow-hidden rounded-2xl border border-white/10">
                 <TradingViewWidget
@@ -261,8 +263,6 @@ export default function Markets({ lang }: { lang: Lang }) {
                   config={{ dataSource: 'Crypto', blockSize: 'market_cap_calc', blockColor: 'change', locale: tv, colorTheme: 'dark', hasTopBar: false, isDataSetEnabled: false, isZoomEnabled: true, hasSymbolTooltip: true, isMonoSize: false, width: '100%', height: 520 }}
                 />
               </div>
-              <h2 className="mt-10 mb-4 text-2xl font-bold tracking-tight">{c.crypto}</h2>
-              <CryptoTable lang={lang} />
             </>
           ) : (
             <>
