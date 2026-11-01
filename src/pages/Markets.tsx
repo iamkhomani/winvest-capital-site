@@ -21,6 +21,8 @@ export const marketsCopy = {
     stocksH: 'Popular stocks and indices',
     heatH: 'S&P 500 heatmap',
     heatP: 'Size = market cap, colour = change today. Hover or tap a block for details.',
+    cHeatH: 'Crypto heatmap',
+    cHeatP: 'Size = market cap, colour = change over the last 24 hours. Hover or tap a block for details, scroll to zoom.',
     note: 'Prices are indicative and can be delayed. Nothing on this page is financial advice.',
     ctaH: 'Want to know what we are watching?',
     ctaP: 'Market Whisper AI posts news and FX calendar events in the free Discord. One Percent Club members also get market and fundamental analysis.',
@@ -42,6 +44,8 @@ export const marketsCopy = {
     stocksH: 'Populaire aandelen en indices',
     heatH: 'S&P 500-heatmap',
     heatP: 'Grootte = market cap, kleur = verandering vandaag. Beweeg of tik op een blok voor details.',
+    cHeatH: 'Crypto-heatmap',
+    cHeatP: 'Grootte = market cap, kleur = verandering over de laatste 24 uur. Beweeg of tik op een blok voor details, scroll om in te zoomen.',
     note: 'Prijzen zijn indicatief en kunnen vertraagd zijn. Niets op deze pagina is financieel advies.',
     ctaH: 'Benieuwd waar wij naar kijken?',
     ctaP: 'Market Whisper AI deelt nieuws en FX-kalenderevents in de gratis Discord. Leden van de One Percent Club krijgen ook markt- en fundamentele analyse.',
@@ -247,7 +251,19 @@ export default function Markets({ lang }: { lang: Lang }) {
 
         <div className="mt-6">
           {tab === 'crypto' ? (
-            <CryptoTable lang={lang} />
+            <>
+              <h2 className="text-2xl font-bold tracking-tight">{c.cHeatH}</h2>
+              <p className="mt-2 text-sm text-white/55">{c.cHeatP}</p>
+              <div className="mt-4 overflow-hidden rounded-2xl border border-white/10">
+                <TradingViewWidget
+                  className="h-[520px]"
+                  script="embed-widget-crypto-coins-heatmap.js"
+                  config={{ dataSource: 'Crypto', blockSize: 'market_cap_calc', blockColor: 'change', locale: tv, colorTheme: 'dark', hasTopBar: false, isDataSetEnabled: false, isZoomEnabled: true, hasSymbolTooltip: true, isMonoSize: false, width: '100%', height: 520 }}
+                />
+              </div>
+              <h2 className="mt-10 mb-4 text-2xl font-bold tracking-tight">{c.crypto}</h2>
+              <CryptoTable lang={lang} />
+            </>
           ) : (
             <>
               <h2 className="text-2xl font-bold tracking-tight">{c.stocksH}</h2>
