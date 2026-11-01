@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#0a0a0b" />
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="/app-icon-180.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -93,7 +93,7 @@
             : { h: 'Install Winvest Capital', ios: 'In Safari, tap <b>Share</b> (the square with the arrow) and choose <b>Add to Home Screen</b>.', other: 'Open your browser menu and choose <b>Install app</b> or <b>Add to Home screen</b>.', c: 'Close' };
           var d = document.createElement('div'); d.id = 'wc-install'; d.setAttribute('role', 'dialog');
           d.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:60;max-width:440px;margin:0 auto;background:#141414;color:#fff;border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:16px 18px;font:14px/1.5 Inter,system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.5)';
-          d.innerHTML = '<div style="display:flex;gap:12px;align-items:flex-start"><img src="/icon-192.png" alt="" width="40" height="40" style="border-radius:10px;background:#fff">'
+          d.innerHTML = '<div style="display:flex;gap:12px;align-items:flex-start"><img src="/app-icon-192.png" alt="" width="40" height="40" style="border-radius:10px;background:#fff">'
             + '<div style="flex:1"><p style="margin:0 0 4px;font-weight:700">' + t.h + '</p><p style="margin:0;color:rgba(255,255,255,.75)">' + (ios ? t.ios : t.other) + '</p></div></div>'
             + '<div style="text-align:right;margin-top:10px"><button type="button" style="border-radius:999px;padding:7px 16px;font-weight:600;font-size:14px;cursor:pointer;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.3)">' + t.c + '</button></div>';
           d.querySelector('button').onclick = function () { d.remove() };
@@ -109,7 +109,7 @@
           var b = document.createElement('div'); b.id = 'wc-install-bar';
           b.style.cssText = 'position:fixed;left:12px;right:12px;bottom:12px;z-index:55;display:flex;gap:10px;align-items:center;background:#141414;color:#fff;border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:10px 12px;font:14px/1.4 Inter,system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.5)';
           var btn = 'border-radius:999px;padding:7px 14px;font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap;';
-          b.innerHTML = '<img src="/icon-192.png" alt="" width="32" height="32" style="border-radius:8px;background:#fff"><span style="flex:1">' + t.m + '</span>'
+          b.innerHTML = '<img src="/app-icon-192.png" alt="" width="32" height="32" style="border-radius:8px;background:#fff"><span style="flex:1">' + t.m + '</span>'
             + '<button type="button" data-x style="' + btn + 'background:transparent;color:rgba(255,255,255,.7);border:0">' + t.d + '</button>'
             + '<button type="button" data-i style="' + btn + 'background:#FE0000;color:#fff;border:0">' + t.a + '</button>';
           b.querySelector('[data-x]').onclick = function () { store('wc-install-dismissed', '1'); b.remove() };

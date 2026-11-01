@@ -1,7 +1,7 @@
 // Winvest Capital service worker: makes the site installable and usable offline.
 // Pages: network first, cached copy when offline. Hashed assets and icons: cache first.
-const VERSION = 'wc-v2'
-const CORE = ['/', '/nl/', '/lot-size-calculator/', '/nl/lotgrootte-calculator/', '/icon-192.png', '/logo.jpeg']
+const VERSION = 'wc-v3'
+const CORE = ['/', '/nl/', '/lot-size-calculator/', '/nl/lotgrootte-calculator/', '/app-icon-192.png', '/logo.jpeg']
 
 self.addEventListener('install', (e) => {
   // Cache each core file on its own, so one failing request never blocks installation.
