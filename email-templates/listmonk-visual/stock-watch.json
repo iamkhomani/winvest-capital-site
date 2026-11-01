@@ -1,0 +1,1770 @@
+{
+ "root": {
+  "type": "EmailLayout",
+  "data": {
+   "backdropColor": "#F5F3EF",
+   "canvasColor": "#FFFFFF",
+   "textColor": "#141414",
+   "fontFamily": "MODERN_SANS",
+   "borderColor": "#E4E0D8",
+   "borderRadius": 12,
+   "childrenIds": [
+    "block-wc0120",
+    "block-wc0121",
+    "block-wc0122",
+    "block-wc0123",
+    "block-wc0124",
+    "block-wc0125",
+    "block-wc0126",
+    "block-wc0130",
+    "block-wc0134",
+    "block-wc0138",
+    "block-wc0142",
+    "block-wc0143",
+    "block-wc0144",
+    "block-wc0145",
+    "block-wc0149",
+    "block-wc0153",
+    "block-wc0157",
+    "block-wc0161",
+    "block-wc0165",
+    "block-wc0169",
+    "block-wc0170",
+    "block-wc0175",
+    "block-wc0176",
+    "block-wc0177",
+    "block-wc0178",
+    "block-wc0179",
+    "block-wc0180",
+    "block-wc0181",
+    "block-wc0182",
+    "block-wc0195",
+    "block-wc0187",
+    "block-wc0194",
+    "block-wc0196",
+    "block-wc0197"
+   ]
+  }
+ },
+ "block-wc0120": {
+  "type": "Html",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 0,
+     "bottom": 0,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "contents": "<div style=\"padding:24px 32px 8px\">\n<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr>\n<td><a href=\"https://winvestcapital.nl\" style=\"text-decoration:none\"><img src=\"https://winvestcapital.nl/logo.jpeg\" width=\"40\" height=\"40\" alt=\"Winvest Capital\" style=\"display:inline-block;vertical-align:middle;border-radius:999px;border:0\"><span style=\"display:inline-block;vertical-align:middle;margin-left:10px;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:18px;font-weight:800;color:#141414;letter-spacing:-0.3px\">WINVEST <span style=\"color:#DA291C;font-weight:600;letter-spacing:2px\">CAPITAL</span></span></a></td>\n<td align=\"right\" style=\"font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;color:#5F5B55\"><a href=\"{{ MessageURL }}\" style=\"color:#5F5B55;text-decoration:underline\">View in browser</a></td>\n</tr></table></div>\n<div style=\"height:4px;line-height:4px;font-size:4px;background:#DA291C;margin:12px 0 0\">&nbsp;</div>"
+   }
+  }
+ },
+ "block-wc0121": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#DA291C",
+    "fontSize": 12,
+    "fontWeight": "bold",
+    "padding": {
+     "top": 28,
+     "bottom": 0,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "STOCK WATCH · EDITION [#] · [DATE]"
+   }
+  }
+ },
+ "block-wc0122": {
+  "type": "Heading",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "padding": {
+     "top": 6,
+     "bottom": 4,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "[Headline: the main stock market theme of these two weeks]",
+    "level": "h1"
+   }
+  }
+ },
+ "block-wc0123": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 16,
+    "fontWeight": "normal",
+    "padding": {
+     "top": 6,
+     "bottom": 6,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "[Two or three sentences on the big picture in stocks: what moved, what the market is focused on.]",
+    "markdown": true
+   }
+  }
+ },
+ "block-wc0124": {
+  "type": "Divider",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 20,
+     "bottom": 20,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "lineColor": "#E4E0D8",
+    "lineHeight": 1
+   }
+  }
+ },
+ "block-wc0125": {
+  "type": "Heading",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "padding": {
+     "top": 8,
+     "bottom": 0,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "Indices",
+    "level": "h2"
+   }
+  }
+ },
+ "block-wc0126": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#5F5B55",
+    "fontSize": 13,
+    "fontWeight": "normal",
+    "padding": {
+     "top": 4,
+     "bottom": 8,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "Levels at [time, date]. Change over the last two weeks.",
+    "markdown": true
+   }
+  }
+ },
+ "block-wc0127": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#5F5B55",
+    "fontSize": 12,
+    "fontWeight": "bold",
+    "textAlign": "left",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "Asset"
+   }
+  }
+ },
+ "block-wc0128": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#5F5B55",
+    "fontSize": 12,
+    "fontWeight": "bold",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "Price"
+   }
+  }
+ },
+ "block-wc0129": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#5F5B55",
+    "fontSize": 12,
+    "fontWeight": "bold",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "2 weeks"
+   }
+  }
+ },
+ "block-wc0130": {
+  "type": "ColumnsContainer",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 0,
+     "bottom": 0,
+     "left": 32,
+     "right": 32
+    },
+    "borderColor": "#E4E0D8"
+   },
+   "props": {
+    "columnsCount": 3,
+    "columnsGap": 8,
+    "contentAlignment": "middle",
+    "fixedWidths": [
+     250,
+     140,
+     110
+    ],
+    "columns": [
+     {
+      "childrenIds": [
+       "block-wc0127"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0128"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0129"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "block-wc0131": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "bold",
+    "textAlign": "left",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "S&P 500"
+   }
+  }
+ },
+ "block-wc0132": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "[price]"
+   }
+  }
+ },
+ "block-wc0133": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#1E7B4A",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "▲ +0.0%"
+   }
+  }
+ },
+ "block-wc0134": {
+  "type": "ColumnsContainer",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 0,
+     "bottom": 0,
+     "left": 32,
+     "right": 32
+    },
+    "borderColor": "#E4E0D8"
+   },
+   "props": {
+    "columnsCount": 3,
+    "columnsGap": 8,
+    "contentAlignment": "middle",
+    "fixedWidths": [
+     250,
+     140,
+     110
+    ],
+    "columns": [
+     {
+      "childrenIds": [
+       "block-wc0131"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0132"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0133"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "block-wc0135": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "bold",
+    "textAlign": "left",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "Nasdaq 100"
+   }
+  }
+ },
+ "block-wc0136": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "[price]"
+   }
+  }
+ },
+ "block-wc0137": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#1E7B4A",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "▲ +0.0%"
+   }
+  }
+ },
+ "block-wc0138": {
+  "type": "ColumnsContainer",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 0,
+     "bottom": 0,
+     "left": 32,
+     "right": 32
+    },
+    "borderColor": "#E4E0D8"
+   },
+   "props": {
+    "columnsCount": 3,
+    "columnsGap": 8,
+    "contentAlignment": "middle",
+    "fixedWidths": [
+     250,
+     140,
+     110
+    ],
+    "columns": [
+     {
+      "childrenIds": [
+       "block-wc0135"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0136"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0137"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "block-wc0139": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "bold",
+    "textAlign": "left",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "Dow Jones"
+   }
+  }
+ },
+ "block-wc0140": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "[price]"
+   }
+  }
+ },
+ "block-wc0141": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#9E1B12",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "▼ −0.0%"
+   }
+  }
+ },
+ "block-wc0142": {
+  "type": "ColumnsContainer",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 0,
+     "bottom": 0,
+     "left": 32,
+     "right": 32
+    },
+    "borderColor": "#E4E0D8"
+   },
+   "props": {
+    "columnsCount": 3,
+    "columnsGap": 8,
+    "contentAlignment": "middle",
+    "fixedWidths": [
+     250,
+     140,
+     110
+    ],
+    "columns": [
+     {
+      "childrenIds": [
+       "block-wc0139"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0140"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0141"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "block-wc0143": {
+  "type": "Spacer",
+  "data": {
+   "props": {
+    "height": 8
+   }
+  }
+ },
+ "block-wc0144": {
+  "type": "Heading",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "padding": {
+     "top": 8,
+     "bottom": 0,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "Largest stocks",
+    "level": "h2"
+   }
+  }
+ },
+ "block-wc0145": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#5F5B55",
+    "fontSize": 13,
+    "fontWeight": "normal",
+    "padding": {
+     "top": 4,
+     "bottom": 8,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "Prices in USD at [time, date]. Change over the last two weeks.",
+    "markdown": true
+   }
+  }
+ },
+ "block-wc0146": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#5F5B55",
+    "fontSize": 12,
+    "fontWeight": "bold",
+    "textAlign": "left",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "Asset"
+   }
+  }
+ },
+ "block-wc0147": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#5F5B55",
+    "fontSize": 12,
+    "fontWeight": "bold",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "Price"
+   }
+  }
+ },
+ "block-wc0148": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#5F5B55",
+    "fontSize": 12,
+    "fontWeight": "bold",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "2 weeks"
+   }
+  }
+ },
+ "block-wc0149": {
+  "type": "ColumnsContainer",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 0,
+     "bottom": 0,
+     "left": 32,
+     "right": 32
+    },
+    "borderColor": "#E4E0D8"
+   },
+   "props": {
+    "columnsCount": 3,
+    "columnsGap": 8,
+    "contentAlignment": "middle",
+    "fixedWidths": [
+     250,
+     140,
+     110
+    ],
+    "columns": [
+     {
+      "childrenIds": [
+       "block-wc0146"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0147"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0148"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "block-wc0150": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "bold",
+    "textAlign": "left",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "Nvidia (NVDA)"
+   }
+  }
+ },
+ "block-wc0151": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "[price]"
+   }
+  }
+ },
+ "block-wc0152": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#1E7B4A",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "▲ +0.0%"
+   }
+  }
+ },
+ "block-wc0153": {
+  "type": "ColumnsContainer",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 0,
+     "bottom": 0,
+     "left": 32,
+     "right": 32
+    },
+    "borderColor": "#E4E0D8"
+   },
+   "props": {
+    "columnsCount": 3,
+    "columnsGap": 8,
+    "contentAlignment": "middle",
+    "fixedWidths": [
+     250,
+     140,
+     110
+    ],
+    "columns": [
+     {
+      "childrenIds": [
+       "block-wc0150"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0151"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0152"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "block-wc0154": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "bold",
+    "textAlign": "left",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "Apple (AAPL)"
+   }
+  }
+ },
+ "block-wc0155": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "[price]"
+   }
+  }
+ },
+ "block-wc0156": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#1E7B4A",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "▲ +0.0%"
+   }
+  }
+ },
+ "block-wc0157": {
+  "type": "ColumnsContainer",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 0,
+     "bottom": 0,
+     "left": 32,
+     "right": 32
+    },
+    "borderColor": "#E4E0D8"
+   },
+   "props": {
+    "columnsCount": 3,
+    "columnsGap": 8,
+    "contentAlignment": "middle",
+    "fixedWidths": [
+     250,
+     140,
+     110
+    ],
+    "columns": [
+     {
+      "childrenIds": [
+       "block-wc0154"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0155"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0156"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "block-wc0158": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "bold",
+    "textAlign": "left",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "Microsoft (MSFT)"
+   }
+  }
+ },
+ "block-wc0159": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "[price]"
+   }
+  }
+ },
+ "block-wc0160": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#9E1B12",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "▼ −0.0%"
+   }
+  }
+ },
+ "block-wc0161": {
+  "type": "ColumnsContainer",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 0,
+     "bottom": 0,
+     "left": 32,
+     "right": 32
+    },
+    "borderColor": "#E4E0D8"
+   },
+   "props": {
+    "columnsCount": 3,
+    "columnsGap": 8,
+    "contentAlignment": "middle",
+    "fixedWidths": [
+     250,
+     140,
+     110
+    ],
+    "columns": [
+     {
+      "childrenIds": [
+       "block-wc0158"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0159"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0160"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "block-wc0162": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "bold",
+    "textAlign": "left",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "Alphabet (GOOGL)"
+   }
+  }
+ },
+ "block-wc0163": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "[price]"
+   }
+  }
+ },
+ "block-wc0164": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#1E7B4A",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "▲ +0.0%"
+   }
+  }
+ },
+ "block-wc0165": {
+  "type": "ColumnsContainer",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 0,
+     "bottom": 0,
+     "left": 32,
+     "right": 32
+    },
+    "borderColor": "#E4E0D8"
+   },
+   "props": {
+    "columnsCount": 3,
+    "columnsGap": 8,
+    "contentAlignment": "middle",
+    "fixedWidths": [
+     250,
+     140,
+     110
+    ],
+    "columns": [
+     {
+      "childrenIds": [
+       "block-wc0162"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0163"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0164"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "block-wc0166": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "bold",
+    "textAlign": "left",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "Amazon (AMZN)"
+   }
+  }
+ },
+ "block-wc0167": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "[price]"
+   }
+  }
+ },
+ "block-wc0168": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#1E7B4A",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "textAlign": "right",
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "text": "▲ +0.0%"
+   }
+  }
+ },
+ "block-wc0169": {
+  "type": "ColumnsContainer",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 0,
+     "bottom": 0,
+     "left": 32,
+     "right": 32
+    },
+    "borderColor": "#E4E0D8"
+   },
+   "props": {
+    "columnsCount": 3,
+    "columnsGap": 8,
+    "contentAlignment": "middle",
+    "fixedWidths": [
+     250,
+     140,
+     110
+    ],
+    "columns": [
+     {
+      "childrenIds": [
+       "block-wc0166"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0167"
+      ]
+     },
+     {
+      "childrenIds": [
+       "block-wc0168"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "block-wc0170": {
+  "type": "Spacer",
+  "data": {
+   "props": {
+    "height": 12
+   }
+  }
+ },
+ "block-wc0171": {
+  "type": "Heading",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "padding": {
+     "top": 4,
+     "bottom": 2,
+     "left": 16,
+     "right": 16
+    }
+   },
+   "props": {
+    "text": "Key events this week",
+    "level": "h3"
+   }
+  }
+ },
+ "block-wc0172": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "padding": {
+     "top": 4,
+     "bottom": 4,
+     "left": 16,
+     "right": 16
+    }
+   },
+   "props": {
+    "text": "Earnings reports, interest rate decisions, inflation and jobs data can move stocks fast. We post the dates, times and what to watch for in our Discord, so you can plan your trades around them.",
+    "markdown": true
+   }
+  }
+ },
+ "block-wc0173": {
+  "type": "Button",
+  "data": {
+   "style": {
+    "textAlign": "left",
+    "padding": {
+     "top": 8,
+     "bottom": 4,
+     "left": 16,
+     "right": 16
+    }
+   },
+   "props": {
+    "buttonBackgroundColor": "#DA291C",
+    "buttonTextColor": "#FFFFFF",
+    "buttonStyle": "pill",
+    "size": "medium",
+    "fullWidth": false,
+    "text": "See this week’s events in Discord",
+    "url": "https://discord.gg/2ApK2MSnxZ"
+   }
+  }
+ },
+ "block-wc0174": {
+  "type": "Container",
+  "data": {
+   "style": {
+    "backgroundColor": "#F5F3EF",
+    "borderRadius": 12,
+    "padding": {
+     "top": 12,
+     "bottom": 16,
+     "left": 8,
+     "right": 8
+    }
+   },
+   "props": {
+    "childrenIds": [
+     "block-wc0171",
+     "block-wc0172",
+     "block-wc0173"
+    ]
+   }
+  }
+ },
+ "block-wc0175": {
+  "type": "Container",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 24,
+     "right": 24
+    }
+   },
+   "props": {
+    "childrenIds": [
+     "block-wc0174"
+    ]
+   }
+  }
+ },
+ "block-wc0176": {
+  "type": "Heading",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "padding": {
+     "top": 24,
+     "bottom": 0,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "On the watchlist this edition",
+    "level": "h2"
+   }
+  }
+ },
+ "block-wc0177": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#DA291C",
+    "fontSize": 12,
+    "fontWeight": "bold",
+    "padding": {
+     "top": 20,
+     "bottom": 0,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "FOCUS 1"
+   }
+  }
+ },
+ "block-wc0178": {
+  "type": "Heading",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "padding": {
+     "top": 4,
+     "bottom": 2,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "[Project or topic name]",
+    "level": "h3"
+   }
+  }
+ },
+ "block-wc0179": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "padding": {
+     "top": 6,
+     "bottom": 6,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "**What it is:** [Two or three sentences explaining the project or topic in plain language.]\n\n**Why it is on our radar:** [What changed or why it matters right now.]\n\n**What we are watching:** [Key levels, structure or upcoming catalysts. ▲ bullish if …, ▼ bearish if …]\n\n**Risks:** [What could invalidate the idea.]",
+    "markdown": true
+   }
+  }
+ },
+ "block-wc0180": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#DA291C",
+    "fontSize": 12,
+    "fontWeight": "bold",
+    "padding": {
+     "top": 20,
+     "bottom": 0,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "FOCUS 2"
+   }
+  }
+ },
+ "block-wc0181": {
+  "type": "Heading",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "padding": {
+     "top": 4,
+     "bottom": 2,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "[Project or topic name]",
+    "level": "h3"
+   }
+  }
+ },
+ "block-wc0182": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "padding": {
+     "top": 6,
+     "bottom": 6,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "**What it is:** [Two or three sentences explaining the project or topic in plain language.]\n\n**Why it is on our radar:** [What changed or why it matters right now.]\n\n**What we are watching:** [Key levels, structure or upcoming catalysts. ▲ bullish if …, ▼ bearish if …]\n\n**Risks:** [What could invalidate the idea.]",
+    "markdown": true
+   }
+  }
+ },
+ "block-wc0183": {
+  "type": "Heading",
+  "data": {
+   "style": {
+    "color": "#FFFFFF",
+    "padding": {
+     "top": 4,
+     "bottom": 2,
+     "left": 16,
+     "right": 16
+    }
+   },
+   "props": {
+    "text": "Trade it together",
+    "level": "h3"
+   }
+  }
+ },
+ "block-wc0184": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#E9E6E0",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "padding": {
+     "top": 4,
+     "bottom": 4,
+     "left": 16,
+     "right": 16
+    }
+   },
+   "props": {
+    "text": "Want to discuss these stocks with likeminded traders? Join the free Winvest Capital Discord: daily setups, the SMC guides and Market Whisper AI with your member card, news, FX calendar events and the lot size calculator.",
+    "markdown": true
+   }
+  }
+ },
+ "block-wc0185": {
+  "type": "Button",
+  "data": {
+   "style": {
+    "textAlign": "left",
+    "padding": {
+     "top": 8,
+     "bottom": 4,
+     "left": 16,
+     "right": 16
+    }
+   },
+   "props": {
+    "buttonBackgroundColor": "#DA291C",
+    "buttonTextColor": "#FFFFFF",
+    "buttonStyle": "pill",
+    "size": "medium",
+    "fullWidth": false,
+    "text": "Join the Discord, free",
+    "url": "https://discord.gg/2ApK2MSnxZ"
+   }
+  }
+ },
+ "block-wc0186": {
+  "type": "Container",
+  "data": {
+   "style": {
+    "backgroundColor": "#141414",
+    "borderRadius": 12,
+    "padding": {
+     "top": 12,
+     "bottom": 16,
+     "left": 8,
+     "right": 8
+    }
+   },
+   "props": {
+    "childrenIds": [
+     "block-wc0183",
+     "block-wc0184",
+     "block-wc0185"
+    ]
+   }
+  }
+ },
+ "block-wc0187": {
+  "type": "Container",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 24,
+     "right": 24
+    }
+   },
+   "props": {
+    "childrenIds": [
+     "block-wc0186"
+    ]
+   }
+  }
+ },
+ "block-wc0188": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#DA291C",
+    "fontSize": 12,
+    "fontWeight": "bold",
+    "padding": {
+     "top": 4,
+     "bottom": 0,
+     "left": 16,
+     "right": 16
+    }
+   },
+   "props": {
+    "text": "ONE PERCENT CLUB"
+   }
+  }
+ },
+ "block-wc0189": {
+  "type": "Heading",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "padding": {
+     "top": 4,
+     "bottom": 2,
+     "left": 16,
+     "right": 16
+    }
+   },
+   "props": {
+    "text": "Go from tools to personal guidance",
+    "level": "h3"
+   }
+  }
+ },
+ "block-wc0190": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 15,
+    "fontWeight": "normal",
+    "padding": {
+     "top": 4,
+     "bottom": 4,
+     "left": 16,
+     "right": 16
+    }
+   },
+   "props": {
+    "text": "The One Percent Club adds the projects I am looking at, my time to research and analyse assets and charts with you, and the full Market Whisper AI toolkit: interactive conversations about the markets, plus market and fundamental analysis.",
+    "markdown": true
+   }
+  }
+ },
+ "block-wc0191": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#5F5B55",
+    "fontSize": 14,
+    "fontWeight": "normal",
+    "padding": {
+     "top": 2,
+     "bottom": 4,
+     "left": 16,
+     "right": 16
+    }
+   },
+   "props": {
+    "text": "**€150** one-time payment, no subscription",
+    "markdown": true
+   }
+  }
+ },
+ "block-wc0192": {
+  "type": "Button",
+  "data": {
+   "style": {
+    "textAlign": "left",
+    "padding": {
+     "top": 8,
+     "bottom": 4,
+     "left": 16,
+     "right": 16
+    }
+   },
+   "props": {
+    "buttonBackgroundColor": "#141414",
+    "buttonTextColor": "#FFFFFF",
+    "buttonStyle": "pill",
+    "size": "medium",
+    "fullWidth": false,
+    "text": "Join the One Percent Club",
+    "url": "https://go.paybotapp.com/RTTDqS3p/rCK4CxHl"
+   }
+  }
+ },
+ "block-wc0193": {
+  "type": "Container",
+  "data": {
+   "style": {
+    "backgroundColor": "#FBEAE8",
+    "borderRadius": 12,
+    "padding": {
+     "top": 12,
+     "bottom": 16,
+     "left": 8,
+     "right": 8
+    }
+   },
+   "props": {
+    "childrenIds": [
+     "block-wc0188",
+     "block-wc0189",
+     "block-wc0190",
+     "block-wc0191",
+     "block-wc0192"
+    ]
+   }
+  }
+ },
+ "block-wc0194": {
+  "type": "Container",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 8,
+     "bottom": 8,
+     "left": 24,
+     "right": 24
+    }
+   },
+   "props": {
+    "childrenIds": [
+     "block-wc0193"
+    ]
+   }
+  }
+ },
+ "block-wc0195": {
+  "type": "Divider",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 20,
+     "bottom": 20,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "lineColor": "#E4E0D8",
+    "lineHeight": 1
+   }
+  }
+ },
+ "block-wc0196": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#5F5B55",
+    "fontSize": 13,
+    "fontWeight": "normal",
+    "padding": {
+     "top": 16,
+     "bottom": 8,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "This edition shares scenarios and education, not recommendations or financial advice. Always do your own research and manage your risk.",
+    "markdown": true
+   }
+  }
+ },
+ "block-wc0197": {
+  "type": "Html",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 0,
+     "bottom": 0,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "contents": "<div style=\"padding:24px 0 0\"><div style=\"background:#141414;padding:26px 32px\">\n<p style=\"margin:0 0 6px;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:16px;font-weight:800;color:#FFFFFF\">Elevate your trades, empower your future.</p>\n<p style=\"margin:0 0 16px;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px;color:#BDB8B0\"><a href=\"https://winvestcapital.nl\" style=\"color:#FFFFFF;text-decoration:none\">Website</a> &nbsp;·&nbsp; <a href=\"https://discord.gg/2ApK2MSnxZ\" style=\"color:#FFFFFF;text-decoration:none\">Discord</a> &nbsp;·&nbsp; <a href=\"https://winvestcapital.nl/learn/\" style=\"color:#FFFFFF;text-decoration:none\">Learn</a> &nbsp;·&nbsp; <a href=\"https://winvestcapital.nl/lot-size-calculator/\" style=\"color:#FFFFFF;text-decoration:none\">Lot size calculator</a></p>\n<p style=\"margin:0 0 12px;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;line-height:1.55;color:#9A958D\">Everything Winvest Capital shares is for educational purposes only and is not financial advice. Trading stocks, crypto and FX carries a high risk of loss. Only risk what you can afford to lose.</p>\n<p style=\"margin:0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;line-height:1.55;color:#9A958D\">You receive this email because you subscribed on winvestcapital.nl. <a href=\"{{ UnsubscribeURL }}\" style=\"color:#FFFFFF;text-decoration:underline\">Unsubscribe</a></p>\n</div></div>"
+   }
+  }
+ }
+}

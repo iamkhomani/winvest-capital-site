@@ -1,0 +1,154 @@
+{
+ "root": {
+  "type": "EmailLayout",
+  "data": {
+   "backdropColor": "#F5F3EF",
+   "canvasColor": "#FFFFFF",
+   "textColor": "#141414",
+   "fontFamily": "MODERN_SANS",
+   "borderColor": "#E4E0D8",
+   "borderRadius": 12,
+   "childrenIds": [
+    "block-wc0001",
+    "block-wc0002",
+    "block-wc0003",
+    "block-wc0004",
+    "block-wc0005",
+    "block-wc0006",
+    "block-wc0007"
+   ]
+  }
+ },
+ "block-wc0001": {
+  "type": "Html",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 0,
+     "bottom": 0,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "contents": "<div style=\"padding:24px 32px 8px\">\n<table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr>\n<td><a href=\"https://winvestcapital.nl\" style=\"text-decoration:none\"><img src=\"https://winvestcapital.nl/logo.jpeg\" width=\"40\" height=\"40\" alt=\"Winvest Capital\" style=\"display:inline-block;vertical-align:middle;border-radius:999px;border:0\"><span style=\"display:inline-block;vertical-align:middle;margin-left:10px;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:18px;font-weight:800;color:#141414;letter-spacing:-0.3px\">WINVEST <span style=\"color:#DA291C;font-weight:600;letter-spacing:2px\">CAPITAL</span></span></a></td>\n<td align=\"right\" style=\"font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;color:#5F5B55\"><a href=\"{{ MessageURL }}\" style=\"color:#5F5B55;text-decoration:underline\">View in browser</a></td>\n</tr></table></div>\n<div style=\"height:4px;line-height:4px;font-size:4px;background:#DA291C;margin:12px 0 0\">&nbsp;</div>"
+   }
+  }
+ },
+ "block-wc0002": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#DA291C",
+    "fontSize": 12,
+    "fontWeight": "bold",
+    "padding": {
+     "top": 28,
+     "bottom": 0,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "WINVEST CAPITAL · [DATE]"
+   }
+  }
+ },
+ "block-wc0003": {
+  "type": "Heading",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "padding": {
+     "top": 6,
+     "bottom": 4,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "[Your headline]",
+    "level": "h1"
+   }
+  }
+ },
+ "block-wc0004": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#141414",
+    "fontSize": 16,
+    "fontWeight": "normal",
+    "padding": {
+     "top": 6,
+     "bottom": 6,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "[Write your message here. Use the + button to add headings, text, images, buttons or columns.]",
+    "markdown": true
+   }
+  }
+ },
+ "block-wc0005": {
+  "type": "Button",
+  "data": {
+   "style": {
+    "textAlign": "left",
+    "padding": {
+     "top": 12,
+     "bottom": 12,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "buttonBackgroundColor": "#DA291C",
+    "buttonTextColor": "#FFFFFF",
+    "buttonStyle": "pill",
+    "size": "medium",
+    "fullWidth": false,
+    "text": "Join the Discord, free",
+    "url": "https://discord.gg/2ApK2MSnxZ"
+   }
+  }
+ },
+ "block-wc0006": {
+  "type": "Text",
+  "data": {
+   "style": {
+    "color": "#5F5B55",
+    "fontSize": 13,
+    "fontWeight": "normal",
+    "padding": {
+     "top": 16,
+     "bottom": 8,
+     "left": 32,
+     "right": 32
+    }
+   },
+   "props": {
+    "text": "Educational content only, not financial advice.",
+    "markdown": true
+   }
+  }
+ },
+ "block-wc0007": {
+  "type": "Html",
+  "data": {
+   "style": {
+    "padding": {
+     "top": 0,
+     "bottom": 0,
+     "left": 0,
+     "right": 0
+    }
+   },
+   "props": {
+    "contents": "<div style=\"padding:24px 0 0\"><div style=\"background:#141414;padding:26px 32px\">\n<p style=\"margin:0 0 6px;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:16px;font-weight:800;color:#FFFFFF\">Elevate your trades, empower your future.</p>\n<p style=\"margin:0 0 16px;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px;color:#BDB8B0\"><a href=\"https://winvestcapital.nl\" style=\"color:#FFFFFF;text-decoration:none\">Website</a> &nbsp;·&nbsp; <a href=\"https://discord.gg/2ApK2MSnxZ\" style=\"color:#FFFFFF;text-decoration:none\">Discord</a> &nbsp;·&nbsp; <a href=\"https://winvestcapital.nl/learn/\" style=\"color:#FFFFFF;text-decoration:none\">Learn</a> &nbsp;·&nbsp; <a href=\"https://winvestcapital.nl/lot-size-calculator/\" style=\"color:#FFFFFF;text-decoration:none\">Lot size calculator</a></p>\n<p style=\"margin:0 0 12px;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;line-height:1.55;color:#9A958D\">Everything Winvest Capital shares is for educational purposes only and is not financial advice. Trading stocks, crypto and FX carries a high risk of loss. Only risk what you can afford to lose.</p>\n<p style=\"margin:0;font-family:Inter,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;line-height:1.55;color:#9A958D\">You receive this email because you subscribed on winvestcapital.nl. <a href=\"{{ UnsubscribeURL }}\" style=\"color:#FFFFFF;text-decoration:underline\">Unsubscribe</a></p>\n</div></div>"
+   }
+  }
+ }
+}
