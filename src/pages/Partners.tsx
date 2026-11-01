@@ -22,7 +22,7 @@ export const partnersCopy = {
     metaTitle: 'Partners: crypto exchanges and hardware wallets | Winvest Capital',
     description: 'The crypto exchanges and hardware wallets Winvest Capital works with. What an exchange and a hardware wallet do, and our partner links.',
     h1: 'Partners',
-    intro: 'The platforms and tools we work with. Below you can read what each category is for, so you can choose what fits you.',
+    intro: 'The platforms and tools we work with. Below you can read what each category is for, so you can choose what fits you. This page contains affiliate links (see the disclosure at the bottom).',
     disclosureH: 'Affiliate disclosure',
     disclosure:
       'These are affiliate links. If you sign up or buy through them, Winvest Capital may receive a commission. This costs you nothing extra and does not influence our content. A partner link is not a recommendation to buy, sell or trade anything.',
@@ -46,7 +46,7 @@ export const partnersCopy = {
     metaTitle: 'Partners: crypto exchanges en hardware wallets | Winvest Capital',
     description: 'De crypto exchanges en hardware wallets waar Winvest Capital mee samenwerkt. Wat een exchange en een hardware wallet doen, en onze partnerlinks.',
     h1: 'Partners',
-    intro: 'De platformen en tools waarmee we samenwerken. Hieronder lees je per categorie waar het voor is, zodat je kunt kiezen wat bij jou past.',
+    intro: 'De platformen en tools waarmee we samenwerken. Hieronder lees je per categorie waar het voor is, zodat je kunt kiezen wat bij jou past. Deze pagina bevat affiliate links (zie de melding onderaan).',
     disclosureH: 'Affiliate-melding',
     disclosure:
       'Dit zijn affiliate links. Meld je je via deze links aan of koop je iets, dan kan Winvest Capital een vergoeding ontvangen. Dat kost jou niets extra en heeft geen invloed op onze content. Een partnerlink is geen advies om iets te kopen, verkopen of traden.',
@@ -108,10 +108,6 @@ export default function Partners({ lang }: { lang: Lang }) {
         </nav>
         <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">{c.h1}</h1>
         <p className="mt-4 max-w-2xl text-lg text-white/70">{c.intro}</p>
-        <div className="mt-6 max-w-3xl rounded-xl border border-white/10 bg-white/[0.03] p-4 text-sm leading-relaxed text-white/60">
-          <span className="font-semibold text-white/85">{c.disclosureH}: </span>
-          {c.disclosure}
-        </div>
         <Group title={c.exH} text={c.exP} items={exchanges} visit={c.visit} />
         <Group title={c.walletH} text={c.walletP} items={wallets} visit={c.visit} />
         <section className="mt-12 max-w-3xl">
@@ -122,6 +118,10 @@ export default function Partners({ lang }: { lang: Lang }) {
             ))}
           </ul>
         </section>
+        <div id="disclosure" className="mt-12 max-w-3xl rounded-xl border border-white/10 bg-white/[0.03] p-4 text-sm leading-relaxed text-white/60">
+          <span className="font-semibold text-white/85">{c.disclosureH}: </span>
+          {c.disclosure}
+        </div>
         <aside className="mt-12 max-w-3xl rounded-2xl border border-[var(--wc-red)]/50 bg-gradient-to-b from-[var(--wc-red)]/15 to-white/[0.02] p-6 sm:p-8">
           <h2 className="text-xl font-bold">{c.ctaH}</h2>
           <p className="mt-2 text-white/70">{c.ctaP}</p>
