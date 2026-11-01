@@ -13,6 +13,7 @@ const nav = {
     ['Economic calendar', '/#calendar'],
     ['Learn', '/learn/'],
     ['Lot size calculator', '/lot-size-calculator/'],
+    ['Partners', '/partners/'],
   ],
   nl: [
     ['Lidmaatschap', '/nl/#membership'],
@@ -20,6 +21,7 @@ const nav = {
     ['Economische kalender', '/nl/#calendar'],
     ['Leren', '/nl/leren/'],
     ['Lotgrootte-calculator', '/nl/lotgrootte-calculator/'],
+    ['Partners', '/nl/partners/'],
   ],
 }
 
@@ -92,6 +94,11 @@ export default function Layout({ lang, alternate, children }: Props) {
             <a href={p.home} className="hover:text-white">{lang === 'nl' ? 'Home' : 'Home'}</a>
             <a href={p.learn} className="hover:text-white">{lang === 'nl' ? 'Leren' : 'Learn'}</a>
             <a href={p.calculator} className="hover:text-white">{lang === 'nl' ? 'Lotgrootte-calculator' : 'Lot size calculator'}</a>
+            <a href={p.partners} className="hover:text-white">Partners</a>
+            <button type="button" data-install-app hidden className="inline-flex items-center gap-1.5 font-semibold text-white hover:text-[var(--wc-red-soft)]">
+              <img src="/icon-192.png" alt="" width={16} height={16} className="size-4" />
+              {lang === 'nl' ? 'Installeer de app' : 'Install the app'}
+            </button>
           </nav>
           <div className="mt-6">
             <p className="text-xs font-semibold tracking-wide text-white/40 uppercase">{lang === 'nl' ? 'Volg ons' : 'Follow us'}</p>
