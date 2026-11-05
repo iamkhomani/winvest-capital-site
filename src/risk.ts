@@ -175,7 +175,7 @@ export async function analyzeToken(pairs: Pair[]): Promise<Report> {
       const safe = lp.filter((h) => yes(h.is_locked) || DEAD.test(String(h.address)) || String(h.address).toLowerCase() === address.toLowerCase()).reduce((s, h) => s + Number(h.percent || 0), 0) * 100
       if (safe < 50) add('high', 'liquidity', { en: `Only ${safe.toFixed(0)}% of liquidity locked or burned`, nl: `Maar ${safe.toFixed(0)}% van de liquidity gelockt of verbrand` }, { en: 'The rest can be withdrawn at any time (rug pull risk).', nl: 'De rest kan op elk moment worden weggehaald (rug pull-risico).' })
       else if (safe < 90) add('medium', 'liquidity', { en: `${safe.toFixed(0)}% of liquidity locked or burned`, nl: `${safe.toFixed(0)}% van de liquidity gelockt of verbrand` }, { en: 'Part of the liquidity can still be withdrawn.', nl: 'Een deel van de liquidity kan nog worden weggehaald.' })
-      else good.push({ en: `${safe.toFixed(0)}% of liquidity locked or burned`, nl: `${safe.toFixed(0)}% van de liquidity gelockt of verbrand` })
+      else good.push({ en: `${safe.toFixed(0)}% of liquidity locked, burned or held by the token contract`, nl: `${safe.toFixed(0)}% van de liquidity gelockt, verbrand of in het tokencontract` })
     }
   }
 
@@ -256,7 +256,7 @@ export async function analyzeToken(pairs: Pair[]): Promise<Report> {
   if (copyRes.status === 'fulfilled') {
     checks += 1
     const sym = p.baseToken.symbol.toLowerCase()
-    const rival = copyRes.value.find((x) => x.baseToken.symbol.toLowerCase() === sym && x.baseToken.address.toLowerCase() !== address.toLowerCase() && (x.liquidity?.usd ?? 0) > Math.max(liq * 20, 100000))
+    const rival = copyRes.value.find((x) => x.baseToken.symbol.toLowerCase() === sym && x.baseToken.address.toLowerCase() !== address.toLowerCase() && (x.liquidity?.usd ?? 0) > Math.max(liq * 20, 100000) && (x.pairCreatedAt ?? Infinity) < created)
     if (rival) add('high', 'scam', { en: `Possible copycat of ${rival.baseToken.name}`, nl: `Mogelijke kopie van ${rival.baseToken.name}` }, { en: `A much larger ${rival.baseToken.symbol} exists at ${short(rival.baseToken.address)} (${rival.chainId}). Check you have the right contract.`, nl: `Er bestaat een veel grotere ${rival.baseToken.symbol} op ${short(rival.baseToken.address)} (${rival.chainId}). Controleer of je het juiste contract hebt.` })
   }
 
