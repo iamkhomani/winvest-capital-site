@@ -9,7 +9,7 @@ const en = {
   noAccount: 'Create your first trading account to start. You can add several accounts: live and demo, different brokers and currencies.',
   createAccount: 'Create account',
   kpi: {
-    balance: 'Balance', equity: 'Equity', floating: 'Floating P/L', netDeposits: 'Net deposits', realised: 'Realised P/L', today: 'Today', week: 'This week', month: 'This month', year: 'This year',
+    balance: 'Balance', equity: 'Equity', floating: 'Floating P/L', netDeposits: 'Capital in (start + net deposits)', realised: 'Realised P/L', today: 'Today', week: 'This week', month: 'This month', year: 'This year',
     winRate: 'Win rate', pf: 'Profit factor', avgR: 'Avg. result (R)', avgRR: 'Avg. planned R:R', total: 'Total trades', avgWin: 'Avg. winning trade', avgLoss: 'Avg. losing trade', expectancy: 'Expectancy per trade', maxDd: 'Max drawdown', open: 'open', wl: 'W / L / BE',
     balanceNote: 'Balance only changes with closed trades and deposits/withdrawals. Equity also includes open positions.',
     floatingUnknown: 'Floating P/L is incomplete: set a current price for open trades or fetch live prices.',
@@ -104,7 +104,7 @@ const nl: Copy = {
   createAccount: 'Account aanmaken',
   kpi: {
     ...en.kpi,
-    balance: 'Balance', equity: 'Equity', floating: 'Open W/V', netDeposits: 'Netto stortingen', realised: 'Gerealiseerde W/V', today: 'Vandaag', week: 'Deze week', month: 'Deze maand', year: 'Dit jaar',
+    balance: 'Balance', equity: 'Equity', floating: 'Open W/V', netDeposits: 'Ingelegd (start + netto stortingen)', realised: 'Gerealiseerde W/V', today: 'Vandaag', week: 'Deze week', month: 'Deze maand', year: 'Dit jaar',
     winRate: 'Win rate', pf: 'Profit factor', avgR: 'Gem. resultaat (R)', avgRR: 'Gem. geplande R:R', total: 'Totaal trades', avgWin: 'Gem. winnende trade', avgLoss: 'Gem. verliezende trade', expectancy: 'Verwachting per trade', maxDd: 'Max drawdown', open: 'open', wl: 'W / V / BE',
     balanceNote: 'De balance verandert alleen door gesloten trades en stortingen/opnames. Equity telt ook open posities mee.',
     floatingUnknown: 'Open W/V is onvolledig: vul een actuele prijs in bij open trades of haal live prijzen op.',
