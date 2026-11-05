@@ -7,7 +7,7 @@
 //   GET  /stock/chart/<symbol>    -> Yahoo Finance daily chart (?range=5d|1mo|1y|2y), for the portfolio tracker
 //   GET  /stock/search?q=<text>   -> Yahoo Finance symbol search
 
-const ALLOWED_ORIGINS = ['https://winvestcapital.nl', 'https://www.winvestcapital.nl', 'http://localhost:5173']
+const ALLOWED_ORIGINS = ['https://winvestcapital.nl', 'https://www.winvestcapital.nl', 'http://localhost:5173', 'http://localhost:3000']
 // Several public XDC nodes: the first one that answers is used.
 const RPC = { xdc: ['https://rpc.xinfin.network', 'https://earpc.xinfin.network', 'https://rpc.ankr.com/xdc', 'https://xdc.public-rpc.com', 'https://erpc.xdcrpc.com'] }
 const RPC_METHODS = new Set([
@@ -27,6 +27,8 @@ function json(data, status, origin) {
 export default {
   async fetch(request, env, ctx) {
     const origin = request.headers.get('Origin') || ''
+    // Browsers on other websites may not use this proxy (requests without an Origin header, e.g. from scripts, are still possible).
+    if (origin && !ALLOWED_ORIGINS.includes(origin)) return new Response('forbidden', { status: 403 })
     if (request.method === 'OPTIONS') return new Response(null, { headers: cors(origin) })
     const url = new URL(request.url)
 

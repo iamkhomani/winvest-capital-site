@@ -5,6 +5,7 @@ import { CHAINS, EVM_CHAINS, btcAddress, detect, evmAddress, evmTx, hash64, sear
 import type { ChainId, Flag, Pair, Result } from '../defi'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
+import { safeUrl } from '../safeUrl'
 
 export const scannerCopy = {
   en: {
@@ -152,7 +153,7 @@ function PairList({ pairs, c, onPick }: { pairs: Pair[]; c: C; onPick: (p: Pair)
           <li key={p.chainId + p.pairAddress}>
             <button type="button" onClick={() => onPick(p)} className="grid w-full grid-cols-[1fr_auto] gap-x-4 gap-y-1 bg-white/[0.02] px-4 py-3 text-left transition hover:bg-white/[0.06] sm:grid-cols-[minmax(0,1.6fr)_repeat(4,minmax(0,1fr))] sm:items-center">
               <span className="flex min-w-0 items-center gap-3">
-                {p.info?.imageUrl ? <img src={p.info.imageUrl} alt="" width={28} height={28} loading="lazy" className="size-7 shrink-0 rounded-full bg-white/10" /> : <span className="size-7 shrink-0 rounded-full bg-white/10" />}
+                {safeUrl(p.info?.imageUrl) ? <img src={safeUrl(p.info?.imageUrl)} alt="" width={28} height={28} loading="lazy" className="size-7 shrink-0 rounded-full bg-white/10" /> : <span className="size-7 shrink-0 rounded-full bg-white/10" />}
                 <span className="min-w-0">
                   <span className="block truncate font-semibold">{p.baseToken.symbol} <span className="font-normal text-white/45">/ {p.quoteToken.symbol}</span></span>
                   <span className="block truncate text-xs text-white/45">{p.baseToken.name} · {chainName(p.chainId)} · {p.dexId}</span>
@@ -186,7 +187,7 @@ function Token({ pairs, flags, c, lang }: { pairs: Pair[]; flags: Flag[] | null;
   return (
     <div>
       <div className="flex items-center gap-4">
-        {p.info?.imageUrl ? <img src={p.info.imageUrl} alt="" width={48} height={48} className="size-12 rounded-full bg-white/10" /> : null}
+        {safeUrl(p.info?.imageUrl) ? <img src={safeUrl(p.info?.imageUrl)} alt="" width={48} height={48} className="size-12 rounded-full bg-white/10" /> : null}
         <div className="min-w-0">
           <h2 className="truncate text-2xl font-bold">{p.baseToken.name} <span className="text-white/50">({p.baseToken.symbol})</span></h2>
           <p className="truncate text-sm text-white/50">{chainName(p.chainId)} · {p.baseToken.address}</p>
@@ -203,10 +204,10 @@ function Token({ pairs, flags, c, lang }: { pairs: Pair[]; flags: Flag[] | null;
         <Stat label={c.age}>{age(p.pairCreatedAt)}</Stat>
       </div>
       <div className="mt-4 flex flex-wrap gap-2 text-sm">
-        <a href={p.url} target="_blank" rel="noopener" className="rounded-full border border-white/15 px-3 py-1.5 hover:border-[var(--wc-red)]">DexScreener ↗</a>
+        <a href={safeUrl(p.url)} target="_blank" rel="noopener noreferrer" className="rounded-full border border-white/15 px-3 py-1.5 hover:border-[var(--wc-red)]">DexScreener ↗</a>
         {explorer ? <a href={`${explorer}/token/${p.baseToken.address}`} target="_blank" rel="noopener" className="rounded-full border border-white/15 px-3 py-1.5 hover:border-[var(--wc-red)]">Explorer ↗</a> : null}
-        {(p.info?.websites || []).slice(0, 2).map((w) => <a key={w.url} href={w.url} target="_blank" rel="noopener nofollow" className="rounded-full border border-white/15 px-3 py-1.5 hover:border-[var(--wc-red)]">Website ↗</a>)}
-        {(p.info?.socials || []).slice(0, 3).map((s) => <a key={s.url} href={s.url} target="_blank" rel="noopener nofollow" className="rounded-full border border-white/15 px-3 py-1.5 capitalize hover:border-[var(--wc-red)]">{s.type} ↗</a>)}
+        {(p.info?.websites || []).filter((w) => safeUrl(w.url)).slice(0, 2).map((w) => <a key={w.url} href={safeUrl(w.url)} target="_blank" rel="noopener noreferrer nofollow ugc" className="rounded-full border border-white/15 px-3 py-1.5 hover:border-[var(--wc-red)]">Website ↗</a>)}
+        {(p.info?.socials || []).filter((s) => safeUrl(s.url)).slice(0, 3).map((s) => <a key={s.url} href={safeUrl(s.url)} target="_blank" rel="noopener noreferrer nofollow ugc" className="rounded-full border border-white/15 px-3 py-1.5 capitalize hover:border-[var(--wc-red)]">{s.type} ↗</a>)}
       </div>
 
       <section className="mt-8">
@@ -236,7 +237,7 @@ function Token({ pairs, flags, c, lang }: { pairs: Pair[]; flags: Flag[] | null;
               <li key={x.pairAddress} className="flex items-center justify-between gap-3 px-4 py-2.5">
                 <span className="min-w-0 truncate">{x.baseToken.symbol}/{x.quoteToken.symbol} <span className="text-white/45">· {x.dexId}</span></span>
                 <span className="shrink-0 text-white/70">{c.liq} {usd(x.liquidity?.usd)}</span>
-                <a href={x.url} target="_blank" rel="noopener" className="shrink-0 text-[var(--wc-red-soft)] hover:underline">{c.open} ↗</a>
+                <a href={safeUrl(x.url)} target="_blank" rel="noopener noreferrer" className="shrink-0 text-[var(--wc-red-soft)] hover:underline">{c.open} ↗</a>
               </li>
             ))}
           </ul>
