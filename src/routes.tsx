@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react'
 import Layout from './components/Layout'
 import { PRICE, SITE_URL, SOCIALS } from './config'
-import { articles, PUBLISHED } from './content/articles'
+import { articles, NEW_IDS, PUBLISHED, UPDATED } from './content/articles'
 import { legal } from './content/legal'
 import type { Meta } from './head'
 import type { Lang } from './i18n'
@@ -194,8 +194,8 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
           headline: c.title,
           description: c.description,
           inLanguage: lang,
-          datePublished: PUBLISHED,
-          dateModified: PUBLISHED,
+          datePublished: NEW_IDS.includes(a.id) ? UPDATED : PUBLISHED,
+          dateModified: UPDATED,
           mainEntityOfPage: url(c.path),
           image: url('/logo.jpeg'),
           author: { '@type': 'Organization', name: 'Winvest Capital', url: SITE_URL + '/' },

@@ -4,9 +4,31 @@ import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import { homeCopy } from './Home'
 
-// Screenshots of Market Whisper in Discord. Add files to public/market-whisper/ and list them here;
-// the "See it in action" section only shows when this list is not empty.
-const EXAMPLES: { src: string; alt: { en: string; nl: string } }[] = []
+type Shot = { src: string; w: number; h: number; alt: { en: string; nl: string } }
+type Showcase = { id: string; tier: 'free' | 'paid' | null; shots: Shot[] }
+
+// Real screenshots from the Winvest Capital Discord (public/market-whisper/). Text per item lives in whisperCopy.show.
+const SHOWCASE: Showcase[] = [
+  { id: 'ai', tier: 'paid', shots: [{ src: '/market-whisper/ai-analysis.webp', w: 1337, h: 794, alt: { en: 'Market Whisper AI answering a member’s question on whether Bitcoin is preparing for a breakout or a correction, with timeframe bias, key levels and scenarios', nl: 'Market Whisper AI beantwoordt de vraag van een lid of Bitcoin een uitbraak of correctie voorbereidt, met timeframe-bias, belangrijke niveaus en scenario’s' } }] },
+  {
+    id: 'recap',
+    tier: null,
+    shots: [
+      { src: '/market-whisper/crypto-radar.webp', w: 1080, h: 1768, alt: { en: 'Crypto Radar weekly recap card with the weekly performance of Bitcoin, Ethereum, Solana, XRP and BNB and the key events of the week', nl: 'Crypto Radar weekoverzicht met de weekprestaties van Bitcoin, Ethereum, Solana, XRP en BNB en de belangrijkste gebeurtenissen' } },
+      { src: '/market-whisper/stock-watch.webp', w: 1080, h: 2024, alt: { en: 'Stock Watch weekly recap card with the weekly performance of major US indices and large tech stocks, key events and what to watch next week', nl: 'Stock Watch weekoverzicht met de weekprestaties van de belangrijkste Amerikaanse indices en grote techaandelen, belangrijke gebeurtenissen en wat je volgende week in de gaten houdt' } },
+    ],
+  },
+  {
+    id: 'news',
+    tier: 'free',
+    shots: [
+      { src: '/market-whisper/news-crypto.webp', w: 800, h: 1359, alt: { en: 'Crypto news posted by Market Whisper in Discord, with headline, summary and source', nl: 'Cryptonieuws dat Market Whisper in Discord plaatst, met kop, samenvatting en bron' } },
+      { src: '/market-whisper/news-stocks.webp', w: 800, h: 711, alt: { en: 'Stock market news posted by Market Whisper in Discord, with headline, summary and source', nl: 'Beursnieuws dat Market Whisper in Discord plaatst, met kop, samenvatting en bron' } },
+    ],
+  },
+  { id: 'fx', tier: 'free', shots: [{ src: '/market-whisper/fx-calendar.webp', w: 900, h: 508, alt: { en: 'FX News Alert from Market Whisper: an economic calendar event with time, currency, forecast and previous value', nl: 'FX News Alert van Market Whisper: een event uit de economische kalender met tijd, valuta, verwachting en vorige waarde' } }] },
+  { id: 'card', tier: 'free', shots: [{ src: '/market-whisper/member-card.webp', w: 1000, h: 629, alt: { en: 'Winvest Capital member card created with the trading-profile command, showing trading style, market, direction, leverage, minimum risk-to-reward and timeframes', nl: 'Winvest Capital member card gemaakt met het trading-profile-commando, met tradingstijl, markt, richting, leverage, minimale risk-to-reward en timeframes' } }] },
+]
 
 export const whisperCopy = {
   en: {
@@ -25,11 +47,22 @@ export const whisperCopy = {
     ] as [string, string][],
     featH: 'What Market Whisper AI does',
     examplesH: 'See it in action',
+    examplesP: 'Real screenshots from the Winvest Capital Discord.',
+    free: 'Free',
+    paid: 'One Percent Club',
+    show: {
+      ai: ['Ask it anything about the markets', 'Mention @Market Whisper with your question and get a structured answer: the current market structure, the bias per timeframe, the key levels to watch and what would confirm or invalidate each scenario. Ask follow-up questions in the same conversation. Use it as a second opinion and a starting point for your own analysis, not as a signal.'],
+      recap: ['Weekly recaps for crypto and stocks', 'Every week Market Whisper sums up the markets in two cards. Crypto Radar covers the major coins, Stock Watch the main US indices and large tech stocks. Each card shows the weekly performance, the key events with their sources and what to watch in the week ahead, so you are up to speed in a minute.'],
+      news: ['News as it happens', 'Headlines from established financial and crypto news sources are posted in dedicated channels with a short summary and the source, so you can follow the news without leaving Discord and open the full article when something matters to you.'],
+      fx: ['FX calendar alerts', 'Market Whisper posts the medium and high impact events from the economic calendar for the day, shown in your local time, with the forecast and previous value. Know when volatility can hit before you open or hold a trade.'],
+      card: ['Your member card', 'Set up your trading profile once and use /trading-profile view to show your official Winvest Capital member card: your trading style, markets, direction, leverage, minimum risk-to-reward and timeframes. A quick way to see how other members trade.'],
+    } as Record<string, [string, string]>,
     faqH: 'Questions',
     faqs: [
       ['Is Market Whisper AI financial advice?', 'No. Everything it shares is for educational purposes. Use it as a starting point for your own research, not as a buy or sell signal.'],
       ['Can the AI make mistakes?', 'Yes. Like any AI it can be wrong or miss context. Always check important information and make your own decisions.'],
       ['Which markets does it cover?', 'Crypto, stocks and FX. The FX calendar events focus on the data that moves currency pairs.'],
+      ['Where does the news come from?', 'From established financial and crypto news outlets. Every post shows its source, so you can always open and check the original article.'],
       ['How do I get the One Percent Club features?', `Pay ${PRICE} once through Stripe. Your One Percent Club role is added to your Discord account automatically and the extra features unlock right away. No subscription.`],
     ] as [string, string][],
     endH: 'Start with the free tools today',
@@ -52,11 +85,22 @@ export const whisperCopy = {
     ] as [string, string][],
     featH: 'Wat Market Whisper AI doet',
     examplesH: 'Zo ziet het eruit',
+    examplesP: 'Echte screenshots uit de Winvest Capital Discord.',
+    free: 'Gratis',
+    paid: 'One Percent Club',
+    show: {
+      ai: ['Vraag hem alles over de markten', 'Noem @Market Whisper met je vraag en krijg een gestructureerd antwoord: de huidige marktstructuur, de bias per timeframe, de niveaus om in de gaten te houden en wat elk scenario bevestigt of ongeldig maakt. Stel vervolgvragen in hetzelfde gesprek. Gebruik het als second opinion en startpunt voor je eigen analyse, niet als signaal.'],
+      recap: ['Weekoverzichten voor crypto en aandelen', 'Elke week vat Market Whisper de markten samen in twee kaarten. Crypto Radar behandelt de grote coins, Stock Watch de belangrijkste Amerikaanse indices en grote techaandelen. Elke kaart toont de weekprestaties, de belangrijkste gebeurtenissen met bronnen en waar je de komende week op let, zodat je in een minuut bij bent.'],
+      news: ['Nieuws zodra het gebeurt', 'Koppen van gevestigde financiële en cryptonieuwsbronnen verschijnen in eigen kanalen, met een korte samenvatting en de bron. Zo volg je het nieuws zonder Discord te verlaten en open je het volledige artikel als iets voor jou belangrijk is.'],
+      fx: ['FX-kalenderalerts', 'Market Whisper plaatst de events met gemiddelde en hoge impact uit de economische kalender van die dag, in jouw lokale tijd, met de verwachting en de vorige waarde. Zo weet je wanneer er volatiliteit kan komen voordat je een trade opent of aanhoudt.'],
+      card: ['Je member card', 'Stel je tradingprofiel één keer in en laat met /trading-profile view je officiële Winvest Capital member card zien: je tradingstijl, markten, richting, leverage, minimale risk-to-reward en timeframes. Zo zie je snel hoe andere leden traden.'],
+    } as Record<string, [string, string]>,
     faqH: 'Vragen',
     faqs: [
       ['Is Market Whisper AI financieel advies?', 'Nee. Alles wat hij deelt is educatief. Gebruik het als startpunt voor je eigen onderzoek, niet als koop- of verkoopsignaal.'],
       ['Kan de AI fouten maken?', 'Ja. Zoals elke AI kan hij het mis hebben of context missen. Controleer belangrijke informatie altijd en neem je eigen beslissingen.'],
       ['Welke markten behandelt hij?', 'Crypto, aandelen en FX. De FX-kalenderevents richten zich op de cijfers die valutaparen bewegen.'],
+      ['Waar komt het nieuws vandaan?', 'Van gevestigde financiële en cryptonieuwsmedia. Bij elk bericht staat de bron, zodat je het originele artikel altijd kunt openen en controleren.'],
       ['Hoe krijg ik de functies van de One Percent Club?', `Betaal eenmalig ${PRICE} via Stripe. Je One Percent Club-rol wordt automatisch aan je Discord-account toegevoegd en de extra functies zijn direct beschikbaar. Geen abonnement.`],
     ] as [string, string][],
     endH: 'Begin vandaag met de gratis tools',
@@ -137,18 +181,35 @@ export default function MarketWhisper({ lang }: { lang: Lang }) {
         </div>
       </section>
 
-      {EXAMPLES.length ? (
-        <section className="border-t border-white/10 bg-[var(--wc-ink)]">
-          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-            <h2 className="text-3xl font-bold tracking-tight">{c.examplesH}</h2>
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
-              {EXAMPLES.map((e) => (
-                <img key={e.src} src={e.src} alt={e.alt[lang]} loading="lazy" className="w-full rounded-2xl border border-white/10" />
-              ))}
-            </div>
+      <section className="border-t border-white/10 bg-[var(--wc-ink)]">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <h2 className="text-3xl font-bold tracking-tight">{c.examplesH}</h2>
+          <p className="mt-2 text-white/60">{c.examplesP}</p>
+          <div className="mt-10 space-y-16">
+            {SHOWCASE.map((item, i) => {
+              const [t, d] = c.show[item.id]
+              const wide = item.shots.length > 1 || item.id === 'ai'
+              return (
+                <article key={item.id} className={wide ? 'grid gap-8' : `grid items-center gap-8 md:grid-cols-2 ${i % 2 ? 'md:[&>div:first-child]:order-2' : ''}`}>
+                  <div className={wide ? 'max-w-3xl' : ''}>
+                    {item.tier ? (
+                      <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${item.tier === 'paid' ? 'bg-[var(--wc-red)] text-white' : 'border border-white/20 text-white/70'}`}>{item.tier === 'paid' ? c.paid : c.free}</span>
+                    ) : null}
+                    <h3 className="mt-3 text-2xl font-bold tracking-tight">{t}</h3>
+                    <p className="mt-3 leading-relaxed text-white/70">{d}</p>
+                  </div>
+                  <div className={item.shots.length > 1 ? 'grid items-start gap-6 sm:grid-cols-2' : ''}>
+                    {item.shots.map((sh) => (
+                      <img key={sh.src} src={sh.src} alt={sh.alt[lang]} width={sh.w} height={sh.h} loading="lazy" decoding="async" className="h-auto w-full rounded-2xl border border-white/10 shadow-2xl" />
+                    ))}
+                  </div>
+                </article>
+              )
+            })}
           </div>
-        </section>
-      ) : null}
+          <p className="mt-10 text-xs text-white/40">{c.note}</p>
+        </div>
+      </section>
 
       <section className="border-t border-white/10">
         <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">

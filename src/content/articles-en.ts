@@ -343,7 +343,7 @@ export const en: Record<string, ArticleContent> = {
     description:
       'Step-by-step guide to risk management: the 1% rule, risk-to-reward ratio and how to calculate lot size in forex and position size in stocks and crypto, with worked examples.',
     intro:
-      'Good analysis is useless without good risk management. The most important decision on every trade is not where you enter, but how much you risk if you are wrong. Position sizing turns that decision into a concrete number.',
+      'This lesson brings the previous ones together. Good analysis is useless without good risk management. The most important decision on every trade is not where you enter, but how much you risk if you are wrong. Position sizing turns that decision into a concrete number.',
     sections: [
       {
         h: 'Step 1: decide your risk per trade',
@@ -362,8 +362,8 @@ export const en: Record<string, ArticleContent> = {
         p: ['The general formula is: position size = risk amount ÷ (stop loss distance × value per unit of movement).'],
         ul: [
           'Stocks and crypto: position size = risk amount ÷ (entry price − stop price). Example: €100 risk, buy Bitcoin at 60,000 with a stop at 59,000. Size = 100 ÷ 1,000 = 0.1 BTC (ignoring fees and currency conversion).',
-          'Forex: lot size = risk amount ÷ (stop loss in pips × pip value per standard lot). For EUR/USD one standard lot (100,000 units) is worth $10 per pip. Example: $100 risk and a 20-pip stop. Lot size = 100 ÷ (20 × 10) = 0.5 lots.',
-          'Remember that pip values differ per pair and depend on your account currency. Gold and indices use their own contract sizes, so check your broker’s specifications.',
+          'Forex: lot size = risk amount ÷ (stop loss in pips × pip value per standard lot). Example for EUR/USD, where one standard lot is worth $10 per pip (see the lesson on lots and pips): $100 risk and a 20-pip stop. Lot size = 100 ÷ (20 × 10) = 0.5 lots.',
+          'Then check the required margin (see the lesson on margin). If it is more than your free margin, the position is too large for your account and you need a smaller risk per trade.',
         ],
       },
       {
@@ -390,7 +390,7 @@ export const en: Record<string, ArticleContent> = {
     ],
     faq: [
       ['What is the 1% rule in trading?', 'Risking no more than 1% of your account on a single trade, so one loss never does serious damage.'],
-      ['How much is one pip worth?', 'For pairs quoted in USD, such as EUR/USD, one standard lot is worth $10 per pip, a mini lot $1 and a micro lot $0.10. Other pairs differ.'],
+      ['Does leverage change how much I risk?', 'No. Your risk is set by position size and stop distance. Leverage only decides how much margin the position ties up.'],
       ['What is a good risk-to-reward ratio?', 'Many traders aim for at least 1:2, meaning the potential profit is at least twice the potential loss.'],
     ],
   },

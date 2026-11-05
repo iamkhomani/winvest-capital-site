@@ -341,7 +341,7 @@ export const nl: Record<string, ArticleContent> = {
     description:
       'Stappenplan voor risicobeheer: de 1%-regel, risico-rendementsverhouding en hoe je je lotgrootte bij forex en positiegrootte bij aandelen en crypto berekent, met rekenvoorbeelden.',
     intro:
-      'Goede analyse is waardeloos zonder goed risicobeheer. De belangrijkste beslissing bij elke trade is niet waar je instapt, maar hoeveel je riskeert als je ongelijk hebt. Met positiegrootte maak je van die beslissing een concreet getal.',
+      'Deze les brengt de vorige lessen samen. Goede analyse is waardeloos zonder goed risicobeheer. De belangrijkste beslissing bij elke trade is niet waar je instapt, maar hoeveel je riskeert als je ongelijk hebt. Met positiegrootte maak je van die beslissing een concreet getal.',
     sections: [
       {
         h: 'Stap 1: bepaal je risico per trade',
@@ -360,8 +360,8 @@ export const nl: Record<string, ArticleContent> = {
         p: ['De algemene formule is: positiegrootte = risicobedrag ÷ (afstand tot stop-loss × waarde per eenheid koersbeweging).'],
         ul: [
           'Aandelen en crypto: positiegrootte = risicobedrag ÷ (instapprijs − stopprijs). Voorbeeld: €100 risico, Bitcoin kopen op 60.000 met een stop op 59.000. Positie = 100 ÷ 1.000 = 0,1 BTC (zonder kosten en valutaomrekening).',
-          'Forex: lotgrootte = risicobedrag ÷ (stop-loss in pips × pipwaarde per standaard lot). Bij EUR/USD is één standaard lot (100.000 eenheden) $10 per pip waard. Voorbeeld: $100 risico en een stop van 20 pips. Lotgrootte = 100 ÷ (20 × 10) = 0,5 lot.',
-          'Let op: pipwaarden verschillen per valutapaar en hangen af van de valuta van je account. Goud en indices hebben eigen contractgroottes, dus check de specificaties van je broker.',
+          'Forex: lotgrootte = risicobedrag ÷ (stop-loss in pips × pipwaarde per standaard lot). Voorbeeld voor EUR/USD, waar één standaard lot $10 per pip waard is (zie de les over lots en pips): $100 risico en een stop van 20 pips. Lotgrootte = 100 ÷ (20 × 10) = 0,5 lot.',
+          'Check daarna de benodigde margin (zie de les over margin). Is die groter dan je free margin, dan is de positie te groot voor je account en heb je een kleiner risico nodig.',
         ],
       },
       {
@@ -388,7 +388,7 @@ export const nl: Record<string, ArticleContent> = {
     ],
     faq: [
       ['Wat is de 1%-regel bij trading?', 'Niet meer dan 1% van je account riskeren op één trade, zodat één verlies nooit grote schade doet.'],
-      ['Hoeveel is één pip waard?', 'Bij paren met de USD als tweede valuta, zoals EUR/USD, is één standaard lot $10 per pip waard, een mini lot $1 en een micro lot $0,10. Bij andere paren verschilt dat.'],
+      ['Verandert leverage hoeveel ik riskeer?', 'Nee. Je risico wordt bepaald door positiegrootte en stopafstand. Leverage bepaalt alleen hoeveel margin de positie vastzet.'],
       ['Wat is een goede risico-rendementsverhouding?', 'Veel traders mikken op minstens 1:2: de mogelijke winst is dan minstens twee keer zo groot als het mogelijke verlies.'],
     ],
   },
