@@ -12,7 +12,7 @@ const SHOWCASE: Showcase[] = [
   { id: 'ai', tier: 'paid', shots: [{ src: '/market-whisper/ai-analysis.webp', w: 1337, h: 794, alt: { en: 'Market Whisper AI answering a member’s question on whether Bitcoin is preparing for a breakout or a correction, with timeframe bias, key levels and scenarios', nl: 'Market Whisper AI beantwoordt de vraag van een lid of Bitcoin een uitbraak of correctie voorbereidt, met timeframe-bias, belangrijke niveaus en scenario’s' } }] },
   {
     id: 'recap',
-    tier: null,
+    tier: 'free',
     shots: [
       { src: '/market-whisper/crypto-radar.webp', w: 1080, h: 1768, alt: { en: 'Crypto Radar weekly recap card with the weekly performance of Bitcoin, Ethereum, Solana, XRP and BNB and the key events of the week', nl: 'Crypto Radar weekoverzicht met de weekprestaties van Bitcoin, Ethereum, Solana, XRP en BNB en de belangrijkste gebeurtenissen' } },
       { src: '/market-whisper/stock-watch.webp', w: 1080, h: 2024, alt: { en: 'Stock Watch weekly recap card with the weekly performance of major US indices and large tech stocks, key events and what to watch next week', nl: 'Stock Watch weekoverzicht met de weekprestaties van de belangrijkste Amerikaanse indices en grote techaandelen, belangrijke gebeurtenissen en wat je volgende week in de gaten houdt' } },
