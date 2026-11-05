@@ -384,13 +384,18 @@ export default function Portfolio({ lang }: { lang: Lang }) {
       for (const k of heldKeys) {
         const a = data.assets[k]
         if (!a) continue
-        try {
-          const h = await fetchHistory(a, data.base)
-          if (!alive) return
-          setHist((prev) => ({ ...prev, [k]: h }))
-        } catch {
-          /* no history for this asset */
+        // CoinGecko's free API is rate limited: retry a couple of times with a pause
+        for (let attempt = 0; attempt < 3 && alive; attempt++) {
+          try {
+            const h = await fetchHistory(a, data.base)
+            if (!alive) return
+            setHist((prev) => ({ ...prev, [k]: h }))
+            break
+          } catch {
+            await new Promise((r) => setTimeout(r, 15000 * (attempt + 1)))
+          }
         }
+        await new Promise((r) => setTimeout(r, 1200))
       }
     })()
     return () => { alive = false }
