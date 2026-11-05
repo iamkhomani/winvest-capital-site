@@ -12,6 +12,7 @@ const nav = {
   en: [
     ['Home', '/'],
     ['Markets', '/markets/'],
+    ['Portfolio tracker', '/portfolio/'],
     ['DeFi scanner', '/defi-scanner/'],
     ['Lot size calculator', '/lot-size-calculator/'],
     ['Learn', '/learn/'],
@@ -23,6 +24,7 @@ const nav = {
   nl: [
     ['Home', '/nl/'],
     ['Markten', '/nl/markten/'],
+    ['Portfolio tracker', '/nl/portfolio/'],
     ['DeFi-scanner', '/nl/defi-scanner/'],
     ['Lotgrootte-calculator', '/nl/lotgrootte-calculator/'],
     ['Leren', '/nl/leren/'],
