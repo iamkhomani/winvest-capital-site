@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import type { FormEvent, ReactNode } from 'react'
 import { DISCORD_URL } from '../config'
-import { CHAINS, EVM_CHAINS, btcAddress, detect, evmAddress, evmTx, hash64, searchPairs, security, solanaAddress, solanaTx, tokenPairs, xrplAddress } from '../defi'
-import type { ChainId, Flag, Pair, Result } from '../defi'
+import { CHAINS, EVM_CHAINS, btcAddress, detect, evmAddress, evmTx, hash64, searchPairs, solanaAddress, solanaTx, tokenPairs, xrplAddress } from '../defi'
+import type { ChainId, Pair, Result } from '../defi'
+import { analyzeToken } from '../risk'
+import type { Cat, Grade, Report, Sev } from '../risk'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import { safeUrl } from '../safeUrl'
@@ -10,7 +12,7 @@ import { safeUrl } from '../safeUrl'
 export const scannerCopy = {
   en: {
     metaTitle: 'DeFi scanner: tokens, smart contracts and wallets | Winvest Capital',
-    description: 'Free DeFi scanner. Search a token, smart contract, wallet or transaction on Ethereum, Solana, XRP Ledger, Bitcoin, XDC, BNB Chain, Base and more. Live price, liquidity and a token security check.',
+    description: 'Free DeFi scanner. Search a token, smart contract, wallet or transaction on Ethereum, Solana, XRP Ledger, Bitcoin, XDC, BNB Chain, Base and more. Live price, liquidity and automated scam detection, contract checks and a risk score.',
     h1: 'DeFi scanner',
     intro: 'Search a token by name or ticker, or paste a contract address, wallet address or transaction hash. We fetch live data straight from the blockchains and DEXs.',
     placeholder: 'Token name, ticker, contract, wallet or tx hash',
@@ -39,7 +41,7 @@ export const scannerCopy = {
   },
   nl: {
     metaTitle: 'DeFi-scanner: tokens, smart contracts en wallets | Winvest Capital',
-    description: 'Gratis DeFi-scanner. Zoek een token, smart contract, wallet of transactie op Ethereum, Solana, XRP Ledger, Bitcoin, XDC, BNB Chain, Base en meer. Live prijs, liquidity en een security check.',
+    description: 'Gratis DeFi-scanner. Zoek een token, smart contract, wallet of transactie op Ethereum, Solana, XRP Ledger, Bitcoin, XDC, BNB Chain, Base en meer. Live prijs, liquidity en automatische scamdetectie, contractchecks en een risicoscore.',
     h1: 'DeFi-scanner',
     intro: 'Zoek een token op naam of ticker, of plak een contractadres, walletadres of transactie-hash. We halen live data direct op van de blockchains en DEX’en.',
     placeholder: 'Tokennaam, ticker, contract, wallet of tx-hash',
@@ -76,7 +78,7 @@ type View =
   | { s: 'empty' }
   | { s: 'xdc-off' }
   | { s: 'pairs'; pairs: Pair[] }
-  | { s: 'token'; pairs: Pair[]; flags: Flag[] | null; from?: Pair[] }
+  | { s: 'token'; pairs: Pair[]; from?: Pair[] }
   | { s: 'results'; results: Result[] }
 
 const EXAMPLES = ['PEPE', 'XDC', '0x6982508145454Ce325dDbE47a25d4ec3d2311933', 'rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh']
@@ -110,14 +112,14 @@ async function run(input: string): Promise<View> {
     }
     case 'evm-address': {
       const pairs = await tokenPairs(q.address).catch(() => [])
-      if (pairs.length) return { s: 'token', pairs, flags: await security(pairs[0].chainId, q.address).catch(() => null) }
+      if (pairs.length) return { s: 'token', pairs }
       if (q.xdcPrefix && !CHAINS.xdc.rpc) return { s: 'xdc-off' }
       const res = await evmAddress(q.address, q.xdcPrefix ? ['xdc'] : EVM_CHAINS)
       return res.length ? { s: 'results', results: res } : { s: 'empty' }
     }
     case 'solana-address': {
       const pairs = await tokenPairs(q.address).catch(() => [])
-      if (pairs.length) return { s: 'token', pairs, flags: await security('solana', q.address).catch(() => null) }
+      if (pairs.length) return { s: 'token', pairs }
       const r = await solanaAddress(q.address)
       return r ? { s: 'results', results: [r] } : { s: 'empty' }
     }
@@ -180,10 +182,9 @@ function Stat({ label, children }: { label: string; children: ReactNode }) {
   )
 }
 
-function Token({ pairs, flags, c, lang }: { pairs: Pair[]; flags: Flag[] | null; c: C; lang: Lang }) {
+function Token({ pairs, c, lang }: { pairs: Pair[]; c: C; lang: Lang }) {
   const p = pairs[0]
   const explorer = (CHAINS as Record<string, { explorer: string }>)[p.chainId]?.explorer
-  const tone = { ok: 'border-emerald-500/40 text-emerald-300', warn: 'border-amber-400/40 text-amber-300', bad: 'border-[var(--wc-red)]/60 text-[var(--wc-red-soft)]', info: 'border-white/15 text-white/70' }
   return (
     <div>
       <div className="flex items-center gap-4">
@@ -210,24 +211,7 @@ function Token({ pairs, flags, c, lang }: { pairs: Pair[]; flags: Flag[] | null;
         {(p.info?.socials || []).filter((s) => safeUrl(s.url)).slice(0, 3).map((s) => <a key={s.url} href={safeUrl(s.url)} target="_blank" rel="noopener noreferrer nofollow ugc" className="rounded-full border border-white/15 px-3 py-1.5 capitalize hover:border-[var(--wc-red)]">{s.type} ↗</a>)}
       </div>
 
-      <section className="mt-8">
-        <h3 className="text-lg font-bold">{c.secH}</h3>
-        {flags && flags.length ? (
-          <>
-            <ul className="mt-3 grid gap-2 sm:grid-cols-2">
-              {flags.map((f) => (
-                <li key={f.key} className={`flex items-center justify-between gap-3 rounded-xl border bg-white/[0.02] px-3 py-2 text-sm ${tone[f.level]}`}>
-                  <span className="text-white/80">{f.label[lang]}</span>
-                  <span className="font-semibold">{f.value} <span className="text-xs font-normal opacity-70">· {c.levels[f.level]}</span></span>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-2 text-xs text-white/45">{c.secNote}</p>
-          </>
-        ) : (
-          <p className="mt-2 text-sm text-white/55">{c.secNone}</p>
-        )}
-      </section>
+      <RiskReport key={p.chainId + p.baseToken.address} pairs={pairs} lang={lang} />
 
       {pairs.length > 1 ? (
         <section className="mt-8">
@@ -247,12 +231,167 @@ function Token({ pairs, flags, c, lang }: { pairs: Pair[]; flags: Flag[] | null;
   )
 }
 
+const RC = {
+  en: {
+    h: 'Risk analysis',
+    loading: 'Running scam, contract and liquidity checks…',
+    error: 'The risk analysis could not be completed. Try again in a moment.',
+    score: 'Risk score',
+    grade: { low: 'Low risk', medium: 'Medium risk', high: 'High risk', critical: 'Critical risk' } as Record<Grade, string>,
+    sum: {
+      low: 'No major red flags found in the automated checks. That is no guarantee: do your own research.',
+      medium: 'Some risk factors found. Read them before you buy and size your position carefully.',
+      high: 'Several serious risk factors. Be very careful with this token.',
+      critical: 'Critical red flags found. This token shows typical scam characteristics.',
+    } as Record<Grade, string>,
+    sev: { critical: 'Critical', high: 'High', medium: 'Medium', low: 'Low' } as Record<Sev, string>,
+    cat: { scam: 'Scam signals', contract: 'Contract', liquidity: 'Liquidity & market', holders: 'Holders' } as Record<Cat, string>,
+    none: 'No issues found in this category.',
+    good: 'Good signs',
+    audit: 'Contract scan (bytecode)',
+    code: 'Code size',
+    funcs: 'Privileged functions found',
+    noFuncs: 'none of the known risky functions',
+    proxy: 'Implementation (proxy)',
+    dc: 'Uses DELEGATECALL',
+    yes: 'yes', no: 'no',
+    sources: (n: number, s: string) => `${n} checks · sources: ${s}`,
+    failed: (s: string) => `Not available right now: ${s}. The score may be incomplete.`,
+    note: 'Automated checks, not a manual smart contract audit. Scammers keep inventing new tricks, so a low score is never a guarantee. Not financial advice.',
+  },
+  nl: {
+    h: 'Risicoanalyse',
+    loading: 'Scam-, contract- en liquiditychecks worden uitgevoerd…',
+    error: 'De risicoanalyse kon niet worden afgerond. Probeer het zo opnieuw.',
+    score: 'Risicoscore',
+    grade: { low: 'Laag risico', medium: 'Gemiddeld risico', high: 'Hoog risico', critical: 'Kritiek risico' } as Record<Grade, string>,
+    sum: {
+      low: 'Geen grote rode vlaggen gevonden in de automatische checks. Dat is geen garantie: doe je eigen onderzoek.',
+      medium: 'Enkele risicofactoren gevonden. Lees ze voordat je koopt en bepaal je positie voorzichtig.',
+      high: 'Meerdere serieuze risicofactoren. Wees heel voorzichtig met dit token.',
+      critical: 'Kritieke rode vlaggen gevonden. Dit token vertoont typische scamkenmerken.',
+    } as Record<Grade, string>,
+    sev: { critical: 'Kritiek', high: 'Hoog', medium: 'Gemiddeld', low: 'Laag' } as Record<Sev, string>,
+    cat: { scam: 'Scamsignalen', contract: 'Contract', liquidity: 'Liquidity & markt', holders: 'Holders' } as Record<Cat, string>,
+    none: 'Geen problemen gevonden in deze categorie.',
+    good: 'Goede signalen',
+    audit: 'Contractscan (bytecode)',
+    code: 'Codegrootte',
+    funcs: 'Gevonden owner-functies',
+    noFuncs: 'geen van de bekende risicovolle functies',
+    proxy: 'Implementatie (proxy)',
+    dc: 'Gebruikt DELEGATECALL',
+    yes: 'ja', no: 'nee',
+    sources: (n: number, s: string) => `${n} checks · bronnen: ${s}`,
+    failed: (s: string) => `Nu niet beschikbaar: ${s}. De score kan onvolledig zijn.`,
+    note: 'Automatische checks, geen handmatige smart contract audit. Scammers bedenken steeds nieuwe trucs, dus een lage score is nooit een garantie. Geen financieel advies.',
+  },
+}
+
+const GRADE_TONE: Record<Grade, { bar: string; text: string; ring: string }> = {
+  low: { bar: 'bg-emerald-500', text: 'text-emerald-300', ring: 'border-emerald-500/40' },
+  medium: { bar: 'bg-amber-400', text: 'text-amber-300', ring: 'border-amber-400/40' },
+  high: { bar: 'bg-orange-500', text: 'text-orange-300', ring: 'border-orange-500/50' },
+  critical: { bar: 'bg-[var(--wc-red)]', text: 'text-[var(--wc-red-soft)]', ring: 'border-[var(--wc-red)]/60' },
+}
+const SEV_TONE: Record<Sev, string> = {
+  critical: 'bg-[var(--wc-red)] text-white',
+  high: 'bg-orange-500/20 text-orange-300 border border-orange-500/40',
+  medium: 'bg-amber-400/15 text-amber-300 border border-amber-400/30',
+  low: 'bg-white/5 text-white/60 border border-white/15',
+}
+
+function RiskReport({ pairs, lang }: { pairs: Pair[]; lang: Lang }) {
+  const t = RC[lang]
+  const [r, setR] = useState<Report | null | 'error'>(null)
+  useEffect(() => {
+    let on = true
+    analyzeToken(pairs).then((x) => on && setR(x)).catch(() => on && setR('error'))
+    return () => {
+      on = false
+    }
+  }, [pairs])
+  if (r === null) return <section className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-5"><h3 className="text-lg font-bold">{t.h}</h3><p className="mt-2 animate-pulse text-sm text-white/60">{t.loading}</p></section>
+  if (r === 'error') return <section className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-5"><h3 className="text-lg font-bold">{t.h}</h3><p className="mt-2 text-sm text-white/60">{t.error}</p></section>
+  const tone = GRADE_TONE[r.grade]
+  const cats: Cat[] = ['scam', 'contract', 'liquidity', 'holders']
+  return (
+    <section className={`mt-8 rounded-2xl border bg-white/[0.03] p-5 sm:p-6 ${tone.ring}`}>
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h3 className="text-lg font-bold">{t.h}</h3>
+          <p className={`mt-1 text-2xl font-bold ${tone.text}`}>{t.grade[r.grade]}</p>
+        </div>
+        <div className="text-right">
+          <span className="text-xs text-white/50">{t.score}</span>
+          <p className="text-3xl font-bold tabular-nums">{r.score}<span className="text-base text-white/40">/100</span></p>
+        </div>
+      </div>
+      <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-white/10" role="meter" aria-valuemin={0} aria-valuemax={100} aria-valuenow={r.score} aria-label={t.score}>
+        <div className={`h-full rounded-full ${tone.bar}`} style={{ width: `${Math.max(3, r.score)}%` }} />
+      </div>
+      <p className="mt-3 text-sm text-white/75">{t.sum[r.grade]}</p>
+
+      <div className="mt-6 grid gap-4 md:grid-cols-2">
+        {cats.map((cat) => {
+          const list = r.findings.filter((f) => f.cat === cat)
+          return (
+            <div key={cat} className="rounded-xl border border-white/10 bg-black/20 p-4">
+              <h4 className="text-sm font-semibold text-white/85">{t.cat[cat]}</h4>
+              {list.length ? (
+                <ul className="mt-3 space-y-3">
+                  {list.map((f, i) => (
+                    <li key={i} className="text-sm">
+                      <div className="flex items-start gap-2">
+                        <span className={`mt-0.5 shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase ${SEV_TONE[f.sev]}`}>{t.sev[f.sev]}</span>
+                        <span className="font-semibold text-white/90">{f.t[lang]}</span>
+                      </div>
+                      <p className="mt-1 text-white/55">{f.d[lang]}</p>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-2 text-sm text-emerald-300/80">✓ {t.none}</p>
+              )}
+            </div>
+          )
+        })}
+      </div>
+
+      {r.good.length ? (
+        <div className="mt-4 rounded-xl border border-emerald-500/25 bg-emerald-500/[0.05] p-4">
+          <h4 className="text-sm font-semibold text-emerald-300">{t.good}</h4>
+          <ul className="mt-2 flex flex-wrap gap-2">
+            {r.good.map((g, i) => <li key={i} className="rounded-full border border-emerald-500/30 px-3 py-1 text-xs text-emerald-200">✓ {g[lang]}</li>)}
+          </ul>
+        </div>
+      ) : null}
+
+      {r.audit ? (
+        <div className="mt-4 rounded-xl border border-white/10 bg-black/20 p-4 text-sm">
+          <h4 className="font-semibold text-white/85">{t.audit}</h4>
+          <dl className="mt-2 grid gap-x-6 gap-y-1.5 sm:grid-cols-2">
+            <div className="flex justify-between gap-3"><dt className="text-white/50">{t.code}</dt><dd>{r.audit.codeSize.toLocaleString(lang === 'nl' ? 'nl-NL' : 'en-US')} bytes</dd></div>
+            <div className="flex justify-between gap-3"><dt className="text-white/50">{t.dc}</dt><dd>{r.audit.delegatecall ? t.yes : t.no}</dd></div>
+            {r.audit.implementation ? <div className="flex justify-between gap-3 sm:col-span-2"><dt className="text-white/50">{t.proxy}</dt><dd className="truncate font-mono text-xs">{r.audit.implementation}</dd></div> : null}
+            <div className="flex justify-between gap-3 sm:col-span-2"><dt className="shrink-0 text-white/50">{t.funcs}</dt><dd className="text-right">{r.audit.functions.length ? r.audit.functions.join(', ') : t.noFuncs}</dd></div>
+          </dl>
+        </div>
+      ) : null}
+
+      <p className="mt-4 text-xs text-white/45">{t.sources(r.checks, r.sources.join(', '))}</p>
+      {r.failed.length ? <p className="mt-1 text-xs text-amber-300/80">{t.failed(r.failed.join(', '))}</p> : null}
+      <p className="mt-2 text-xs text-white/45">{t.note}</p>
+    </section>
+  )
+}
+
 function TokenView({ view, c, lang, onBack }: { view: Extract<View, { s: 'token' }>; c: C; lang: Lang; onBack: (p: Pair[]) => void }) {
   const from = view.from
   return (
     <>
       {from ? <button type="button" onClick={() => onBack(from)} className="mb-4 text-sm text-white/60 hover:text-white">{c.back}</button> : null}
-      <Token pairs={view.pairs} flags={view.flags} c={c} lang={lang} />
+      <Token pairs={view.pairs} c={c} lang={lang} />
     </>
   )
 }
@@ -332,8 +471,7 @@ export default function DefiScanner({ lang }: { lang: Lang }) {
     setView({ s: 'loading' })
     const all = await tokenPairs(p.baseToken.address).catch(() => [p])
     const pairs = all.length ? all : [p]
-    const flags = await security(p.chainId, p.baseToken.address).catch(() => null)
-    setView({ s: 'token', pairs, flags, from })
+    setView({ s: 'token', pairs, from })
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 

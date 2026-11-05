@@ -154,8 +154,29 @@ const weiTo = (h: string, decimals: number) => Number(BigInt(h)) / 10 ** decimal
 const short = (s: string) => (s.length > 18 ? s.slice(0, 8) + '…' + s.slice(-6) : s)
 const ago = (ms: number) => new Date(ms).toISOString().replace('T', ' ').slice(0, 16) + ' UTC'
 
+const REPUTATION_FLAGS: Record<string, string> = {
+  phishing_activities: 'phishing', stealing_attack: 'stealing attack', honeypot_related_address: 'honeypot creator', fake_token: 'fake tokens',
+  cybercrime: 'cybercrime', money_laundering: 'money laundering', financial_crime: 'financial crime', blackmail_activities: 'blackmail',
+  sanctioned: 'sanctioned', mixer: 'mixer', darkweb_transactions: 'darkweb', malicious_mining_activities: 'malicious mining', blacklist_doubt: 'blacklist suspicion',
+  number_of_malicious_contracts_created: 'malicious contracts created',
+}
+
+/** GoPlus address reputation: returns a short verdict for the results table. */
+export async function addressReputation(address: string): Promise<string | null> {
+  try {
+    const j = await getJson(`https://api.gopluslabs.io/api/v1/address_security/${address}?chain_id=1`)
+    const r = j.result
+    if (!r) return null
+    const hits = Object.entries(REPUTATION_FLAGS).filter(([k]) => r[k] !== undefined && r[k] !== '0' && r[k] !== 0 && r[k] !== '').map(([, v]) => v)
+    return hits.length ? 'WARNING – reported for: ' + hits.join(', ') : 'No scam reports (GoPlus)'
+  } catch {
+    return null
+  }
+}
+
 export async function evmAddress(address: string, chains: ChainId[]): Promise<Result[]> {
   const out: Result[] = []
+  const reputation = chains.includes('ethereum') ? addressReputation(address) : Promise.resolve(null)
   await Promise.all(chains.map(async (c) => {
     const ch = CHAINS[c]
     if (!ch.rpc) return
@@ -186,6 +207,8 @@ export async function evmAddress(address: string, chains: ChainId[]): Promise<Re
       /* chain unreachable: skip */
     }
   }))
+  const rep = await reputation
+  if (rep) for (const r of out) r.rows.push(['Scam reputation', rep])
   return out.sort((a, b) => EVM_CHAINS.indexOf(a.chain) - EVM_CHAINS.indexOf(b.chain))
 }
 
