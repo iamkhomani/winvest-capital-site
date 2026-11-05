@@ -336,13 +336,13 @@ export default function Home({ lang }: { lang: Lang }) {
               </a>
             </div>
           </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-2 md:grid-rows-3">
+          <div className="mt-10 grid gap-6 md:grid-cols-2 md:grid-rows-4">
             {reviews.map((r, i) => (
               <figure
                 key={r.id}
                 className={`group relative flex flex-col overflow-hidden rounded-3xl border p-7 transition ${
                   i === 0
-                    ? 'border-[var(--wc-red)]/50 bg-gradient-to-br from-[var(--wc-red)]/20 via-white/[0.03] to-transparent md:row-span-3 md:p-9'
+                    ? 'border-[var(--wc-red)]/50 bg-gradient-to-br from-[var(--wc-red)]/20 via-white/[0.03] to-transparent md:row-span-4 md:p-9'
                     : 'border-white/10 bg-white/[0.03] hover:border-[var(--wc-red)]/40'
                 }`}
               >
