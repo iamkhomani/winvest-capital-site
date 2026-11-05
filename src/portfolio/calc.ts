@@ -76,7 +76,21 @@ export function series(d: PortfolioData, hist: Record<string, History>, live: Re
   }
   let idx = 1
   let prevValue = 0
+  const priceOn = (k: string, t: number) => (t === end && live[k] !== undefined ? live[k] : priceAt(hist[k] || [], t) ?? live[k] ?? d.manualPrices[k])
   for (let t = first; t <= end; t += DAY) {
+    // return of the holdings carried over from yesterday, valued at today's market prices.
+    // Today's buys/sells join the index from tomorrow, so a purchase price that differs from the
+    // day's market price does not distort the percentage (it still counts in the P/L amounts).
+    let carried = 0
+    for (const [k, q] of Object.entries(qty)) {
+      if (!q) continue
+      const p = priceOn(k, t)
+      if (p !== undefined) carried += q * p
+    }
+    if (prevValue > 0) {
+      const r = carried / prevValue - 1
+      if (isFinite(r)) idx *= 1 + r
+    }
     let flow = 0
     while (ti < d.txs.length && dateMs(d.txs[ti].date) <= t) {
       const x = d.txs[ti++]
@@ -91,12 +105,8 @@ export function series(d: PortfolioData, hist: Record<string, History>, live: Re
     let value = 0
     for (const [k, q] of Object.entries(qty)) {
       if (!q) continue
-      const p = t === end && live[k] !== undefined ? live[k] : priceAt(hist[k] || [], t) ?? live[k] ?? d.manualPrices[k]
+      const p = priceOn(k, t)
       if (p !== undefined) value += q * p
-    }
-    if (prevValue > 0) {
-      const r = (value - flow) / prevValue - 1
-      if (isFinite(r)) idx *= 1 + r
     }
     pts.push({ t, value, flow, index: idx })
     prevValue = value
