@@ -15,6 +15,8 @@ import DefiScanner, { scannerCopy } from './pages/DefiScanner'
 import Markets, { marketsCopy } from './pages/Markets'
 import MarketWhisper, { whisperCopy } from './pages/MarketWhisper'
 import Portfolio, { portfolioCopy } from './pages/Portfolio'
+import Journal from './pages/Journal'
+import { journalCopy } from './journal/copy'
 import Welcome from './pages/Welcome'
 import { paths } from './paths'
 
@@ -164,6 +166,18 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
     ],
     element: wrap(lang, o.portfolio, <Portfolio lang={lang} />),
   }
+  const journal: Route = {
+    path: p.journal,
+    alternate: o.journal,
+    lang,
+    title: journalCopy[lang].metaTitle,
+    description: journalCopy[lang].description,
+    jsonLd: [
+      { '@context': 'https://schema.org', '@type': 'WebApplication', name: L ? 'Forex trading journal' : 'Forex trading journal', url: url(p.journal), applicationCategory: 'FinanceApplication', operatingSystem: 'Any', inLanguage: lang, offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' }, publisher: org },
+      crumbs([['Home', p.home], [journalCopy[lang].h1, p.journal]]),
+    ],
+    element: wrap(lang, o.journal, <Journal lang={lang} />),
+  }
   const arts: Route[] = articles.map((a) => {
     const c = a[lang]
     return {
@@ -210,7 +224,7 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
     description: L ? 'Je betaling is ontvangen.' : 'Your payment has been received.',
     element: wrap(lang, L ? '/welcome/' : '/nl/welkom/', <Welcome lang={lang} />),
   }
-  return [home, calculator, markets, portfolio, whisper, scanner, partners, learn, ...arts, ...docs, welcome]
+  return [home, calculator, markets, portfolio, journal, whisper, scanner, partners, learn, ...arts, ...docs, welcome]
 })
 
 export function findRoute(pathname: string): Route | undefined {
