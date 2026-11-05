@@ -11,7 +11,7 @@ if [ ! -f /etc/winvest-prices.env ]; then
     # reuse the Listmonk API user of the welcome sender
     grep -E '^LISTMONK_(URL|API_USER|API_TOKEN)=' /etc/winvest-welcome.env > /etc/winvest-prices.env
   else
-    printf 'LISTMONK_URL=http://192.168.68.14:9000\nLISTMONK_API_USER=welcome-bot\nLISTMONK_API_TOKEN=PASTE_TOKEN_HERE\n' > /etc/winvest-prices.env
+    printf 'LISTMONK_URL=http://192.168.68.131:9000\nLISTMONK_API_USER=welcome-bot\nLISTMONK_API_TOKEN=PASTE_TOKEN_HERE\n' > /etc/winvest-prices.env
   fi
   printf 'CHANGE_DAYS=7\nTIMEZONE=Europe/Amsterdam\n' >> /etc/winvest-prices.env
 fi

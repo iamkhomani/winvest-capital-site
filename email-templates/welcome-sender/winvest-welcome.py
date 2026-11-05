@@ -10,7 +10,7 @@ Config comes from /etc/winvest-welcome.env (see README.md).
 """
 import json, os, sys, time, urllib.request, urllib.error, datetime
 
-URL = os.environ.get('LISTMONK_URL', 'http://192.168.68.14:9000').rstrip('/')
+URL = os.environ.get('LISTMONK_URL', 'http://192.168.68.131:9000').rstrip('/')
 USER = os.environ['LISTMONK_API_USER']
 TOKEN = os.environ['LISTMONK_API_TOKEN']
 LIST_ID = int(os.environ.get('LIST_ID', '2'))
