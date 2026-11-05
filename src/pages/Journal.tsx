@@ -430,7 +430,7 @@ export default function Journal({ lang }: { lang: Lang }) {
     const cls = x.result === 'win' ? 'bg-emerald-500/20 text-emerald-300' : x.result === 'loss' ? 'bg-[var(--wc-red)]/25 text-[var(--wc-red-soft)]' : x.result === 'be' ? 'bg-white/10 text-white/80' : 'bg-sky-500/20 text-sky-300'
     return <span className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${cls}`}>{x.status === 'partial' ? c.status.partial : c.results[x.result]}</span>
   }
-  const curvePts = sum.curve.map((p) => ({ time: p.time, v: curveMode === 'pnl' ? p.pnl : p.balance, kind: p.kind }))
+  const curvePts: { time: number; v: number; kind: string }[] = sum.curve.map((p) => ({ time: p.time, v: curveMode === 'pnl' ? p.pnl : p.balance, kind: p.kind }))
   if (curvePts.length) curvePts.push({ time: Date.now(), v: curveMode === 'pnl' ? sum.realised + sum.floating : sum.equity, kind: 'now' })
 
   return (
