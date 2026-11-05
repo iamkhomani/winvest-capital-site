@@ -360,17 +360,21 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   useEffect(() => {
     if (!data || !neededKeys.length) return
     let alive = true
+    let retry: ReturnType<typeof setTimeout> | undefined
     const run = async () => {
+      if (retry) clearTimeout(retry)
       setLoadingQ(true)
       const r = await quotes(neededKeys.map((k) => data.assets[k]), data.base).catch(() => ({} as Record<string, Quote>))
       if (alive) {
         setQ(r)
         setLoadingQ(false)
+        // some prices missing or stale (rate limit): try again sooner
+        if (neededKeys.some((k) => !r[k] || r[k].stale)) retry = setTimeout(() => void run(), 20000)
       }
     }
     void run()
     const t = setInterval(() => { if (!document.hidden) void run() }, 60000)
-    return () => { alive = false; clearInterval(t) }
+    return () => { alive = false; clearInterval(t); if (retry) clearTimeout(retry) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [neededSig])
 

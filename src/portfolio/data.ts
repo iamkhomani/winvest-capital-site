@@ -7,7 +7,7 @@ import type { Asset, Currency } from './store'
 export const STOCK_API = (DEFI_PROXY_URL || 'https://winvest-defi-proxy.helijl.workers.dev') + '/stock'
 const CG = 'https://api.coingecko.com/api/v3'
 
-export type Quote = { price: number; change24h?: number; image?: string; currency?: string }
+export type Quote = { price: number; change24h?: number; image?: string; currency?: string; stale?: boolean }
 export type History = [number, number][] // [unix ms (UTC midnight), price in base currency]
 
 async function getJson(url: string): Promise<any> {
@@ -134,6 +134,13 @@ export async function quotes(assets: Asset[], base: Currency): Promise<Record<st
     )
   }
   await Promise.all(jobs)
+  // keep the last known prices, so a rate-limited or unreachable source does not blank the portfolio
+  const last = cacheGet<Record<string, Quote>>(`q-${base}`, 7 * 864e5) || {}
+  for (const a of assets) {
+    if (out[a.key]) last[a.key] = out[a.key]
+    else if (last[a.key]) out[a.key] = { ...last[a.key], stale: true }
+  }
+  cacheSet(`q-${base}`, last)
   return out
 }
 
