@@ -8,35 +8,52 @@ import Ticker from './Ticker'
 
 type Props = { lang: Lang; alternate?: string; children: ReactNode }
 
-const nav = {
-  en: [
-    ['Home', '/'],
-    ['Markets', '/markets/'],
-    ['Portfolio tracker', '/portfolio/'],
-    ['Trading journal', '/trading-journal/'],
-    ['DeFi scanner', '/defi-scanner/'],
-    ['Lot size calculator', '/lot-size-calculator/'],
-    ['Learn', '/learn/'],
-    ['Membership', '/#membership'],
-    ['Market Whisper AI', '/market-whisper/'],
-    ['Winvest Terminal', '/terminal/'],
-    ['Economic calendar', '/#calendar'],
-    ['Partners', '/partners/'],
-  ],
-  nl: [
-    ['Home', '/nl/'],
-    ['Markten', '/nl/markten/'],
-    ['Portfolio tracker', '/nl/portfolio/'],
-    ['Trading journal', '/nl/trading-journal/'],
-    ['DeFi-scanner', '/nl/defi-scanner/'],
-    ['Lotgrootte-calculator', '/nl/lotgrootte-calculator/'],
-    ['Leren', '/nl/leren/'],
-    ['Lidmaatschap', '/nl/#membership'],
-    ['Market Whisper AI', '/nl/market-whisper/'],
-    ['Winvest Terminal', '/nl/terminal/'],
-    ['Economische kalender', '/nl/#calendar'],
-    ['Partners', '/nl/partners/'],
-  ],
+// Main menu. Groups fold open inside the menu; links stay direct. Page addresses do not change.
+const nav: Record<Lang, { groups: [string, [string, string][]][]; links: [string, string][] }> = {
+  en: {
+    groups: [
+      ['Products', [
+        ['All products', '/products/'],
+        ['Winvest Terminal', '/terminal/'],
+        ['Market Whisper AI', '/market-whisper/'],
+        ['One Percent Club', '/#membership'],
+      ]],
+      ['Free tools', [
+        ['Markets', '/markets/'],
+        ['Portfolio tracker', '/portfolio/'],
+        ['Trading journal', '/trading-journal/'],
+        ['DeFi scanner', '/defi-scanner/'],
+        ['Lot size calculator', '/lot-size-calculator/'],
+        ['Economic calendar', '/#calendar'],
+      ]],
+    ],
+    links: [
+      ['Learn', '/learn/'],
+      ['Partners', '/partners/'],
+    ],
+  },
+  nl: {
+    groups: [
+      ['Producten', [
+        ['Alle producten', '/nl/producten/'],
+        ['Winvest Terminal', '/nl/terminal/'],
+        ['Market Whisper AI', '/nl/market-whisper/'],
+        ['One Percent Club', '/nl/#membership'],
+      ]],
+      ['Gratis tools', [
+        ['Markten', '/nl/markten/'],
+        ['Portfolio tracker', '/nl/portfolio/'],
+        ['Trading journal', '/nl/trading-journal/'],
+        ['DeFi-scanner', '/nl/defi-scanner/'],
+        ['Lotgrootte-calculator', '/nl/lotgrootte-calculator/'],
+        ['Economische kalender', '/nl/#calendar'],
+      ]],
+    ],
+    links: [
+      ['Leren', '/nl/leren/'],
+      ['Partners', '/nl/partners/'],
+    ],
+  },
 }
 
 function LangSwitch({ lang, alternate }: { lang: Lang; alternate?: string }) {
@@ -102,7 +119,28 @@ function Menu({ lang }: { lang: Lang }) {
         className="absolute right-0 top-12 z-30 max-h-[calc(100dvh-10rem)] w-[min(20rem,calc(100vw-2rem))] overflow-y-auto rounded-2xl border border-white/10 bg-[#111113] p-2 shadow-2xl shadow-black/60"
       >
         <ul>
-          {nav[lang].map(([label, href]) => (
+          {nav[lang].groups.map(([label, items]) => (
+            <li key={label}>
+              <details name="main-menu" className="group/sub">
+                <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-4 py-2.5 text-[15px] text-white/80 transition hover:bg-white/[0.06] hover:text-white [&::-webkit-details-marker]:hidden">
+                  {label}
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="transition group-open/sub:rotate-180">
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </summary>
+                <ul className="mb-1 ml-4 border-l border-white/10 pl-2">
+                  {items.map(([itemLabel, href]) => (
+                    <li key={href}>
+                      <a href={href} onClick={close} className="block rounded-xl px-4 py-2 text-[15px] text-white/70 transition hover:bg-white/[0.06] hover:text-white">
+                        {itemLabel}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </li>
+          ))}
+          {nav[lang].links.map(([label, href]) => (
             <li key={href}>
               <a href={href} onClick={close} className="block rounded-xl px-4 py-2.5 text-[15px] text-white/80 transition hover:bg-white/[0.06] hover:text-white">
                 {label}
@@ -148,6 +186,7 @@ export default function Layout({ lang, alternate, children }: Props) {
           </div>
           <nav className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-white/60">
             <a href={p.home} className="hover:text-white">{lang === 'nl' ? 'Home' : 'Home'}</a>
+            <a href={p.products} className="hover:text-white">{lang === 'nl' ? 'Producten' : 'Products'}</a>
             <a href={p.learn} className="hover:text-white">{lang === 'nl' ? 'Leren' : 'Learn'}</a>
             <a href={p.calculator} className="hover:text-white">{lang === 'nl' ? 'Lotgrootte-calculator' : 'Lot size calculator'}</a>
             <a href={p.markets} className="hover:text-white">{lang === 'nl' ? 'Markten' : 'Markets'}</a>
