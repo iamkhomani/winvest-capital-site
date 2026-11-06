@@ -3,24 +3,24 @@ import { paths } from '../paths'
 
 // Bottom navigation, only visible when the site runs as an installed web app (see styles.css: .pwa).
 const icons = {
-  home: <path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" />,
   learn: <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zM4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5M8 7h8M8 11h6" />,
   journal: <path d="M6 3h11a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6zM6 3v18M10 8h6M10 12h6M10 16h4" />,
   calc: <path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8v3H8zM8 14h.01M12 14h.01M16 14h.01M8 17.5h.01M12 17.5h.01M16 17.5h.01" />,
   scan: <path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4" />,
   portfolio: <path d="M12 3a9 9 0 1 0 9 9h-9zM14 2.3V10h7.7A8 8 0 0 0 14 2.3z" />,
   markets: <path d="M3 3v18h18M7 15l4-4 3 3 6-7" />,
+  terminal: <path d="M7 3v4M7 15v6M5 7h4v8H5zM17 3v2M17 13v8M15 5h4v8h-4z" />,
 }
 
 export default function AppTabBar({ lang }: { lang: Lang }) {
   const p = paths[lang]
   const nl = lang === 'nl'
   const items: [keyof typeof icons, string, string, boolean][] = [
-    ['home', 'Home', p.home, false],
     ['markets', nl ? 'Markten' : 'Markets', p.markets, false],
     ['scan', 'Scanner', p.scanner, false],
     ['journal', 'Journal', p.journal, false],
     ['portfolio', 'Portfolio', p.portfolio, false],
+    ['terminal', 'Terminal', p.terminal, false],
   ]
   return (
     <nav aria-label={nl ? 'App-menu' : 'App menu'} className="app-tabbar fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[var(--wc-black)]/95 backdrop-blur">
