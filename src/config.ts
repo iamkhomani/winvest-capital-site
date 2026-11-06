@@ -15,6 +15,13 @@ export const SOCIALS: { name: string; icon?: string; handle: string; url: string
 export const STRIPE_PAYMENT_LINK = 'https://go.paybotapp.com/RTTDqS3p/rCK4CxHl'
 // Must match the price on the checkout exactly.
 export const PRICE = '€150'
+// Winvest Terminal. Leave the checkout empty to show "Coming soon" instead of the subscribe button.
+export const TERMINAL_LOGIN_URL = 'https://terminal.winvestcapital.nl'
+export const TERMINAL_CHECKOUT_URL: string = ''
+// Shown next to the subscribe button, for example '€49'. Must match the Stripe price exactly.
+export const TERMINAL_PRICE: string = ''
+// Stripe customer portal login link. Empty = no "Manage subscription" link.
+export const TERMINAL_PORTAL_URL: string = ''
 // Trustpilot profile.
 export const TRUSTPILOT_URL = 'https://nl.trustpilot.com/review/winvestcapital.nl'
 

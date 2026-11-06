@@ -19,6 +19,7 @@ const nav = {
     ['Learn', '/learn/'],
     ['Membership', '/#membership'],
     ['Market Whisper AI', '/market-whisper/'],
+    ['Winvest Terminal', '/terminal/'],
     ['Economic calendar', '/#calendar'],
     ['Partners', '/partners/'],
   ],
@@ -32,6 +33,7 @@ const nav = {
     ['Leren', '/nl/leren/'],
     ['Lidmaatschap', '/nl/#membership'],
     ['Market Whisper AI', '/nl/market-whisper/'],
+    ['Winvest Terminal', '/nl/terminal/'],
     ['Economische kalender', '/nl/#calendar'],
     ['Partners', '/nl/partners/'],
   ],
@@ -150,6 +152,7 @@ export default function Layout({ lang, alternate, children }: Props) {
             <a href={p.calculator} className="hover:text-white">{lang === 'nl' ? 'Lotgrootte-calculator' : 'Lot size calculator'}</a>
             <a href={p.markets} className="hover:text-white">{lang === 'nl' ? 'Markten' : 'Markets'}</a>
             <a href={p.scanner} className="hover:text-white">{lang === 'nl' ? 'DeFi-scanner' : 'DeFi scanner'}</a>
+            <a href={p.terminal} className="hover:text-white">Winvest Terminal</a>
             <a href={p.partners} className="hover:text-white">Partners</a>
             <button type="button" data-install-app hidden className="inline-flex items-center gap-1.5 font-semibold text-white hover:text-[var(--wc-red-soft)]">
               <img src="/icon-192.png" alt="" width={16} height={16} className="size-4" />

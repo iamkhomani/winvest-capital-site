@@ -15,6 +15,7 @@ import DefiScanner, { scannerCopy } from './pages/DefiScanner'
 import Markets, { marketsCopy } from './pages/Markets'
 import MarketWhisper, { whisperCopy } from './pages/MarketWhisper'
 import Portfolio, { portfolioCopy } from './pages/Portfolio'
+import Terminal, { terminalCopy } from './pages/Terminal'
 import Journal from './pages/Journal'
 import { journalCopy } from './journal/copy'
 import Welcome from './pages/Welcome'
@@ -110,6 +111,15 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
       faqLd(calcCopy[lang].faq),
     ],
     element: wrap(lang, o.calculator, <CalculatorPage lang={lang} />),
+  }
+  const terminal: Route = {
+    path: p.terminal,
+    alternate: o.terminal,
+    lang,
+    title: terminalCopy[lang].metaTitle,
+    description: terminalCopy[lang].description,
+    jsonLd: [crumbs([['Home', p.home], ['Winvest Terminal', p.terminal]])],
+    element: wrap(lang, o.terminal, <Terminal lang={lang} />),
   }
   const partners: Route = {
     path: p.partners,
@@ -224,7 +234,7 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
     description: L ? 'Je betaling is ontvangen.' : 'Your payment has been received.',
     element: wrap(lang, L ? '/welcome/' : '/nl/welkom/', <Welcome lang={lang} />),
   }
-  return [home, calculator, markets, portfolio, journal, whisper, scanner, partners, learn, ...arts, ...docs, welcome]
+  return [home, calculator, markets, portfolio, journal, whisper, terminal, scanner, partners, learn, ...arts, ...docs, welcome]
 })
 
 export function findRoute(pathname: string): Route | undefined {
