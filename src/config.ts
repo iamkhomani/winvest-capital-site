@@ -17,11 +17,11 @@ export const STRIPE_PAYMENT_LINK = 'https://go.paybotapp.com/RTTDqS3p/rCK4CxHl'
 export const PRICE = '€150'
 // Winvest Terminal. Leave the checkout empty to show "Coming soon" instead of the subscribe button.
 export const TERMINAL_LOGIN_URL = 'https://terminal.winvestcapital.nl'
-export const TERMINAL_CHECKOUT_URL: string = ''
+export const TERMINAL_CHECKOUT_URL: string = 'https://buy.stripe.com/bJe5kDauu75raXAeyRak001'
 // Shown next to the subscribe button, for example '€49'. Must match the Stripe price exactly.
-export const TERMINAL_PRICE: string = ''
+export const TERMINAL_PRICE: string = '€49'
 // Stripe customer portal login link. Empty = no "Manage subscription" link.
-export const TERMINAL_PORTAL_URL: string = ''
+export const TERMINAL_PORTAL_URL: string = 'https://billing.stripe.com/p/login/28EdR93221L75Dg62lak000'
 // Trustpilot profile.
 export const TRUSTPILOT_URL = 'https://nl.trustpilot.com/review/winvestcapital.nl'
 
@@ -36,7 +36,7 @@ export const NEWSLETTER_LIST_UUID = '0b6267b8-86e8-4e7b-a3ef-d7305330acca'
 export const LEGAL = {
   name: 'Winvest Capital',
   owner: '', // e.g. 'Khalil ...' (eenmanszaak owner)
-  kvk: '', // Chamber of Commerce (KvK) number
+  kvk: '78732921', // Chamber of Commerce (KvK) number
   address: '',
   email: 'info@winvestcapital.nl',
 }
