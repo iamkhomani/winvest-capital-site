@@ -69,6 +69,12 @@ html[data-theme='light'] .only-dark {
   display: none !important;
 }
 
+/* TradingView's pages have no colour scheme of their own. If an iframe's scheme differs from
+   its page, the browser paints it opaque white, so transparent widgets need this in both themes. */
+.tradingview-widget-container iframe {
+  color-scheme: light;
+}
+
 .theme-to-dark { display: none; }
 html[data-theme='light'] .theme-to-dark { display: inline; }
 html[data-theme='light'] .theme-to-light { display: none; }
