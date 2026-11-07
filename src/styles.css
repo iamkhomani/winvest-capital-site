@@ -11,6 +11,8 @@
   --wc-line: rgba(255, 255, 255, 0.25);
   --wc-up: #34d399;
   --wc-heat: rgba(255, 255, 255, 0.03);
+  --wc-candle-edge: #ffffff55;
+  --wc-candle-fill: #ffffff22;
   color-scheme: dark;
 }
 
@@ -36,6 +38,8 @@ html[data-theme='light'] {
   --wc-line: rgba(10, 10, 11, 0.25);
   --wc-up: #059669;
   --wc-heat: rgba(10, 10, 11, 0.04);
+  --wc-candle-edge: rgba(10, 10, 11, 0.55);
+  --wc-candle-fill: rgba(10, 10, 11, 0.22);
 }
 
 /* Solid red stays red with white text in both themes. */

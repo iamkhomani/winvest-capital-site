@@ -41,8 +41,8 @@ export function Candles() {
       <polyline points="0,96 40,78 70,82 110,56 140,46 170,40 200,12" fill="none" stroke="var(--wc-red)" strokeOpacity=".35" strokeWidth="1" strokeDasharray="3 3" />
       {c.map(([x, hi, lo, top, bot, up], i) => (
         <g key={i}>
-          <line x1={x + 4} x2={x + 4} y1={hi} y2={lo} stroke={up ? 'var(--wc-red)' : '#ffffff55'} strokeWidth="1" />
-          <rect x={x} y={top} width="8" height={bot - top} rx="1" fill={up ? 'var(--wc-red)' : '#ffffff22'} stroke={up ? 'var(--wc-red)' : '#ffffff55'} strokeWidth=".8" />
+          <line x1={x + 4} x2={x + 4} y1={hi} y2={lo} stroke={up ? 'var(--wc-red)' : 'var(--wc-candle-edge)'} strokeWidth="1" />
+          <rect x={x} y={top} width="8" height={bot - top} rx="1" fill={up ? 'var(--wc-red)' : 'var(--wc-candle-fill)'} stroke={up ? 'var(--wc-red)' : 'var(--wc-candle-edge)'} strokeWidth=".8" />
         </g>
       ))}
     </svg>
