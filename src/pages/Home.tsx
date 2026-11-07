@@ -56,9 +56,6 @@ export const homeCopy = {
     revVerified: 'Review on Trustpilot',
     tpTitle: 'See our reviews on Trustpilot',
     tpSub: 'Read or write a review',
-    calcH2: 'Free lot size calculator',
-    calcP: 'Work out the right lot size for forex, gold, crypto and stocks from your balance, risk and stop loss. Free for everyone.',
-    calcBtn: 'Open the calculator',
     wBadge: 'Built by Winvest Capital',
     wP: 'The AI bot I built for members. It helps you analyse stocks and crypto so you can make more calculated investment decisions. Every member gets the free tools; the One Percent Club unlocks the full toolkit.',
     wFree: 'Free for every member',
@@ -145,9 +142,6 @@ export const homeCopy = {
     revVerified: 'Review op Trustpilot',
     tpTitle: 'Bekijk ons op Trustpilot',
     tpSub: 'Lees of schrijf een review',
-    calcH2: 'Gratis lotgrootte-calculator',
-    calcP: 'Bereken de juiste lotgrootte voor forex, goud, crypto en aandelen op basis van je saldo, risico en stop-loss. Gratis voor iedereen.',
-    calcBtn: 'Open de calculator',
     wBadge: 'Gebouwd door Winvest Capital',
     wP: 'De AI-bot die ik voor leden heb gebouwd. Hij helpt je aandelen en crypto te analyseren, zodat je beter onderbouwde beleggingsbeslissingen neemt. Ieder lid krijgt de gratis tools; de One Percent Club ontgrendelt de volledige toolkit.',
     wFree: 'Gratis voor ieder lid',
@@ -420,21 +414,6 @@ export default function Home({ lang }: { lang: Lang }) {
               }}
             />
           </div>
-        </div>
-      </section>
-
-      <section id="calculator" className="border-t border-white/10 bg-[var(--wc-ink)]">
-        <div className="mx-auto flex max-w-6xl flex-col items-start gap-6 px-4 py-14 sm:px-6 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-start gap-5">
-            <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-[var(--wc-red)]/15 text-[var(--wc-red)] ring-1 ring-[var(--wc-red)]/40">
-              <svg viewBox="0 0 24 24" className="size-7" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><rect x="4" y="2.5" width="16" height="19" rx="2.5" /><path d="M8 6.5h8M8 11h.01M12 11h.01M16 11h.01M8 14.5h.01M12 14.5h.01M16 14.5h.01M8 18h.01M12 18h.01M16 18h.01" strokeLinecap="round" /></svg>
-            </span>
-            <div>
-              <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{c.calcH2}</h2>
-              <p className="mt-2 max-w-xl text-white/60">{c.calcP}</p>
-            </div>
-          </div>
-          <a href={paths[lang].calculator} className="shrink-0 rounded-full bg-[var(--wc-red)] px-6 py-3 font-semibold transition hover:brightness-110">{c.calcBtn}</a>
         </div>
       </section>
 

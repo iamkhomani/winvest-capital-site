@@ -9,15 +9,10 @@ import Ticker from './Ticker'
 type Props = { lang: Lang; alternate?: string; children: ReactNode }
 
 // Main menu. Groups fold open inside the menu; links stay direct. Page addresses do not change.
-const nav: Record<Lang, { groups: [string, [string, string][]][]; links: [string, string][] }> = {
+const nav: Record<Lang, { first: [string, string]; groups: [string, [string, string][]][]; links: [string, string][] }> = {
   en: {
+    first: ['Products', '/products/'],
     groups: [
-      ['Products', [
-        ['All products', '/products/'],
-        ['Winvest Terminal', '/terminal/'],
-        ['Market Whisper AI', '/market-whisper/'],
-        ['One Percent Club', '/#membership'],
-      ]],
       ['Free tools', [
         ['Markets', '/markets/'],
         ['Portfolio tracker', '/portfolio/'],
@@ -33,13 +28,8 @@ const nav: Record<Lang, { groups: [string, [string, string][]][]; links: [string
     ],
   },
   nl: {
+    first: ['Producten', '/nl/producten/'],
     groups: [
-      ['Producten', [
-        ['Alle producten', '/nl/producten/'],
-        ['Winvest Terminal', '/nl/terminal/'],
-        ['Market Whisper AI', '/nl/market-whisper/'],
-        ['One Percent Club', '/nl/#membership'],
-      ]],
       ['Gratis tools', [
         ['Markten', '/nl/markten/'],
         ['Portfolio tracker', '/nl/portfolio/'],
@@ -119,9 +109,14 @@ function Menu({ lang }: { lang: Lang }) {
         className="absolute right-0 top-12 z-30 max-h-[calc(100dvh-10rem)] w-[min(20rem,calc(100vw-2rem))] overflow-y-auto rounded-2xl border border-white/10 bg-[#111113] p-2 shadow-2xl shadow-black/60"
       >
         <ul>
+          <li>
+            <a href={nav[lang].first[1]} onClick={close} className="block rounded-xl px-4 py-2.5 text-[15px] text-white/80 transition hover:bg-white/[0.06] hover:text-white">
+              {nav[lang].first[0]}
+            </a>
+          </li>
           {nav[lang].groups.map(([label, items]) => (
             <li key={label}>
-              <details name="main-menu" className="group/sub">
+              <details className="group/sub">
                 <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-4 py-2.5 text-[15px] text-white/80 transition hover:bg-white/[0.06] hover:text-white [&::-webkit-details-marker]:hidden">
                   {label}
                   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="transition group-open/sub:rotate-180">
