@@ -1,4 +1,4 @@
-import { Check } from '../components/ui'
+import { Check, ThemedImage } from '../components/ui'
 import { DISCORD_URL, PRICE, TERMINAL_CHECKOUT_URL, TERMINAL_PRICE } from '../config'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
@@ -112,7 +112,7 @@ export default function Products({ lang }: { lang: Lang }) {
 
             <div className="mt-6 flex-1 rounded-xl border border-[var(--wc-red)]/50 bg-[var(--wc-red)]/[0.07] p-4">
               <div className="flex items-center gap-3">
-                <img src="/brand/market-whisper-symbol-dark.svg" alt="" width={44} height={44} className="size-11 shrink-0" />
+                <ThemedImage src="/brand/market-whisper-symbol-dark.svg" alt="" width={44} height={44} className="size-11 shrink-0" />
                 <h3 className="flex-1 font-semibold">Market Whisper AI</h3>
                 <span className="rounded-full bg-[var(--wc-red)] px-3 py-1 text-xs font-semibold text-white">{c.whisper.tag}</span>
               </div>

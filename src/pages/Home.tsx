@@ -3,7 +3,7 @@ import { DISCORD_URL, NEWSLETTER_EMAIL_FIELD, NEWSLETTER_FORM_ACTION, NEWSLETTER
 import { reviews } from '../content/reviews'
 import { articles } from '../content/articles'
 import TradingViewWidget from '../components/TradingViewWidget'
-import { Candles, Check, Stars } from '../components/ui'
+import { Candles, Check, Stars, ThemedImage } from '../components/ui'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
 
@@ -344,7 +344,7 @@ export default function Home({ lang }: { lang: Lang }) {
                 <Stars />
                 <blockquote className={`relative mt-5 flex-1 text-white/90 ${i === 0 ? 'text-xl leading-relaxed sm:text-2xl' : 'leading-relaxed'}`}>{r.text}</blockquote>
                 <figcaption className="relative mt-6 flex items-center gap-3">
-                  <span className="flex size-11 items-center justify-center rounded-full bg-gradient-to-br from-[var(--wc-red)] to-[#7a0000] text-lg font-bold uppercase ring-2 ring-black">{r.name[0]}</span>
+                  <span className="flex size-11 items-center justify-center rounded-full bg-gradient-to-br from-[var(--wc-red)] to-[#7a0000] text-lg font-bold text-[#fff] uppercase ring-2 ring-black">{r.name[0]}</span>
                   <span>
                     <span className="block font-semibold">{r.name}</span>
                     <span className="flex items-center gap-1.5 text-xs text-white/50">
@@ -365,7 +365,7 @@ export default function Home({ lang }: { lang: Lang }) {
             <span className="text-sm font-semibold tracking-wide text-[var(--wc-red-soft)] uppercase">{c.wBadge}</span>
             <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Market Whisper AI</h2>
             <p className="mt-4 text-white/65">{c.wP}</p>
-            <img src="/brand/market-whisper-symbol-dark.svg" alt="" width={256} height={256} className="mt-8 hidden size-40 md:block" />
+            <ThemedImage src="/brand/market-whisper-symbol-dark.svg" alt="" width={256} height={256} className="mt-8 hidden size-40 md:block" />
             <a href={paths[lang].whisper} className="mt-6 inline-block font-semibold text-[var(--wc-red-soft)] hover:underline">{lang === 'nl' ? 'Meer over Market Whisper AI →' : 'More about Market Whisper AI →'}</a>
           </div>
           <div className="space-y-6">

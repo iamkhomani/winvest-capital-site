@@ -85,7 +85,7 @@ function Spark({ data }: { data?: number[] }) {
   const up = pts[pts.length - 1] >= pts[0]
   return (
     <svg viewBox={`0 0 ${w} ${h}`} width={w} height={h} aria-hidden="true" className="inline-block">
-      <polyline points={d} fill="none" stroke={up ? '#34d399' : '#ff4d4d'} strokeWidth="1.5" strokeLinejoin="round" />
+      <polyline points={d} fill="none" stroke={up ? 'var(--wc-up)' : 'var(--wc-red-soft)'} strokeWidth="1.5" strokeLinejoin="round" />
     </svg>
   )
 }

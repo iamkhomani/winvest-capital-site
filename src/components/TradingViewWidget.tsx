@@ -15,12 +15,19 @@ export default function TradingViewWidget({
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    el.innerHTML = '<div class="tradingview-widget-container__widget"></div>'
-    const s = document.createElement('script')
-    s.src = `https://s3.tradingview.com/external-embedding/${script}`
-    s.async = true
-    s.innerHTML = json
-    el.appendChild(s)
+    const build = () => {
+      const settings = JSON.parse(json)
+      if ('colorTheme' in settings) settings.colorTheme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark'
+      el.innerHTML = '<div class="tradingview-widget-container__widget"></div>'
+      const s = document.createElement('script')
+      s.src = `https://s3.tradingview.com/external-embedding/${script}`
+      s.async = true
+      s.innerHTML = JSON.stringify(settings)
+      el.appendChild(s)
+    }
+    build()
+    window.addEventListener('wc-theme', build)
+    return () => window.removeEventListener('wc-theme', build)
   }, [script, json])
   return <div ref={ref} className={`tradingview-widget-container ${className}`} />
 }

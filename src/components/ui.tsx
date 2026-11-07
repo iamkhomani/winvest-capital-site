@@ -1,3 +1,15 @@
+import type { ImgHTMLAttributes } from 'react'
+
+// Shows the -dark.svg logo in the dark theme and its -light.svg twin in the light theme.
+export function ThemedImage({ src = '', className = '', ...props }: ImgHTMLAttributes<HTMLImageElement>) {
+  return (
+    <>
+      <img {...props} src={src} className={`${className} only-dark`} />
+      <img {...props} src={src.replace('-dark.svg', '-light.svg')} className={`${className} only-light`} />
+    </>
+  )
+}
+
 export function Check({ muted = false }: { muted?: boolean }) {
   return (
     <svg viewBox="0 0 20 20" className={`mt-0.5 size-5 shrink-0 ${muted ? 'text-white/30' : 'text-[var(--wc-red)]'}`} fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">

@@ -5,7 +5,73 @@
   --wc-red-soft: #ff4d4d;
   --wc-black: #0a0a0b;
   --wc-ink: #111113;
+  --wc-panel: #111113;
+  --wc-text: #fff;
+  --wc-muted: rgba(255, 255, 255, 0.75);
+  --wc-line: rgba(255, 255, 255, 0.25);
+  --wc-up: #34d399;
+  --wc-heat: rgba(255, 255, 255, 0.03);
+  color-scheme: dark;
 }
+
+/* Light theme. Dark is the default; the choice is set on <html> by index.html before the first paint.
+   Components use text-white and bg-black as "text" and "page", so swapping these two flips them all. */
+html[data-theme='light'] {
+  color-scheme: light;
+  --color-white: #0a0a0b;
+  --color-black: #fff;
+  --color-emerald-200: #047857;
+  --color-emerald-300: #047857;
+  --color-emerald-400: #047857;
+  --color-amber-200: #92400e;
+  --color-amber-300: #92400e;
+  --color-orange-300: #c2410c;
+  --color-sky-300: #0369a1;
+  --wc-red-soft: #c80000;
+  --wc-black: #f6f6f7;
+  --wc-ink: #ececee;
+  --wc-panel: #fff;
+  --wc-text: #0a0a0b;
+  --wc-muted: rgba(10, 10, 11, 0.72);
+  --wc-line: rgba(10, 10, 11, 0.25);
+  --wc-up: #059669;
+  --wc-heat: rgba(10, 10, 11, 0.04);
+}
+
+/* Solid red stays red with white text in both themes. */
+html[data-theme='light'] [class~='bg-[var(--wc-red)]'] {
+  --color-white: #fff;
+  color: #fff;
+}
+
+/* The faintest text needs more strength on a light background to stay readable. */
+html[data-theme='light'] .text-white\/30:not(:hover),
+html[data-theme='light'] .text-white\/35:not(:hover),
+html[data-theme='light'] .text-white\/40:not(:hover),
+html[data-theme='light'] .text-white\/45:not(:hover),
+html[data-theme='light'] .text-white\/50:not(:hover),
+html[data-theme='light'] .text-white\/55:not(:hover) {
+  color: rgba(10, 10, 11, 0.64);
+}
+
+html[data-theme='light'] .shadow-black\/60 {
+  --tw-shadow-color: rgba(0, 0, 0, 0.18);
+}
+
+/* The red glow is softer on light, where it would otherwise tint the whole page. */
+html[data-theme='light'] [class*='blur-['] {
+  opacity: 0.35;
+}
+
+/* Logos with a separate version per theme. */
+html:not([data-theme='light']) .only-light,
+html[data-theme='light'] .only-dark {
+  display: none !important;
+}
+
+.theme-to-dark { display: none; }
+html[data-theme='light'] .theme-to-dark { display: inline; }
+html[data-theme='light'] .theme-to-light { display: none; }
 
 * {
   box-sizing: border-box;
@@ -26,11 +92,11 @@ body {
   background: var(--wc-black);
 }
 
-body { font-family: 'Inter Variable', ui-sans-serif, system-ui, sans-serif; color: #fff; }
+body { font-family: 'Inter Variable', ui-sans-serif, system-ui, sans-serif; color: var(--wc-text); }
 
 /* Installed web app (PWA): bottom tab bar. `pwa` class is set on <html> by index.html. */
 .app-tabbar { display: none; padding-bottom: env(safe-area-inset-bottom); }
-.app-tabbar a[aria-current='page'] { color: #fff; }
+.app-tabbar a[aria-current='page'] { color: var(--wc-text); }
 .app-tabbar a[aria-current='page'] svg { color: var(--wc-red); }
 .pwa .app-tabbar { display: block; }
 .pwa body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }

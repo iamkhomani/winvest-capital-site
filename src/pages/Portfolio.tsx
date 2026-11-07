@@ -99,7 +99,7 @@ const fmtNum = (v: number, lang: Lang) => new Intl.NumberFormat(lang === 'nl' ? 
 const fmtPct = (v: number | undefined, sign = true) => (v === undefined || !isFinite(v) ? '–' : `${sign && v > 0 ? '+' : ''}${v.toFixed(2)}%`)
 const tone = (v: number | undefined) => (v === undefined || Math.abs(v) < 1e-9 ? 'text-white/70' : v > 0 ? 'text-emerald-400' : 'text-[var(--wc-red-soft)]')
 const todayStr = () => new Date().toISOString().slice(0, 10)
-const PALETTE = ['#FE0000', '#FFFFFF', '#F59E0B', '#34D399', '#60A5FA', '#A78BFA', '#F472B6', '#94A3B8', '#FB7185', '#2DD4BF']
+const PALETTE = ['#FE0000', 'var(--wc-text)', '#F59E0B', '#34D399', '#60A5FA', '#A78BFA', '#F472B6', '#94A3B8', '#FB7185', '#2DD4BF']
 
 // ---------- small UI pieces ----------
 function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
@@ -131,7 +131,7 @@ function LineChart({ pts, base, lang }: { pts: Point[]; base: Currency; lang: La
   const y = (v: number) => H - pad - ((v - min) / (max - min || 1)) * (H - pad * 2)
   const d = data.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(p.value).toFixed(1)}`).join('')
   const up = data[data.length - 1].value >= data[0].value
-  const col = up ? '#34d399' : '#ff4d4d'
+  const col = up ? 'var(--wc-up)' : 'var(--wc-red-soft)'
   const h = hover !== null ? data[hover] : null
   return (
     <div className="relative">
@@ -154,7 +154,7 @@ function LineChart({ pts, base, lang }: { pts: Point[]; base: Currency; lang: La
         </defs>
         <path d={`${d}L${x(data.length - 1)},${H}L${x(0)},${H}Z`} fill="url(#pf-fill)" />
         <path d={d} fill="none" stroke={col} strokeWidth="2" vectorEffect="non-scaling-stroke" />
-        {h ? <line x1={x(hover!)} x2={x(hover!)} y1={0} y2={H} stroke="rgba(255,255,255,.3)" vectorEffect="non-scaling-stroke" /> : null}
+        {h ? <line x1={x(hover!)} x2={x(hover!)} y1={0} y2={H} stroke="var(--wc-line)" vectorEffect="non-scaling-stroke" /> : null}
       </svg>
       <div className="mt-1 flex justify-between text-xs text-white/45">
         <span>{new Date(data[0].t).toLocaleDateString(lang === 'nl' ? 'nl-NL' : 'en-GB', { month: 'short', year: 'numeric' })}</span>
@@ -178,7 +178,7 @@ function Donut({ parts }: { parts: { label: string; value: number; color: string
       ? `M80,${80 - R}A${R},${R} 0 1 1 79.99,${80 - R}ZM80,${80 - r}A${r},${r} 0 1 0 80.01,${80 - r}Z`
       : `M${pt(R, a0)}A${R},${R} 0 ${large} 1 ${pt(R, a1)}L${pt(r, a1)}A${r},${r} 0 ${large} 0 ${pt(r, a0)}Z`
     a0 = a1
-    return <path key={p.label} d={path} fill={p.color} fillRule="evenodd" stroke="#0a0a0b" strokeWidth="1.5" />
+    return <path key={p.label} d={path} fill={p.color} fillRule="evenodd" stroke="var(--wc-black)" strokeWidth="1.5" />
   })
   return <svg viewBox="0 0 160 160" className="size-40 shrink-0">{arcs}</svg>
 }
@@ -271,7 +271,7 @@ function TxForm({ c, lang, data, quotesNow, onSave, onClose, preset, held }: { c
   const pill = (on: boolean) => `flex-1 rounded-full px-4 py-2 text-sm font-semibold transition ${on ? 'bg-white text-black' : 'text-white/70 hover:text-white'}`
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-0 sm:items-center sm:p-4" onClick={onClose}>
-      <div role="dialog" aria-modal="true" aria-label={c.form.title} className="max-h-[92dvh] w-full max-w-lg overflow-y-auto rounded-t-3xl border border-white/10 bg-[#111113] p-5 sm:rounded-3xl sm:p-6" onClick={(e) => e.stopPropagation()}>
+      <div role="dialog" aria-modal="true" aria-label={c.form.title} className="max-h-[92dvh] w-full max-w-lg overflow-y-auto rounded-t-3xl border border-white/10 bg-[var(--wc-panel)] p-5 sm:rounded-3xl sm:p-6" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-bold">{c.form.title}</h2>
           <button type="button" onClick={onClose} aria-label={c.form.cancel} className="rounded-full px-3 py-1 text-white/60 hover:text-white">✕</button>

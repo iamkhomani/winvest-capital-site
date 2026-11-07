@@ -1,4 +1,4 @@
-import { Check } from '../components/ui'
+import { Check, ThemedImage } from '../components/ui'
 import { DISCORD_URL, PRICE, STRIPE_PAYMENT_LINK } from '../config'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
@@ -122,7 +122,7 @@ export default function MarketWhisper({ lang }: { lang: Lang }) {
         </nav>
         <div className="mt-8 grid items-center gap-10 md:grid-cols-[1.2fr_1fr]">
           <div>
-            <img src="/brand/market-whisper-horizontal-dark.svg" alt="Market Whisper" width={706} height={256} className="h-16 w-auto sm:h-20" />
+            <ThemedImage src="/brand/market-whisper-horizontal-dark.svg" alt="Market Whisper" width={706} height={256} className="h-16 w-auto sm:h-20" />
             <span className="mt-8 block text-sm font-semibold tracking-wide text-[var(--wc-red-soft)] uppercase">{c.badge}</span>
             <h1 className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">{c.h1}</h1>
             <p className="mt-5 max-w-xl text-lg text-white/70">{c.intro}</p>
@@ -132,7 +132,7 @@ export default function MarketWhisper({ lang }: { lang: Lang }) {
             </div>
           </div>
           <div className="flex justify-center">
-            <img src="/brand/market-whisper-symbol-dark.svg" alt="" width={256} height={256} className="size-56 drop-shadow-[0_0_60px_rgba(254,0,0,0.35)] sm:size-72" />
+            <ThemedImage src="/brand/market-whisper-symbol-dark.svg" alt="" width={256} height={256} className="size-56 drop-shadow-[0_0_60px_rgba(254,0,0,0.35)] sm:size-72" />
           </div>
         </div>
       </section>
@@ -227,7 +227,7 @@ export default function MarketWhisper({ lang }: { lang: Lang }) {
 
       <section className="border-t border-white/10 bg-[var(--wc-ink)]">
         <div className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6">
-          <img src="/brand/market-whisper-symbol-dark.svg" alt="" width={64} height={64} className="mx-auto size-16" />
+          <ThemedImage src="/brand/market-whisper-symbol-dark.svg" alt="" width={64} height={64} className="mx-auto size-16" />
           <h2 className="mt-5 text-3xl font-bold tracking-tight">{c.endH}</h2>
           <p className="mt-3 text-white/70">{c.endP}</p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">

@@ -91,7 +91,7 @@ export default function ImportPanel({ c, state, accounts, locale, onImport }: { 
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           <Field label={t.account}>
             <select value={accountId} onChange={(e) => setAccountId(e.target.value)} className={inputCls}>
-              {accounts.map((a) => <option key={a.id} value={a.id} className="bg-[#111]">{a.name} ({a.currency})</option>)}
+              {accounts.map((a) => <option key={a.id} value={a.id} className="bg-[var(--wc-panel)]">{a.name} ({a.currency})</option>)}
             </select>
           </Field>
           <Field label={t.file}>
@@ -111,8 +111,8 @@ export default function ImportPanel({ c, state, accounts, locale, onImport }: { 
               {FIELDS.map((fl) => (
                 <Field key={fl} label={`${t.fields[fl]}${REQUIRED.includes(fl) ? ' *' : ''}`}>
                   <select value={mapping[fl] ?? ''} onChange={(e) => setMapping((m) => ({ ...m, [fl]: e.target.value === '' ? undefined : Number(e.target.value) }))} className={sel}>
-                    <option value="" className="bg-[#111]">{t.ignore}</option>
-                    {table.headers.map((h, i) => <option key={i} value={i} className="bg-[#111]">{h || `#${i + 1}`}</option>)}
+                    <option value="" className="bg-[var(--wc-panel)]">{t.ignore}</option>
+                    {table.headers.map((h, i) => <option key={i} value={i} className="bg-[var(--wc-panel)]">{h || `#${i + 1}`}</option>)}
                   </select>
                 </Field>
               ))}
@@ -123,15 +123,15 @@ export default function ImportPanel({ c, state, accounts, locale, onImport }: { 
               </Field>
               <Field label={t.dateOrder}>
                 <select value={opt.dateOrder} onChange={(e) => setOpt((o) => ({ ...o, dateOrder: e.target.value as ImportOptions['dateOrder'] }))} className={inputCls}>
-                  <option value="ymd" className="bg-[#111]">YYYY-MM-DD / YYYY.MM.DD</option>
-                  <option value="dmy" className="bg-[#111]">DD-MM-YYYY</option>
-                  <option value="mdy" className="bg-[#111]">MM/DD/YYYY</option>
+                  <option value="ymd" className="bg-[var(--wc-panel)]">YYYY-MM-DD / YYYY.MM.DD</option>
+                  <option value="dmy" className="bg-[var(--wc-panel)]">DD-MM-YYYY</option>
+                  <option value="mdy" className="bg-[var(--wc-panel)]">MM/DD/YYYY</option>
                 </select>
               </Field>
               <Field label={t.volume}>
                 <select value={opt.volume} onChange={(e) => setOpt((o) => ({ ...o, volume: e.target.value as ImportOptions['volume'] }))} className={inputCls}>
-                  <option value="lots" className="bg-[#111]">{t.lotsOpt}</option>
-                  <option value="units" className="bg-[#111]">{t.unitsOpt}</option>
+                  <option value="lots" className="bg-[var(--wc-panel)]">{t.lotsOpt}</option>
+                  <option value="units" className="bg-[var(--wc-panel)]">{t.unitsOpt}</option>
                 </select>
               </Field>
             </div>
@@ -145,7 +145,7 @@ export default function ImportPanel({ c, state, accounts, locale, onImport }: { 
             {missingRequired.length ? <p className="mt-2 text-sm text-amber-300">* {missingRequired.map((x) => t.fields[x]).join(', ')}</p> : null}
             <div className="mt-3 max-h-[28rem] overflow-auto rounded-xl border border-white/10">
               <table className="w-full min-w-[760px] text-xs">
-                <thead className="sticky top-0 bg-[#18181b] text-left text-white/50">
+                <thead className="sticky top-0 bg-[var(--wc-panel)] text-left text-white/50">
                   <tr>
                     <th className="px-2 py-2">{t.include}</th><th className="px-2 py-2">#</th><th className="px-2 py-2">{c.cols.status}</th><th className="px-2 py-2">{c.cols.date}</th><th className="px-2 py-2">{c.cols.pair}</th><th className="px-2 py-2">{c.cols.dir}</th><th className="px-2 py-2 text-right">{c.cols.lots}</th><th className="px-2 py-2 text-right">{c.cols.entry}</th><th className="px-2 py-2 text-right">{c.cols.exit}</th><th className="px-2 py-2 text-right">{c.cols.pnl}</th>
                   </tr>

@@ -46,6 +46,32 @@ const nav: Record<Lang, { first: [string, string]; groups: [string, [string, str
   },
 }
 
+function toggleTheme() {
+  const root = document.documentElement
+  const light = root.dataset.theme !== 'light'
+  if (light) root.dataset.theme = 'light'
+  else delete root.dataset.theme
+  try {
+    localStorage.setItem('wc-theme', light ? 'light' : 'dark')
+  } catch {
+    // The choice simply will not be remembered.
+  }
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', light ? '#f6f6f7' : '#0a0a0b')
+  window.dispatchEvent(new Event('wc-theme'))
+}
+
+function ThemeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <g className="theme-to-light">
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+      </g>
+      <path className="theme-to-dark" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+    </svg>
+  )
+}
+
 function LangSwitch({ lang, alternate }: { lang: Lang; alternate?: string }) {
   const other = alternate ?? (lang === 'en' ? '/nl/' : '/')
   const base = 'rounded-full px-2.5 py-1 text-xs font-semibold transition'
@@ -106,7 +132,7 @@ function Menu({ lang }: { lang: Lang }) {
       </summary>
       <nav
         aria-label={nl ? 'Hoofdmenu' : 'Main menu'}
-        className="absolute right-0 top-12 z-30 max-h-[calc(100dvh-10rem)] w-[min(20rem,calc(100vw-2rem))] overflow-y-auto rounded-2xl border border-white/10 bg-[#111113] p-2 shadow-2xl shadow-black/60"
+        className="absolute right-0 top-12 z-30 max-h-[calc(100dvh-10rem)] w-[min(20rem,calc(100vw-2rem))] overflow-y-auto rounded-2xl border border-white/10 bg-[var(--wc-panel)] p-2 shadow-2xl shadow-black/60"
       >
         <ul>
           <li>
@@ -143,6 +169,11 @@ function Menu({ lang }: { lang: Lang }) {
             </li>
           ))}
         </ul>
+        <button type="button" onClick={toggleTheme} className="flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-left text-[15px] text-white/80 transition hover:bg-white/[0.06] hover:text-white sm:hidden">
+          <ThemeIcon />
+          <span className="theme-to-light">{nl ? 'Lichte modus' : 'Light mode'}</span>
+          <span className="theme-to-dark">{nl ? 'Donkere modus' : 'Dark mode'}</span>
+        </button>
         <a href={DISCORD_URL} onClick={close} className="mt-2 block rounded-xl bg-[var(--wc-red)] px-4 py-2.5 text-center text-[15px] font-semibold text-white transition hover:brightness-110">
           {nl ? 'Word gratis lid van de Discord' : 'Join the Discord, free'}
         </a>
@@ -162,6 +193,14 @@ export default function Layout({ lang, alternate, children }: Props) {
           </a>
           <div className="flex items-center gap-2 sm:gap-3">
             <LangSwitch lang={lang} alternate={alternate} />
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={lang === 'nl' ? 'Wissel tussen licht en donker' : 'Switch between light and dark'}
+              className="hidden size-10 items-center justify-center rounded-full border border-white/15 text-white/80 transition hover:border-white/40 hover:text-white sm:flex"
+            >
+              <ThemeIcon />
+            </button>
             <a href={DISCORD_URL} className="hidden rounded-full bg-[var(--wc-red)] px-4 py-2 text-sm font-semibold text-white transition hover:brightness-110 sm:inline-block">
               {lang === 'nl' ? 'Gratis lid' : 'Join free'}
             </a>

@@ -45,7 +45,7 @@ function Curve({ points, money, locale, mode }: { points: { time: number; v: num
     d += i === 0 ? `M${x(p.time)},${y(p.v)}` : `H${x(p.time)}V${y(p.v)}`
   })
   const up = points[points.length - 1].v >= points[0].v
-  const col = up ? '#34d399' : '#ff4d4d'
+  const col = up ? 'var(--wc-up)' : 'var(--wc-red-soft)'
   const h = hover !== null ? points[hover] : null
   return (
     <div>
@@ -56,10 +56,10 @@ function Curve({ points, money, locale, mode }: { points: { time: number; v: num
         while (i < points.length - 1 && points[i + 1].time <= t) i++
         setHover(i)
       }}>
-        {mode === 'pnl' && min < 0 && max > 0 ? <line x1={0} x2={W} y1={y(0)} y2={y(0)} stroke="rgba(255,255,255,.2)" strokeDasharray="4 4" vectorEffect="non-scaling-stroke" /> : null}
+        {mode === 'pnl' && min < 0 && max > 0 ? <line x1={0} x2={W} y1={y(0)} y2={y(0)} stroke="var(--wc-line)" strokeDasharray="4 4" vectorEffect="non-scaling-stroke" /> : null}
         <path d={d} fill="none" stroke={col} strokeWidth="2" vectorEffect="non-scaling-stroke" />
         {mode !== 'pnl' ? points.filter((p) => p.kind === 'cash').map((p, i) => <circle key={i} cx={x(p.time)} cy={y(p.v)} r="4" fill="#60a5fa" />) : null}
-        {h ? <line x1={x(h.time)} x2={x(h.time)} y1={0} y2={H} stroke="rgba(255,255,255,.3)" vectorEffect="non-scaling-stroke" /> : null}
+        {h ? <line x1={x(h.time)} x2={x(h.time)} y1={0} y2={H} stroke="var(--wc-line)" vectorEffect="non-scaling-stroke" /> : null}
       </svg>
       <div className="mt-1 flex justify-between text-xs text-white/45">
         <span>{new Date(t0).toLocaleDateString(locale)}</span>
@@ -143,7 +143,7 @@ function Calendar({ c, byDay, tz, money, locale }: { c: JC; byDay: Map<string, {
                 const v = byDay.get(d)
                 const inMonth = d.startsWith(ym)
                 const a = v ? Math.min(0.85, 0.15 + (Math.abs(v.pnl) / maxAbs) * 0.7) : 0
-                const bg = v && v.pnl > 0 ? `rgba(52,211,153,${a})` : v && v.pnl < 0 ? `rgba(254,0,0,${a})` : 'rgba(255,255,255,0.03)'
+                const bg = v && v.pnl > 0 ? `rgba(52,211,153,${a})` : v && v.pnl < 0 ? `rgba(254,0,0,${a})` : 'var(--wc-heat)'
                 return (
                   <div key={d} style={{ background: inMonth ? bg : 'transparent' }} className={`min-h-[3.6rem] rounded-lg p-1 text-left sm:min-h-[4.5rem] sm:p-1.5 ${inMonth ? '' : 'opacity-30'} ${d === today ? 'ring-1 ring-white/60' : ''}`}>
                     <div className="text-[10px] text-white/60">{+d.slice(8)}</div>
@@ -219,10 +219,10 @@ function AccountsPanel({ c, state, update }: { c: JC; state: JournalState; updat
             <Field label={a.name}><input value={edit.name} maxLength={40} onChange={(e) => setEdit({ ...edit, name: e.target.value })} className={inputCls} /></Field>
             <Field label={a.broker}><input value={edit.broker ?? ''} maxLength={40} onChange={(e) => setEdit({ ...edit, broker: e.target.value })} className={inputCls} /></Field>
             <Field label={a.type}>
-              <select value={edit.type} onChange={(e) => setEdit({ ...edit, type: e.target.value as Account['type'] })} className={inputCls}><option value="live" className="bg-[#111]">{a.live}</option><option value="demo" className="bg-[#111]">{a.demo}</option></select>
+              <select value={edit.type} onChange={(e) => setEdit({ ...edit, type: e.target.value as Account['type'] })} className={inputCls}><option value="live" className="bg-[var(--wc-panel)]">{a.live}</option><option value="demo" className="bg-[var(--wc-panel)]">{a.demo}</option></select>
             </Field>
             <Field label={a.currency}>
-              <select value={edit.currency} disabled={state.trades.some((t) => t.accountId === edit.id)} onChange={(e) => setEdit({ ...edit, currency: e.target.value as AccountCurrency })} className={inputCls}>{ACCOUNT_CURRENCIES.map((x) => <option key={x} value={x} className="bg-[#111]">{x}</option>)}</select>
+              <select value={edit.currency} disabled={state.trades.some((t) => t.accountId === edit.id)} onChange={(e) => setEdit({ ...edit, currency: e.target.value as AccountCurrency })} className={inputCls}>{ACCOUNT_CURRENCIES.map((x) => <option key={x} value={x} className="bg-[var(--wc-panel)]">{x}</option>)}</select>
             </Field>
             <Field label={a.start}><input inputMode="decimal" value={String(edit.startBalance)} onChange={(e) => setEdit({ ...edit, startBalance: n(e.target.value) || 0 })} className={inputCls} /></Field>
             <Field label={a.startDate}><input type="date" value={edit.startDate} onChange={(e) => setEdit({ ...edit, startDate: e.target.value })} className={inputCls} /></Field>
@@ -240,13 +240,13 @@ function AccountsPanel({ c, state, update }: { c: JC; state: JournalState; updat
           <h2 className="text-lg font-bold">{a.cash}</h2>
           <p className="mt-1 text-sm text-white/55">{a.cashNote}</p>
           <div className="mt-3 grid gap-3 sm:grid-cols-6">
-            <Field label={c.cols.account} className="sm:col-span-2"><select value={cash.accountId} onChange={(e) => setCash({ ...cash, accountId: e.target.value })} className={inputCls}>{state.accounts.map((x) => <option key={x.id} value={x.id} className="bg-[#111]">{x.name} ({x.currency})</option>)}</select></Field>
-            <Field label={a.type} className="sm:col-span-2"><select value={cash.type} onChange={(e) => setCash({ ...cash, type: e.target.value as typeof cash.type })} className={inputCls}><option value="deposit" className="bg-[#111]">{a.deposit}</option><option value="withdrawal" className="bg-[#111]">{a.withdrawal}</option><option value="transfer" className="bg-[#111]">{a.transfer}</option><option value="adjustment" className="bg-[#111]">{a.adjustment}</option></select></Field>
+            <Field label={c.cols.account} className="sm:col-span-2"><select value={cash.accountId} onChange={(e) => setCash({ ...cash, accountId: e.target.value })} className={inputCls}>{state.accounts.map((x) => <option key={x.id} value={x.id} className="bg-[var(--wc-panel)]">{x.name} ({x.currency})</option>)}</select></Field>
+            <Field label={a.type} className="sm:col-span-2"><select value={cash.type} onChange={(e) => setCash({ ...cash, type: e.target.value as typeof cash.type })} className={inputCls}><option value="deposit" className="bg-[var(--wc-panel)]">{a.deposit}</option><option value="withdrawal" className="bg-[var(--wc-panel)]">{a.withdrawal}</option><option value="transfer" className="bg-[var(--wc-panel)]">{a.transfer}</option><option value="adjustment" className="bg-[var(--wc-panel)]">{a.adjustment}</option></select></Field>
             <Field label={a.amount}><input inputMode="decimal" value={cash.amount} onChange={(e) => setCash({ ...cash, amount: e.target.value })} className={inputCls} /></Field>
             <Field label={c.cols.date}><input type="datetime-local" value={cash.time} onChange={(e) => setCash({ ...cash, time: e.target.value })} className={inputCls} /></Field>
             {cash.type === 'transfer' ? (
               <>
-                <Field label={a.to} className="sm:col-span-2"><select value={cash.to} onChange={(e) => setCash({ ...cash, to: e.target.value })} className={inputCls}><option value="" className="bg-[#111]">–</option>{state.accounts.filter((x) => x.id !== cash.accountId).map((x) => <option key={x.id} value={x.id} className="bg-[#111]">{x.name} ({x.currency})</option>)}</select></Field>
+                <Field label={a.to} className="sm:col-span-2"><select value={cash.to} onChange={(e) => setCash({ ...cash, to: e.target.value })} className={inputCls}><option value="" className="bg-[var(--wc-panel)]">–</option>{state.accounts.filter((x) => x.id !== cash.accountId).map((x) => <option key={x.id} value={x.id} className="bg-[var(--wc-panel)]">{x.name} ({x.currency})</option>)}</select></Field>
                 <Field label={a.received}><input inputMode="decimal" value={cash.received} placeholder={cash.amount} onChange={(e) => setCash({ ...cash, received: e.target.value })} className={inputCls} /></Field>
               </>
             ) : null}
@@ -453,8 +453,8 @@ export default function Journal({ lang }: { lang: Lang }) {
           <>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <select value={acct} onChange={(e) => setAcct(e.target.value)} className="rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-sm font-semibold outline-none">
-                <option value="all" className="bg-[#111]">{c.allAccounts} · {s.displayCurrency}</option>
-                {state.accounts.map((a) => <option key={a.id} value={a.id} className="bg-[#111]">{a.name} · {a.currency}{a.type === 'demo' ? ' · demo' : ''}</option>)}
+                <option value="all" className="bg-[var(--wc-panel)]">{c.allAccounts} · {s.displayCurrency}</option>
+                {state.accounts.map((a) => <option key={a.id} value={a.id} className="bg-[var(--wc-panel)]">{a.name} · {a.currency}{a.type === 'demo' ? ' · demo' : ''}</option>)}
               </select>
               {ratesMissing ? <span className="text-xs text-amber-300">FX ⚠</span> : null}
             </div>
@@ -521,8 +521,8 @@ export default function Journal({ lang }: { lang: Lang }) {
               <div className="mt-6">
                 <div className="flex flex-wrap gap-2">
                   <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={c.filters.search} className="min-w-[12rem] flex-1 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-sm outline-none focus:border-[var(--wc-red)]" />
-                  <select value={fPair} onChange={(e) => setFPair(e.target.value)} className="rounded-full border border-white/15 bg-white/[0.04] px-3 py-2 text-sm"><option value="" className="bg-[#111]">{c.cols.pair}: {c.filters.all}</option>{[...new Set(list.map((x) => x.t.pair))].sort().map((p) => <option key={p} value={p} className="bg-[#111]">{pairLabel(p)}</option>)}</select>
-                  <select value={fRes} onChange={(e) => setFRes(e.target.value)} className="rounded-full border border-white/15 bg-white/[0.04] px-3 py-2 text-sm"><option value="" className="bg-[#111]">{c.cols.result}: {c.filters.all}</option>{(['win', 'loss', 'be', 'open'] as const).map((r) => <option key={r} value={r} className="bg-[#111]">{c.results[r]}</option>)}</select>
+                  <select value={fPair} onChange={(e) => setFPair(e.target.value)} className="rounded-full border border-white/15 bg-white/[0.04] px-3 py-2 text-sm"><option value="" className="bg-[var(--wc-panel)]">{c.cols.pair}: {c.filters.all}</option>{[...new Set(list.map((x) => x.t.pair))].sort().map((p) => <option key={p} value={p} className="bg-[var(--wc-panel)]">{pairLabel(p)}</option>)}</select>
+                  <select value={fRes} onChange={(e) => setFRes(e.target.value)} className="rounded-full border border-white/15 bg-white/[0.04] px-3 py-2 text-sm"><option value="" className="bg-[var(--wc-panel)]">{c.cols.result}: {c.filters.all}</option>{(['win', 'loss', 'be', 'open'] as const).map((r) => <option key={r} value={r} className="bg-[var(--wc-panel)]">{c.results[r]}</option>)}</select>
                 </div>
                 <div className="mt-3 overflow-x-auto rounded-2xl border border-white/10">
                   <table className="w-full min-w-[860px] text-sm">
@@ -658,10 +658,10 @@ export default function Journal({ lang }: { lang: Lang }) {
                 <Card>
                   <div className="grid gap-3 sm:grid-cols-2">
                     <Field label={c.settings.tz} hint={c.settings.tzNote}>
-                      <select value={s.tz} onChange={(e) => update((st) => { st.settings.tz = e.target.value })} className={inputCls}>{[...new Set([s.tz, ...TIMEZONES])].map((z) => <option key={z} value={z} className="bg-[#111]">{z}</option>)}</select>
+                      <select value={s.tz} onChange={(e) => update((st) => { st.settings.tz = e.target.value })} className={inputCls}>{[...new Set([s.tz, ...TIMEZONES])].map((z) => <option key={z} value={z} className="bg-[var(--wc-panel)]">{z}</option>)}</select>
                     </Field>
                     <Field label={c.settings.display}>
-                      <select value={s.displayCurrency} onChange={(e) => update((st) => { st.settings.displayCurrency = e.target.value as AccountCurrency })} className={inputCls}>{ACCOUNT_CURRENCIES.map((x) => <option key={x} value={x} className="bg-[#111]">{x}</option>)}</select>
+                      <select value={s.displayCurrency} onChange={(e) => update((st) => { st.settings.displayCurrency = e.target.value as AccountCurrency })} className={inputCls}>{ACCOUNT_CURRENCIES.map((x) => <option key={x} value={x} className="bg-[var(--wc-panel)]">{x}</option>)}</select>
                     </Field>
                   </div>
                   <h3 className="mt-5 font-semibold">{c.settings.limits}</h3>

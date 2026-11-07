@@ -5,6 +5,15 @@
     <meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'self'; form-action 'self' https://news.winvestcapital.nl; upgrade-insecure-requests" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0a0a0b" />
+    <script>
+      // Light theme, set before the first paint so the page does not flash. Dark is the default.
+      try {
+        if (localStorage.getItem('wc-theme') === 'light') {
+          document.documentElement.dataset.theme = 'light';
+          document.querySelector('meta[name="theme-color"]').content = '#f6f6f7';
+        }
+      } catch (e) {}
+    </script>
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/app-icon-180.png" />
@@ -44,11 +53,11 @@
             ? { m: 'We gebruiken Google Analytics om te meten hoe de website wordt gebruikt. Alleen met je toestemming.', a: 'Accepteren', d: 'Weigeren', p: 'Privacy', u: '/nl/privacy/' }
             : { m: 'We use Google Analytics to measure how this website is used. Only with your consent.', a: 'Accept', d: 'Decline', p: 'Privacy', u: '/legal/privacy/' };
           var b = document.createElement('div'); b.id = 'wc-consent'; b.setAttribute('role', 'dialog'); b.setAttribute('aria-label', 'Cookies');
-          b.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:50;max-width:560px;margin:0 auto;background:#141414;color:#fff;border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:16px 18px;font:14px/1.5 Inter,system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.5)';
+          b.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:50;max-width:560px;margin:0 auto;background:var(--wc-panel);color:var(--wc-text);border:1px solid var(--wc-line);border-radius:14px;padding:16px 18px;font:14px/1.5 Inter,system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.5)';
           var btn = 'border-radius:999px;padding:8px 16px;font-weight:600;font-size:14px;cursor:pointer;';
-          b.innerHTML = '<p style="margin:0 0 12px;color:rgba(255,255,255,.8)">' + t.m + ' <a href="' + t.u + '" style="color:#fff;text-decoration:underline">' + t.p + '</a></p>'
+          b.innerHTML = '<p style="margin:0 0 12px;color:var(--wc-muted)">' + t.m + ' <a href="' + t.u + '" style="color:var(--wc-text);text-decoration:underline">' + t.p + '</a></p>'
             + '<div style="display:flex;gap:8px;justify-content:flex-end">'
-            + '<button type="button" data-v="denied" style="' + btn + 'background:transparent;color:#fff;border:1px solid rgba(255,255,255,.3)">' + t.d + '</button>'
+            + '<button type="button" data-v="denied" style="' + btn + 'background:transparent;color:var(--wc-text);border:1px solid var(--wc-line)">' + t.d + '</button>'
             + '<button type="button" data-v="granted" style="' + btn + 'background:#FE0000;color:#fff;border:1px solid #FE0000">' + t.a + '</button></div>';
           b.addEventListener('click', function (e) {
             var v = e.target.getAttribute && e.target.getAttribute('data-v'); if (!v) return;
@@ -93,10 +102,10 @@
             ? { h: 'Installeer Winvest Capital', ios: 'Tik in Safari op <b>Deel</b> (het vierkant met de pijl omhoog) en kies <b>Zet op beginscherm</b>.', other: 'Open het menu van je browser en kies <b>App installeren</b> of <b>Toevoegen aan startscherm</b>.', c: 'Sluiten' }
             : { h: 'Install Winvest Capital', ios: 'In Safari, tap <b>Share</b> (the square with the arrow) and choose <b>Add to Home Screen</b>.', other: 'Open your browser menu and choose <b>Install app</b> or <b>Add to Home screen</b>.', c: 'Close' };
           var d = document.createElement('div'); d.id = 'wc-install'; d.setAttribute('role', 'dialog');
-          d.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:60;max-width:440px;margin:0 auto;background:#141414;color:#fff;border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:16px 18px;font:14px/1.5 Inter,system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.5)';
+          d.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:60;max-width:440px;margin:0 auto;background:var(--wc-panel);color:var(--wc-text);border:1px solid var(--wc-line);border-radius:14px;padding:16px 18px;font:14px/1.5 Inter,system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.5)';
           d.innerHTML = '<div style="display:flex;gap:12px;align-items:flex-start"><img src="/app-icon-192.png" alt="" width="40" height="40" style="border-radius:10px;background:#fff">'
-            + '<div style="flex:1"><p style="margin:0 0 4px;font-weight:700">' + t.h + '</p><p style="margin:0;color:rgba(255,255,255,.75)">' + (ios ? t.ios : t.other) + '</p></div></div>'
-            + '<div style="text-align:right;margin-top:10px"><button type="button" style="border-radius:999px;padding:7px 16px;font-weight:600;font-size:14px;cursor:pointer;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.3)">' + t.c + '</button></div>';
+            + '<div style="flex:1"><p style="margin:0 0 4px;font-weight:700">' + t.h + '</p><p style="margin:0;color:var(--wc-muted)">' + (ios ? t.ios : t.other) + '</p></div></div>'
+            + '<div style="text-align:right;margin-top:10px"><button type="button" style="border-radius:999px;padding:7px 16px;font-weight:600;font-size:14px;cursor:pointer;background:transparent;color:var(--wc-text);border:1px solid var(--wc-line)">' + t.c + '</button></div>';
           d.querySelector('button').onclick = function () { d.remove() };
           document.body.appendChild(d);
         }
@@ -108,10 +117,10 @@
           if (standalone || !mobile || store('wc-install-dismissed') || !store('wc-consent') || document.getElementById('wc-consent')) return;
           var t = nl() ? { m: 'Zet Winvest Capital als app op je telefoon.', a: 'Installeren', d: 'Niet nu' } : { m: 'Add Winvest Capital to your phone as an app.', a: 'Install', d: 'Not now' };
           var b = document.createElement('div'); b.id = 'wc-install-bar';
-          b.style.cssText = 'position:fixed;left:12px;right:12px;bottom:12px;z-index:55;display:flex;gap:10px;align-items:center;background:#141414;color:#fff;border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:10px 12px;font:14px/1.4 Inter,system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.5)';
+          b.style.cssText = 'position:fixed;left:12px;right:12px;bottom:12px;z-index:55;display:flex;gap:10px;align-items:center;background:var(--wc-panel);color:var(--wc-text);border:1px solid var(--wc-line);border-radius:14px;padding:10px 12px;font:14px/1.4 Inter,system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.5)';
           var btn = 'border-radius:999px;padding:7px 14px;font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap;';
           b.innerHTML = '<img src="/app-icon-192.png" alt="" width="32" height="32" style="border-radius:8px;background:#fff"><span style="flex:1">' + t.m + '</span>'
-            + '<button type="button" data-x style="' + btn + 'background:transparent;color:rgba(255,255,255,.7);border:0">' + t.d + '</button>'
+            + '<button type="button" data-x style="' + btn + 'background:transparent;color:var(--wc-muted);border:0">' + t.d + '</button>'
             + '<button type="button" data-i style="' + btn + 'background:#FE0000;color:#fff;border:0">' + t.a + '</button>';
           b.querySelector('[data-x]').onclick = function () { store('wc-install-dismissed', '1'); b.remove() };
           b.querySelector('[data-i]').onclick = function () { b.remove(); install() };

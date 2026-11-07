@@ -189,7 +189,7 @@ export default function TradeForm({ c, state, accounts, trade, defaultAccount, l
   const pill = (on: boolean) => `flex-1 rounded-full px-3 py-1.5 text-sm font-semibold transition ${on ? 'bg-white text-black' : 'text-white/70 hover:text-white'}`
   const sel = (v: string, set: (v: string) => void, opts: [string, string][]) => (
     <select value={v} onChange={(e) => set(e.target.value)} className={inputCls}>
-      {opts.map(([k, l]) => <option key={k} value={k} className="bg-[#111]">{l}</option>)}
+      {opts.map(([k, l]) => <option key={k} value={k} className="bg-[var(--wc-panel)]">{l}</option>)}
     </select>
   )
   const ShotBox = ({ kind, label }: { kind: 'before' | 'after'; label: string }) => (
@@ -212,7 +212,7 @@ export default function TradeForm({ c, state, accounts, trade, defaultAccount, l
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 sm:items-center sm:p-4" onClick={onClose}>
-      <div role="dialog" aria-modal="true" aria-label={trade ? f.editTitle : f.newTitle} className="max-h-[94dvh] w-full max-w-3xl overflow-y-auto rounded-t-3xl border border-white/10 bg-[#111113] p-5 sm:rounded-3xl sm:p-6" onClick={(e) => e.stopPropagation()}>
+      <div role="dialog" aria-modal="true" aria-label={trade ? f.editTitle : f.newTitle} className="max-h-[94dvh] w-full max-w-3xl overflow-y-auto rounded-t-3xl border border-white/10 bg-[var(--wc-panel)] p-5 sm:rounded-3xl sm:p-6" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-bold">{trade ? f.editTitle : f.newTitle}</h2>
           <button type="button" onClick={onClose} aria-label={f.cancel} className="rounded-full px-3 py-1 text-white/60 hover:text-white">✕</button>
@@ -246,7 +246,7 @@ export default function TradeForm({ c, state, accounts, trade, defaultAccount, l
             <div className="flex gap-2">
               <input inputMode="decimal" value={lots} onChange={(e) => setLots(e.target.value)} className={inputCls} />
               <select value={unit} onChange={(e) => setUnit(e.target.value as LotUnit)} className={`${inputCls} w-auto`}>
-                {(Object.keys(LOT_UNITS) as LotUnit[]).map((u) => <option key={u} value={u} className="bg-[#111]">{f.lotUnit[u]}</option>)}
+                {(Object.keys(LOT_UNITS) as LotUnit[]).map((u) => <option key={u} value={u} className="bg-[var(--wc-panel)]">{f.lotUnit[u]}</option>)}
               </select>
             </div>
           </Field>

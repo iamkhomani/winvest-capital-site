@@ -98,7 +98,7 @@ function Select({ label, value, onChange, options, id }: { label: string; value:
       <span className="text-sm text-white/60">{label}</span>
       <select id={id} value={value} onChange={(e) => onChange(e.target.value)} className="mt-1.5 w-full rounded-xl border border-white/15 bg-black/40 px-4 py-3 text-white outline-none focus:border-[var(--wc-red)]">
         {options.map((o) => (
-          <option key={o.v} value={o.v} className="bg-[#111113]">{o.l}</option>
+          <option key={o.v} value={o.v} className="bg-[var(--wc-panel)]">{o.l}</option>
         ))}
       </select>
     </label>
