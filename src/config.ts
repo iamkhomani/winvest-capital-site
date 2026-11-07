@@ -17,7 +17,8 @@ export const STRIPE_PAYMENT_LINK = 'https://go.paybotapp.com/RTTDqS3p/rCK4CxHl'
 export const PRICE = '€150'
 // Winvest Terminal. Leave the checkout empty to show "Coming soon" instead of the subscribe button.
 export const TERMINAL_LOGIN_URL = 'https://terminal.winvestcapital.nl'
-export const TERMINAL_CHECKOUT_URL: string = 'https://buy.stripe.com/bJe5kDauu75raXAeyRak001'
+// Live Stripe link for later: https://buy.stripe.com/bJe5kDauu75raXAeyRak001
+export const TERMINAL_CHECKOUT_URL: string = ''
 // Shown next to the subscribe button, for example '€49'. Must match the Stripe price exactly.
 export const TERMINAL_PRICE: string = '€49'
 // Stripe customer portal login link. Empty = no "Manage subscription" link.

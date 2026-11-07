@@ -17,6 +17,10 @@ export const terminalCopy = {
     cancelNote: 'Monthly subscription. Cancel any time; access runs until the end of your paid period.',
     login: 'Member login',
     manage: 'Manage subscription',
+    shotsH: 'How it looks',
+    shotsP: 'Real screenshots from Winvest Terminal, in the dark and the light theme.',
+    shotDark: 'Winvest Terminal in the dark theme: ETH / USDT on the 1 hour chart with market structure labels, Support and Resistance lines and the settings panel',
+    shotLight: 'Winvest Terminal in the light theme: BTC / USDT on the daily chart with market structure labels, Support and Resistance lines and the settings panel',
     featuresH: 'What it shows',
     features: [
       'Swing labels: HH, HL, LH and LL',
@@ -48,6 +52,10 @@ export const terminalCopy = {
     cancelNote: 'Maandabonnement. Altijd opzegbaar; je toegang loopt door tot het einde van je betaalde periode.',
     login: 'Inloggen voor leden',
     manage: 'Abonnement beheren',
+    shotsH: 'Zo ziet het eruit',
+    shotsP: 'Echte screenshots van Winvest Terminal, in het donkere en het lichte thema.',
+    shotDark: 'Winvest Terminal in het donkere thema: ETH / USDT op de 1-uurschart met marktstructuurlabels, Support- en Resistance-lijnen en het instellingenpaneel',
+    shotLight: 'Winvest Terminal in het lichte thema: BTC / USDT op de dagchart met marktstructuurlabels, Support- en Resistance-lijnen en het instellingenpaneel',
     featuresH: 'Wat je ziet',
     features: [
       'Swing labels: HH, HL, LH en LL',
@@ -123,6 +131,15 @@ export default function Terminal({ lang }: { lang: Lang }) {
             <Candles />
           </div>
         </div>
+
+        <section className="mt-14">
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{c.shotsH}</h2>
+          <p className="mt-2 text-white/60">{c.shotsP}</p>
+          <div className="mt-5 grid gap-5">
+            <img src="/terminal/terminal-dark.png" alt={c.shotDark} width={1907} height={914} loading="lazy" className="h-auto w-full rounded-2xl border border-white/10" />
+            <img src="/terminal/terminal-light.png" alt={c.shotLight} width={1912} height={914} loading="lazy" className="h-auto w-full rounded-2xl border border-white/10" />
+          </div>
+        </section>
 
         <section className="mt-14">
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{c.featuresH}</h2>

@@ -1,5 +1,5 @@
 import { Check } from '../components/ui'
-import { DISCORD_URL, PRICE, TERMINAL_PRICE } from '../config'
+import { DISCORD_URL, PRICE, TERMINAL_CHECKOUT_URL, TERMINAL_PRICE } from '../config'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
 
@@ -11,6 +11,7 @@ export const productsCopy = {
     intro: 'Tools and guidance for learning Smart Money Concepts. Compare what each one does and pick what fits you.',
     more: 'View details',
     perMonth: 'per month',
+    soon: 'Coming soon',
     oneTime: 'one-time payment',
     club: {
       tag: 'Membership',
@@ -42,6 +43,7 @@ export const productsCopy = {
     intro: 'Tools en begeleiding om Smart Money Concepts te leren. Vergelijk wat elk product doet en kies wat bij je past.',
     more: 'Bekijk details',
     perMonth: 'per maand',
+    soon: 'Binnenkort',
     oneTime: 'eenmalige betaling',
     club: {
       tag: 'Lidmaatschap',
@@ -131,9 +133,13 @@ export default function Products({ lang }: { lang: Lang }) {
             </div>
             <h2 className="mt-5 text-xl font-semibold">Winvest Terminal</h2>
             <p className="mt-1 text-white/60">{c.terminal.text}</p>
-            <p className="mt-5 text-3xl font-bold">
-              {TERMINAL_PRICE} <span className="text-sm font-medium text-white/50">{c.perMonth}</span>
-            </p>
+            {TERMINAL_CHECKOUT_URL ? (
+              <p className="mt-5 text-3xl font-bold">
+                {TERMINAL_PRICE} <span className="text-sm font-medium text-white/50">{c.perMonth}</span>
+              </p>
+            ) : (
+              <p className="mt-5 text-3xl font-bold">{c.soon}</p>
+            )}
             <div className="flex-1"><Items items={c.terminal.items} /></div>
             <a href={p.terminal} className={buttonClass}>
               {c.more}<span className="sr-only">: Winvest Terminal</span>
