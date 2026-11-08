@@ -1,14 +1,20 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { ChangeEvent, ReactNode } from 'react'
 import { DISCORD_URL } from '../config'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import { diversification, drawdown, holdings, periods, series, volatility } from '../portfolio/calc'
-import type { Holding, Point } from '../portfolio/calc'
+import type { Holding } from '../portfolio/calc'
 import { history as fetchHistory, quotes, searchCrypto, searchStock } from '../portfolio/data'
 import type { Found, History, Quote } from '../portfolio/data'
 import { exportCsv, exportJson, load, save, uid, validate } from '../portfolio/store'
 import type { Asset, Currency, PortfolioData, Tx } from '../portfolio/store'
+
+// EvilCharts (Recharts) only downloads when the portfolio overview is shown.
+const ValueChart = lazy(() => import('../portfolio/Charts').then((m) => ({ default: m.ValueChart })))
+const MonthlyChart = lazy(() => import('../portfolio/Charts').then((m) => ({ default: m.MonthlyChart })))
+const AllocationChart = lazy(() => import('../portfolio/Charts').then((m) => ({ default: m.AllocationChart })))
+const ChartFallback = ({ h = 'h-64' }: { h?: string }) => <div className={`${h} w-full animate-pulse rounded-xl bg-white/[0.03]`} />
 
 export const portfolioCopy = {
   en: {
@@ -21,6 +27,9 @@ export const portfolioCopy = {
     total: 'Total value', pnl: 'Total profit / loss', unreal: 'Unrealised', real: 'Realised', today: 'Today', invested: 'Invested (cost basis)',
     perf: 'Performance', week: 'Week', month: 'Month', quarter: 'Quarter', year: 'Year', sinceStart: 'since start',
     valueChart: 'Portfolio value, last 12 months',
+    chart: { value: 'Portfolio value', invested: 'Net invested', gain: 'Gain', loss: 'Loss', empty: 'Not enough history yet' },
+    monthly: 'Monthly return',
+    monthlyNote: 'Time-weighted: deposits and withdrawals do not count as gains or losses.',
     alloc: 'Allocation', byClass: 'By asset class', crypto: 'Crypto', stocks: 'Stocks',
     risk: 'Risk exposure', maxDd: 'Max drawdown (1y)', curDd: 'Current drawdown', vol: 'Volatility (annualised, 90d)', largest: 'Largest position', top3: 'Top 3 positions', effective: 'Effective number of positions', stable: 'Stablecoins',
     divLow: 'Concentrated', divMid: 'Moderately diversified', divHigh: 'Well diversified',
@@ -55,6 +64,9 @@ export const portfolioCopy = {
     total: 'Totale waarde', pnl: 'Totale winst / verlies', unreal: 'Ongerealiseerd', real: 'Gerealiseerd', today: 'Vandaag', invested: 'Ingelegd (kostprijs)',
     perf: 'Performance', week: 'Week', month: 'Maand', quarter: 'Kwartaal', year: 'Jaar', sinceStart: 'sinds start',
     valueChart: 'Portfoliowaarde, laatste 12 maanden',
+    chart: { value: 'Portfoliowaarde', invested: 'Netto ingelegd', gain: 'Winst', loss: 'Verlies', empty: 'Nog niet genoeg historie' },
+    monthly: 'Rendement per maand',
+    monthlyNote: 'Tijdgewogen: stortingen en opnames tellen niet als winst of verlies.',
     alloc: 'Allocatie', byClass: 'Per categorie', crypto: 'Crypto', stocks: 'Aandelen',
     risk: 'Risk exposure', maxDd: 'Max drawdown (1j)', curDd: 'Huidige drawdown', vol: 'Volatiliteit (per jaar, 90d)', largest: 'Grootste positie', top3: 'Top 3 posities', effective: 'Effectief aantal posities', stable: 'Stablecoins',
     divLow: 'Geconcentreerd', divMid: 'Redelijk gespreid', divHigh: 'Goed gespreid',
@@ -119,68 +131,6 @@ function AssetBadge({ a }: { a?: Asset }) {
       </span>
     </span>
   )
-}
-
-function LineChart({ pts, base, lang }: { pts: Point[]; base: Currency; lang: Lang }) {
-  const [hover, setHover] = useState<number | null>(null)
-  const data = pts.filter((p) => p.value > 0)
-  if (data.length < 2) return <div className="flex h-48 items-center justify-center text-sm text-white/40">–</div>
-  const W = 800, H = 220, pad = 8
-  const min = Math.min(...data.map((p) => p.value)), max = Math.max(...data.map((p) => p.value))
-  const x = (i: number) => pad + (i / (data.length - 1)) * (W - pad * 2)
-  const y = (v: number) => H - pad - ((v - min) / (max - min || 1)) * (H - pad * 2)
-  const d = data.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(p.value).toFixed(1)}`).join('')
-  const up = data[data.length - 1].value >= data[0].value
-  const col = up ? 'var(--wc-up)' : 'var(--wc-red-soft)'
-  const h = hover !== null ? data[hover] : null
-  return (
-    <div className="relative">
-      <svg
-        viewBox={`0 0 ${W} ${H}`}
-        className="h-56 w-full"
-        preserveAspectRatio="none"
-        onMouseLeave={() => setHover(null)}
-        onMouseMove={(e) => {
-          const r = (e.currentTarget as SVGSVGElement).getBoundingClientRect()
-          const i = Math.round(((e.clientX - r.left) / r.width) * (data.length - 1))
-          setHover(Math.max(0, Math.min(data.length - 1, i)))
-        }}
-      >
-        <defs>
-          <linearGradient id="pf-fill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor={col} stopOpacity="0.25" />
-            <stop offset="1" stopColor={col} stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <path d={`${d}L${x(data.length - 1)},${H}L${x(0)},${H}Z`} fill="url(#pf-fill)" />
-        <path d={d} fill="none" stroke={col} strokeWidth="2" vectorEffect="non-scaling-stroke" />
-        {h ? <line x1={x(hover!)} x2={x(hover!)} y1={0} y2={H} stroke="var(--wc-line)" vectorEffect="non-scaling-stroke" /> : null}
-      </svg>
-      <div className="mt-1 flex justify-between text-xs text-white/45">
-        <span>{new Date(data[0].t).toLocaleDateString(lang === 'nl' ? 'nl-NL' : 'en-GB', { month: 'short', year: 'numeric' })}</span>
-        {h ? <span className="font-semibold text-white">{new Date(h.t).toLocaleDateString(lang === 'nl' ? 'nl-NL' : 'en-GB')} · {fmtMoney(h.value, base, lang)}</span> : null}
-        <span>{new Date(data[data.length - 1].t).toLocaleDateString(lang === 'nl' ? 'nl-NL' : 'en-GB', { day: 'numeric', month: 'short' })}</span>
-      </div>
-    </div>
-  )
-}
-
-function Donut({ parts }: { parts: { label: string; value: number; color: string }[] }) {
-  const total = parts.reduce((s, p) => s + p.value, 0)
-  if (!total) return null
-  const R = 60, r = 38
-  let a0 = -Math.PI / 2
-  const arcs = parts.map((p) => {
-    const a1 = a0 + (p.value / total) * Math.PI * 2
-    const large = a1 - a0 > Math.PI ? 1 : 0
-    const pt = (rad: number, a: number) => `${80 + rad * Math.cos(a)},${80 + rad * Math.sin(a)}`
-    const path = parts.length === 1
-      ? `M80,${80 - R}A${R},${R} 0 1 1 79.99,${80 - R}ZM80,${80 - r}A${r},${r} 0 1 0 80.01,${80 - r}Z`
-      : `M${pt(R, a0)}A${R},${R} 0 ${large} 1 ${pt(R, a1)}L${pt(r, a1)}A${r},${r} 0 ${large} 0 ${pt(r, a0)}Z`
-    a0 = a1
-    return <path key={p.label} d={path} fill={p.color} fillRule="evenodd" stroke="var(--wc-black)" strokeWidth="1.5" />
-  })
-  return <svg viewBox="0 0 160 160" className="size-40 shrink-0">{arcs}</svg>
 }
 
 // ---------- asset search ----------
@@ -475,6 +425,11 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   const allocParts = open.filter((h) => h.value > 0).slice(0, 9).map((h, i) => ({ label: data.assets[h.key]?.symbol ?? h.key, value: h.value, color: PALETTE[i % PALETTE.length] }))
   const rest = open.filter((h) => h.value > 0).slice(9).reduce((s, h) => s + h.value, 0)
   if (rest > 0) allocParts.push({ label: lang === 'nl' ? 'Overig' : 'Other', value: rest, color: '#475569' })
+  const locale = lang === 'nl' ? 'nl-NL' : 'en-GB'
+  const money = (v: number) => fmtMoney(v, base, lang)
+  const moneyCompact = (v: number) => new Intl.NumberFormat(locale, { style: 'currency', currency: base, notation: 'compact', maximumFractionDigits: 1 }).format(v)
+  const startDay = pts.length ? new Date(pts[0].t).toISOString().slice(0, 10) : ''
+  const investedStart = data.txs.filter((x) => x.date < startDay).reduce((s, x) => s + (x.type === 'buy' ? x.qty * x.price + x.fee : -(x.qty * x.price - x.fee)), 0)
 
   const list = data.watchlists[Math.min(wl, data.watchlists.length - 1)]
 
@@ -530,15 +485,21 @@ export default function Portfolio({ lang }: { lang: Lang }) {
                     ))}
                   </div>
                   <h3 className="mt-6 text-sm font-semibold text-white/70">{c.valueChart}</h3>
-                  <LineChart pts={pts} base={base} lang={lang} />
+                  <div className="mt-2"><Suspense fallback={<ChartFallback h="h-72" />}><ValueChart pts={pts} investedStart={investedStart} money={money} compact={moneyCompact} locale={locale} t={c.chart} /></Suspense></div>
                   <p className="mt-2 text-xs text-white/40">{c.histNote}</p>
+                </Card>
+
+                <Card>
+                  <h2 className="text-lg font-bold">{c.monthly}</h2>
+                  <div className="mt-3"><Suspense fallback={<ChartFallback h="h-60" />}><MonthlyChart pts={pts} locale={locale} t={c.chart} /></Suspense></div>
+                  <p className="mt-2 text-xs text-white/40">{c.monthlyNote}</p>
                 </Card>
 
                 <div className="grid gap-4 lg:grid-cols-2">
                   <Card>
                     <h2 className="text-lg font-bold">{c.alloc}</h2>
                     <div className="mt-4 flex flex-col items-center gap-5 sm:flex-row">
-                      <Donut parts={allocParts} />
+                      <Suspense fallback={<div className="size-52 shrink-0 animate-pulse rounded-full bg-white/[0.03]" />}><AllocationChart parts={allocParts} money={money} /></Suspense>
                       <ul className="w-full space-y-1.5 text-sm">
                         {allocParts.map((p) => (
                           <li key={p.label} className="flex items-center justify-between gap-3">

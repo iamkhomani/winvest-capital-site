@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Theme tokens for the EvilCharts components (shadcn naming), mapped to the Winvest brand. */
+@theme {
+  --color-background: #0a0a0b;
+  --color-foreground: #ffffff;
+  --color-muted: #1c1c1f;
+  --color-muted-foreground: #8e8e93;
+  --color-border: #2c2c30;
+  --color-primary: #fe0000;
+}
+
 :root {
   --wc-red: #fe0000;
   --wc-red-soft: #ff4d4d;
@@ -40,6 +50,12 @@ html[data-theme='light'] {
   --wc-heat: rgba(10, 10, 11, 0.04);
   --wc-candle-edge: rgba(10, 10, 11, 0.55);
   --wc-candle-fill: rgba(10, 10, 11, 0.22);
+  /* EvilCharts tokens */
+  --color-background: #ffffff;
+  --color-foreground: #0a0a0b;
+  --color-muted: #ececee;
+  --color-muted-foreground: #6b6b70;
+  --color-border: #dcdce0;
 }
 
 /* Solid red stays red with white text in both themes. */

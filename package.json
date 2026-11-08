@@ -10,7 +10,11 @@
   "dependencies": {
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "@fontsource-variable/inter": "^5.2.0"
+    "@fontsource-variable/inter": "^5.2.0",
+    "recharts": "3.8.0",
+    "motion": "^12.23.26",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.18",
