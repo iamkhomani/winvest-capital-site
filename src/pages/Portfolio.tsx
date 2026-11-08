@@ -40,8 +40,8 @@ export const portfolioCopy = {
     noPrice: 'no live price',
     setPrice: 'Set price',
     histNote: 'Performance uses daily closing prices of the last 12 months. Positions bought earlier are valued from 12 months ago.',
-    txH: 'Transactions', del: 'Delete', type: 'Type', buy: 'Buy', sell: 'Sell', date: 'Date', fee: 'Fee', note: 'Note',
-    form: { title: 'Add transaction', kind: 'Market', search: 'Search a coin or stock (e.g. BTC, Apple, ASML)', searching: 'Searching…', none: 'Nothing found.', chosen: 'Selected', change: 'Change', qty: 'Quantity', price: 'Price per unit', fee: 'Fees (optional)', note: 'Note (optional)', save: 'Save transaction', cancel: 'Cancel', priceHint: 'Prefilled with the current price. Change it to what you actually paid.', sellTooMuch: 'You cannot sell more than you hold.' },
+    txH: 'Transactions', del: 'Delete', edit: 'Edit', type: 'Type', buy: 'Buy', sell: 'Sell', date: 'Date', fee: 'Fee', note: 'Note',
+    form: { title: 'Add transaction', editTitle: 'Edit transaction', kind: 'Market', search: 'Search a coin or stock (e.g. BTC, Apple, ASML)', searching: 'Searching…', none: 'Nothing found.', chosen: 'Selected', change: 'Change', qty: 'Quantity', price: 'Price per unit', fee: 'Fees (optional)', note: 'Note (optional)', save: 'Save transaction', cancel: 'Cancel', priceHint: 'Prefilled with the current price. Change it to what you actually paid.', sellTooMuch: 'You cannot sell more than you hold.' },
     watch: { add: 'Add to watchlist', newList: 'New list', rename: 'Rename', remove: 'Remove', delList: 'Delete list', empty: 'This watchlist is empty. Search for an asset to add it.', name: 'List name' },
     settings: {
       base: 'Base currency', baseLocked: 'The base currency is locked because transaction prices are stored in it. Export, clear and re-enter to change it.',
@@ -77,8 +77,8 @@ export const portfolioCopy = {
     noPrice: 'geen live prijs',
     setPrice: 'Prijs invullen',
     histNote: 'Performance gebruikt dagelijkse slotkoersen van de laatste 12 maanden. Posities die eerder zijn gekocht, worden gewaardeerd vanaf 12 maanden geleden.',
-    txH: 'Transacties', del: 'Verwijderen', type: 'Type', buy: 'Koop', sell: 'Verkoop', date: 'Datum', fee: 'Kosten', note: 'Notitie',
-    form: { title: 'Transactie toevoegen', kind: 'Markt', search: 'Zoek een coin of aandeel (bijv. BTC, Apple, ASML)', searching: 'Zoeken…', none: 'Niets gevonden.', chosen: 'Gekozen', change: 'Wijzigen', qty: 'Aantal', price: 'Prijs per stuk', fee: 'Kosten (optioneel)', note: 'Notitie (optioneel)', save: 'Transactie opslaan', cancel: 'Annuleren', priceHint: 'Vooraf ingevuld met de huidige prijs. Pas aan naar wat je echt betaalde.', sellTooMuch: 'Je kunt niet meer verkopen dan je bezit.' },
+    txH: 'Transacties', del: 'Verwijderen', edit: 'Bewerken', type: 'Type', buy: 'Koop', sell: 'Verkoop', date: 'Datum', fee: 'Kosten', note: 'Notitie',
+    form: { title: 'Transactie toevoegen', editTitle: 'Transactie bewerken', kind: 'Markt', search: 'Zoek een coin of aandeel (bijv. BTC, Apple, ASML)', searching: 'Zoeken…', none: 'Niets gevonden.', chosen: 'Gekozen', change: 'Wijzigen', qty: 'Aantal', price: 'Prijs per stuk', fee: 'Kosten (optioneel)', note: 'Notitie (optioneel)', save: 'Transactie opslaan', cancel: 'Annuleren', priceHint: 'Vooraf ingevuld met de huidige prijs. Pas aan naar wat je echt betaalde.', sellTooMuch: 'Je kunt niet meer verkopen dan je bezit.' },
     watch: { add: 'Toevoegen aan watchlist', newList: 'Nieuwe lijst', rename: 'Hernoemen', remove: 'Verwijderen', delList: 'Lijst verwijderen', empty: 'Deze watchlist is leeg. Zoek een asset om toe te voegen.', name: 'Naam van de lijst' },
     settings: {
       base: 'Basisvaluta', baseLocked: 'De basisvaluta ligt vast omdat de transactieprijzen daarin zijn opgeslagen. Exporteer, wis en voer opnieuw in om te wijzigen.',
@@ -183,14 +183,14 @@ function AssetSearch({ c, onPick, autoFocus }: { c: C; onPick: (a: Found) => voi
 }
 
 // ---------- add transaction ----------
-function TxForm({ c, lang, data, quotesNow, onSave, onClose, preset, held }: { c: C; lang: Lang; data: PortfolioData; quotesNow: Record<string, Quote>; onSave: (a: Asset, t: Tx) => void; onClose: () => void; preset?: Asset; held: Record<string, number> }) {
+function TxForm({ c, lang, data, quotesNow, onSave, onClose, preset, held, edit }: { c: C; lang: Lang; data: PortfolioData; quotesNow: Record<string, Quote>; onSave: (a: Asset, t: Tx) => void; onClose: () => void; preset?: Asset; held: Record<string, number>; edit?: Tx }) {
   const [asset, setAsset] = useState<Asset | undefined>(preset)
-  const [type, setType] = useState<'buy' | 'sell'>('buy')
-  const [date, setDate] = useState(todayStr())
-  const [qty, setQty] = useState('')
-  const [price, setPrice] = useState('')
-  const [fee, setFee] = useState('')
-  const [note, setNote] = useState('')
+  const [type, setType] = useState<'buy' | 'sell'>(edit?.type ?? 'buy')
+  const [date, setDate] = useState(edit?.date ?? todayStr())
+  const [qty, setQty] = useState(edit ? String(edit.qty) : '')
+  const [price, setPrice] = useState(edit ? String(edit.price) : '')
+  const [fee, setFee] = useState(edit?.fee ? String(edit.fee) : '')
+  const [note, setNote] = useState(edit?.note ?? '')
   const [err, setErr] = useState('')
 
   const pick = async (a: Asset) => {
@@ -205,7 +205,7 @@ function TxForm({ c, lang, data, quotesNow, onSave, onClose, preset, held }: { c
     }
   }
   useEffect(() => {
-    if (preset) void pick(preset)
+    if (preset && !edit) void pick(preset) // when editing, keep the price that was entered
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -214,16 +214,18 @@ function TxForm({ c, lang, data, quotesNow, onSave, onClose, preset, held }: { c
     if (!asset) return
     const q = n(qty), p = n(price), f = fee ? n(fee) : 0
     if (!(q > 0) || !(p >= 0) || !(f >= 0) || !date) return setErr('⚠')
-    if (type === 'sell' && q > (held[asset.key] || 0) + 1e-12) return setErr(c.form.sellTooMuch)
-    onSave(asset, { id: uid(), asset: asset.key, type, date, qty: q, price: p, fee: f, note: note.trim() || undefined })
+    // when editing, leave this transaction itself out of the available quantity
+    const own = edit && edit.asset === asset.key ? (edit.type === 'sell' ? edit.qty : -edit.qty) : 0
+    if (type === 'sell' && q > (held[asset.key] || 0) + own + 1e-12) return setErr(c.form.sellTooMuch)
+    onSave(asset, { id: edit?.id ?? uid(), asset: asset.key, type, date, qty: q, price: p, fee: f, note: note.trim() || undefined })
   }
   const input = 'w-full rounded-xl border border-white/15 bg-white/[0.04] px-3 py-2.5 outline-none focus:border-[var(--wc-red)]'
   const pill = (on: boolean) => `flex-1 rounded-full px-4 py-2 text-sm font-semibold transition ${on ? 'bg-white text-black' : 'text-white/70 hover:text-white'}`
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 p-0 sm:items-center sm:p-4" onClick={onClose}>
-      <div role="dialog" aria-modal="true" aria-label={c.form.title} className="max-h-[92dvh] w-full max-w-lg overflow-y-auto rounded-t-3xl border border-white/10 bg-[var(--wc-panel)] p-5 sm:rounded-3xl sm:p-6" onClick={(e) => e.stopPropagation()}>
+      <div role="dialog" aria-modal="true" aria-label={edit ? c.form.editTitle : c.form.title} className="max-h-[92dvh] w-full max-w-lg overflow-y-auto rounded-t-3xl border border-white/10 bg-[var(--wc-panel)] p-5 sm:rounded-3xl sm:p-6" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold">{c.form.title}</h2>
+          <h2 className="text-xl font-bold">{edit ? c.form.editTitle : c.form.title}</h2>
           <button type="button" onClick={onClose} aria-label={c.form.cancel} className="rounded-full px-3 py-1 text-white/60 hover:text-white">✕</button>
         </div>
         <div className="mt-4">
@@ -247,7 +249,7 @@ function TxForm({ c, lang, data, quotesNow, onSave, onClose, preset, held }: { c
               <label className="grid gap-1 text-sm text-white/60">{c.form.qty}<input inputMode="decimal" value={qty} onChange={(e) => setQty(e.target.value)} placeholder="0" className={input} /></label>
               <label className="grid gap-1 text-sm text-white/60">{c.form.price} ({data.base})<input inputMode="decimal" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="0" className={input} /></label>
             </div>
-            <p className="-mt-1 text-xs text-white/40">{c.form.priceHint}</p>
+            {edit ? null : <p className="-mt-1 text-xs text-white/40">{c.form.priceHint}</p>}
             <div className="grid grid-cols-2 gap-3">
               <label className="grid gap-1 text-sm text-white/60">{c.form.fee} ({data.base})<input inputMode="decimal" value={fee} onChange={(e) => setFee(e.target.value)} placeholder="0" className={input} /></label>
               <label className="grid gap-1 text-sm text-white/60">{c.form.note}<input value={note} maxLength={200} onChange={(e) => setNote(e.target.value)} className={input} /></label>
@@ -274,7 +276,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   const [q, setQ] = useState<Record<string, Quote>>({})
   const [loadingQ, setLoadingQ] = useState(false)
   const [hist, setHist] = useState<Record<string, History>>({})
-  const [form, setForm] = useState<{ preset?: Asset } | null>(null)
+  const [form, setForm] = useState<{ preset?: Asset; edit?: Tx } | null>(null)
   const [msg, setMsg] = useState('')
   const [confirmClear, setConfirmClear] = useState(false)
   const [wl, setWl] = useState(0)
@@ -392,7 +394,9 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   const saveTx = (a: Asset, t: Tx) => {
     update((d) => {
       d.assets[a.key] = { key: a.key, kind: a.kind, symbol: a.symbol, name: a.name, id: a.id, image: a.image ?? d.assets[a.key]?.image, currency: a.currency }
-      d.txs.push(t)
+      const i = d.txs.findIndex((x) => x.id === t.id)
+      if (i >= 0) d.txs[i] = t
+      else d.txs.push(t)
       d.txs.sort((x, y) => x.date.localeCompare(y.date))
       return d
     })
@@ -609,7 +613,10 @@ export default function Portfolio({ lang }: { lang: Lang }) {
                     <td className="px-3 py-2.5 text-right tabular-nums">{fmtMoney(t.price, base, lang)}</td>
                     <td className="px-3 py-2.5 text-right tabular-nums text-white/60">{t.fee ? fmtMoney(t.fee, base, lang) : '–'}</td>
                     <td className="max-w-[12rem] truncate px-3 py-2.5 text-white/60">{t.note}</td>
-                    <td className="px-3 py-2.5 text-right"><button type="button" onClick={() => update((d) => { d.txs = d.txs.filter((x) => x.id !== t.id); return d })} className="text-xs text-white/50 hover:text-[var(--wc-red-soft)]">{c.del}</button></td>
+                    <td className="px-3 py-2.5 text-right whitespace-nowrap">
+                      {data.assets[t.asset] ? <button type="button" onClick={() => setForm({ preset: data.assets[t.asset], edit: t })} className="mr-3 text-xs text-white/60 hover:text-white">{c.edit}</button> : null}
+                      <button type="button" onClick={() => update((d) => { d.txs = d.txs.filter((x) => x.id !== t.id); return d })} className="text-xs text-white/50 hover:text-[var(--wc-red-soft)]">{c.del}</button>
+                    </td>
                   </tr>
                 ))}
                 {!data.txs.length ? <tr><td colSpan={8} className="px-3 py-8 text-center text-white/50">{c.emptyP}</td></tr> : null}
@@ -720,7 +727,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
         </aside>
       </div>
 
-      {form ? <TxForm c={c} lang={lang} data={data} quotesNow={q} preset={form.preset} held={held} onSave={saveTx} onClose={() => setForm(null)} /> : null}
+      {form ? <TxForm c={c} lang={lang} data={data} quotesNow={q} preset={form.preset} edit={form.edit} held={held} onSave={saveTx} onClose={() => setForm(null)} /> : null}
     </main>
   )
 }
