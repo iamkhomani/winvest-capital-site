@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { DISCORD_URL } from '../config'
 import type { Lang } from '../i18n'
@@ -15,6 +15,13 @@ import TradeForm, { Field, inputCls } from '../journal/TradeForm'
 import { ACCOUNT_CURRENCIES, defaultSettings, emptyState, uid } from '../journal/types'
 import type { Account, AccountCurrency, CashMove, JournalState, Settings, Trade } from '../journal/types'
 
+// EvilCharts (Recharts) only downloads when a chart is shown.
+const EquityChart = lazy(() => import('../journal/Charts').then((m) => ({ default: m.EquityChart })))
+const MonthlyPnlChart = lazy(() => import('../journal/Charts').then((m) => ({ default: m.MonthlyPnlChart })))
+const GroupBarChart = lazy(() => import('../journal/Charts').then((m) => ({ default: m.GroupBarChart })))
+const OutcomeChart = lazy(() => import('../journal/Charts').then((m) => ({ default: m.OutcomeChart })))
+const ChartFallback = ({ h = 'h-60' }: { h?: string }) => <div className={`${h} w-full animate-pulse rounded-xl bg-white/[0.03]`} />
+
 type Tab = keyof JC['tabs']
 
 const toneCls = (v?: number) => (v === undefined || !isFinite(v) || Math.abs(v) < 1e-9 ? 'text-white' : v > 0 ? 'text-emerald-400' : 'text-[var(--wc-red-soft)]')
@@ -28,44 +35,6 @@ function Kpi({ label, value, sub, cls = '' }: { label: string; value: ReactNode;
       <div className="text-xs font-medium tracking-wide text-white/50 uppercase">{label}</div>
       <div className={`mt-1 text-2xl font-bold tabular-nums ${cls}`}>{value}</div>
       {sub ? <div className="mt-0.5 text-xs text-white/50">{sub}</div> : null}
-    </div>
-  )
-}
-
-function Curve({ points, money, locale, mode }: { points: { time: number; v: number; kind: string }[]; money: (v: number) => string; locale: string; mode: string }) {
-  const [hover, setHover] = useState<number | null>(null)
-  if (points.length < 2) return <div className="flex h-48 items-center justify-center text-sm text-white/40">–</div>
-  const W = 800, H = 220, pad = 10
-  const t0 = points[0].time, t1 = points[points.length - 1].time || t0 + 1
-  const min = Math.min(...points.map((p) => p.v)), max = Math.max(...points.map((p) => p.v))
-  const x = (t: number) => pad + ((t - t0) / (t1 - t0 || 1)) * (W - pad * 2)
-  const y = (v: number) => H - pad - ((v - min) / (max - min || 1)) * (H - pad * 2)
-  let d = ''
-  points.forEach((p, i) => {
-    d += i === 0 ? `M${x(p.time)},${y(p.v)}` : `H${x(p.time)}V${y(p.v)}`
-  })
-  const up = points[points.length - 1].v >= points[0].v
-  const col = up ? 'var(--wc-up)' : 'var(--wc-red-soft)'
-  const h = hover !== null ? points[hover] : null
-  return (
-    <div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="h-56 w-full" preserveAspectRatio="none" onMouseLeave={() => setHover(null)} onMouseMove={(e) => {
-        const r = (e.currentTarget as SVGSVGElement).getBoundingClientRect()
-        const t = t0 + ((e.clientX - r.left) / r.width) * (t1 - t0)
-        let i = 0
-        while (i < points.length - 1 && points[i + 1].time <= t) i++
-        setHover(i)
-      }}>
-        {mode === 'pnl' && min < 0 && max > 0 ? <line x1={0} x2={W} y1={y(0)} y2={y(0)} stroke="var(--wc-line)" strokeDasharray="4 4" vectorEffect="non-scaling-stroke" /> : null}
-        <path d={d} fill="none" stroke={col} strokeWidth="2" vectorEffect="non-scaling-stroke" />
-        {mode !== 'pnl' ? points.filter((p) => p.kind === 'cash').map((p, i) => <circle key={i} cx={x(p.time)} cy={y(p.v)} r="4" fill="#60a5fa" />) : null}
-        {h ? <line x1={x(h.time)} x2={x(h.time)} y1={0} y2={H} stroke="var(--wc-line)" vectorEffect="non-scaling-stroke" /> : null}
-      </svg>
-      <div className="mt-1 flex justify-between text-xs text-white/45">
-        <span>{new Date(t0).toLocaleDateString(locale)}</span>
-        {h ? <span className="font-semibold text-white">{new Date(h.time).toLocaleDateString(locale)} · {money(h.v)}</span> : null}
-        <span>{new Date(t1).toLocaleDateString(locale)}</span>
-      </div>
     </div>
   )
 }
@@ -335,6 +304,7 @@ export default function Journal({ lang }: { lang: Lang }) {
   }
 
   const s = state.settings
+  const compact = (v: number) => new Intl.NumberFormat(locale, { style: 'currency', currency: dispCur, notation: 'compact', maximumFractionDigits: 1 }).format(v)
   const money = (v?: number, cur: string = dispCur) => (v === undefined || !isFinite(v) ? '–' : new Intl.NumberFormat(locale, { style: 'currency', currency: cur, maximumFractionDigits: Math.abs(v) >= 10000 ? 0 : 2 }).format(v))
   const pct = (v?: number, d = 1) => (v === undefined || !isFinite(v) ? '–' : `${v.toFixed(d)}%`)
   const per = periodPnl(sum.byDay, s.tz)
@@ -494,8 +464,12 @@ export default function Journal({ lang }: { lang: Lang }) {
                       <button type="button" onClick={() => setCurveMode('pnl')} className={`rounded-full px-3 py-1 ${curveMode === 'pnl' ? 'bg-white text-black' : 'text-white/70'}`}>{c.showPnl}</button>
                     </div>
                   </div>
-                  <Curve points={curvePts} money={(v) => money(v)} locale={locale} mode={curveMode} />
+                  <div className="mt-3"><Suspense fallback={<ChartFallback h="h-72" />}><EquityChart points={curvePts} money={(v) => money(v)} compact={compact} locale={locale} mode={curveMode === 'pnl' ? 'pnl' : 'balance'} t={c.charts} /></Suspense></div>
                 </Card>
+                <div className="grid gap-4 lg:grid-cols-3">
+                  <Card className="lg:col-span-2"><h2 className="text-lg font-bold">{c.charts.monthlyH}</h2><div className="mt-3"><Suspense fallback={<ChartFallback />}><MonthlyPnlChart byDay={sum.byDay} money={(v) => money(v)} compact={compact} locale={locale} t={c.charts} /></Suspense></div></Card>
+                  <Card><h2 className="text-lg font-bold">{c.charts.outcomeH}</h2><div className="mt-3"><Suspense fallback={<ChartFallback />}><OutcomeChart wins={sum.wins} losses={sum.losses} bes={sum.bes} t={c.charts} /></Suspense></div></Card>
+                </div>
                 {openList.length ? (
                   <Card>
                     <div className="flex flex-wrap items-center justify-between gap-3">
@@ -563,16 +537,16 @@ export default function Journal({ lang }: { lang: Lang }) {
               const pairs = groupBy(list, (x) => x.t.pair)
               return (
                 <div className="mt-6 grid gap-4">
-                  <Card><h2 className="text-lg font-bold">{c.analytics.pairs}</h2><div className="mt-3"><GroupTable c={c} groups={pairs} label={pairLabel} money={(v) => money(v)} /></div></Card>
+                  <Card><h2 className="text-lg font-bold">{c.analytics.pairs}</h2><div className="mt-3"><Suspense fallback={<ChartFallback />}><GroupBarChart groups={pairs} label={pairLabel} money={(v) => money(v)} compact={compact} t={c.charts} /></Suspense></div><div className="mt-3"><GroupTable c={c} groups={pairs} label={pairLabel} money={(v) => money(v)} /></div></Card>
                   <div className="grid gap-4 lg:grid-cols-2">
                     <Card><h3 className="font-bold text-emerald-400">{c.analytics.best}</h3><div className="mt-2"><GroupTable c={c} groups={pairs.filter((g) => g.net > 0).slice(0, 5)} label={pairLabel} money={(v) => money(v)} /></div></Card>
                     <Card><h3 className="font-bold text-[var(--wc-red-soft)]">{c.analytics.worst}</h3><div className="mt-2"><GroupTable c={c} groups={[...pairs].reverse().filter((g) => g.net < 0).slice(0, 5)} label={pairLabel} money={(v) => money(v)} /></div></Card>
                   </div>
                   <Card><h2 className="text-lg font-bold">{c.analytics.condition}</h2><div className="mt-3"><GroupTable c={c} groups={groupBy(list, (x) => x.t.condition)} label={label.condition} money={(v) => money(v)} /></div></Card>
                   <div className="grid gap-4 lg:grid-cols-2">
-                    <Card><h3 className="font-bold">{c.analytics.session}</h3><div className="mt-2"><GroupTable c={c} groups={groupBy(list, (x) => x.session)} label={label.session} money={(v) => money(v)} /></div></Card>
+                    <Card><h3 className="font-bold">{c.analytics.session}</h3><div className="mt-2"><Suspense fallback={<ChartFallback h="h-40" />}><GroupBarChart groups={groupBy(list, (x) => x.session)} label={label.session} money={(v) => money(v)} compact={compact} t={c.charts} /></Suspense><div className="mt-2"><GroupTable c={c} groups={groupBy(list, (x) => x.session)} label={label.session} money={(v) => money(v)} /></div></div></Card>
                     <Card><h3 className="font-bold">{c.analytics.timeframe}</h3><div className="mt-2"><GroupTable c={c} groups={groupBy(list, (x) => x.t.timeframe)} label={(k) => k} money={(v) => money(v)} /></div></Card>
-                    <Card><h3 className="font-bold">{c.analytics.weekday}</h3><div className="mt-2"><GroupTable c={c} groups={groupBy(list, (x) => String(x.weekday))} label={label.weekday} money={(v) => money(v)} /></div></Card>
+                    <Card><h3 className="font-bold">{c.analytics.weekday}</h3><div className="mt-2"><Suspense fallback={<ChartFallback h="h-40" />}><GroupBarChart groups={groupBy(list, (x) => String(x.weekday))} label={label.weekday} money={(v) => money(v)} compact={compact} t={c.charts} /></Suspense><div className="mt-2"><GroupTable c={c} groups={groupBy(list, (x) => String(x.weekday))} label={label.weekday} money={(v) => money(v)} /></div></div></Card>
                     <Card><h3 className="font-bold">{c.analytics.setup}</h3><div className="mt-2"><GroupTable c={c} groups={groupBy(list, (x) => x.t.setup)} label={(k) => k} money={(v) => money(v)} /></div></Card>
                   </div>
                 </div>
