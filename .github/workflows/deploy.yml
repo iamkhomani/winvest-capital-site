@@ -22,10 +22,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      # TEMP: new dependencies (Lenis, Lina) -> regenerate the lockfile once
-      - run: npm install
-      - name: Print package-lock.json (one-time)
-        run: echo "LOCKB64:$(gzip -9c package-lock.json | base64 -w0)"
+      # npm ci installs exactly the versions in package-lock.json (no surprise updates)
+      - run: npm ci
       - name: Security audit of production dependencies (report only)
         run: npm audit --omit=dev || true
       - name: Build
