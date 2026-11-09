@@ -38,7 +38,7 @@ export function ValueChart({ pts, investedStart, money, compact, locale, t }: { 
   )
   if (data.length < 2) return <div className="flex h-56 items-center justify-center text-sm text-white/40">{t.empty}</div>
   return (
-    <div className="h-64 w-full sm:h-72">
+    <div className="h-64 w-full sm:h-72 min-w-0 overflow-hidden">
       <EvilAreaChart data={data} config={config} className="h-full w-full" curveType="monotone" xDataKey="label">
         <EvilAreaChart.Grid />
         <EvilAreaChart.XAxis dataKey="label" minTickGap={32} />
@@ -85,7 +85,7 @@ export function MonthlyChart({ pts, locale, t }: { pts: Point[]; locale: string;
   if (data.length < 2) return <div className="flex h-48 items-center justify-center text-sm text-white/40">{t.empty}</div>
   const pct = (v: number) => (v > 0 ? '+' : '') + v.toFixed(2) + '%'
   return (
-    <div className="h-60 w-full">
+    <div className="h-60 w-full min-w-0 overflow-hidden">
       <EvilBarChart data={data} config={config} className="h-full w-full" stackType="stacked" barRadius={4}>
         <EvilBarChart.Grid />
         <EvilBarChart.XAxis dataKey="label" />

@@ -30,7 +30,7 @@ export function EquityChart({ points, money, compact, locale, mode, t }: { point
   )
   if (data.length < 2) return <Empty t={t} h="h-56" />
   return (
-    <div className="h-64 w-full sm:h-72">
+    <div className="h-64 w-full sm:h-72 min-w-0 overflow-hidden">
       <EvilAreaChart data={data} config={config} className="h-full w-full" curveType="stepAfter" xDataKey="label">
         <EvilAreaChart.Grid />
         <EvilAreaChart.XAxis dataKey="label" minTickGap={32} />
@@ -60,7 +60,7 @@ export function MonthlyPnlChart({ byDay, money, compact, locale, t }: { byDay: M
   const config = useMemo(() => ({ gain: { label: t.gain, colors: GAIN }, loss: { label: t.loss, colors: LOSS } }) satisfies ChartConfig, [t.gain, t.loss])
   if (!data.length) return <Empty t={t} />
   return (
-    <div className="h-60 w-full">
+    <div className="h-60 w-full min-w-0 overflow-hidden">
       <EvilBarChart data={data} config={config} className="h-full w-full" stackType="stacked" barRadius={4}>
         <EvilBarChart.Grid />
         <EvilBarChart.XAxis dataKey="label" />
@@ -82,7 +82,7 @@ export function GroupBarChart({ groups, label, money, compact, t, limit = 10 }: 
   const config = useMemo(() => ({ gain: { label: t.gain, colors: GAIN }, loss: { label: t.loss, colors: LOSS } }) satisfies ChartConfig, [t.gain, t.loss])
   if (!data.length) return null
   return (
-    <div className="w-full" style={{ height: Math.max(140, data.length * 34 + 40) }}>
+    <div className="w-full min-w-0 overflow-hidden" style={{ height: Math.max(140, data.length * 34 + 40) }}>
       <EvilBarChart data={data} config={config} className="h-full w-full" layout="horizontal" stackType="stacked" barRadius={4}>
         <EvilBarChart.Grid />
         <EvilBarChart.YAxis dataKey="name" width={96} />
@@ -104,7 +104,7 @@ export function OutcomeChart({ wins, losses, bes, t }: { wins: number; losses: n
   )
   if (!data.length) return <Empty t={t} />
   return (
-    <div className="h-60 w-full">
+    <div className="h-60 w-full min-w-0 overflow-hidden">
       <EvilPieChart data={data} dataKey="value" nameKey="name" config={config} className="h-full w-full">
         <EvilPieChart.Legend />
         <EvilPieChart.Tooltip variant="frosted-glass" />

@@ -27,13 +27,13 @@ type Tab = keyof JC['tabs']
 const toneCls = (v?: number) => (v === undefined || !isFinite(v) || Math.abs(v) < 1e-9 ? 'text-white' : v > 0 ? 'text-emerald-400' : 'text-[var(--wc-red-soft)]')
 
 function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <div className={`rounded-2xl border border-white/10 bg-white/[0.03] p-5 ${className}`}>{children}</div>
+  return <div className={`min-w-0 rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:p-5 ${className}`}>{children}</div>
 }
 function Kpi({ label, value, sub, cls = '' }: { label: string; value: ReactNode; sub?: ReactNode; cls?: string }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-      <div className="text-xs font-medium tracking-wide text-white/50 uppercase">{label}</div>
-      <div className={`mt-1 text-2xl font-bold tabular-nums ${cls}`}>{value}</div>
+    <div className="min-w-0 rounded-2xl border border-white/10 bg-white/[0.03] p-3.5 sm:p-4">
+      <div className="text-[11px] font-medium tracking-wide text-white/50 uppercase sm:text-xs">{label}</div>
+      <div className={`mt-1 truncate text-xl font-bold tabular-nums sm:text-2xl ${cls}`}>{value}</div>
       {sub ? <div className="mt-0.5 text-xs text-white/50">{sub}</div> : null}
     </div>
   )

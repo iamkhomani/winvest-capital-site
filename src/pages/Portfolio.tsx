@@ -115,7 +115,7 @@ const PALETTE = ['#FE0000', 'var(--wc-text)', '#F59E0B', '#34D399', '#60A5FA', '
 
 // ---------- small UI pieces ----------
 function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <div className={`rounded-2xl border border-white/10 bg-white/[0.03] p-5 ${className}`}>{children}</div>
+  return <div className={`min-w-0 rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:p-5 ${className}`}>{children}</div>
 }
 function Label({ children }: { children: ReactNode }) {
   return <div className="text-xs font-medium tracking-wide text-white/50 uppercase">{children}</div>

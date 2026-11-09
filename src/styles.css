@@ -116,6 +116,8 @@ body,
 body {
   margin: 0;
   background: var(--wc-black);
+  /* Safety net: nothing may make the page wider than the screen on mobile. */
+  overflow-x: clip;
 }
 
 body { font-family: 'Inter Variable', ui-sans-serif, system-ui, sans-serif; color: var(--wc-text); }
