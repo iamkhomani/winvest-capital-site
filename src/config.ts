@@ -4,12 +4,14 @@ export const DISCORD_URL = 'https://discord.gg/2ApK2MSnxZ'
 // Cloudflare Worker for the DeFi scanner (Bitcoin and XDC lookups). Empty = Bitcoin via mempool.space directly, XDC wallet lookups off.
 export const DEFI_PROXY_URL: string = ''
 // Social profiles (shown in the footer, in this order).
-export const SOCIALS: { name: string; icon?: string; handle: string; url: string }[] = [
-  { name: 'Discord', icon: '/social/discord.png', handle: 'Winvest Capital', url: 'https://discord.gg/2ApK2MSnxZ' },
-  { name: 'Instagram', icon: '/social/instagram.png', handle: '@winvest_capital', url: 'https://www.instagram.com/winvest_capital/' },
-  { name: 'X', icon: '/social/x-2.png', handle: '@winvest_capital', url: 'https://x.com/winvest_capital' },
-  { name: 'TikTok', icon: '/social/tiktok-2.png', handle: '@winvestcapital', url: 'https://www.tiktok.com/@winvestcapital' },
-  { name: 'TradingView', icon: '/social/tradingview.png', handle: 'winvestcapital', url: 'https://www.tradingview.com/u/winvestcapital/' },
+// Footer buttons: shieldcn.dev badges (MIT, https://github.com/jal-co/shieldcn), self-hosted in public/social/
+// so the site does not depend on their service. badge = file name without -dark/-light, w = width at 32px height.
+export const SOCIALS: { name: string; badge: string; w: number; handle: string; url: string }[] = [
+  { name: 'Discord', badge: 'discord', w: 209, handle: 'Winvest Capital', url: 'https://discord.gg/2ApK2MSnxZ' },
+  { name: 'Instagram', badge: 'instagram', w: 236, handle: '@winvest_capital', url: 'https://www.instagram.com/winvest_capital/' },
+  { name: 'X', badge: 'x', w: 179, handle: '@winvest_capital', url: 'https://x.com/winvest_capital' },
+  { name: 'TikTok', badge: 'tiktok', w: 209, handle: '@winvestcapital', url: 'https://www.tiktok.com/@winvestcapital' },
+  { name: 'TradingView', badge: 'tradingview', w: 235, handle: 'winvestcapital', url: 'https://www.tradingview.com/u/winvestcapital/' },
 ]
 // PayBot checkout (Stripe). Gives the @One Percent Club role in Discord automatically.
 export const STRIPE_PAYMENT_LINK = 'https://go.paybotapp.com/RTTDqS3p/rCK4CxHl'

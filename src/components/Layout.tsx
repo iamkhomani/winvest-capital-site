@@ -4,6 +4,8 @@ import { DISCORD_URL, SOCIALS } from '../config'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import AppTabBar from './AppTabBar'
+import { ScrollArea } from './lina/scroll-area'
+import SmoothScroll from './SmoothScroll'
 import Ticker from './Ticker'
 
 type Props = { lang: Lang; alternate?: string; children: ReactNode }
@@ -132,8 +134,9 @@ function Menu({ lang }: { lang: Lang }) {
       </summary>
       <nav
         aria-label={nl ? 'Hoofdmenu' : 'Main menu'}
-        className="absolute right-0 top-12 z-30 max-h-[calc(100dvh-10rem)] w-[min(20rem,calc(100vw-2rem))] overflow-y-auto rounded-2xl border border-white/10 bg-[var(--wc-panel)] p-2 shadow-2xl shadow-black/60"
+        className="absolute right-0 top-12 z-30 w-[min(20rem,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-white/10 bg-[var(--wc-panel)] shadow-2xl shadow-black/60"
       >
+        <ScrollArea data-lenis-prevent viewportClassName="max-h-[calc(100dvh-10rem)] p-2" maskHeight={24} maskClassName="before:from-[var(--wc-panel)] after:from-[var(--wc-panel)]">
         <ul>
           <li>
             <a href={nav[lang].first[1]} onClick={close} className="block rounded-xl px-4 py-2.5 text-[15px] text-white/80 transition hover:bg-white/[0.06] hover:text-white">
@@ -177,6 +180,7 @@ function Menu({ lang }: { lang: Lang }) {
         <a href={DISCORD_URL} onClick={close} className="mt-2 block rounded-xl bg-[var(--wc-red)] px-4 py-2.5 text-center text-[15px] font-semibold text-white transition hover:brightness-110">
           {nl ? 'Word gratis lid van de Discord' : 'Join the Discord, free'}
         </a>
+      </ScrollArea>
       </nav>
     </details>
   )
@@ -237,10 +241,9 @@ export default function Layout({ lang, alternate, children }: Props) {
             <ul className="mt-3 flex flex-wrap gap-2">
               {SOCIALS.map((s) => (
                 <li key={s.name}>
-                  <a href={s.url} target="_blank" rel="noopener me" className="group inline-flex items-center gap-2 rounded-full border border-white/15 px-3.5 py-1.5 text-white/75 transition hover:border-[var(--wc-red)] hover:text-white">
-                    {s.icon && <img src={s.icon} alt="" width={20} height={20} loading="lazy" className="size-5 object-contain" />}
-                    <span className="font-semibold">{s.name}</span>
-                    <span className="text-xs text-white/40 group-hover:text-white/70">{s.handle}</span>
+                  <a href={s.url} target="_blank" rel="noopener me" aria-label={`${s.name} ${s.handle}`} className="block rounded-[7px] ring-[var(--wc-red)] ring-offset-2 ring-offset-[var(--wc-black)] transition hover:ring-2 focus-visible:ring-2 focus-visible:outline-none">
+                    <img src={`/social/${s.badge}-dark.svg`} alt="" width={s.w} height={32} loading="lazy" className="theme-dark block h-8 w-auto" />
+                    <img src={`/social/${s.badge}-light.svg`} alt="" width={s.w} height={32} loading="lazy" className="theme-light block h-8 w-auto" />
                   </a>
                 </li>
               ))}
@@ -257,11 +260,11 @@ export default function Layout({ lang, alternate, children }: Props) {
             <a href={p.privacy} className="hover:text-white/60">Privacy</a>
             <a href={p.refunds} className="hover:text-white/60">{lang === 'nl' ? 'Terugbetaling' : 'Refunds'}</a>
             <a href="#cookie-settings" data-cookie-settings className="hover:text-white/60">{lang === 'nl' ? 'Cookie-instellingen' : 'Cookie settings'}</a>
-            <a href="https://icons8.com" target="_blank" rel="noopener" className="hover:text-white/60">{lang === 'nl' ? 'Iconen door Icons8' : 'Icons by Icons8'}</a>
           </div>
         </div>
       </footer>
       <AppTabBar lang={lang} />
+      <SmoothScroll />
     </div>
   )
 }

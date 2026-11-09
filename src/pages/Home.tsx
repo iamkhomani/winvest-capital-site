@@ -245,10 +245,10 @@ export default function Home({ lang }: { lang: Lang }) {
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pt-16 pb-20 sm:px-6 md:grid-cols-[1.15fr_1fr] md:pt-24">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-[var(--wc-red)]/40 bg-[var(--wc-red)]/10 px-3 py-1 text-xs font-semibold tracking-wide text-[var(--wc-red-soft)] uppercase">
-              <span className="size-1.5 rounded-full bg-[var(--wc-red)]" /> {c.badge}
+              <span className="size-1.5 rounded-full bg-[var(--wc-red)]" /> <span className="wc-term">{c.badge}</span>
             </span>
             <h1 className="mt-5 text-4xl leading-[1.05] font-bold tracking-tight text-balance sm:text-6xl">
-              {c.h1a} <span className="text-[var(--wc-red)]">{c.h1b}</span>
+              {c.h1a} <span className="wc-glitch text-[var(--wc-red)]" data-text={c.h1b}>{c.h1b}</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg text-pretty text-white/65">
               {c.intro} <span className="font-semibold text-white">Market Whisper AI</span>, {c.introBot}
@@ -263,7 +263,8 @@ export default function Home({ lang }: { lang: Lang }) {
             </div>
             <p className="mt-4 text-xs text-white/40">{c.note}</p>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 shadow-2xl">
+          <div className="wc-scan rounded-2xl border border-white/10 bg-white/[0.03] p-5 shadow-2xl">
+            <span className="wc-scanline" aria-hidden="true" />
             <div className="mb-3 flex items-center justify-between text-xs text-white/50">
               <span className="flex items-center gap-2">
                 <img src="/logo.jpeg" alt="" width={20} height={20} className="size-5 rounded-full object-cover" /> Winvest Capital
@@ -362,7 +363,7 @@ export default function Home({ lang }: { lang: Lang }) {
       <section id="market-whisper" className="scroll-mt-24 border-t border-white/10 bg-[var(--wc-ink)]">
         <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 md:grid-cols-2 md:items-center">
           <div>
-            <span className="text-sm font-semibold tracking-wide text-[var(--wc-red-soft)] uppercase">{c.wBadge}</span>
+            <span className="wc-term text-sm font-semibold tracking-wide text-[var(--wc-red-soft)] uppercase">{c.wBadge}</span>
             <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Market Whisper AI</h2>
             <p className="mt-4 text-white/65">{c.wP}</p>
             <ThemedImage src="/brand/market-whisper-symbol-dark.svg" alt="" width={256} height={256} className="mt-8 hidden size-40 md:block" />
