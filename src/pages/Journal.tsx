@@ -10,6 +10,7 @@ import type { JC } from '../journal/copy'
 import { allImages, blobToDataUrl, clearAll, dataUrlToBlob, deleteImage, loadState, putImage, saveState } from '../journal/db'
 import { livePrice, pairLabel, rate } from '../journal/fx'
 import ImportPanel from '../journal/ImportPanel'
+import { checkTrade } from '../journal/autoclose'
 import { fmtDateTime, nowWall, TIMEZONES, wallToIso } from '../journal/time'
 import TradeForm, { Field, inputCls } from '../journal/TradeForm'
 import { ACCOUNT_CURRENCIES, defaultSettings, emptyState, uid } from '../journal/types'
@@ -259,6 +260,10 @@ export default function Journal({ lang }: { lang: Lang }) {
   const [withImages, setWithImages] = useState(true)
   const [confirmDel, setConfirmDel] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
+  const [autoMsgs, setAutoMsgs] = useState<string[]>([])
+  const stateRef = useRef<JournalState | null>(null)
+  stateRef.current = state
+  const warned = useRef(new Set<string>())
 
   useEffect(() => {
     loadState().then(setState)
@@ -275,6 +280,53 @@ export default function Journal({ lang }: { lang: Lang }) {
       return next
     })
   }
+
+  // Close open trades at their stop loss or take profit: on load and every minute while open.
+  const loaded = state !== null
+  const autoOn = state?.settings.autoClose !== false
+  useEffect(() => {
+    if (!loaded || !autoOn) return
+    let alive = true
+    let busy = false
+    const run = async () => {
+      const st = stateRef.current
+      if (!st || busy || document.hidden) return
+      busy = true
+      const accs = new Map(st.accounts.map((a) => [a.id, a]))
+      const open = st.trades.filter((t) => t.lots - t.exits.reduce((n, e) => n + e.lots, 0) > 1e-9 && ((t.sl ?? 0) > 0 || t.tps.some((x) => x > 0)))
+      for (const t of open) {
+        const acc = accs.get(t.accountId)
+        if (!acc || !alive) continue
+        try {
+          const out = await checkTrade(t, acc.currency)
+          if (!alive) break
+          if (out.kind === 'closed') {
+            update((draft) => {
+              const live = draft.trades.find((x) => x.id === t.id)
+              // Only when nothing changed in the meantime (for example a close entered by hand).
+              if (live && live.exits.length === t.exits.length && live.updatedAt === t.updatedAt) {
+                live.exits.push(out.exit)
+                live.updatedAt = new Date().toISOString()
+              }
+            })
+            setAutoMsgs((m) => [...m, c.autoClosed(pairLabel(t.pair), c.autoWhat[out.exit.kind as 'sl' | 'tp' | 'be'] ?? out.exit.kind)])
+          } else if (out.kind === 'check' && !warned.current.has(t.id)) {
+            warned.current.add(t.id)
+            setAutoMsgs((m) => [...m, c.autoCheck(pairLabel(t.pair))])
+          }
+        } catch {
+          // Pair not available or no connection: try again next minute.
+        }
+      }
+      busy = false
+    }
+    void run()
+    const timer = setInterval(() => void run(), 60_000)
+    return () => {
+      alive = false
+      clearInterval(timer)
+    }
+  }, [loaded, autoOn]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const selected = useMemo(() => (state ? (acct === 'all' ? state.accounts.filter((a) => !a.archived) : state.accounts.filter((a) => a.id === acct)) : []), [state, acct])
   const dispCur: AccountCurrency = acct === 'all' ? state?.settings.displayCurrency ?? 'EUR' : selected[0]?.currency ?? 'EUR'
@@ -416,6 +468,12 @@ export default function Journal({ lang }: { lang: Lang }) {
           {state.accounts.length ? <button type="button" onClick={() => setForm({})} className="rounded-full bg-[var(--wc-red)] px-5 py-3 font-semibold text-white transition hover:brightness-110">{c.addTrade}</button> : null}
         </div>
         {!saveOk ? <p className="mt-4 rounded-xl border border-amber-400/40 bg-amber-400/10 p-3 text-sm text-amber-200">{c.settings.storageFail}</p> : null}
+        {autoMsgs.length ? (
+          <div role="status" className="mt-4 flex items-start justify-between gap-3 rounded-xl border border-white/15 bg-white/[0.04] p-3 text-sm text-white/80">
+            <ul className="space-y-1">{autoMsgs.map((m, i) => <li key={i}>{m}</li>)}</ul>
+            <button type="button" onClick={() => setAutoMsgs([])} aria-label={c.form.cancel} className="text-white/50 hover:text-white">✕</button>
+          </div>
+        ) : null}
 
         {!state.accounts.length ? (
           <div className="mt-8"><p className="mb-4 max-w-2xl text-white/70">{c.noAccount}</p><AccountsPanel c={c} state={state} update={update} /></div>
@@ -638,6 +696,9 @@ export default function Journal({ lang }: { lang: Lang }) {
                       <select value={s.displayCurrency} onChange={(e) => update((st) => { st.settings.displayCurrency = e.target.value as AccountCurrency })} className={inputCls}>{ACCOUNT_CURRENCIES.map((x) => <option key={x} value={x} className="bg-[var(--wc-panel)]">{x}</option>)}</select>
                     </Field>
                   </div>
+                  <h3 className="mt-5 font-semibold">{c.settings.autoH}</h3>
+                  <label className="mt-2 flex items-center gap-2 text-sm text-white/80"><input type="checkbox" checked={s.autoClose !== false} onChange={(e) => update((st) => { st.settings.autoClose = e.target.checked })} className="size-4 accent-[var(--wc-red)]" />{c.settings.autoLabel}</label>
+                  <p className="mt-1 text-xs text-white/45">{c.settings.autoP}</p>
                   <h3 className="mt-5 font-semibold">{c.settings.limits}</h3>
                   <div className="mt-2 grid gap-3 sm:grid-cols-2">
                     {([['maxRiskPct', c.settings.maxRisk], ['maxLeverage', c.settings.maxLev], ['maxTradesPerDay', c.settings.maxTrades], ['revengeMinutes', c.settings.revenge], ['beThresholdR', c.settings.be]] as [keyof Settings, string][]).map(([k, l]) => (

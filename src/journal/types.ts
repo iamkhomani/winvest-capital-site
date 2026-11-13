@@ -38,6 +38,7 @@ export type Exit = {
   commission?: number // negative = cost
   swap?: number
   pnlSource: 'calc' | 'broker'
+  auto?: boolean // closed automatically at the stop loss or take profit
 }
 
 export type Plan = 'strategy' | 'impulse'
@@ -90,6 +91,7 @@ export type Settings = {
   maxTradesPerDay: number
   revengeMinutes: number
   beThresholdR: number
+  autoClose?: boolean // close open trades at SL or TP automatically (default on)
 }
 
 export type JournalState = {

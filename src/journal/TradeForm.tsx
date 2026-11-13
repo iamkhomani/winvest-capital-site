@@ -8,7 +8,7 @@ import { isoToWall, nowWall, wallToIso } from './time'
 import { CONDITIONS, EMOTIONS, TIMEFRAMES, uid } from './types'
 import type { Account, Condition, Emotion, ExitKind, JournalState, Plan, Shot, Trade } from './types'
 
-type ExitDraft = { id: string; time: string; price: string; lots: string; kind: ExitKind; pnl: string; override: boolean; commission: string; swap: string; source: 'calc' | 'broker' }
+type ExitDraft = { id: string; time: string; price: string; lots: string; kind: ExitKind; kindSet: boolean; pnl: string; override: boolean; commission: string; swap: string; source: 'calc' | 'broker'; auto?: boolean }
 type ShotDraft = Shot & { url?: string; blob?: Blob; isNew?: boolean }
 
 const n = (s: string) => {
@@ -55,7 +55,7 @@ export default function TradeForm({ c, state, accounts, trade, defaultAccount, l
   const [notes, setNotes] = useState(trade?.notes ?? '')
   const [links, setLinks] = useState((trade?.links ?? []).join('\n'))
   const [slMoves, setSlMoves] = useState(trade?.slMoves.map((m) => ({ time: isoToWall(m.time, tz), price: s2(m.price) })) ?? [])
-  const [exits, setExits] = useState<ExitDraft[]>(trade?.exits.map((e) => ({ id: e.id, time: isoToWall(e.time, tz), price: s2(e.price), lots: s2(e.lots), kind: e.kind, pnl: s2(e.pnl), override: e.pnlSource === 'broker', commission: s2(e.commission), swap: s2(e.swap), source: e.pnlSource })) ?? [])
+  const [exits, setExits] = useState<ExitDraft[]>(trade?.exits.map((e) => ({ id: e.id, time: isoToWall(e.time, tz), price: s2(e.price), lots: s2(e.lots), kind: e.kind, kindSet: true, pnl: s2(e.pnl), override: e.pnlSource === 'broker', commission: s2(e.commission), swap: s2(e.swap), source: e.pnlSource, auto: e.auto })) ?? [])
   const [conv, setConv] = useState(s2(trade?.convEntry))
   const [convAuto, setConvAuto] = useState(!trade?.convEntry)
   const [contract, setContract] = useState(s2(trade?.contract))
@@ -66,6 +66,9 @@ export default function TradeForm({ c, state, accounts, trade, defaultAccount, l
   const [err, setErr] = useState('')
   const [confirmDel, setConfirmDel] = useState(false)
   const [adv, setAdv] = useState(false)
+  // "More details" starts open only when an existing trade already uses one of its fields.
+  const [more, setMore] = useState(Boolean(trade && (trade.setup || trade.notes || trade.condition || trade.plan || trade.emotion || trade.revenge || trade.leverage || trade.riskPct
+    || trade.links.length || trade.shots.length || trade.slMoves.length || trade.tps.length > 1 || (trade.timeframe && trade.timeframe !== 'H1'))))
 
   const inst = useMemo(() => instrument(pair, n(contract) || undefined, n(pipSize) || undefined), [pair, contract, pipSize])
   const mult = LOT_UNITS[unit]
@@ -161,6 +164,18 @@ export default function TradeForm({ c, state, accounts, trade, defaultAccount, l
     }
   }
 
+  // The kind of a close follows from its price and size, unless the user picked one.
+  const deriveKind = (e: ExitDraft): ExitKind => {
+    if (e.kindSet) return e.kind
+    const p = n(e.price), half = inst.pip / 2
+    const near = (x?: number) => x !== undefined && x > 0 && Math.abs(p - x) <= half
+    if (near(n(entry))) return 'be'
+    if (tps.some((x) => near(n(x)))) return toStd(e.lots) < (toStd(lots) || 0) - 1e-9 ? 'partial' : 'tp'
+    if (near(n(sl)) || slMoves.some((m) => near(n(m.price)))) return 'sl'
+    return toStd(e.lots) < (toStd(lots) || 0) - 1e-9 ? 'partial' : 'manual'
+  }
+  const newExit = (std: number): ExitDraft => ({ id: uid(), time: nowWall(tz), price: '', lots: fromStd(std), kind: 'manual', kindSet: false, pnl: '', override: false, commission: '', swap: '', source: 'calc' })
+
   const save = async () => {
     const open = wallToIso(openTime, tz)
     const en = n(entry), lt = toStd(lots)
@@ -177,8 +192,8 @@ export default function TradeForm({ c, state, accounts, trade, defaultAccount, l
       shots: shots.map(({ id, kind, name }) => ({ id, kind, name })),
       slMoves: slMoves.map((m) => ({ time: wallToIso(m.time, tz) || open, price: n(m.price) })).filter((m) => m.price > 0),
       exits: exits.map((e) => ({
-        id: e.id, time: wallToIso(e.time, tz) || now, price: n(e.price), lots: toStd(e.lots), kind: e.kind, pnl: n(e.pnl) || 0,
-        commission: n(e.commission) || undefined, swap: n(e.swap) || undefined, pnlSource: e.override ? 'broker' : e.source,
+        id: e.id, time: wallToIso(e.time, tz) || now, price: n(e.price), lots: toStd(e.lots), kind: deriveKind(e), pnl: n(e.pnl) || 0,
+        commission: n(e.commission) || undefined, swap: n(e.swap) || undefined, pnlSource: e.override ? 'broker' : e.source, auto: e.auto || undefined,
       })).filter((e) => e.price > 0 && e.lots > 0).sort((a, b) => a.time.localeCompare(b.time)),
       convEntry: convN > 0 ? convN : undefined, contract: n(contract) > 0 ? n(contract) : undefined, pipSize: n(pipSize) > 0 ? n(pipSize) : undefined, mark: n(mark) > 0 ? n(mark) : undefined,
       ticket: trade?.ticket, source: trade?.source ?? 'manual', createdAt: trade?.createdAt ?? now, updatedAt: now,
@@ -218,8 +233,9 @@ export default function TradeForm({ c, state, accounts, trade, defaultAccount, l
           <button type="button" onClick={onClose} aria-label={f.cancel} className="rounded-full px-3 py-1 text-white/60 hover:text-white">✕</button>
         </div>
 
+        {/* Essentials: only what a trade needs. Everything else sits under "More details". */}
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
-          <Field label={f.account}>{sel(accountId, setAccountId, accounts.map((a) => [a.id, `${a.name} (${a.currency}${a.type === 'demo' ? ', demo' : ''})`]))}</Field>
+          {accounts.length > 1 ? <Field label={f.account}>{sel(accountId, setAccountId, accounts.map((a) => [a.id, `${a.name} (${a.currency}${a.type === 'demo' ? ', demo' : ''})`]))}</Field> : null}
           <Field label={f.pair}>
             <input list="wc-pairs" value={pair} onChange={(e) => setPair(e.target.value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 6))} className={inputCls} />
             <datalist id="wc-pairs">{COMMON_PAIRS.map((p) => <option key={p} value={p} />)}</datalist>
@@ -230,18 +246,9 @@ export default function TradeForm({ c, state, accounts, trade, defaultAccount, l
               <button type="button" className={pill(direction === 'sell')} onClick={() => setDirection('sell')}>{c.sell}</button>
             </div>
           </Field>
-          <Field label={f.openTime}><input type="datetime-local" value={openTime} onChange={(e) => setOpenTime(e.target.value)} className={inputCls} /></Field>
-          <Field label={f.timeframe}>{sel(timeframe, setTimeframe, TIMEFRAMES.map((x) => [x, x]))}</Field>
           <Field label={f.entry}><input inputMode="decimal" value={entry} onChange={(e) => setEntry(e.target.value)} className={inputCls} /></Field>
-          <Field label={f.sl}><input inputMode="decimal" value={sl} onChange={(e) => setSl(e.target.value)} className={inputCls} /></Field>
-          <Field label={f.tps} className="sm:col-span-2">
-            <div className="flex flex-wrap gap-2">
-              {tps.map((v, i) => (
-                <input key={i} inputMode="decimal" value={v} placeholder={`TP${i + 1}`} onChange={(e) => setTps((xs) => xs.map((x, k) => (k === i ? e.target.value : x)))} className={`${inputCls} w-28`} />
-              ))}
-              <button type="button" onClick={() => setTps((xs) => [...xs, ''])} className="rounded-full border border-white/15 px-3 text-sm text-white/70 hover:text-white">{f.addTp}</button>
-            </div>
-          </Field>
+          <Field label={`${f.sl.replace(/ \(.*\)$/, '')} (${f.optional})`}><input inputMode="decimal" value={sl} onChange={(e) => setSl(e.target.value)} className={inputCls} /></Field>
+          <Field label={`${f.tp} (${f.optional})`}><input inputMode="decimal" value={tps[0] ?? ''} onChange={(e) => setTps((xs) => [e.target.value, ...xs.slice(1)])} className={inputCls} /></Field>
           <Field label={f.lots} hint={toStd(lots) > 0 ? `= ${(toStd(lots) * inst.contract).toLocaleString(locale)} ${f.units}` : undefined}>
             <div className="flex gap-2">
               <input inputMode="decimal" value={lots} onChange={(e) => setLots(e.target.value)} className={inputCls} />
@@ -250,79 +257,104 @@ export default function TradeForm({ c, state, accounts, trade, defaultAccount, l
               </select>
             </div>
           </Field>
-          <Field label={f.leverage}><input inputMode="numeric" value={leverage} onChange={(e) => setLeverage(e.target.value)} className={inputCls} /></Field>
-          <Field label={f.riskPct} hint={riskAmount !== undefined && acc ? `${f.riskAuto}: ${money(riskAmount)}` : undefined}><input inputMode="decimal" value={riskPct} onChange={(e) => setRiskPct(e.target.value)} className={inputCls} /></Field>
+          <Field label={f.openTime}><input type="datetime-local" value={openTime} onChange={(e) => setOpenTime(e.target.value)} className={inputCls} /></Field>
         </div>
         <p className="mt-2 text-xs text-white/50">
-          {rr !== undefined ? `${f.rr}: 1:${rr.toFixed(2)} · ` : ''}{pipValue !== undefined && acc ? f.pipValue(money(pipValue)) : ''}
+          {rr !== undefined ? `${f.rr}: 1:${rr.toFixed(2)} · ` : ''}{riskAmount !== undefined && acc ? `${f.riskAmount}: ${money(riskAmount)} · ` : ''}{pipValue !== undefined && acc ? f.pipValue(money(pipValue)) : ''}
         </p>
+        {(n(sl) > 0 || n(tps[0] ?? '') > 0) && openStd > 1e-9 ? <p className="mt-1 text-xs text-white/40">{f.autoHint}</p> : null}
 
-        <div className="mt-5 rounded-2xl border border-white/10 p-3">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <h3 className="text-sm font-semibold">{f.exits}</h3>
-            <div className="flex gap-2">
-              <button type="button" onClick={() => setExits((xs) => [...xs, { id: uid(), time: nowWall(tz), price: '', lots: fromStd(Math.max(0, openStd)), kind: 'partial', pnl: '', override: false, commission: '', swap: '', source: 'calc' }])} className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/80 hover:border-white/40">{f.addExit}</button>
-              {openStd > 1e-9 && exits.length ? <button type="button" onClick={() => setExits((xs) => [...xs, { id: uid(), time: nowWall(tz), price: '', lots: fromStd(openStd), kind: 'manual', pnl: '', override: false, commission: '', swap: '', source: 'calc' }])} className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/80 hover:border-white/40">{f.closeRest}</button> : null}
-            </div>
-          </div>
-          {exits.map((e, i) => {
-            const set = (patch: Partial<ExitDraft>) => setExits((xs) => xs.map((x, k) => (k === i ? { ...x, ...patch } : x)))
-            return (
-              <div key={e.id} className="mt-3 grid grid-cols-2 gap-2 border-t border-white/5 pt-3 sm:grid-cols-6">
-                <Field label={f.exitTime} className="col-span-2"><input type="datetime-local" value={e.time} onChange={(ev) => set({ time: ev.target.value })} className={inputCls} /></Field>
-                <Field label={f.exitPrice}><input inputMode="decimal" value={e.price} onChange={(ev) => set({ price: ev.target.value })} className={inputCls} /></Field>
-                <Field label={`${f.exitLots} (${f.lotUnit[unit].split(' ')[0].toLowerCase()})`}><input inputMode="decimal" value={e.lots} onChange={(ev) => set({ lots: ev.target.value })} className={inputCls} /></Field>
-                <Field label={c.cols.result} className="col-span-2">{sel(e.kind, (v) => set({ kind: v as ExitKind }), (['tp', 'partial', 'sl', 'be', 'manual'] as ExitKind[]).map((k) => [k, f.kind[k]]))}</Field>
-                <Field label={f.commission}><input inputMode="decimal" value={e.commission} onChange={(ev) => set({ commission: ev.target.value })} className={inputCls} /></Field>
-                <Field label={f.swap}><input inputMode="decimal" value={e.swap} onChange={(ev) => set({ swap: ev.target.value })} className={inputCls} /></Field>
-                <Field label={`${f.exitPnl} · ${e.override ? f.brokerPnl : f.calcPnl}`} className="col-span-2"><input inputMode="decimal" value={e.pnl} onChange={(ev) => set({ pnl: ev.target.value, override: true })} className={`${inputCls} ${n(e.pnl) > 0 ? 'text-emerald-400' : n(e.pnl) < 0 ? 'text-[var(--wc-red-soft)]' : ''}`} /></Field>
-                <div className="col-span-2 flex items-end gap-2 sm:col-span-2">
-                  {e.override ? <button type="button" onClick={() => set({ override: false })} className="text-xs text-white/50 hover:text-white">↺ {f.calcPnl}</button> : null}
-                  <button type="button" onClick={() => setExits((xs) => xs.filter((_, k) => k !== i))} className="ml-auto text-xs text-white/50 hover:text-[var(--wc-red-soft)]">✕</button>
+        {/* Result */}
+        {exits.length === 0 ? (
+          <button type="button" onClick={() => setExits([newExit(Math.max(0, openStd) || toStd(lots) || 0)])} className="mt-4 w-full rounded-2xl border border-dashed border-white/20 px-4 py-3 text-sm font-semibold text-white/80 hover:border-white/40">{f.closeTrade}</button>
+        ) : (
+          <div className="mt-4 rounded-2xl border border-white/10 p-3">
+            <h3 className="text-sm font-semibold">{f.resultH}</h3>
+            {exits.map((e, i) => {
+              const set = (patch: Partial<ExitDraft>) => setExits((xs) => xs.map((x, k) => (k === i ? { ...x, ...patch } : x)))
+              return (
+                <div key={e.id} className="mt-3 border-t border-white/5 pt-3 first:mt-2 first:border-t-0 first:pt-0">
+                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-[1fr_1.4fr_1fr_auto]">
+                    <Field label={f.exitPrice}><input inputMode="decimal" value={e.price} onChange={(ev) => set({ price: ev.target.value })} className={inputCls} /></Field>
+                    <Field label={f.exitTime}><input type="datetime-local" value={e.time} onChange={(ev) => set({ time: ev.target.value })} className={inputCls} /></Field>
+                    <Field label={`${f.exitPnl} · ${e.override ? f.brokerPnl : f.calcPnl}${e.auto ? ` · ${f.autoBadge}` : ''}`}><input inputMode="decimal" value={e.pnl} onChange={(ev) => set({ pnl: ev.target.value, override: true })} className={`${inputCls} ${n(e.pnl) > 0 ? 'text-emerald-400' : n(e.pnl) < 0 ? 'text-[var(--wc-red-soft)]' : ''}`} /></Field>
+                    <div className="flex items-end justify-end gap-2 pb-2">
+                      {e.override ? <button type="button" onClick={() => set({ override: false })} className="text-xs text-white/50 hover:text-white">↺</button> : null}
+                      <button type="button" onClick={() => setExits((xs) => xs.filter((_, k) => k !== i))} aria-label={f.del} className="text-xs text-white/50 hover:text-[var(--wc-red-soft)]">✕</button>
+                    </div>
+                  </div>
+                  <details className="mt-2 text-xs text-white/55">
+                    <summary className="cursor-pointer hover:text-white">{f.exitMore}</summary>
+                    <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                      <Field label={`${f.exitLots} (${f.lotUnit[unit].split(' ')[0].toLowerCase()})`}><input inputMode="decimal" value={e.lots} onChange={(ev) => set({ lots: ev.target.value })} className={inputCls} /></Field>
+                      <Field label={c.cols.result}>{sel(e.kindSet ? e.kind : deriveKind(e), (v) => set({ kind: v as ExitKind, kindSet: true }), (['tp', 'partial', 'sl', 'be', 'manual'] as ExitKind[]).map((k) => [k, f.kind[k]]))}</Field>
+                      <Field label={f.commission}><input inputMode="decimal" value={e.commission} onChange={(ev) => set({ commission: ev.target.value })} className={inputCls} /></Field>
+                      <Field label={f.swap}><input inputMode="decimal" value={e.swap} onChange={(ev) => set({ swap: ev.target.value })} className={inputCls} /></Field>
+                    </div>
+                  </details>
                 </div>
-              </div>
-            )
-          })}
-          <p className="mt-2 text-[11px] text-white/40">{f.pnlHint}</p>
-        </div>
-
-        <div className="mt-3 rounded-2xl border border-white/10 p-3">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-semibold">{f.slMoves}</h3>
-            <button type="button" onClick={() => setSlMoves((xs) => [...xs, { time: nowWall(tz), price: '' }])} className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/80 hover:border-white/40">{f.addSlMove}</button>
+              )
+            })}
+            {openStd > 1e-9 ? <button type="button" onClick={() => setExits((xs) => [...xs, newExit(openStd)])} className="mt-3 rounded-full border border-white/15 px-3 py-1 text-xs text-white/80 hover:border-white/40">{f.partialClose}</button> : null}
+            <p className="mt-2 text-[11px] text-white/40">{f.pnlHint}</p>
           </div>
-          {slMoves.map((m, i) => (
-            <div key={i} className="mt-2 flex gap-2">
-              <input type="datetime-local" value={m.time} onChange={(e) => setSlMoves((xs) => xs.map((x, k) => (k === i ? { ...x, time: e.target.value } : x)))} className={inputCls} />
-              <input inputMode="decimal" value={m.price} placeholder="SL" onChange={(e) => setSlMoves((xs) => xs.map((x, k) => (k === i ? { ...x, price: e.target.value } : x)))} className={`${inputCls} w-32`} />
-              <button type="button" onClick={() => setSlMoves((xs) => xs.filter((_, k) => k !== i))} className="px-2 text-white/50 hover:text-[var(--wc-red-soft)]">✕</button>
+        )}
+
+        {/* More details: all optional */}
+        <button type="button" onClick={() => setMore((v) => !v)} aria-expanded={more} className="mt-4 text-sm font-semibold text-white/70 hover:text-white">{more ? '▾' : '▸'} {f.more}</button>
+        {!more ? <p className="text-xs text-white/40">{f.moreHint}</p> : (
+          <div className="mt-3 grid gap-3">
+            <div className="grid gap-3 sm:grid-cols-4">
+              <Field label={f.timeframe}>{sel(timeframe, setTimeframe, TIMEFRAMES.map((x) => [x, x]))}</Field>
+              <Field label={f.setup}><input value={setup} onChange={(e) => setSetup(e.target.value)} maxLength={60} className={inputCls} /></Field>
+              <Field label={f.leverage}><input inputMode="numeric" value={leverage} onChange={(e) => setLeverage(e.target.value)} className={inputCls} /></Field>
+              <Field label={f.riskPct}><input inputMode="decimal" value={riskPct} onChange={(e) => setRiskPct(e.target.value)} className={inputCls} /></Field>
             </div>
-          ))}
-        </div>
+            <Field label={f.tps}>
+              <div className="flex flex-wrap gap-2">
+                {tps.slice(1).map((v, k) => (
+                  <input key={k} inputMode="decimal" value={v} placeholder={`TP${k + 2}`} onChange={(e) => setTps((xs) => xs.map((x, j) => (j === k + 1 ? e.target.value : x)))} className={`${inputCls} w-28`} />
+                ))}
+                <button type="button" onClick={() => setTps((xs) => [...(xs.length ? xs : ['']), ''])} className="rounded-full border border-white/15 px-3 text-sm text-white/70 hover:text-white">{f.addTp}</button>
+              </div>
+            </Field>
+            <div className="rounded-2xl border border-white/10 p-3">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-semibold">{f.slMoves}</h3>
+                <button type="button" onClick={() => setSlMoves((xs) => [...xs, { time: nowWall(tz), price: '' }])} className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/80 hover:border-white/40">{f.addSlMove}</button>
+              </div>
+              {slMoves.map((m, i) => (
+                <div key={i} className="mt-2 flex gap-2">
+                  <input type="datetime-local" value={m.time} onChange={(e) => setSlMoves((xs) => xs.map((x, k) => (k === i ? { ...x, time: e.target.value } : x)))} className={inputCls} />
+                  <input inputMode="decimal" value={m.price} placeholder="SL" onChange={(e) => setSlMoves((xs) => xs.map((x, k) => (k === i ? { ...x, price: e.target.value } : x)))} className={`${inputCls} w-32`} />
+                  <button type="button" onClick={() => setSlMoves((xs) => xs.filter((_, k) => k !== i))} className="px-2 text-white/50 hover:text-[var(--wc-red-soft)]">✕</button>
+                </div>
+              ))}
+            </div>
+            <div className="grid gap-3 sm:grid-cols-3">
+              <Field label={f.condition}>{sel(condition, (v) => setCondition(v as Condition | ''), [['', '–'], ...CONDITIONS.map((k) => [k, c.conditions[k]] as [string, string])])}</Field>
+              <Field label={f.plan}>{sel(plan, (v) => setPlan(v as Plan | ''), [['', '–'], ['strategy', c.plans.strategy], ['impulse', c.plans.impulse]])}</Field>
+              <Field label={f.emotion}>{sel(emotion, (v) => setEmotion(v as Emotion | ''), [['', '–'], ...EMOTIONS.map((k) => [k, c.emotions[k]] as [string, string])])}</Field>
+            </div>
+            <label className="flex items-center gap-2 text-sm text-white/80"><input type="checkbox" checked={revenge} onChange={(e) => setRevenge(e.target.checked)} className="size-4 accent-[var(--wc-red)]" />{f.revenge}</label>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <Field label={f.notes}><textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} maxLength={4000} className={inputCls} /></Field>
+              <Field label={f.links}><textarea value={links} onChange={(e) => setLinks(e.target.value)} rows={3} placeholder="https://www.tradingview.com/x/…" className={inputCls} /></Field>
+              <ShotBox kind="before" label={f.shotsBefore} />
+              <ShotBox kind="after" label={f.shotsAfter} />
+            </div>
 
-        <div className="mt-4 grid gap-3 sm:grid-cols-4">
-          <Field label={f.setup}><input value={setup} onChange={(e) => setSetup(e.target.value)} maxLength={60} className={inputCls} /></Field>
-          <Field label={f.condition}>{sel(condition, (v) => setCondition(v as Condition | ''), [['', '–'], ...CONDITIONS.map((k) => [k, c.conditions[k]] as [string, string])])}</Field>
-          <Field label={f.plan}>{sel(plan, (v) => setPlan(v as Plan | ''), [['', '–'], ['strategy', c.plans.strategy], ['impulse', c.plans.impulse]])}</Field>
-          <Field label={f.emotion}>{sel(emotion, (v) => setEmotion(v as Emotion | ''), [['', '–'], ...EMOTIONS.map((k) => [k, c.emotions[k]] as [string, string])])}</Field>
-        </div>
-        <label className="mt-3 flex items-center gap-2 text-sm text-white/80"><input type="checkbox" checked={revenge} onChange={(e) => setRevenge(e.target.checked)} className="size-4 accent-[var(--wc-red)]" />{f.revenge}</label>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          <Field label={f.notes}><textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={4} maxLength={4000} className={inputCls} /></Field>
-          <Field label={f.links}><textarea value={links} onChange={(e) => setLinks(e.target.value)} rows={4} placeholder="https://www.tradingview.com/x/…" className={inputCls} /></Field>
-          <ShotBox kind="before" label={f.shotsBefore} />
-          <ShotBox kind="after" label={f.shotsAfter} />
-        </div>
-
-        <button type="button" onClick={() => setAdv((v) => !v)} className="mt-4 text-sm text-white/60 hover:text-white">{adv ? '▾' : '▸'} {f.advanced}</button>
-        {adv ? (
-          <div className="mt-2 grid gap-3 sm:grid-cols-4">
-            <Field label={f.conv} hint={f.convHint} className="sm:col-span-2"><input inputMode="decimal" value={conv} onChange={(e) => { setConv(e.target.value); setConvAuto(false) }} className={inputCls} /></Field>
-            <Field label={f.contract}><input inputMode="decimal" value={contract} placeholder={String(inst.contract)} onChange={(e) => setContract(e.target.value)} className={inputCls} /></Field>
-            <Field label={f.pip}><input inputMode="decimal" value={pipSize} placeholder={String(inst.pip)} onChange={(e) => setPipSize(e.target.value)} className={inputCls} /></Field>
-            <Field label={f.mark} className="sm:col-span-2"><input inputMode="decimal" value={mark} onChange={(e) => setMark(e.target.value)} className={inputCls} /></Field>
+            <button type="button" onClick={() => setAdv((v) => !v)} className="justify-self-start text-sm text-white/60 hover:text-white">{adv ? '▾' : '▸'} {f.advanced}</button>
+            {adv ? (
+              <div className="grid gap-3 sm:grid-cols-4">
+                <Field label={f.conv} hint={f.convHint} className="sm:col-span-2"><input inputMode="decimal" value={conv} onChange={(e) => { setConv(e.target.value); setConvAuto(false) }} className={inputCls} /></Field>
+                <Field label={f.contract}><input inputMode="decimal" value={contract} placeholder={String(inst.contract)} onChange={(e) => setContract(e.target.value)} className={inputCls} /></Field>
+                <Field label={f.pip}><input inputMode="decimal" value={pipSize} placeholder={String(inst.pip)} onChange={(e) => setPipSize(e.target.value)} className={inputCls} /></Field>
+                <Field label={f.mark} className="sm:col-span-2"><input inputMode="decimal" value={mark} onChange={(e) => setMark(e.target.value)} className={inputCls} /></Field>
+              </div>
+            ) : null}
           </div>
-        ) : null}
+        )}
 
         {err ? <p className="mt-3 text-sm text-[var(--wc-red-soft)]">{err}</p> : null}
         <div className="mt-5 flex flex-wrap gap-2">
