@@ -6,9 +6,9 @@ import { paths } from '../paths'
 export const terminalCopy = {
   en: {
     metaTitle: 'Winvest Terminal: Smart Money Concepts charts | Winvest Capital',
-    description: 'Winvest Terminal is the charting website from Winvest Capital. Market structure, BOS, CHOCH, inducement and liquidity sweeps mapped on the chart in your browser.',
+    description: 'Winvest Terminal is the charting website from Winvest Capital. Market structure, BOS, CHOCH and inducement on the chart, plus the Winvest trade playbook with a setup grade for 51 markets.',
     h1: 'Winvest Terminal',
-    intro: 'Smart Money Concepts on the chart, in your browser. Winvest Terminal maps market structure for you, so you can study it without drawing it by hand.',
+    intro: 'Smart Money Concepts on the chart, in your browser. Winvest Terminal maps market structure for you and shows where each market stands in the Winvest trade playbook, so you can study setups without drawing them by hand.',
     soon: 'Coming soon',
     soonNote: 'Subscriptions are not open yet. Join the free Discord to hear when they are.',
     discord: 'Join the free Discord',
@@ -19,31 +19,39 @@ export const terminalCopy = {
     manage: 'Manage subscription',
     shotsH: 'How it looks',
     shotsP: 'Real screenshots from Winvest Terminal, in the dark and the light theme.',
-    shotDark: 'Winvest Terminal in the dark theme: ETH / USDT on the 1 hour chart with market structure labels, Support and Resistance lines and the settings panel',
-    shotLight: 'Winvest Terminal in the light theme: BTC / USDT on the daily chart with market structure labels, Support and Resistance lines and the settings panel',
+    shotDark: 'Winvest Terminal in the dark theme: ETH / USDT on the daily chart, with the Markets panel sorted by grade, the playbook panel at step A1 · 03 with a grade of 85, and the extreme POI marked on the chart',
+    shotLight: 'Winvest Terminal in the light theme: USD / JPY on the 4 hour chart, with the Markets panel, the playbook panel at step A1 · 01 with a grade of 85, Support and the decisional POI',
     featuresH: 'What it shows',
     features: [
       'Swing labels: HH, HL, LH and LL',
       'Break of structure (BOS) and change of character (CHOCH)',
-      'Inducement (IDM) and liquidity sweeps',
-      'Support and Resistance from the latest confirmed swing high and low',
+      'Inducement (IDM), live IDM and liquidity sweeps',
+      'Support and Resistance that move with the new leg after a BOS or CHOCH',
       'SCOB rectangles and inside bars',
       'Optional 50 and 200 EMAs',
     ],
+    playbookH: 'The Winvest trade playbook, on every chart',
+    playbookP: 'Winvest Terminal follows the same playbook we teach in the community, with the inducement at its centre.',
+    playbook: [
+      ['Playbook panel', 'Shows which scenario, path and step of the playbook the chart is in, and what that step looks for. Until the inducement is taken out, it tells you to wait and shows the IDM level.'],
+      ['Setup grade', 'A score out of 100 with the checklist behind it: trend, higher timeframe, BOS with candle closure, IDM taken out, SCOB confirmation and the 0.764 entry level.'],
+      ['Decisional and extreme POI', 'The unmitigated order blocks in the range that the playbook works with, marked on the chart.'],
+      ['Markets panel', 'All 51 markets sorted by grade on the timeframe you have open. One click opens the chart.'],
+    ],
     accessH: 'How it works',
     access: [
-      ['Crypto, forex, gold, silver and stocks', '51 markets on timeframes from 5 minutes to 1 month.'],
+      ['Crypto, forex, gold, silver and stocks', '51 markets on timeframes from 5 minutes to 1 month. The chart refreshes every minute.'],
       ['Nothing to install', 'It runs in your browser on desktop and phone.'],
       ['Log in with your email', 'No password. You get a one-time code by email.'],
     ],
     noticeH: 'Educational only',
-    notice: 'Winvest Terminal is an educational tool. It shows market structure based on past price data. It does not tell you what to buy or sell, it is not financial advice, and past price behaviour says nothing about future results. Trading carries a high risk of loss.',
+    notice: 'Winvest Terminal is an educational tool. It shows market structure and how a chart lines up with the Winvest trade playbook, based on past price data. Playbook steps and grades are generated automatically as examples of the strategy, not personal recommendations to buy or sell. Nothing in Winvest Terminal is financial advice, and past price behaviour says nothing about future results. Trading carries a high risk of loss.',
   },
   nl: {
     metaTitle: 'Winvest Terminal: Smart Money Concepts charts | Winvest Capital',
-    description: 'Winvest Terminal is de chartwebsite van Winvest Capital. Marktstructuur, BOS, CHOCH, inducement en liquidity sweeps op de chart in je browser.',
+    description: 'Winvest Terminal is de chartwebsite van Winvest Capital. Marktstructuur, BOS, CHOCH en inducement op de chart, plus het Winvest trade playbook met een setup-score voor 51 markten.',
     h1: 'Winvest Terminal',
-    intro: 'Smart Money Concepts op de chart, in je browser. Winvest Terminal brengt de marktstructuur voor je in kaart, zodat je die kunt bestuderen zonder alles zelf te tekenen.',
+    intro: 'Smart Money Concepts op de chart, in je browser. Winvest Terminal brengt de marktstructuur voor je in kaart en laat zien waar elke markt staat in het Winvest trade playbook, zodat je setups kunt bestuderen zonder alles zelf te tekenen.',
     soon: 'Binnenkort',
     soonNote: 'Abonnementen zijn nog niet geopend. Word lid van de gratis Discord om te horen wanneer het zover is.',
     discord: 'Word gratis lid van de Discord',
@@ -54,25 +62,33 @@ export const terminalCopy = {
     manage: 'Abonnement beheren',
     shotsH: 'Zo ziet het eruit',
     shotsP: 'Echte screenshots van Winvest Terminal, in het donkere en het lichte thema.',
-    shotDark: 'Winvest Terminal in het donkere thema: ETH / USDT op de 1-uurschart met marktstructuurlabels, Support- en Resistance-lijnen en het instellingenpaneel',
-    shotLight: 'Winvest Terminal in het lichte thema: BTC / USDT op de dagchart met marktstructuurlabels, Support- en Resistance-lijnen en het instellingenpaneel',
+    shotDark: 'Winvest Terminal in het donkere thema: ETH / USDT op de dagchart, met het Markets-paneel gesorteerd op score, het playbook-paneel op stap A1 · 03 met een score van 85, en de extreme POI op de chart',
+    shotLight: 'Winvest Terminal in het lichte thema: USD / JPY op de 4-uurschart, met het Markets-paneel, het playbook-paneel op stap A1 · 01 met een score van 85, Support en de decisional POI',
     featuresH: 'Wat je ziet',
     features: [
       'Swing labels: HH, HL, LH en LL',
       'Break of structure (BOS) en change of character (CHOCH)',
-      'Inducement (IDM) en liquidity sweeps',
-      'Support en Resistance vanaf de laatst bevestigde swing high en low',
+      'Inducement (IDM), live IDM en liquidity sweeps',
+      'Support en Resistance die na een BOS of CHOCH meebewegen met de nieuwe leg',
       'SCOB-rechthoeken en inside bars',
       'Optionele 50 en 200 EMA',
     ],
+    playbookH: 'Het Winvest trade playbook, op elke chart',
+    playbookP: 'Winvest Terminal volgt hetzelfde playbook dat we in de community leren, met de inducement als middelpunt.',
+    playbook: [
+      ['Playbook-paneel', 'Laat zien in welk scenario, pad en welke stap van het playbook de chart staat, en waar die stap op let. Zolang de inducement niet is genomen, zegt het paneel dat je moet wachten en toont het de IDM.'],
+      ['Setup-score', 'Een score van 0 tot 100 met de checklist erachter: trend, hogere timeframe, BOS met candle closure, IDM genomen, SCOB-bevestiging en het 0.764-entryniveau.'],
+      ['Decisional en extreme POI', 'De onaangetaste orderblocks in de range waar het playbook mee werkt, gemarkeerd op de chart.'],
+      ['Markets-paneel', 'Alle 51 markten gesorteerd op score voor de timeframe die je open hebt. Met één klik open je de chart.'],
+    ],
     accessH: 'Hoe het werkt',
     access: [
-      ['Crypto, forex, goud, zilver en aandelen', '51 markten op timeframes van 5 minuten tot 1 maand.'],
+      ['Crypto, forex, goud, zilver en aandelen', '51 markten op timeframes van 5 minuten tot 1 maand. De chart ververst elke minuut.'],
       ['Niets te installeren', 'Het werkt in je browser, op desktop en telefoon.'],
       ['Inloggen met je e-mail', 'Geen wachtwoord. Je krijgt een eenmalige code per e-mail.'],
     ],
     noticeH: 'Alleen educatief',
-    notice: 'Winvest Terminal is een educatieve tool. Het toont marktstructuur op basis van prijsdata uit het verleden. Het vertelt je niet wat je moet kopen of verkopen, het is geen financieel advies en eerdere koersbewegingen zeggen niets over toekomstige resultaten. Handelen brengt een hoog risico op verlies met zich mee.',
+    notice: 'Winvest Terminal is een educatieve tool. Het toont marktstructuur en hoe een chart past in het Winvest trade playbook, op basis van prijsdata uit het verleden. Playbook-stappen en scores worden automatisch gemaakt als voorbeelden van de strategie, niet als persoonlijke aanbevelingen om te kopen of te verkopen. Niets in Winvest Terminal is financieel advies, en eerdere koersbewegingen zeggen niets over toekomstige resultaten. Handelen brengt een hoog risico op verlies met zich mee.',
   },
 }
 
@@ -148,6 +164,19 @@ export default function Terminal({ lang }: { lang: Lang }) {
               <li key={f} className="flex gap-3 text-white/75">
                 <Check />
                 <span>{f}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="mt-14">
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{c.playbookH}</h2>
+          <p className="mt-2 text-white/60">{c.playbookP}</p>
+          <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+            {c.playbook.map(([title, text]) => (
+              <li key={title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+                <span className="block font-semibold">{title}</span>
+                <span className="mt-1 block text-sm text-white/60">{text}</span>
               </li>
             ))}
           </ul>
