@@ -1,7 +1,7 @@
 // Wallet tracking for the portfolio: reads balances of public crypto addresses straight from
 // public blockchain APIs in the visitor's browser. Addresses and balances are only stored on the
 // visitor's own device. No API keys, no Winvest servers.
-// Sources: Blockscout (Ethereum, Base, Arbitrum, Optimism, Polygon, Gnosis), public RPC nodes (BNB Chain, XDC),
+// Sources: Blockscout (Ethereum, Base, Arbitrum, Optimism, Polygon), public RPC nodes (BNB Chain, XDC),
 // Jupiter (Solana), Blockstream (Bitcoin), XRPL cluster (XRP), CoinGecko and DexScreener (prices).
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -55,7 +55,7 @@ export function detectWallet(input: string): { type: WalletType; address: string
 
 // ---------------- native coin prices (CoinGecko, USD) ----------------
 const NATIVE_CG: Record<string, string> = {
-  ETH: 'ethereum', BNB: 'binancecoin', POL: 'polygon-ecosystem-token', XDC: 'xdce-crowd-sale', SOL: 'solana', BTC: 'bitcoin', XRP: 'ripple', XDAI: 'xdai',
+  ETH: 'ethereum', BNB: 'binancecoin', POL: 'polygon-ecosystem-token', XDC: 'xdce-crowd-sale', SOL: 'solana', BTC: 'bitcoin', XRP: 'ripple',
 }
 async function nativePrices(): Promise<Record<string, { usd: number; change?: number }>> {
   const ids = [...new Set(Object.values(NATIVE_CG))].join(',')
@@ -70,9 +70,8 @@ const BLOCKSCOUT: { chain: string; host: string; symbol: string; name: string }[
   { chain: 'Ethereum', host: 'https://eth.blockscout.com', symbol: 'ETH', name: 'Ether' },
   { chain: 'Base', host: 'https://base.blockscout.com', symbol: 'ETH', name: 'Ether' },
   { chain: 'Arbitrum', host: 'https://arbitrum.blockscout.com', symbol: 'ETH', name: 'Ether' },
-  { chain: 'Optimism', host: 'https://optimism.blockscout.com', symbol: 'ETH', name: 'Ether' },
+  { chain: 'Optimism', host: 'https://explorer.optimism.io', symbol: 'ETH', name: 'Ether' },
   { chain: 'Polygon', host: 'https://polygon.blockscout.com', symbol: 'POL', name: 'Polygon' },
-  { chain: 'Gnosis', host: 'https://gnosis.blockscout.com', symbol: 'XDAI', name: 'xDAI' },
 ]
 const SPAM = /(https?:|www\.|\.com|\.io|\.xyz|\.org|claim|visit|reward|airdrop|voucher|\$\s?\d)/i
 
@@ -92,6 +91,7 @@ async function blockscoutChain(w: Wallet, b: (typeof BLOCKSCOUT)[number]): Promi
     if (SPAM.test(`${tk.name} ${tk.symbol}`)) continue
     const price = tk.exchange_rate ? Number(tk.exchange_rate) : undefined
     if (!price) continue // unpriced tokens are almost always spam or illiquid
+    if (Number(tk.volume_24h ?? 0) < 100) continue // no real market: airdropped dust and spam
     const qty = units(t.value, Number(tk.decimals || 18))
     out.push({ key: `${b.chain}:${String(tk.address_hash || tk.address).toLowerCase()}`, wallet: w.id, chain: b.chain, symbol: String(tk.symbol || '?').slice(0, 16), name: String(tk.name || tk.symbol || '').slice(0, 60), qty, priceUsd: price, image: typeof tk.icon_url === 'string' && tk.icon_url.startsWith('https://') ? tk.icon_url : undefined })
   }
@@ -166,7 +166,7 @@ async function solanaWallet(w: Wallet): Promise<WalletToken[]> {
     const p = price[mint]
     if (!p?.usdPrice || (p.liquidity ?? 0) < 5000) continue // no liquid market: skip spam and NFTs
     const meta = info[mint]
-    const isSol = m === 'SOL'
+    const isSol = mint === SOL_MINT // native SOL and wrapped SOL count as one
     const key = `Solana:${isSol ? 'native' : mint}`
     const prev = out.find((x) => x.key === key)
     if (prev) { prev.qty += Number(v.uiAmount); continue } // wrapped SOL is counted with SOL
