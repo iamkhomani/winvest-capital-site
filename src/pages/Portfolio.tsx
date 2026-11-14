@@ -5,7 +5,9 @@ import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import { diversification, drawdown, holdings, periods, series, volatility } from '../portfolio/calc'
 import type { Holding } from '../portfolio/calc'
-import { history as fetchHistory, quotes, searchCrypto, searchStock } from '../portfolio/data'
+import { history as fetchHistory, fxNow, quotes, searchCrypto, searchStock } from '../portfolio/data'
+import { cachedSync, detectWallet, syncAll } from '../portfolio/wallets'
+import type { WalletSync, WalletToken } from '../portfolio/wallets'
 import type { Found, History, Quote } from '../portfolio/data'
 import { exportCsv, exportJson, load, save, uid, validate } from '../portfolio/store'
 import type { Asset, Currency, PortfolioData, Tx } from '../portfolio/store'
@@ -22,7 +24,23 @@ export const portfolioCopy = {
     description: 'Track crypto and stocks in one overview with live prices: profit and loss, allocation, performance per week, month, quarter and year, drawdown and watchlists. Stored only on your own device.',
     h1: 'Portfolio tracker',
     intro: 'Crypto and stocks in one overview, with live prices. Your data is stored only in this browser on this device, not on our servers. Use export to make a backup or move it to another device.',
-    tabs: { overview: 'Overview', positions: 'Positions', txs: 'Transactions', watch: 'Watchlists', settings: 'Backup & settings' },
+    tabs: { overview: 'Overview', positions: 'Positions', wallets: 'Wallets', txs: 'Transactions', watch: 'Watchlists', settings: 'Backup & settings' },
+    w: {
+      title: 'Track your wallets automatically',
+      intro: 'Add a public wallet address and we read the coins and tokens in it straight from the blockchain. Balances and value update automatically. Read-only: we never need a private key or seed phrase, and you can never sign anything here.',
+      address: 'Wallet address', addressPh: '0x…, Solana, bc1… or r… address', label: 'Name (optional)', labelPh: 'e.g. Ledger', add: 'Add wallet',
+      invalid: 'This is not a supported address. Paste a public address, never a private key or seed phrase.',
+      exists: 'This wallet has already been added.',
+      detected: { evm: 'EVM address: Ethereum, Base, Arbitrum, Optimism, Polygon, Gnosis, BNB Chain and XDC', solana: 'Solana address', bitcoin: 'Bitcoin address', xrpl: 'XRP Ledger address' },
+      networks: 'Supported: Ethereum, Base, Arbitrum, Optimism, Polygon and Gnosis (native coin and all tokens with a market price), BNB Chain (BNB and the most used tokens), XDC, Solana (SOL and SPL tokens), Bitcoin and XRP. Tokens without a liquid market and balances under $0.50 are hidden to keep out spam.',
+      refresh: 'Refresh', syncing: 'Reading the blockchains…', lastSync: 'Updated', never: 'not yet',
+      remove: 'Remove', total: 'Value in wallets', empty: 'No coins or tokens with a value found yet.',
+      errors: (n: string) => `Could not read: ${n}. Shown balances may be incomplete; try Refresh later.`,
+      cols: { asset: 'Asset', chain: 'Network', qty: 'Amount', price: 'Price', value: 'Value', change: '24h' },
+      double: 'Wallet balances are counted on top of your transactions. Do not also enter the same coins as transactions, or they are counted twice. Wallets have no purchase price, so they are not part of profit/loss and the performance chart.',
+      privacy: 'Privacy: addresses are stored only on this device. To read balances, the address is sent to public blockchain services (Blockscout, Jupiter, Blockstream, XRPL, public RPC nodes) and prices come from CoinGecko and DexScreener. Never paste a seed phrase or private key anywhere.',
+      inclWallets: 'incl. wallets', cardTitle: 'Wallets', open: 'Manage wallets →',
+    },
     add: '+ Add transaction',
     total: 'Total value', pnl: 'Total profit / loss', unreal: 'Unrealised', real: 'Realised', today: 'Today', invested: 'Invested (cost basis)',
     perf: 'Performance', week: 'Week', month: 'Month', quarter: 'Quarter', year: 'Year', sinceStart: 'since start',
@@ -59,7 +77,23 @@ export const portfolioCopy = {
     description: 'Volg crypto en aandelen in één overzicht met actuele prijzen: winst en verlies, allocatie, performance per week, maand, kwartaal en jaar, drawdown en watchlists. Alleen opgeslagen op je eigen apparaat.',
     h1: 'Portfolio tracker',
     intro: 'Crypto en aandelen in één overzicht, met actuele prijzen. Je gegevens worden alleen in deze browser op dit apparaat opgeslagen, niet op onze servers. Gebruik export voor een back-up of om ze naar een ander apparaat te zetten.',
-    tabs: { overview: 'Overzicht', positions: 'Posities', txs: 'Transacties', watch: 'Watchlists', settings: 'Back-up & instellingen' },
+    tabs: { overview: 'Overzicht', positions: 'Posities', wallets: 'Wallets', txs: 'Transacties', watch: 'Watchlists', settings: 'Back-up & instellingen' },
+    w: {
+      title: 'Volg je wallets automatisch',
+      intro: 'Voeg een openbaar walletadres toe en we lezen de coins en tokens rechtstreeks van de blockchain. Saldi en waarde worden automatisch bijgewerkt. Alleen-lezen: we hebben nooit een private key of seed phrase nodig en je kunt hier nooit iets ondertekenen.',
+      address: 'Walletadres', addressPh: '0x…-, Solana-, bc1…- of r…-adres', label: 'Naam (optioneel)', labelPh: 'bijv. Ledger', add: 'Wallet toevoegen',
+      invalid: 'Dit is geen ondersteund adres. Plak een openbaar adres, nooit een private key of seed phrase.',
+      exists: 'Deze wallet is al toegevoegd.',
+      detected: { evm: 'EVM-adres: Ethereum, Base, Arbitrum, Optimism, Polygon, Gnosis, BNB Chain en XDC', solana: 'Solana-adres', bitcoin: 'Bitcoin-adres', xrpl: 'XRP Ledger-adres' },
+      networks: 'Ondersteund: Ethereum, Base, Arbitrum, Optimism, Polygon en Gnosis (native coin en alle tokens met een marktprijs), BNB Chain (BNB en de meest gebruikte tokens), XDC, Solana (SOL en SPL-tokens), Bitcoin en XRP. Tokens zonder liquide markt en saldi onder $0,50 worden verborgen om spam buiten te houden.',
+      refresh: 'Vernieuwen', syncing: 'Blockchains worden uitgelezen…', lastSync: 'Bijgewerkt', never: 'nog niet',
+      remove: 'Verwijderen', total: 'Waarde in wallets', empty: 'Nog geen coins of tokens met waarde gevonden.',
+      errors: (n: string) => `Kon niet uitlezen: ${n}. De getoonde saldi kunnen onvolledig zijn; probeer later opnieuw.`,
+      cols: { asset: 'Asset', chain: 'Netwerk', qty: 'Aantal', price: 'Prijs', value: 'Waarde', change: '24u' },
+      double: 'Walletsaldi tellen op bovenop je transacties. Voer dezelfde coins niet ook als transactie in, anders worden ze dubbel geteld. Wallets hebben geen aankoopprijs en tellen daarom niet mee in winst/verlies en de rendementsgrafiek.',
+      privacy: 'Privacy: adressen worden alleen op dit apparaat bewaard. Om saldi op te halen wordt het adres naar openbare blockchaindiensten gestuurd (Blockscout, Jupiter, Blockstream, XRPL, openbare RPC-nodes) en prijzen komen van CoinGecko en DexScreener. Plak nooit ergens een seed phrase of private key.',
+      inclWallets: 'incl. wallets', cardTitle: 'Wallets', open: 'Wallets beheren →',
+    },
     add: '+ Transactie toevoegen',
     total: 'Totale waarde', pnl: 'Totale winst / verlies', unreal: 'Ongerealiseerd', real: 'Gerealiseerd', today: 'Vandaag', invested: 'Ingelegd (kostprijs)',
     perf: 'Performance', week: 'Week', month: 'Maand', quarter: 'Kwartaal', year: 'Jaar', sinceStart: 'sinds start',
@@ -282,6 +316,12 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   const [wl, setWl] = useState(0)
   const [wlSearch, setWlSearch] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
+  const [wsync, setWsync] = useState<WalletSync | null>(null)
+  const [wBusy, setWBusy] = useState(false)
+  const [usdRate, setUsdRate] = useState(1)
+  const [wAddr, setWAddr] = useState('')
+  const [wLabel, setWLabel] = useState('')
+  const [wErr, setWErr] = useState('')
 
   useEffect(() => {
     setData(load())
@@ -290,6 +330,32 @@ export default function Portfolio({ lang }: { lang: Lang }) {
       if (t in portfolioCopy.en.tabs) setTab(t)
     }
   }, [])
+
+  // ---- wallets: read balances from the blockchains (cached 10 minutes) ----
+  const walletSig = data ? data.wallets.map((w) => w.id).join('|') : ''
+  const syncWallets = useCallback(async (force = false) => {
+    if (!data || !data.wallets.length) return
+    const cached = cachedSync()
+    const ids = data.wallets.map((w) => w.id)
+    const covered = !!cached && ids.every((id) => cached.ids?.includes(id))
+    if (!force && cached && covered && Date.now() - cached.at < 10 * 60e3) { setWsync(cached); return }
+    if (cached) setWsync(cached)
+    setWBusy(true)
+    try {
+      const s = await syncAll(data.wallets)
+      setWsync(s)
+    } finally {
+      setWBusy(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [walletSig])
+  useEffect(() => { void syncWallets() }, [syncWallets])
+  useEffect(() => {
+    if (!data) return
+    let alive = true
+    fxNow('USD', data.base).then((r) => { if (alive && r > 0) setUsdRate(r) }).catch(() => undefined)
+    return () => { alive = false }
+  }, [data?.base]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const update = useCallback((fn: (d: PortfolioData) => PortfolioData) => {
     setData((prev) => {
@@ -390,6 +456,20 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   const real = hs.reduce((s, h) => s + h.realized, 0)
   const day24 = open.reduce((s, h) => s + (h.change24h !== undefined && h.price !== undefined ? h.value - h.value / (1 + h.change24h / 100) : 0), 0)
   const missing = open.filter((h) => h.price === undefined)
+  const wIds = new Set(data.wallets.map((w) => w.id))
+  const wTokens: (WalletToken & { value: number })[] = (wsync?.tokens ?? []).filter((t) => wIds.has(t.wallet)).map((t) => ({ ...t, value: (t.priceUsd ?? 0) * t.qty * usdRate }))
+  const walletValue = wTokens.reduce((s, t) => s + t.value, 0)
+  const walletDay24 = wTokens.reduce((s, t) => s + (t.change24h !== undefined ? t.value - t.value / (1 + t.change24h / 100) : 0), 0)
+  const grandTotal = totalValue + walletValue
+  const addWallet = () => {
+    const det = detectWallet(wAddr)
+    if (!det) return setWErr(c.w.invalid)
+    if (data.wallets.some((x) => x.address.toLowerCase() === det.address.toLowerCase())) return setWErr(c.w.exists)
+    setWErr('')
+    update((d) => { d.wallets.push({ id: uid(), type: det.type, address: det.address, label: wLabel.trim().slice(0, 40) || undefined }); return d })
+    setWAddr('')
+    setWLabel('')
+  }
 
   const saveTx = (a: Asset, t: Tx) => {
     update((d) => {
@@ -426,8 +506,12 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   )
 
   const divLabel = div ? (div.effective >= 8 ? c.divHigh : div.effective >= 4 ? c.divMid : c.divLow) : ''
-  const allocParts = open.filter((h) => h.value > 0).slice(0, 9).map((h, i) => ({ label: data.assets[h.key]?.symbol ?? h.key, value: h.value, color: PALETTE[i % PALETTE.length] }))
-  const rest = open.filter((h) => h.value > 0).slice(9).reduce((s, h) => s + h.value, 0)
+  const allocMap = new Map<string, number>()
+  for (const h of open) if (h.value > 0) { const k = data.assets[h.key]?.symbol ?? h.key; allocMap.set(k, (allocMap.get(k) ?? 0) + h.value) }
+  for (const t of wTokens) if (t.value > 0) allocMap.set(t.symbol, (allocMap.get(t.symbol) ?? 0) + t.value)
+  const allocSorted = [...allocMap.entries()].sort((a, b) => b[1] - a[1])
+  const allocParts = allocSorted.slice(0, 9).map(([label, value], i) => ({ label, value, color: PALETTE[i % PALETTE.length] }))
+  const rest = allocSorted.slice(9).reduce((s, [, v]) => s + v, 0)
   if (rest > 0) allocParts.push({ label: lang === 'nl' ? 'Overig' : 'Other', value: rest, color: '#475569' })
   const locale = lang === 'nl' ? 'nl-NL' : 'en-GB'
   const money = (v: number) => fmtMoney(v, base, lang)
@@ -460,7 +544,31 @@ export default function Portfolio({ lang }: { lang: Lang }) {
         {/* ---------------- OVERVIEW ---------------- */}
         {tab === 'overview' && (
           <div className="mt-6 grid gap-4">
-            {!data.txs.length ? (
+            {!data.txs.length && data.wallets.length ? (
+              <>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Card><Label>{c.w.total}</Label><div className="mt-1 text-3xl font-bold tabular-nums">{wsync ? fmtMoney(walletValue, base, lang, true) : '…'}</div><div className={`mt-1 text-sm tabular-nums ${tone(walletDay24)}`}>{c.today}: {fmtMoney(walletDay24, base, lang)}</div></Card>
+                  <Card><Label>{c.w.cardTitle}</Label><div className="mt-1 text-3xl font-bold tabular-nums">{data.wallets.length}</div><button type="button" onClick={() => { setTab('wallets'); history.replaceState(null, '', '#wallets') }} className="mt-1 text-sm font-semibold text-[var(--wc-red-soft)] hover:underline">{c.w.open}</button></Card>
+                </div>
+                {allocParts.length ? (
+                  <Card>
+                    <h2 className="text-lg font-bold">{c.alloc}</h2>
+                    <div className="mt-4 flex flex-col items-center gap-5 sm:flex-row">
+                      <Suspense fallback={<div className="size-52 shrink-0 animate-pulse rounded-full bg-white/[0.03]" />}><AllocationChart parts={allocParts} money={money} /></Suspense>
+                      <ul className="w-full space-y-1.5 text-sm">
+                        {allocParts.map((p) => (
+                          <li key={p.label} className="flex items-center justify-between gap-3">
+                            <span className="flex items-center gap-2"><span className="inline-block size-2.5 rounded-full" style={{ background: p.color }} />{p.label}</span>
+                            <span className="tabular-nums text-white/70">{((p.value / (grandTotal || 1)) * 100).toFixed(1)}%</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </Card>
+                ) : null}
+                <p className="text-xs text-white/45">{c.w.double}</p>
+              </>
+            ) : !data.txs.length ? (
               <Card className="py-10 text-center">
                 <h2 className="text-2xl font-bold">{c.emptyH}</h2>
                 <p className="mx-auto mt-2 max-w-md text-white/65">{c.emptyP}</p>
@@ -469,7 +577,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
             ) : (
               <>
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                  <Card><Label>{c.total}</Label><div className="mt-1 text-3xl font-bold tabular-nums">{fmtMoney(totalValue, base, lang, true)}</div><div className={`mt-1 text-sm tabular-nums ${tone(day24)}`}>{c.today}: {fmtMoney(day24, base, lang)}</div></Card>
+                  <Card><Label>{c.total}</Label><div className="mt-1 text-3xl font-bold tabular-nums">{fmtMoney(grandTotal, base, lang, true)}</div><div className={`mt-1 text-sm tabular-nums ${tone(day24 + walletDay24)}`}>{c.today}: {fmtMoney(day24 + walletDay24, base, lang)}</div>{walletValue > 0 ? <div className="mt-1 text-xs text-white/50">{c.w.inclWallets}: {fmtMoney(walletValue, base, lang)}</div> : null}</Card>
                   <Card><Label>{c.pnl}</Label><div className={`mt-1 text-3xl font-bold tabular-nums ${tone(unreal + real)}`}>{fmtMoney(unreal + real, base, lang, true)}</div><div className="mt-1 text-sm text-white/55">{c.unreal} <span className={tone(unreal)}>{fmtMoney(unreal, base, lang)}</span> ({fmtPct(totalCost ? (unreal / totalCost) * 100 : undefined)})</div></Card>
                   <Card><Label>{c.invested}</Label><div className="mt-1 text-3xl font-bold tabular-nums">{fmtMoney(totalCost, base, lang, true)}</div><div className="mt-1 text-sm text-white/55">{c.real} <span className={tone(real)}>{fmtMoney(real, base, lang)}</span></div></Card>
                   <Card><Label>{c.byClass}</Label><div className="mt-2 flex h-3 overflow-hidden rounded-full bg-white/10">{div ? <><span style={{ width: `${div.cryptoPct}%` }} className="bg-[var(--wc-red)]" /><span style={{ width: `${div.stockPct}%` }} className="bg-white" /></> : null}</div><div className="mt-2 flex justify-between text-sm"><span><span className="mr-1.5 inline-block size-2 rounded-full bg-[var(--wc-red)]" />{c.crypto} {fmtPct(div?.cryptoPct, false)}</span><span><span className="mr-1.5 inline-block size-2 rounded-full bg-white" />{c.stocks} {fmtPct(div?.stockPct, false)}</span></div></Card>
@@ -508,7 +616,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
                         {allocParts.map((p) => (
                           <li key={p.label} className="flex items-center justify-between gap-3">
                             <span className="flex items-center gap-2"><span className="inline-block size-2.5 rounded-full" style={{ background: p.color }} />{p.label}</span>
-                            <span className="tabular-nums text-white/70">{((p.value / (totalValue || 1)) * 100).toFixed(1)}%</span>
+                            <span className="tabular-nums text-white/70">{((p.value / (grandTotal || 1)) * 100).toFixed(1)}%</span>
                           </li>
                         ))}
                       </ul>
@@ -584,6 +692,91 @@ export default function Portfolio({ lang }: { lang: Lang }) {
                 {!open.length ? <tr><td colSpan={9} className="px-3 py-8 text-center text-white/50">{c.emptyP}</td></tr> : null}
               </tbody>
             </table>
+          </div>
+        )}
+
+        {/* ---------------- WALLETS ---------------- */}
+        {tab === 'wallets' && (
+          <div className="mt-6 grid gap-4">
+            <Card>
+              <h2 className="text-lg font-bold">{c.w.title}</h2>
+              <p className="mt-1 max-w-3xl text-sm text-white/60">{c.w.intro}</p>
+              <form onSubmit={(e) => { e.preventDefault(); addWallet() }} className="mt-4 grid gap-3 sm:grid-cols-[1fr_12rem_auto] sm:items-end">
+                <label className="grid gap-1 text-sm">
+                  <span className="text-white/60">{c.w.address}</span>
+                  <input value={wAddr} onChange={(e) => { setWAddr(e.target.value); setWErr('') }} placeholder={c.w.addressPh} spellCheck={false} autoComplete="off" autoCapitalize="off" className="min-w-0 rounded-xl border border-white/15 bg-white/[0.04] px-3 py-2.5 font-mono text-sm outline-none focus:border-[var(--wc-red)]" />
+                </label>
+                <label className="grid gap-1 text-sm">
+                  <span className="text-white/60">{c.w.label}</span>
+                  <input value={wLabel} onChange={(e) => setWLabel(e.target.value)} placeholder={c.w.labelPh} maxLength={40} className="min-w-0 rounded-xl border border-white/15 bg-white/[0.04] px-3 py-2.5 text-sm outline-none focus:border-[var(--wc-red)]" />
+                </label>
+                <button type="submit" disabled={!wAddr.trim()} className="rounded-full bg-[var(--wc-red)] px-5 py-2.5 font-semibold text-white transition hover:brightness-110 disabled:opacity-40">{c.w.add}</button>
+              </form>
+              {wErr ? <p className="mt-2 text-sm text-[var(--wc-red-soft)]">{wErr}</p> : wAddr.trim() && detectWallet(wAddr) ? <p className="mt-2 text-sm text-emerald-400">✓ {c.w.detected[detectWallet(wAddr)!.type]}</p> : null}
+              <p className="mt-3 text-xs text-white/45">{c.w.networks}</p>
+            </Card>
+
+            {data.wallets.length ? (
+              <>
+                <Card>
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                      <Label>{c.w.total}</Label>
+                      <div className="mt-1 text-3xl font-bold tabular-nums">{wsync ? fmtMoney(walletValue, base, lang, true) : '…'}</div>
+                      <div className={`mt-1 text-sm tabular-nums ${tone(walletDay24)}`}>{c.today}: {fmtMoney(walletDay24, base, lang)}</div>
+                    </div>
+                    <div className="text-right text-sm text-white/55">
+                      <div>{wBusy ? c.w.syncing : `${c.w.lastSync}: ${wsync ? new Date(wsync.at).toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' }) : c.w.never}`}</div>
+                      <button type="button" disabled={wBusy} onClick={() => void syncWallets(true)} className="mt-2 rounded-full border border-white/15 px-4 py-1.5 font-semibold text-white/85 transition hover:border-white/40 disabled:opacity-40">{c.w.refresh}</button>
+                    </div>
+                  </div>
+                </Card>
+
+                {data.wallets.map((w) => {
+                  const toks = wTokens.filter((t) => t.wallet === w.id).sort((a, b) => b.value - a.value)
+                  const val = toks.reduce((s2, t) => s2 + t.value, 0)
+                  const errs = wsync?.errors[w.id]
+                  return (
+                    <Card key={w.id}>
+                      <div className="flex flex-wrap items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <h3 className="font-bold">{w.label || c.w.detected[w.type].split(':')[0]}</h3>
+                          <p className="truncate font-mono text-xs text-white/50" title={w.address}>{w.address}</p>
+                        </div>
+                        <div className="flex items-center gap-4">
+                          <span className="text-lg font-bold tabular-nums">{wsync ? fmtMoney(val, base, lang) : '…'}</span>
+                          <button type="button" onClick={() => update((d) => { d.wallets = d.wallets.filter((x) => x.id !== w.id); return d })} className="text-xs text-white/50 hover:text-[var(--wc-red-soft)]">{c.w.remove}</button>
+                        </div>
+                      </div>
+                      {errs?.length ? <p className="mt-2 text-xs text-amber-300/90">{c.w.errors(errs.join(', '))}</p> : null}
+                      {toks.length ? (
+                        <div className="mt-3 overflow-x-auto">
+                          <table className="w-full min-w-[560px] text-sm">
+                            <thead className="text-left text-xs text-white/50">
+                              <tr><th className="py-2 pr-3">{c.w.cols.asset}</th><th className="py-2 pr-3">{c.w.cols.chain}</th><th className="py-2 pr-3 text-right">{c.w.cols.qty}</th><th className="py-2 pr-3 text-right">{c.w.cols.price}</th><th className="py-2 pr-3 text-right">{c.w.cols.value}</th><th className="py-2 text-right">{c.w.cols.change}</th></tr>
+                            </thead>
+                            <tbody className="divide-y divide-white/5">
+                              {toks.map((t) => (
+                                <tr key={t.key}>
+                                  <td className="py-2 pr-3"><span className="flex items-center gap-2">{t.image ? <img src={t.image} alt="" width={20} height={20} loading="lazy" className="size-5 rounded-full" /> : <span className="flex size-5 items-center justify-center rounded-full bg-white/10 text-[9px] font-bold">{t.symbol.slice(0, 3)}</span>}<span className="font-semibold">{t.symbol}</span><span className="hidden truncate text-white/45 sm:inline">{t.name}</span></span></td>
+                                  <td className="py-2 pr-3 text-white/60">{t.chain}</td>
+                                  <td className="py-2 pr-3 text-right tabular-nums">{fmtNum(t.qty, lang)}</td>
+                                  <td className="py-2 pr-3 text-right tabular-nums">{fmtMoney(t.priceUsd !== undefined ? t.priceUsd * usdRate : undefined, base, lang)}</td>
+                                  <td className="py-2 pr-3 text-right font-semibold tabular-nums">{fmtMoney(t.value, base, lang)}</td>
+                                  <td className={`py-2 text-right tabular-nums ${tone(t.change24h)}`}>{fmtPct(t.change24h)}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      ) : wsync && !wBusy ? <p className="mt-3 text-sm text-white/50">{c.w.empty}</p> : null}
+                    </Card>
+                  )
+                })}
+              </>
+            ) : null}
+            <p className="text-xs text-white/45">{c.w.double}</p>
+            <p className="text-xs text-white/45">{c.w.privacy}</p>
           </div>
         )}
 

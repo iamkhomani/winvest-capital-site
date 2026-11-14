@@ -1,6 +1,9 @@
 // Portfolio tracker storage. Everything lives in the visitor's own browser (localStorage).
 // Nothing is sent to Winvest Capital. Only asset identifiers are sent to the price sources.
 
+import { detectWallet } from './wallets'
+import type { Wallet } from './wallets'
+
 export type Kind = 'crypto' | 'stock'
 export type Currency = 'EUR' | 'USD'
 
@@ -35,6 +38,7 @@ export type PortfolioData = {
   txs: Tx[]
   watchlists: Watchlist[]
   manualPrices: Record<string, number> // fallback when no live price is available
+  wallets: Wallet[] // public crypto addresses tracked automatically (read-only)
 }
 
 const KEY = 'wc-portfolio-v1'
@@ -47,6 +51,7 @@ export const empty = (): PortfolioData => ({
   txs: [],
   watchlists: [{ id: 'default', name: 'Watchlist', assets: ['crypto:bitcoin', 'crypto:ethereum'] }],
   manualPrices: {},
+  wallets: [],
 })
 
 export const DEFAULT_ASSETS: Record<string, Asset> = {
@@ -106,6 +111,13 @@ export function validate(x: unknown): PortfolioData | null {
   }
   const mp = (o.manualPrices && typeof o.manualPrices === 'object' ? o.manualPrices : {}) as Record<string, number>
   for (const [k, v] of Object.entries(mp)) if (d.assets[k] && num(v) > 0) d.manualPrices[k] = v
+  if (Array.isArray(o.wallets)) {
+    for (const w of o.wallets as Wallet[]) {
+      const det = w && typeof w.address === 'string' ? detectWallet(w.address) : null
+      if (!det || d.wallets.some((x) => x.address.toLowerCase() === det.address.toLowerCase())) continue
+      d.wallets.push({ id: String(w.id || uid()).slice(0, 30), type: det.type, address: det.address, label: w.label ? String(w.label).slice(0, 40) : undefined })
+    }
+  }
   d.txs.sort((a, b) => a.date.localeCompare(b.date))
   return d
 }

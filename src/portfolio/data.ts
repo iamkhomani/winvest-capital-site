@@ -53,7 +53,7 @@ async function yahooChart(symbol: string, range: '5d' | '1y'): Promise<any> {
   return res
 }
 
-async function fxNow(from: string, base: Currency): Promise<number> {
+export async function fxNow(from: string, base: Currency): Promise<number> {
   if (from === base) return 1
   const k = `fx-${from}${base}`
   const c = cacheGet<number>(k, 30 * 60e3)
