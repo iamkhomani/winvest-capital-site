@@ -14,6 +14,9 @@
         }
         // Folded desktop sidebar, also before the first paint.
         if (localStorage.getItem('wc-side') === 'mini') document.documentElement.classList.add('wc-side-mini');
+        // Returning visitors get a compact homepage intro, so their dashboard is on the first screen.
+        if (localStorage.getItem('wc-visited')) document.documentElement.classList.add('wc-returning');
+        else localStorage.setItem('wc-visited', '1');
       } catch (e) {}
     </script>
     <link rel="icon" href="/favicon.ico" sizes="48x48" />

@@ -2,6 +2,7 @@ import { Check, ThemedImage } from '../components/ui'
 import { DISCORD_URL, PRICE, TERMINAL_CHECKOUT_URL, TERMINAL_PRICE } from '../config'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
+import { homeCopy } from './Home'
 
 export const productsCopy = {
   en: {
@@ -147,6 +148,21 @@ export default function Products({ lang }: { lang: Lang }) {
           </section>
         </div>
         <p className="mt-5 max-w-3xl text-sm text-white/50">{c.separate}</p>
+
+        <section id="faq" className="mt-14 scroll-mt-24">
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{homeCopy[lang].faqH2}</h2>
+          <div className="mt-6 divide-y divide-white/10 border-y border-white/10">
+            {homeCopy[lang].faqs.map(([q, a]) => (
+              <details key={q} className="group py-5">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold">
+                  {q}
+                  <span className="text-[var(--wc-red)] transition group-open:rotate-45" aria-hidden="true">+</span>
+                </summary>
+                <p className="mt-3 text-white/65">{a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
 
         <section className="mt-12 flex flex-col items-start justify-between gap-5 rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:flex-row sm:items-center">
           <div>

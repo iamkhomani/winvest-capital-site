@@ -429,16 +429,16 @@ export default function Home({ lang }: { lang: Lang }) {
         <div className="relative mx-auto max-w-6xl px-4 pt-6 pb-4 sm:px-6 sm:pt-8">
           <div className={`${card} grid items-center gap-6 p-5 sm:p-7 lg:grid-cols-[1.4fr_1fr]`}>
             <div>
-              <span className="inline-flex items-center gap-2 rounded-full border border-[var(--wc-red)]/40 bg-[var(--wc-red)]/10 px-3 py-1 text-xs font-semibold tracking-wide text-[var(--wc-red-soft)] uppercase">
+              <span className="wc-intro-more inline-flex items-center gap-2 rounded-full border border-[var(--wc-red)]/40 bg-[var(--wc-red)]/10 px-3 py-1 text-xs font-semibold tracking-wide text-[var(--wc-red-soft)] uppercase">
                 <span className="size-1.5 rounded-full bg-[var(--wc-red)]" /> <span className="wc-term">{c.badge}</span>
               </span>
-              <h1 className="mt-4 text-3xl leading-[1.08] font-bold tracking-tight text-balance sm:text-5xl">
+              <h1 className="wc-intro-h1 mt-4 text-3xl leading-[1.08] font-bold tracking-tight text-balance sm:text-5xl">
                 {c.h1a} <span className="wc-glitch text-[var(--wc-red)]" data-text={c.h1b}>{c.h1b}</span>
               </h1>
-              <p className="mt-3 max-w-xl text-pretty text-white/65 sm:text-lg">
+              <p className="wc-intro-more mt-3 max-w-xl text-pretty text-white/65 sm:text-lg">
                 {c.intro} <span className="font-semibold text-white">Market Whisper AI</span>, {c.introBot}
               </p>
-              <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+              <div className="wc-intro-ctas mt-5 flex flex-col gap-3 sm:flex-row">
                 <a href={FREE_URL} className="rounded-full bg-[var(--wc-red)] px-6 py-3 text-center font-semibold text-white shadow-[0_8px_30px_-8px_var(--wc-red)] transition hover:brightness-110">
                   {c.ctaFree}
                 </a>
@@ -446,7 +446,7 @@ export default function Home({ lang }: { lang: Lang }) {
                   {c.ctaSee}
                 </a>
               </div>
-              <p className="mt-3 text-xs text-white/40">{c.note}</p>
+              <p className="wc-intro-more mt-3 text-xs text-white/40">{c.note}</p>
             </div>
             <div className="wc-scan hidden rounded-xl border border-white/10 bg-white/[0.03] p-4 lg:block">
               <span className="wc-scanline" aria-hidden="true" />
@@ -549,52 +549,17 @@ export default function Home({ lang }: { lang: Lang }) {
       </section>
 
       <section id="market-whisper" className="scroll-mt-24 border-t border-white/10 bg-[var(--wc-ink)]">
-        <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 md:grid-cols-2 md:items-center">
-          <div>
-            <span className="wc-term text-sm font-semibold tracking-wide text-[var(--wc-red-soft)] uppercase">{c.wBadge}</span>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Market Whisper AI</h2>
-            <p className="mt-4 text-white/65">{c.wP}</p>
-            <ThemedImage src="/brand/market-whisper-symbol-dark.svg" alt="" width={256} height={256} className="mt-8 hidden size-40 md:block" />
-            <a href={paths[lang].whisper} className="mt-6 inline-block font-semibold text-[var(--wc-red-soft)] hover:underline">{lang === 'nl' ? 'Meer over Market Whisper AI →' : 'More about Market Whisper AI →'}</a>
-          </div>
-          <div className="space-y-6">
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-              <h3 className="font-semibold">{c.wFree}</h3>
-              <ul className="mt-4 space-y-4">
-                {c.whisperFree.map(([x, d]) => (
-                  <li key={x} className="flex gap-3"><Check muted /><span><span className="font-semibold text-white">{x}</span><span className="block text-white/60">{d}</span></span></li>
-                ))}
-              </ul>
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+          <div className="flex flex-col gap-6 rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:flex-row sm:items-center sm:p-8">
+            <ThemedImage src="/brand/market-whisper-symbol-dark.svg" alt="" width={256} height={256} className="size-16 shrink-0 sm:size-20" />
+            <div className="flex-1">
+              <span className="wc-term text-sm font-semibold tracking-wide text-[var(--wc-red-soft)] uppercase">{c.wBadge}</span>
+              <h2 className="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">Market Whisper AI</h2>
+              <p className="mt-2 max-w-2xl text-white/65">{c.wP}</p>
             </div>
-            <div className="rounded-2xl border border-[var(--wc-red)]/60 bg-gradient-to-b from-[var(--wc-red)]/15 to-white/[0.02] p-6">
-              <h3 className="flex items-center justify-between gap-3 font-semibold">
-                {c.wPaid}
-                <span className="shrink-0 rounded-full bg-[var(--wc-red)] px-2.5 py-0.5 text-xs">{PRICE} {c.oneTime.toLowerCase()}</span>
-              </h3>
-              <ul className="mt-4 space-y-4">
-                {c.whisperPaid.map(([x, d]) => (
-                  <li key={x} className="flex gap-3"><Check /><span><span className="font-semibold text-white">{x}</span><span className="block text-white/60">{d}</span></span></li>
-                ))}
-              </ul>
-              <a href={PAID_URL} className="mt-6 block rounded-full bg-[var(--wc-red)] px-6 py-3 text-center font-semibold transition hover:brightness-110">{c.wUnlock}</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="faq" className="border-t border-white/10">
-        <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{c.faqH2}</h2>
-          <div className="mt-8 divide-y divide-white/10 border-y border-white/10">
-            {c.faqs.map(([q, a]) => (
-              <details key={q} className="group py-5">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold">
-                  {q}
-                  <span className="text-[var(--wc-red)] transition group-open:rotate-45">+</span>
-                </summary>
-                <p className="mt-3 text-white/65">{a}</p>
-              </details>
-            ))}
+            <a href={paths[lang].whisper} className="shrink-0 rounded-full border border-white/20 px-6 py-3 text-center font-semibold transition hover:border-white/50">
+              {lang === 'nl' ? 'Meer over Market Whisper AI' : 'More about Market Whisper AI'}
+            </a>
           </div>
         </div>
       </section>

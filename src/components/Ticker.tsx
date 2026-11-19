@@ -48,6 +48,7 @@ export default function Ticker({ lang }: { lang: Lang }) {
   return (
     <div className="border-b border-white/10 bg-black/60">
       <TradingViewWidget
+        touchGuard={false}
         className="min-h-[46px]"
         script="embed-widget-ticker-tape.js"
         config={{

@@ -78,7 +78,6 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
         description: L ? 'Eenmalige upgrade van de Winvest Capital community.' : 'One-time upgrade of the Winvest Capital community.',
         offers: { '@type': 'Offer', price: PRICE.replace(/[^0-9.]/g, ''), priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: url(p.home) + '#membership' },
       },
-      faqLd(homeCopy[lang].faqs as [string, string][]),
     ],
     element: wrap(lang, o.home, <Home lang={lang} />),
   }
@@ -120,7 +119,7 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
     lang,
     title: productsCopy[lang].metaTitle,
     description: productsCopy[lang].description,
-    jsonLd: [crumbs([['Home', p.home], [productsCopy[lang].h1, p.products]])],
+    jsonLd: [crumbs([['Home', p.home], [productsCopy[lang].h1, p.products]]), faqLd(homeCopy[lang].faqs as [string, string][])],
     element: wrap(lang, o.products, <Products lang={lang} />),
   }
   const terminal: Route = {
