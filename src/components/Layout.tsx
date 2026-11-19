@@ -151,8 +151,8 @@ function Sidebar({ lang }: { lang: Lang }) {
       <div className="wc-side-label shrink-0 border-t border-white/10 p-3">
         <a href={paths[lang].products} className="block rounded-2xl border border-[var(--wc-red)]/40 bg-[var(--wc-red)]/[0.08] p-4 transition hover:border-[var(--wc-red)]/70">
           <p className="text-sm font-bold">One Percent Club</p>
-          <p className="mt-1 text-xs text-white/60">{nl ? `Volledige toegang tot Market Whisper AI. ${PRICE} eenmalig.` : `Full access to Market Whisper AI. ${PRICE} one-time.`}</p>
-          <span className="mt-3 inline-block rounded-full bg-[var(--wc-red)] px-3 py-1.5 text-xs font-semibold text-white">{nl ? 'Bekijk de upgrade' : 'See the upgrade'}</span>
+          <p className="mt-1 text-xs text-white/60">{nl ? `Volledige toegang tot Market Whisper AI, voor eenmalig ${PRICE}.` : `Full access to Market Whisper AI. ${PRICE} one-time.`}</p>
+          <span className="mt-3 inline-block rounded-full bg-[var(--wc-red)] px-3 py-1.5 text-xs font-semibold text-white">{nl ? 'Bekijk wat je krijgt' : 'See what you get'}</span>
         </a>
         <button type="button" data-install-app hidden className="mt-2 flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm text-white/70 transition hover:bg-white/[0.06] hover:text-white">
           <Icon name="download" size={18} />
@@ -248,7 +248,7 @@ function MoreSheet({ lang, alternate, dialog }: { lang: Lang; alternate?: string
     <dialog ref={dialog.ref} aria-label={nl ? 'Alle pagina’s' : 'All pages'} className="wc-dialog wc-sheet m-0 mt-auto w-full max-w-none rounded-t-3xl border border-b-0 border-white/10 bg-[var(--wc-panel)] p-0 text-white sm:mx-auto sm:max-w-lg">
       <div className="mx-auto mt-2.5 h-1 w-10 rounded-full bg-white/20" aria-hidden="true" />
       <div className="flex items-center justify-between px-5 pt-3 pb-2">
-        <p className="text-lg font-bold">{nl ? 'Alles van Winvest' : 'Everything Winvest'}</p>
+        <p className="text-lg font-bold">{nl ? 'Menu' : 'Menu'}</p>
         <button type="button" onClick={dialog.close} className="flex size-9 items-center justify-center rounded-full border border-white/15 text-white/70" aria-label={nl ? 'Sluiten' : 'Close'}>
           <Icon name="close" size={18} />
         </button>
@@ -348,7 +348,7 @@ export default function Layout({ lang, alternate, bare, children }: Props) {
   return (
     <div className="min-h-screen bg-[var(--wc-black)] text-white antialiased">
       <a href="#main" className="sr-only z-50 rounded-full bg-[var(--wc-red)] px-4 py-2 text-sm font-semibold text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3">
-        {nl ? 'Naar de inhoud' : 'Skip to content'}
+        {nl ? 'Direct naar de inhoud' : 'Skip to content'}
       </a>
       <Sidebar lang={lang} />
       <div className="wc-main min-w-0">
@@ -382,7 +382,7 @@ export default function Layout({ lang, alternate, bare, children }: Props) {
                 <ThemeIcon />
               </button>
               <a href={DISCORD_URL} className="hidden rounded-full bg-[var(--wc-red)] px-4 py-2 text-sm font-semibold text-white transition hover:brightness-110 sm:inline-block">
-                {nl ? 'Gratis lid' : 'Join free'}
+                {nl ? 'Word gratis lid' : 'Join free'}
               </a>
               <button type="button" onClick={more.open} aria-haspopup="dialog" className="flex size-10 items-center justify-center rounded-full border border-white/15 text-white/80 transition hover:border-white/40 hover:text-white lg:hidden" aria-label={nl ? 'Menu' : 'Menu'}>
                 <Icon name="menu" size={20} />

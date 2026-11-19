@@ -41,7 +41,7 @@ export const calcCopy = {
       ['Waarom geeft mijn broker een iets andere uitkomst?', 'Brokers gebruiken live wisselkoersen en kunnen andere contractgroottes hebben, vooral bij goud en indices. Spread, commissie en swap zijn hier ook niet meegerekend.'],
     ] as [string, string][],
     learnMore: 'Meer over risicobeheer',
-    ctaH: 'Wil je dit in Discord?',
+    ctaH: 'Liever in Discord?',
     ctaP: 'Ieder lid van de gratis Discord kan de lotgrootte-calculator in Market Whisper AI gebruiken. De One Percent Club voegt markt- en fundamentele analyse toe.',
     ctaBtn: 'Word gratis lid van de Discord',
   },

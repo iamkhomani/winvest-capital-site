@@ -90,7 +90,7 @@ export const portfolioCopy = {
       remove: 'Verwijderen', total: 'Waarde in wallets', empty: 'Nog geen coins of tokens met waarde gevonden.',
       errors: (n: string) => `Kon niet uitlezen: ${n}. De getoonde saldi kunnen onvolledig zijn; probeer later opnieuw.`,
       cols: { asset: 'Asset', chain: 'Netwerk', qty: 'Aantal', price: 'Prijs', value: 'Waarde', change: '24u' },
-      double: 'Walletsaldi tellen op bovenop je transacties. Voer dezelfde coins niet ook als transactie in, anders worden ze dubbel geteld. Wallets hebben geen aankoopprijs en tellen daarom niet mee in winst/verlies en de rendementsgrafiek.',
+      double: 'Walletsaldi worden opgeteld bij je transacties. Voer dezelfde coins niet ook als transactie in, anders worden ze dubbel geteld. Wallets hebben geen aankoopprijs en tellen daarom niet mee in winst/verlies en de rendementsgrafiek.',
       privacy: 'Privacy: adressen worden alleen op dit apparaat bewaard. Om saldi op te halen wordt het adres naar openbare blockchaindiensten gestuurd (Blockscout, Jupiter, Blockstream, XRPL, openbare RPC-nodes) en prijzen komen van CoinGecko en DexScreener. Plak nooit ergens een seed phrase of private key.',
       inclWallets: 'incl. wallets', cardTitle: 'Wallets', open: 'Wallets beheren →',
     },

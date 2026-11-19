@@ -109,12 +109,12 @@ const nl: Copy = {
   createAccount: 'Account aanmaken',
   kpi: {
     ...en.kpi,
-    balance: 'Balance', equity: 'Equity', floating: 'Open W/V', netDeposits: 'Ingelegd (start + netto stortingen)', realised: 'Gerealiseerde W/V', today: 'Vandaag', week: 'Deze week', month: 'Deze maand', year: 'Dit jaar',
+    balance: 'Balans', equity: 'Equity', floating: 'Open W/V', netDeposits: 'Ingelegd (start + netto stortingen)', realised: 'Gerealiseerde W/V', today: 'Vandaag', week: 'Deze week', month: 'Deze maand', year: 'Dit jaar',
     winRate: 'Win rate', pf: 'Profit factor', avgR: 'Gem. resultaat (R)', avgRR: 'Gem. geplande R:R', total: 'Totaal trades', avgWin: 'Gem. winnende trade', avgLoss: 'Gem. verliezende trade', expectancy: 'Verwachting per trade', maxDd: 'Max drawdown', open: 'open', wl: 'W / V / BE',
-    balanceNote: 'De balance verandert alleen door gesloten trades en stortingen/opnames. Equity telt ook open posities mee.',
+    balanceNote: 'De balans verandert alleen door gesloten trades en stortingen/opnames. Equity telt ook open posities mee.',
     floatingUnknown: 'Open W/V is onvolledig: vul een actuele prijs in bij open trades of haal live prijzen op.',
   },
-  equityCurve: 'Equity curve', showBalance: 'Balance', showPnl: 'Alleen trading-W/V',
+  equityCurve: 'Equitycurve', showBalance: 'Balans', showPnl: 'Alleen trading-W/V',
   charts: { balance: 'Balans', pnl: 'Trading-W/V', gain: 'Winst', loss: 'Verlies', wins: 'Winst', losses: 'Verlies', be: 'Break-even', empty: 'Nog niet genoeg gesloten trades', monthlyH: 'Resultaat per maand', outcomeH: 'Winst vs verlies' },
   openPositions: 'Open posities', fetchLive: 'Live prijzen ophalen', livePriceFail: 'Live prijzen konden niet worden geladen. Vul een actuele prijs in bij de trade.', autoClosed: (pair: string, what: string) => `${pair} is automatisch gesloten op de ${what}.`, autoCheck: (pair: string) => `${pair}: de stop loss of take profit is vlak bij de entry of in dezelfde candle als het andere niveau geraakt. Controleer het en sluit de trade zelf.`, autoWhat: { sl: 'stop loss', tp: 'take profit', be: 'break-even stop' },
   cols: { date: 'Datum', pair: 'Pair', dir: 'Richting', lots: 'Lots', entry: 'Entry', exit: 'Exit', pips: 'Pips', r: 'R', pnl: 'W/V', result: 'Resultaat', account: 'Account', tf: 'TF', risk: 'Risico', n: 'Trades', wr: 'Win rate', pf: 'PF', avgRR: 'Gem. R:R', avgR: 'Gem. R', net: 'Netto W/V', status: 'Status', price: 'Actuele prijs' },
@@ -125,7 +125,7 @@ const nl: Copy = {
   noTrades: 'Nog geen trades. Voeg er een toe of importeer je historie.',
   calendar: { weekTotal: 'Week', monthTotal: 'Maandtotaal', days: ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'], trades: 'trades' },
   analytics: { pairs: 'Performance per valutapaar', best: 'Meest winstgevende pairs', worst: 'Slechtst presterende pairs', condition: 'Performance per marktconditie', timeframe: 'Per timeframe', session: 'Per sessie (UTC)', weekday: 'Per weekdag', setup: 'Per setup / strategie', none: 'Nog niet genoeg gesloten trades.' },
-  sessions: { asia: 'Azië', london: 'Londen', overlap: 'Londen / New York', newyork: 'New York', late: 'Laat' },
+  sessions: { asia: 'Azië', london: 'Londen', overlap: 'Londen / New York', newyork: 'New York', late: 'Late sessie' },
   weekdays: ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Zondag'],
   conditions: { trending: 'Trending', ranging: 'Ranging', volatile: 'Volatiel', news: 'Nieuws', low_liquidity: 'Lage liquiditeit' },
   risk: {
@@ -139,7 +139,7 @@ const nl: Copy = {
     title: 'Psychologierapport',
     intro: 'Label je trades met je emotie, of je je strategie volgde en of het een revenge trade was. Revenge trades (kort na een verlies geopend), dagen met overtrading en trades na een verliesreeks worden ook automatisch herkend.',
     needMore: 'Nog niet genoeg data voor een betrouwbaar rapport. Je hebt minstens 5 gesloten trades in een groep nodig en 5 daarbuiten.',
-    groups: { impulse: 'trades op impuls', strategy: 'trades volgens je strategie', revenge: 'revenge trades', overtrade: 'trades op dagen dat je overtradede', afterLosses: 'trades na 2+ verliezen op rij' },
+    groups: { impulse: 'trades op impuls', strategy: 'trades volgens je strategie', revenge: 'revenge trades', overtrade: 'trades op dagen waarop je te veel tradede', afterLosses: 'trades na 2+ verliezen op rij' },
     emotionGroup: (e: string) => `trades die je ${e} instapte`,
     sentence: (g: string, wr: number, other: number) => `Je win rate is ${wr.toFixed(0)}% bij ${g}, tegenover ${other.toFixed(0)}% bij je andere trades.`,
     tips: {
@@ -159,7 +159,7 @@ const nl: Copy = {
   accounts: {
     title: 'Tradingaccounts', add: '+ Account toevoegen', edit: 'Bewerken', name: 'Naam', broker: 'Broker', type: 'Type', live: 'Live', demo: 'Demo', currency: 'Valuta', start: 'Startbalans', startDate: 'Startdatum', leverage: 'Leverage (1:x)', save: 'Opslaan', cancel: 'Annuleren', del: 'Account en trades verwijderen', delConfirm: 'Ja, verwijder dit account',
     cash: 'Stortingen, opnames en overboekingen', addCash: 'Toevoegen', deposit: 'Storting', withdrawal: 'Opname', transfer: 'Overboeking naar ander account', adjustment: 'Correctie', amount: 'Bedrag', to: 'Naar account', received: 'Ontvangen bedrag', note: 'Notitie',
-    cashNote: 'Stortingen en opnames veranderen je balance, maar tellen nooit als tradingwinst.', none: 'Nog geen stortingen of opnames.',
+    cashNote: 'Stortingen en opnames veranderen je balans, maar tellen nooit als tradingwinst.', none: 'Nog geen stortingen of opnames.',
   },
   form: {
     ...en.form,
@@ -178,7 +178,7 @@ const nl: Copy = {
     title: 'Trades importeren', intro: 'Importeer je historie uit een CSV-bestand of een export van MT4 / MT5 / cTrader. Exporteren in MT4/MT5: Account History → rechtsklik → Report (HTML) of opslaan als CSV. cTrader: History → Export. Er wordt niets geüpload: het bestand wordt in je browser gelezen.',
     file: 'Kies bestand (CSV of HTML-rapport)', account: 'Importeren in account', mapping: 'Kolommen koppelen', mappingNote: 'We hebben de kolommen automatisch gekoppeld. Controleer ze en pas aan waar nodig.', ignore: '— niet gebruikt —',
     offset: 'Tijdzone van het bestand (UTC-offset in uren)', offsetNote: 'MT4/MT5 gebruiken de servertijd van de broker, vaak UTC+2 of UTC+3.', dateOrder: 'Datumnotatie', volume: 'Volumekolom is in', lotsOpt: 'lots', unitsOpt: 'units',
-    preview: 'Controleren', ok: 'OK', dup: 'Dubbel', err: 'Fout', cash: 'Kas', include: 'Importeren', summary: (n: number, d: number, e: number) => `${n} rijen klaar, ${d} dubbel, ${e} met fouten.`,
+    preview: 'Controleren', ok: 'OK', dup: 'Dubbel', err: 'Fout', cash: 'Storting/opname', include: 'Importeren', summary: (n: number, d: number, e: number) => `${n} rijen klaar, ${d} dubbel, ${e} met fouten.`,
     run: (n: number) => `${n} rijen importeren`, done: (n: number) => `${n} rijen geïmporteerd.`, empty: 'Geen tradetabel gevonden in dit bestand.',
     fields: { ticket: 'Ticket / ID', symbol: 'Symbool', type: 'Type (buy/sell)', lots: 'Volume', openTime: 'Openingstijd', openPrice: 'Openingsprijs', sl: 'Stop loss', tp: 'Take profit', closeTime: 'Sluittijd', closePrice: 'Sluitprijs', commission: 'Commissie', swap: 'Swap', profit: 'Winst' },
     future: 'Directe koppelingen met brokers (API) staan gepland voor een latere versie.',

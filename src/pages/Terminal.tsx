@@ -67,7 +67,7 @@ export const terminalCopy = {
     shotLight: 'Winvest Terminal in het lichte thema: USD / JPY op de 4-uurschart, met het Markets-paneel, het playbook-paneel op stap A1 · 01 met een score van 85, Support en de decisional POI',
     featuresH: 'Wat je ziet',
     features: [
-      'Swing labels: HH, HL, LH en LL',
+      'Swinglabels: HH, HL, LH en LL',
       'Break of structure (BOS) en change of character (CHOCH)',
       'Inducement (IDM), live IDM en liquidity sweeps',
       'Support en Resistance die meebewegen met de nieuwe leg na een BOS of CHOCH, en met een sweep tot een candle-body erdoorheen breekt',
@@ -88,7 +88,7 @@ export const terminalCopy = {
       ['Niets te installeren', 'Het werkt in je browser, op desktop en telefoon.'],
       ['Inloggen met je e-mail', 'Geen wachtwoord. Je krijgt een eenmalige code per e-mail.'],
     ],
-    noticeH: 'Alleen educatief',
+    noticeH: 'Uitsluitend educatief',
     notice: 'Winvest Terminal is een educatieve tool. Het toont marktstructuur en hoe een chart past in het Winvest trade playbook, op basis van prijsdata uit het verleden. Playbook-stappen en scores worden automatisch gemaakt als voorbeelden van de strategie, niet als persoonlijke aanbevelingen om te kopen of te verkopen. Niets in Winvest Terminal is financieel advies, en eerdere koersbewegingen zeggen niets over toekomstige resultaten. Handelen brengt een hoog risico op verlies met zich mee.',
   },
 }
