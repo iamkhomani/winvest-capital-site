@@ -84,16 +84,15 @@ export function navGroups(lang: Lang): NavGroup[] {
   ]
 }
 
-/** Bottom tab bar on mobile: four shortcuts, the fifth tab opens everything else.
- *  `only`: 'web' items show in the browser, 'app' items only in the installed app (html.pwa, see styles.css). */
+/** Bottom tab bar on mobile (browser and installed app): four shortcuts, the fifth tab opens everything else.
+ *  `only`: 'web' items show only in the browser, 'app' items only in the installed app (html.pwa, see styles.css). */
 export function tabItems(lang: Lang): (NavItem & { only?: 'web' | 'app' })[] {
   const p = paths[lang]
   const nl = lang === 'nl'
   return [
     { label: nl ? 'Overzicht' : 'Overview', href: p.home, icon: 'home' },
-    { label: nl ? 'Markten' : 'Markets', href: p.markets, icon: 'markets', only: 'web' },
     { label: 'Journal', href: p.journal, icon: 'journal' },
-    { label: 'Terminal', href: terminalHref(lang), icon: 'terminal', external: !TERMINAL_EMBED, only: 'app' },
+    { label: 'Terminal', href: terminalHref(lang), icon: 'terminal', external: !TERMINAL_EMBED },
     { label: 'Portfolio', href: p.portfolio, icon: 'portfolio' },
   ]
 }
