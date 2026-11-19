@@ -1,9 +1,10 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { DISCORD_URL, NEWSLETTER_EMAIL_FIELD, NEWSLETTER_FORM_ACTION, NEWSLETTER_LIST_UUID, PRICE, STRIPE_PAYMENT_LINK, TRUSTPILOT_URL } from '../config'
 import { reviews } from '../content/reviews'
 import { articles } from '../content/articles'
 import TradingViewWidget from '../components/TradingViewWidget'
 import { Candles, Check, Stars, ThemedImage } from '../components/ui'
+import { Icon, navGroups } from '../components/nav'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
 
@@ -96,6 +97,21 @@ export const homeCopy = {
     ],
     endH2: 'Join Winvest Capital today',
     endP: 'Free community access, Market Whisper AI included.',
+    dMarkets: 'Markets right now',
+    dMarketsAll: 'All markets',
+    dTools: 'Free trading tools',
+    dToolsP: 'No account needed. Your data stays on your own device.',
+    dMine: 'Your space',
+    dMineP: 'Saved on this device only.',
+    dTrades: (n: number) => (n === 1 ? '1 trade in your journal' : `${n} trades in your journal`),
+    dTx: (n: number) => (n === 1 ? '1 portfolio transaction' : `${n} portfolio transactions`),
+    dWallets: (n: number) => (n === 1 ? '1 wallet tracked' : `${n} wallets tracked`),
+    dEmpty: 'Log your first trade or add your holdings to see them here.',
+    dOpenJournal: 'Open journal',
+    dOpenPortfolio: 'Open portfolio',
+    dClubP: 'Full Market Whisper AI, my research and the projects I am watching.',
+    dClubBtn: 'See what you get',
+    dLessons: 'Free lessons',
   },
   nl: {
     title: 'Winvest Capital | Gratis SMC Trading Community & Market Whisper AI',
@@ -182,6 +198,21 @@ export const homeCopy = {
     ],
     endH2: 'Word vandaag lid van Winvest Capital',
     endP: 'Gratis toegang tot de community, inclusief Market Whisper AI.',
+    dMarkets: 'De markten nu',
+    dMarketsAll: 'Alle markten',
+    dTools: 'Gratis tradingtools',
+    dToolsP: 'Geen account nodig. Je gegevens blijven op je eigen apparaat.',
+    dMine: 'Jouw overzicht',
+    dMineP: 'Alleen opgeslagen op dit apparaat.',
+    dTrades: (n: number) => (n === 1 ? '1 trade in je journal' : `${n} trades in je journal`),
+    dTx: (n: number) => (n === 1 ? '1 portfoliotransactie' : `${n} portfoliotransacties`),
+    dWallets: (n: number) => (n === 1 ? '1 wallet gevolgd' : `${n} wallets gevolgd`),
+    dEmpty: 'Leg je eerste trade vast of voeg je beleggingen toe om ze hier te zien.',
+    dOpenJournal: 'Open journal',
+    dOpenPortfolio: 'Open portfolio',
+    dClubP: 'Volledige Market Whisper AI, mijn research en de projecten waar ik naar kijk.',
+    dClubBtn: 'Bekijk wat je krijgt',
+    dLessons: 'Gratis lessen',
   },
 }
 
@@ -235,48 +266,199 @@ function Newsletter({ lang }: { lang: Lang }) {
   )
 }
 
+const card = 'rounded-2xl border border-white/10 bg-white/[0.03]'
+
+/** Personal numbers from the journal (IndexedDB) and portfolio (localStorage). Read on the client only. */
+function MySpace({ lang }: { lang: Lang }) {
+  const c = homeCopy[lang]
+  const p = paths[lang]
+  const [d, setD] = useState<{ trades: number; tx: number; wallets: number } | null>(null)
+  useEffect(() => {
+    let alive = true
+    Promise.all([
+      import('../journal/db').then((m) => m.loadState()).then((s) => s.trades.length).catch(() => 0),
+      import('../portfolio/store').then((m) => m.load()).then((x) => [x.txs.length, x.wallets.length] as const).catch(() => [0, 0] as const),
+    ]).then(([trades, [tx, wallets]]) => alive && setD({ trades, tx, wallets }))
+    return () => {
+      alive = false
+    }
+  }, [])
+  const has = d && (d.trades || d.tx || d.wallets)
+  return (
+    <div className={`${card} flex flex-col p-5`}>
+      <h2 className="text-base font-semibold">{c.dMine}</h2>
+      <p className="text-xs text-white/45">{c.dMineP}</p>
+      {has ? (
+        <ul className="mt-4 space-y-2 text-sm text-white/80">
+          {d.trades > 0 && <li className="flex items-center gap-2"><Icon name="journal" size={16} className="text-[var(--wc-red)]" />{c.dTrades(d.trades)}</li>}
+          {d.tx > 0 && <li className="flex items-center gap-2"><Icon name="portfolio" size={16} className="text-[var(--wc-red)]" />{c.dTx(d.tx)}</li>}
+          {d.wallets > 0 && <li className="flex items-center gap-2"><Icon name="portfolio" size={16} className="text-[var(--wc-red)]" />{c.dWallets(d.wallets)}</li>}
+        </ul>
+      ) : (
+        <p className="mt-4 text-sm text-white/60">{c.dEmpty}</p>
+      )}
+      <div className="mt-auto grid grid-cols-2 gap-2 pt-5">
+        <a href={p.journal} className="rounded-full border border-white/15 px-3 py-2 text-center text-sm font-semibold transition hover:border-white/40">{c.dOpenJournal}</a>
+        <a href={p.portfolio} className="rounded-full border border-white/15 px-3 py-2 text-center text-sm font-semibold transition hover:border-white/40">{c.dOpenPortfolio}</a>
+      </div>
+    </div>
+  )
+}
+
+function Overview({ lang }: { lang: Lang }) {
+  const c = homeCopy[lang]
+  const p = paths[lang]
+  const nl = lang === 'nl'
+  const tools = navGroups(lang)[1].items
+  const lessons = articles.slice(0, 5)
+  const tv = nl ? 'nl_NL' : 'en'
+  return (
+    <section aria-label={nl ? 'Overzicht' : 'Overview'} className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
+      <div className="grid gap-4 lg:grid-cols-3">
+        <div className={`${card} overflow-hidden lg:col-span-2`}>
+          <div className="flex items-center justify-between px-5 pt-4">
+            <h2 className="text-base font-semibold">{c.dMarkets}</h2>
+            <a href={p.markets} className="text-sm text-white/55 hover:text-white">{c.dMarketsAll} →</a>
+          </div>
+          <TradingViewWidget
+            className="min-h-[420px]"
+            script="embed-widget-market-overview.js"
+            config={{
+              colorTheme: 'dark',
+              dateRange: '1D',
+              showChart: true,
+              locale: tv,
+              isTransparent: true,
+              showSymbolLogo: true,
+              showFloatingTooltip: false,
+              width: '100%',
+              height: 420,
+              tabs: [
+                { title: 'Crypto', symbols: [{ s: 'BITSTAMP:BTCUSD', d: 'Bitcoin' }, { s: 'BITSTAMP:ETHUSD', d: 'Ethereum' }, { s: 'BINANCE:SOLUSDT', d: 'Solana' }, { s: 'BINANCE:XRPUSDT', d: 'XRP' }] },
+                { title: nl ? 'Indices' : 'Indices', symbols: [{ s: 'FOREXCOM:SPXUSD', d: 'S&P 500' }, { s: 'FOREXCOM:NSXUSD', d: 'Nasdaq 100' }, { s: 'INDEX:DEU40', d: 'DAX' }, { s: 'TVC:DXY', d: 'Dollar Index' }] },
+                { title: 'FX', symbols: [{ s: 'FX_IDC:EURUSD', d: 'EUR/USD' }, { s: 'FX_IDC:GBPUSD', d: 'GBP/USD' }, { s: 'FX_IDC:USDJPY', d: 'USD/JPY' }, { s: 'FX_IDC:AUDUSD', d: 'AUD/USD' }] },
+                { title: nl ? 'Grondstoffen' : 'Commodities', symbols: [{ s: 'OANDA:XAUUSD', d: nl ? 'Goud' : 'Gold' }, { s: 'OANDA:XAGUSD', d: nl ? 'Zilver' : 'Silver' }, { s: 'TVC:USOIL', d: nl ? 'Olie (WTI)' : 'Crude oil (WTI)' }] },
+              ],
+            }}
+          />
+        </div>
+        <div className="grid gap-4">
+          <MySpace lang={lang} />
+          <div className="flex flex-col rounded-2xl border border-[var(--wc-red)]/50 bg-[var(--wc-red)]/[0.07] p-5">
+            <div className="flex items-center justify-between gap-3">
+              <h2 className="text-base font-semibold">One Percent Club</h2>
+              <span className="shrink-0 rounded-full bg-[var(--wc-red)] px-2.5 py-0.5 text-xs font-semibold text-white">{PRICE} {c.oneTime.toLowerCase()}</span>
+            </div>
+            <p className="mt-2 text-sm text-white/65">{c.dClubP}</p>
+            <a href="#membership" className="mt-4 rounded-full bg-[var(--wc-red)] px-4 py-2 text-center text-sm font-semibold text-white transition hover:brightness-110">{c.dClubBtn}</a>
+          </div>
+        </div>
+
+        <div className="lg:col-span-3">
+          <div className="mt-4 mb-3 flex flex-wrap items-end justify-between gap-2">
+            <h2 className="text-xl font-bold tracking-tight">{c.dTools}</h2>
+            <p className="text-sm text-white/50">{c.dToolsP}</p>
+          </div>
+          <ul className="grid grid-cols-2 gap-3 md:grid-cols-3">
+            {tools.map((t) => (
+              <li key={t.href}>
+                <a href={t.href} className={`${card} group flex h-full items-start gap-3 p-4 transition hover:border-[var(--wc-red)]/50 active:scale-[0.99]`}>
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-[var(--wc-red)]/10 text-[var(--wc-red)]">
+                    <Icon name={t.icon} size={20} />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block font-semibold leading-tight">{t.label}</span>
+                    <span className="mt-1 block text-xs leading-snug text-white/55">{t.hint}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div id="calendar" className={`${card} scroll-mt-24 p-5 lg:col-span-2`}>
+          <h2 className="text-xl font-bold tracking-tight">{c.calH2}</h2>
+          <p className="mt-1 text-sm text-white/60">{c.calP}</p>
+          <TradingViewWidget
+            className="mt-3 min-h-[380px]"
+            script="embed-widget-events.js"
+            config={{
+              colorTheme: 'dark',
+              isTransparent: true,
+              width: '100%',
+              height: 380,
+              locale: tv,
+              importanceFilter: '0,1',
+              countryFilter: 'us,eu,gb,jp,ch,ca,au,nz,cn',
+            }}
+          />
+        </div>
+
+        <div id="learn" className={`${card} flex scroll-mt-24 flex-col p-5`}>
+          <h2 className="text-xl font-bold tracking-tight">{c.learnH2}</h2>
+          <p className="mt-1 text-sm text-white/60">{c.learnP}</p>
+          <ol className="mt-4 space-y-1">
+            {lessons.map((a, i) => (
+              <li key={a.id}>
+                <a href={a[lang].path} className="group flex items-center gap-3 rounded-xl px-2 py-2 transition hover:bg-white/[0.05]">
+                  <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-white/15 text-xs font-semibold text-white/60 group-hover:border-[var(--wc-red)] group-hover:text-[var(--wc-red)]">{i + 1}</span>
+                  <span className="text-sm font-medium">{a[lang].title}</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+          <a href={p.learn} className="mt-auto pt-4 text-sm font-semibold text-[var(--wc-red-soft)] hover:underline">{c.learnAll} ({articles.length}) →</a>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default function Home({ lang }: { lang: Lang }) {
   const c = homeCopy[lang]
-  const learn = articles.slice(0, 3)
   return (
     <main>
       <section id="top" className="relative overflow-hidden">
-        <div className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-[var(--wc-red)]/20 blur-[120px]" />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pt-16 pb-20 sm:px-6 md:grid-cols-[1.15fr_1fr] md:pt-24">
-          <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-[var(--wc-red)]/40 bg-[var(--wc-red)]/10 px-3 py-1 text-xs font-semibold tracking-wide text-[var(--wc-red-soft)] uppercase">
-              <span className="size-1.5 rounded-full bg-[var(--wc-red)]" /> <span className="wc-term">{c.badge}</span>
-            </span>
-            <h1 className="mt-5 text-4xl leading-[1.05] font-bold tracking-tight text-balance sm:text-6xl">
-              {c.h1a} <span className="wc-glitch text-[var(--wc-red)]" data-text={c.h1b}>{c.h1b}</span>
-            </h1>
-            <p className="mt-5 max-w-xl text-lg text-pretty text-white/65">
-              {c.intro} <span className="font-semibold text-white">Market Whisper AI</span>, {c.introBot}
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href={FREE_URL} className="rounded-full bg-[var(--wc-red)] px-6 py-3 text-center font-semibold text-white shadow-[0_8px_30px_-8px_var(--wc-red)] transition hover:brightness-110">
-                {c.ctaFree}
-              </a>
-              <a href="#membership" className="rounded-full border border-white/15 px-6 py-3 text-center font-semibold text-white/90 transition hover:border-white/40">
-                {c.ctaSee}
-              </a>
-            </div>
-            <p className="mt-4 text-xs text-white/40">{c.note}</p>
-          </div>
-          <div className="wc-scan rounded-2xl border border-white/10 bg-white/[0.03] p-5 shadow-2xl">
-            <span className="wc-scanline" aria-hidden="true" />
-            <div className="mb-3 flex items-center justify-between text-xs text-white/50">
-              <span className="flex items-center gap-2">
-                <img src="/logo.jpeg" alt="" width={20} height={20} className="size-5 rounded-full object-cover" /> Winvest Capital
+        <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-[var(--wc-red)]/15 blur-[120px]" />
+        <div className="relative mx-auto max-w-6xl px-4 pt-6 pb-4 sm:px-6 sm:pt-8">
+          <div className={`${card} grid items-center gap-6 p-5 sm:p-7 md:grid-cols-[1.4fr_1fr]`}>
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full border border-[var(--wc-red)]/40 bg-[var(--wc-red)]/10 px-3 py-1 text-xs font-semibold tracking-wide text-[var(--wc-red-soft)] uppercase">
+                <span className="size-1.5 rounded-full bg-[var(--wc-red)]" /> <span className="wc-term">{c.badge}</span>
               </span>
-              <span className="rounded bg-[var(--wc-red)]/15 px-2 py-0.5 text-[var(--wc-red-soft)]">{c.chartTag}</span>
+              <h1 className="mt-4 text-3xl leading-[1.08] font-bold tracking-tight text-balance sm:text-5xl">
+                {c.h1a} <span className="wc-glitch text-[var(--wc-red)]" data-text={c.h1b}>{c.h1b}</span>
+              </h1>
+              <p className="mt-3 max-w-xl text-pretty text-white/65 sm:text-lg">
+                {c.intro} <span className="font-semibold text-white">Market Whisper AI</span>, {c.introBot}
+              </p>
+              <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                <a href={FREE_URL} className="rounded-full bg-[var(--wc-red)] px-6 py-3 text-center font-semibold text-white shadow-[0_8px_30px_-8px_var(--wc-red)] transition hover:brightness-110">
+                  {c.ctaFree}
+                </a>
+                <a href="#membership" className="rounded-full border border-white/15 px-6 py-3 text-center font-semibold text-white/90 transition hover:border-white/40">
+                  {c.ctaSee}
+                </a>
+              </div>
+              <p className="mt-3 text-xs text-white/40">{c.note}</p>
             </div>
-            <div className="aspect-[2/1]">
-              <Candles />
+            <div className="wc-scan hidden rounded-xl border border-white/10 bg-white/[0.03] p-4 md:block">
+              <span className="wc-scanline" aria-hidden="true" />
+              <div className="mb-3 flex items-center justify-between text-xs text-white/50">
+                <span className="flex items-center gap-2">
+                  <img src="/logo.jpeg" alt="" width={20} height={20} className="size-5 rounded-full object-cover" /> Winvest Capital
+                </span>
+                <span className="rounded bg-[var(--wc-red)]/15 px-2 py-0.5 text-[var(--wc-red-soft)]">{c.chartTag}</span>
+              </div>
+              <div className="aspect-[2/1]">
+                <Candles />
+              </div>
             </div>
           </div>
         </div>
       </section>
+
+      <Overview lang={lang} />
 
       <section id="membership" className="scroll-mt-24 border-t border-white/10 bg-[var(--wc-ink)]">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
@@ -390,50 +572,6 @@ export default function Home({ lang }: { lang: Lang }) {
               </ul>
               <a href={PAID_URL} className="mt-6 block rounded-full bg-[var(--wc-red)] px-6 py-3 text-center font-semibold transition hover:brightness-110">{c.wUnlock}</a>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="calendar" className="scroll-mt-24 border-t border-white/10">
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-14 sm:px-6 md:grid-cols-[1fr_1.6fr] md:items-start">
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{c.calH2}</h2>
-            <p className="mt-3 text-white/60">{c.calP}</p>
-          </div>
-          <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] p-2">
-            <TradingViewWidget
-              className="min-h-[340px]"
-              script="embed-widget-events.js"
-              config={{
-                colorTheme: 'dark',
-                isTransparent: true,
-                width: '100%',
-                height: 340,
-                locale: lang === 'nl' ? 'nl_NL' : 'en',
-                importanceFilter: '0,1',
-                countryFilter: 'us,eu,gb,jp,ch,ca,au,nz,cn',
-              }}
-            />
-          </div>
-        </div>
-      </section>
-
-      <section id="learn" className="border-t border-white/10 bg-[var(--wc-ink)]">
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{c.learnH2}</h2>
-              <p className="mt-3 text-white/60">{c.learnP}</p>
-            </div>
-            <a href={paths[lang].learn} className="text-sm text-white/60 underline-offset-4 hover:text-white hover:underline">{c.learnAll} →</a>
-          </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {learn.map((a) => (
-              <a key={a.id} href={a[lang].path} className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:border-[var(--wc-red)]/60">
-                <h3 className="font-semibold group-hover:text-[var(--wc-red-soft)]">{a[lang].title}</h3>
-                <p className="mt-2 text-sm text-white/60">{a[lang].description}</p>
-              </a>
-            ))}
           </div>
         </div>
       </section>
