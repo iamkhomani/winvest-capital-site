@@ -1,7 +1,7 @@
 // Winvest Terminal inside the website and the installed app, so members never leave Winvest Capital.
 // The terminal (terminal.winvestcapital.nl) allows only this site to frame it and tells us when it has
 // loaded. If it does not, the visitor is not logged in yet: Cloudflare Access cannot show its login
-// inside a frame, so we offer to log in in a new window and try again when they come back.
+// inside a frame, so the login runs in this window and the terminal (?return=en|nl) sends them back here.
 import { useEffect, useRef, useState } from 'react'
 import { TERMINAL_LOGIN_URL } from '../config'
 import type { Lang } from '../i18n'
@@ -15,7 +15,7 @@ const copy = {
     title: 'Winvest Terminal',
     loading: 'Opening Winvest Terminal…',
     h2: 'Log in to Winvest Terminal',
-    p: 'For your security the login opens in a new window. You get a code by email. After logging in, come back here and the terminal opens.',
+    p: 'Log in with the code we send to your email. After logging in you come straight back here and the terminal opens.',
     login: 'Log in',
     retry: 'I am logged in, try again',
     member: 'No access yet?',
@@ -25,7 +25,7 @@ const copy = {
     title: 'Winvest Terminal',
     loading: 'Winvest Terminal wordt geopend…',
     h2: 'Log in op Winvest Terminal',
-    p: 'Voor je veiligheid opent het inloggen in een nieuw venster. Je krijgt een code per e-mail. Kom daarna terug, dan opent de terminal hier.',
+    p: 'Log in met de code die je per e-mail krijgt. Daarna kom je direct hier terug en opent de terminal.',
     login: 'Inloggen',
     retry: 'Ik ben ingelogd, opnieuw proberen',
     member: 'Nog geen toegang?',
@@ -110,8 +110,8 @@ export default function TerminalApp({ lang }: { lang: Lang }) {
             <img src="/logo.jpeg" alt="" width={48} height={48} className="mx-auto size-12 rounded-full object-cover" />
             <h2 className="mt-4 text-xl font-bold">{c.h2}</h2>
             <p className="mt-2 text-sm text-white/65">{c.p}</p>
-            <a href={TERMINAL_LOGIN_URL} target="_blank" rel="noopener" className="mt-5 block rounded-full bg-[var(--wc-red)] px-5 py-3 font-semibold text-white transition hover:brightness-110">
-              {c.login} <span aria-hidden="true">↗</span>
+            <a href={`${TERMINAL_LOGIN_URL}/?return=${lang}`} className="mt-5 block rounded-full bg-[var(--wc-red)] px-5 py-3 font-semibold text-white transition hover:brightness-110">
+              {c.login}
             </a>
             <button type="button" onClick={retry} className="mt-2 w-full rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white/85 transition hover:border-white/40">
               {c.retry}
