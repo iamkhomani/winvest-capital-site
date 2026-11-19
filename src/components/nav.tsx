@@ -1,7 +1,7 @@
 // One navigation model for the whole site: sidebar (desktop), "More" sheet and tab bar (mobile),
 // search and footer all read from here, so every page stays findable from everywhere.
 import { createContext, useContext } from 'react'
-import { DISCORD_URL } from '../config'
+import { DISCORD_URL, PRICE, TERMINAL_LOGIN_URL } from '../config'
 import { ARTICLE_IDS } from '../content/articles'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
@@ -43,7 +43,7 @@ export function Icon({ name, size = 20, className }: { name: IconName; size?: nu
 }
 
 export type NavItem = { label: string; href: string; icon: IconName; hint?: string; external?: boolean; free?: boolean }
-export type NavGroup = { label: string | null; items: NavItem[] }
+export type NavGroup = { id?: string; label: string | null; items: NavItem[] }
 
 export function navGroups(lang: Lang): NavGroup[] {
   const p = paths[lang]
@@ -51,6 +51,23 @@ export function navGroups(lang: Lang): NavGroup[] {
   return [
     { label: null, items: [{ label: nl ? 'Overzicht' : 'Overview', href: p.home, icon: 'home' }] },
     {
+      label: 'Premium',
+      items: [
+        { label: 'One Percent Club', href: p.products, icon: 'products', hint: nl ? `Volledige toegang, ${PRICE} eenmalig` : `Full access, ${PRICE} one-time` },
+        { label: 'Market Whisper AI', href: p.whisper, icon: 'whisper', hint: nl ? 'AI-assistent in onze Discord' : 'AI assistant in our Discord' },
+        { label: 'Winvest Terminal', href: p.terminal, icon: 'terminal', hint: nl ? 'Smart Money Concepts-charts' : 'Smart Money Concepts charts' },
+      ],
+    },
+    {
+      label: nl ? 'Community en leren' : 'Community and learning',
+      items: [
+        { label: nl ? 'Discord (gratis)' : 'Discord (free)', href: DISCORD_URL, icon: 'discord', external: true, hint: nl ? 'Word gratis lid' : 'Join for free' },
+        { label: nl ? 'Gratis lessen' : 'Free lessons', href: p.learn, icon: 'learn', hint: nl ? `${ARTICLE_IDS.length} lessen, van basis tot SMC` : `${ARTICLE_IDS.length} lessons, from basics to SMC`, free: true },
+        { label: 'Partners', href: p.partners, icon: 'partners', hint: nl ? 'Brokers en tools die we gebruiken' : 'Brokers and tools we use' },
+      ],
+    },
+    {
+      id: 'tools',
       label: nl ? 'Gratis tools' : 'Free tools',
       items: [
         { label: nl ? 'Markten' : 'Markets', href: p.markets, icon: 'markets', hint: nl ? 'Live koersen en heatmaps' : 'Live prices and heatmaps', free: true },
@@ -61,33 +78,19 @@ export function navGroups(lang: Lang): NavGroup[] {
         { label: nl ? 'Economische kalender' : 'Economic calendar', href: p.home + '#calendar', icon: 'calendar', hint: nl ? 'Events die de markt bewegen' : 'Events that move the market', free: true },
       ],
     },
-    {
-      label: 'Community',
-      items: [
-        { label: 'Market Whisper AI', href: p.whisper, icon: 'whisper', hint: nl ? 'AI-assistent in onze Discord' : 'AI assistant in our Discord' },
-        { label: 'Winvest Terminal', href: p.terminal, icon: 'terminal', hint: nl ? 'Smart Money Concepts-terminal' : 'Smart Money Concepts terminal' },
-        { label: nl ? 'Producten' : 'Products', href: p.products, icon: 'products', hint: nl ? 'One Percent Club en meer' : 'One Percent Club and more' },
-        { label: nl ? 'Discord (gratis)' : 'Discord (free)', href: DISCORD_URL, icon: 'discord', external: true, hint: nl ? 'Word gratis lid' : 'Join for free' },
-      ],
-    },
-    {
-      label: nl ? 'Leren' : 'Learn',
-      items: [
-        { label: nl ? 'Gratis lessen' : 'Free lessons', href: p.learn, icon: 'learn', hint: nl ? `${ARTICLE_IDS.length} lessen, van basis tot SMC` : `${ARTICLE_IDS.length} lessons, from basics to SMC`, free: true },
-        { label: 'Partners', href: p.partners, icon: 'partners', hint: nl ? 'Brokers en tools die we gebruiken' : 'Brokers and tools we use' },
-      ],
-    },
   ]
 }
 
-/** Bottom tab bar on mobile: the four most used pages, the fifth tab opens everything else. */
-export function tabItems(lang: Lang): NavItem[] {
+/** Bottom tab bar on mobile: four shortcuts, the fifth tab opens everything else.
+ *  `only`: 'web' items show in the browser, 'app' items only in the installed app (html.pwa, see styles.css). */
+export function tabItems(lang: Lang): (NavItem & { only?: 'web' | 'app' })[] {
   const p = paths[lang]
   const nl = lang === 'nl'
   return [
     { label: nl ? 'Overzicht' : 'Overview', href: p.home, icon: 'home' },
-    { label: nl ? 'Markten' : 'Markets', href: p.markets, icon: 'markets' },
+    { label: nl ? 'Markten' : 'Markets', href: p.markets, icon: 'markets', only: 'web' },
     { label: 'Journal', href: p.journal, icon: 'journal' },
+    { label: 'Terminal', href: TERMINAL_LOGIN_URL, icon: 'terminal', external: true, only: 'app' },
     { label: 'Portfolio', href: p.portfolio, icon: 'portfolio' },
   ]
 }

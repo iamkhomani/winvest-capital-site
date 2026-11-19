@@ -315,8 +315,8 @@ function TabBar({ lang, onMore }: { lang: Lang; onMore: () => void }) {
     <nav aria-label={nl ? 'Snelmenu' : 'Quick menu'} className="wc-tabbar fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[var(--wc-black)]/95 backdrop-blur-xl lg:hidden">
       <ul className="mx-auto grid max-w-md grid-cols-5">
         {tabs.map((t) => (
-          <li key={t.href}>
-            <a href={t.href} aria-current={isActive(current, t.href, lang) ? 'page' : undefined} className={cls}>
+          <li key={t.href} className={t.only ? `wc-only-${t.only}` : undefined}>
+            <a href={t.href} {...ext(t)} aria-current={isActive(current, t.href, lang) ? 'page' : undefined} className={cls}>
               <Icon name={t.icon} size={22} />
               {t.label}
             </a>

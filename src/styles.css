@@ -238,6 +238,10 @@ html.wc-side-mini .wc-side-toggle svg { transform: scaleX(-1); }
 
 /* Mobile and tablet: bottom tab bar on every page. Keep content and pop-ups clear of it. */
 .wc-tabbar { padding-bottom: env(safe-area-inset-bottom); }
+/* Browser: Markets tab. Installed app: Winvest Terminal tab instead (right of Journal). */
+.wc-only-app { display: none; }
+html.pwa .wc-only-app { display: block; }
+html.pwa .wc-only-web { display: none; }
 .wc-tabbar [aria-current='page'] { color: var(--wc-text); }
 .wc-tabbar [aria-current='page'] svg { color: var(--wc-red); }
 @media (max-width: 1023.98px) {
