@@ -1,10 +1,13 @@
 // One navigation model for the whole site: sidebar (desktop), "More" sheet and tab bar (mobile),
 // search and footer all read from here, so every page stays findable from everywhere.
 import { createContext, useContext } from 'react'
-import { DISCORD_URL, PRICE, TERMINAL_LOGIN_URL } from '../config'
+import { DISCORD_URL, PRICE, TERMINAL_EMBED, TERMINAL_LOGIN_URL } from '../config'
 import { ARTICLE_IDS } from '../content/articles'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
+
+/** Where "open Winvest Terminal" goes: inside the site, or straight to the terminal (see TERMINAL_EMBED). */
+export const terminalHref = (lang: Lang) => (TERMINAL_EMBED ? paths[lang].terminalApp : TERMINAL_LOGIN_URL)
 
 /** Path of the page being rendered (set in entry-server/entry-client), used to mark the active link. */
 export const PathContext = createContext('/')
@@ -90,7 +93,7 @@ export function tabItems(lang: Lang): (NavItem & { only?: 'web' | 'app' })[] {
     { label: nl ? 'Overzicht' : 'Overview', href: p.home, icon: 'home' },
     { label: nl ? 'Markten' : 'Markets', href: p.markets, icon: 'markets', only: 'web' },
     { label: 'Journal', href: p.journal, icon: 'journal' },
-    { label: 'Terminal', href: TERMINAL_LOGIN_URL, icon: 'terminal', external: true, only: 'app' },
+    { label: 'Terminal', href: terminalHref(lang), icon: 'terminal', external: !TERMINAL_EMBED, only: 'app' },
     { label: 'Portfolio', href: p.portfolio, icon: 'portfolio' },
   ]
 }

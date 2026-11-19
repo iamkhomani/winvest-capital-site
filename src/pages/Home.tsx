@@ -1,10 +1,10 @@
 import { useEffect, useState, type FormEvent } from 'react'
-import { DISCORD_URL, NEWSLETTER_EMAIL_FIELD, NEWSLETTER_FORM_ACTION, NEWSLETTER_LIST_UUID, PRICE, STRIPE_PAYMENT_LINK, TERMINAL_LOGIN_URL, TRUSTPILOT_URL } from '../config'
+import { DISCORD_URL, NEWSLETTER_EMAIL_FIELD, NEWSLETTER_FORM_ACTION, NEWSLETTER_LIST_UUID, PRICE, STRIPE_PAYMENT_LINK, TRUSTPILOT_URL } from '../config'
 import { reviews } from '../content/reviews'
 import { articles } from '../content/articles'
 import TradingViewWidget from '../components/TradingViewWidget'
 import { Candles, Check, Stars, ThemedImage } from '../components/ui'
-import { Icon, navGroups } from '../components/nav'
+import { Icon, navGroups, terminalHref } from '../components/nav'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
 
@@ -302,9 +302,9 @@ function MySpace({ lang }: { lang: Lang }) {
       <div className="mt-auto grid grid-cols-2 gap-2 pt-5">
         <a href={p.journal} className="rounded-full border border-white/15 px-3 py-2 text-center text-sm font-semibold transition hover:border-white/40">{c.dOpenJournal}</a>
         <a href={p.portfolio} className="rounded-full border border-white/15 px-3 py-2 text-center text-sm font-semibold transition hover:border-white/40">{c.dOpenPortfolio}</a>
-        <a href={TERMINAL_LOGIN_URL} target="_blank" rel="noopener" className="col-span-2 flex items-center justify-center gap-2 rounded-full border border-[var(--wc-red)]/60 px-3 py-2 text-center text-sm font-semibold transition hover:bg-[var(--wc-red)]/10">
+        <a href={terminalHref(lang)} className="col-span-2 flex items-center justify-center gap-2 rounded-full border border-[var(--wc-red)]/60 px-3 py-2 text-center text-sm font-semibold transition hover:bg-[var(--wc-red)]/10">
           <Icon name="terminal" size={16} className="text-[var(--wc-red)]" />
-          {c.dTerminal} <span aria-hidden="true">↗</span>
+          {c.dTerminal}
         </a>
       </div>
     </div>

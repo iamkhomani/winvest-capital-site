@@ -1,7 +1,8 @@
 import { Candles, Check } from '../components/ui'
-import { DISCORD_URL, TERMINAL_CHECKOUT_URL, TERMINAL_LOGIN_URL, TERMINAL_PORTAL_URL, TERMINAL_PRICE } from '../config'
+import { DISCORD_URL, TERMINAL_CHECKOUT_URL, TERMINAL_PORTAL_URL, TERMINAL_PRICE } from '../config'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
+import { terminalHref } from '../components/nav'
 
 export const terminalCopy = {
   en: {
@@ -123,7 +124,7 @@ export default function Terminal({ lang }: { lang: Lang }) {
                 )}
                 <div className="mt-5 flex flex-col gap-3 sm:flex-row">
                   <a href={TERMINAL_CHECKOUT_URL} className={primary}>{c.subscribe}</a>
-                  <a href={TERMINAL_LOGIN_URL} className={secondary}>{c.login}</a>
+                  <a href={terminalHref(lang)} className={secondary}>{c.login}</a>
                 </div>
                 <p className="mt-3 text-sm text-white/50">{c.cancelNote}</p>
                 {TERMINAL_PORTAL_URL && (
@@ -137,7 +138,7 @@ export default function Terminal({ lang }: { lang: Lang }) {
                 <p className="mt-6 inline-block rounded-full border border-[var(--wc-red)]/60 px-4 py-1.5 text-sm font-semibold text-[var(--wc-red-soft)]">{c.soon}</p>
                 <div className="mt-5 flex flex-col gap-3 sm:flex-row">
                   <a href={DISCORD_URL} className={primary}>{c.discord}</a>
-                  <a href={TERMINAL_LOGIN_URL} className={secondary}>{c.login}</a>
+                  <a href={terminalHref(lang)} className={secondary}>{c.login}</a>
                 </div>
                 <p className="mt-3 max-w-md text-sm text-white/50">{c.soonNote}</p>
               </>

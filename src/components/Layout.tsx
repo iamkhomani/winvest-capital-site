@@ -9,7 +9,8 @@ import type { NavItem } from './nav'
 import SmoothScroll from './SmoothScroll'
 import Ticker from './Ticker'
 
-type Props = { lang: Lang; alternate?: string; children: ReactNode }
+/** `bare`: full-screen app page (Winvest Terminal) without the ticker and footer. */
+type Props = { lang: Lang; alternate?: string; bare?: boolean; children: ReactNode }
 
 function toggleTheme() {
   const root = document.documentElement
@@ -335,7 +336,7 @@ function TabBar({ lang, onMore }: { lang: Lang; onMore: () => void }) {
 
 /* ---------- Page shell ---------- */
 
-export default function Layout({ lang, alternate, children }: Props) {
+export default function Layout({ lang, alternate, bare, children }: Props) {
   const p = paths[lang]
   const nl = lang === 'nl'
   const search = useDialog()
@@ -389,8 +390,9 @@ export default function Layout({ lang, alternate, children }: Props) {
             </div>
           </div>
         </header>
-        <Ticker lang={lang} />
+        {!bare && <Ticker lang={lang} />}
         <div id="main">{children}</div>
+        {!bare && (
         <footer className="border-t border-white/10 bg-black">
           <div className="mx-auto max-w-6xl px-4 py-10 text-sm text-white/45 sm:px-6">
             <div className="flex items-center gap-3 text-white/80">
@@ -440,6 +442,7 @@ export default function Layout({ lang, alternate, children }: Props) {
             </div>
           </div>
         </footer>
+        )}
       </div>
       <TabBar lang={lang} onMore={more.open} />
       <MoreSheet lang={lang} alternate={alternate} dialog={more} />

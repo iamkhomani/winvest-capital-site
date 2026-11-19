@@ -17,6 +17,7 @@ import MarketWhisper, { whisperCopy } from './pages/MarketWhisper'
 import Portfolio, { portfolioCopy } from './pages/Portfolio'
 import Products, { productsCopy } from './pages/Products'
 import Terminal, { terminalCopy } from './pages/Terminal'
+import TerminalApp from './pages/TerminalApp'
 import Journal from './pages/Journal'
 import { journalCopy } from './journal/copy'
 import Welcome from './pages/Welcome'
@@ -244,7 +245,20 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
     description: L ? 'Je betaling is ontvangen.' : 'Your payment has been received.',
     element: wrap(lang, L ? '/welcome/' : '/nl/welkom/', <Welcome lang={lang} />),
   }
-  return [home, products, calculator, markets, portfolio, journal, whisper, terminal, scanner, partners, learn, ...arts, ...docs, welcome]
+  const terminalApp: Route = {
+    path: p.terminalApp,
+    alternate: o.terminalApp,
+    lang,
+    noindex: true,
+    title: 'Winvest Terminal | Winvest Capital',
+    description: L ? 'Open Winvest Terminal binnen de website en app van Winvest Capital.' : 'Open Winvest Terminal inside the Winvest Capital website and app.',
+    element: () => (
+      <Layout lang={lang} alternate={o.terminalApp} bare>
+        <TerminalApp lang={lang} />
+      </Layout>
+    ),
+  }
+  return [home, products, calculator, markets, portfolio, journal, whisper, terminal, terminalApp, scanner, partners, learn, ...arts, ...docs, welcome]
 })
 
 export function findRoute(pathname: string): Route | undefined {

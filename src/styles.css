@@ -268,3 +268,9 @@ html.wc-modal { overflow: hidden; }
   .wc-sheet[open], .wc-search[open] { animation: none; }
   .wc-sidebar, .wc-main { transition: none; }
 }
+
+/* Full-screen app page (Winvest Terminal): fills the space between the top bar and the tab bar. */
+.wc-app-frame { height: calc(100dvh - 4rem - 1px); }
+@media (max-width: 1023.98px) {
+  .wc-app-frame { height: calc(100dvh - 4rem - 1px - 60px - env(safe-area-inset-bottom)); }
+}
