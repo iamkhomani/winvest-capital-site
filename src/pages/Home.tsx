@@ -421,7 +421,7 @@ export default function Home({ lang }: { lang: Lang }) {
       <section id="top" className="relative overflow-hidden">
         <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-[var(--wc-red)]/15 blur-[120px]" />
         <div className="relative mx-auto max-w-6xl px-4 pt-6 pb-4 sm:px-6 sm:pt-8">
-          <div className={`${card} grid items-center gap-6 p-5 sm:p-7 md:grid-cols-[1.4fr_1fr]`}>
+          <div className={`${card} grid items-center gap-6 p-5 sm:p-7 lg:grid-cols-[1.4fr_1fr]`}>
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-[var(--wc-red)]/40 bg-[var(--wc-red)]/10 px-3 py-1 text-xs font-semibold tracking-wide text-[var(--wc-red-soft)] uppercase">
                 <span className="size-1.5 rounded-full bg-[var(--wc-red)]" /> <span className="wc-term">{c.badge}</span>
@@ -442,7 +442,7 @@ export default function Home({ lang }: { lang: Lang }) {
               </div>
               <p className="mt-3 text-xs text-white/40">{c.note}</p>
             </div>
-            <div className="wc-scan hidden rounded-xl border border-white/10 bg-white/[0.03] p-4 md:block">
+            <div className="wc-scan hidden rounded-xl border border-white/10 bg-white/[0.03] p-4 lg:block">
               <span className="wc-scanline" aria-hidden="true" />
               <div className="mb-3 flex items-center justify-between text-xs text-white/50">
                 <span className="flex items-center gap-2">
