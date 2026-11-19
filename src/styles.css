@@ -220,10 +220,41 @@ body {
 
 body { font-family: 'Inter Variable', ui-sans-serif, system-ui, sans-serif; color: var(--wc-text); }
 
-/* Installed web app (PWA): bottom tab bar. `pwa` class is set on <html> by index.html. */
-.app-tabbar { display: none; padding-bottom: env(safe-area-inset-bottom); }
-.app-tabbar a[aria-current='page'] { color: var(--wc-text); }
-.app-tabbar a[aria-current='page'] svg { color: var(--wc-red); }
-.pwa .app-tabbar { display: block; }
-.pwa body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
-.pwa #wc-consent, .pwa #wc-install { bottom: calc(76px + env(safe-area-inset-bottom)) !important; }
+/* ---------- Dashboard shell (see components/Layout.tsx) ---------- */
+/* Sidebar width on desktop; folded to icons with html.wc-side-mini (remembered, set before first paint). */
+:root { --wc-side: 0px; }
+@media (min-width: 1024px) {
+  :root { --wc-side: 16rem; }
+  html.wc-side-mini { --wc-side: 4.75rem; }
+}
+.wc-main { padding-left: var(--wc-side); }
+.wc-sidebar { transition: width 0.2s ease; }
+.wc-main { transition: padding-left 0.2s ease; }
+html.wc-side-mini .wc-sidebar .wc-side-label { display: none; }
+html.wc-side-mini .wc-sidebar nav a { justify-content: center; }
+html.wc-side-mini .wc-sidebar > div:first-child { flex-direction: column; justify-content: center; height: auto; padding: 0.75rem 0; gap: 0.5rem; }
+html.wc-side-mini .wc-sidebar > div:first-child a { flex: none; }
+html.wc-side-mini .wc-side-toggle svg { transform: scaleX(-1); }
+
+/* Mobile and tablet: bottom tab bar on every page. Keep content and pop-ups clear of it. */
+.wc-tabbar { padding-bottom: env(safe-area-inset-bottom); }
+.wc-tabbar [aria-current='page'] { color: var(--wc-text); }
+.wc-tabbar [aria-current='page'] svg { color: var(--wc-red); }
+@media (max-width: 1023.98px) {
+  body { padding-bottom: calc(60px + env(safe-area-inset-bottom)); }
+  #wc-consent, #wc-install, #wc-install-bar { bottom: calc(72px + env(safe-area-inset-bottom)) !important; }
+}
+
+/* Dialogs (search, "More" sheet). */
+.wc-dialog { color: var(--wc-text); }
+.wc-dialog::backdrop { background: rgb(0 0 0 / 0.6); backdrop-filter: blur(4px); }
+html.wc-modal { overflow: hidden; }
+.wc-sheet { max-height: 85dvh; }
+.wc-sheet[open] { animation: wc-sheet-in 0.22s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.wc-search[open] { animation: wc-fade-in 0.15s ease-out; }
+@keyframes wc-sheet-in { from { transform: translateY(100%); } }
+@keyframes wc-fade-in { from { opacity: 0; transform: scale(0.98); } }
+@media (prefers-reduced-motion: reduce) {
+  .wc-sheet[open], .wc-search[open] { animation: none; }
+  .wc-sidebar, .wc-main { transition: none; }
+}

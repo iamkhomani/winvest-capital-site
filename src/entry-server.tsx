@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { renderToString } from 'react-dom/server'
 import { SITE_URL } from './config'
+import { PathContext } from './components/nav'
 import type { Meta } from './head'
 import { routes, type Route } from './routes'
 
@@ -40,7 +41,9 @@ function head(r: Meta) {
 export function render(r: Route) {
   const html = renderToString(
     <StrictMode>
-      <r.element />
+      <PathContext.Provider value={r.path}>
+        <r.element />
+      </PathContext.Provider>
     </StrictMode>,
   )
   return { html, head: head(r) }
