@@ -62,13 +62,6 @@ export default function TerminalApp({ lang }: { lang: Lang }) {
     return () => clearTimeout(t)
   }, [phase])
 
-
-  return () => {
-      window.removeEventListener('focus', onBack)
-      document.removeEventListener('visibilitychange', onBack)
-    }
-  }, [phase])
-
   return (
     <main className="wc-app-frame relative">
       <h1 className="sr-only">{c.title}</h1>
