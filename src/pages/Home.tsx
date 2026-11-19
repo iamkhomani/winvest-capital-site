@@ -368,7 +368,7 @@ function Overview({ lang }: { lang: Lang }) {
           <ul className="grid grid-cols-2 gap-3 md:grid-cols-3">
             {tools.map((t) => (
               <li key={t.href}>
-                <a href={t.href} className={`${card} group flex h-full items-start gap-3 p-4 transition hover:border-[var(--wc-red)]/50 active:scale-[0.99]`}>
+                <a href={t.href} className={`${card} group flex h-full flex-col items-start gap-3 p-4 transition sm:flex-row hover:border-[var(--wc-red)]/50 active:scale-[0.99]`}>
                   <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-[var(--wc-red)]/10 text-[var(--wc-red)]">
                     <Icon name={t.icon} size={20} />
                   </span>

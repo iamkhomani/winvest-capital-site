@@ -17,7 +17,7 @@ export const productsCopy = {
     club: {
       tag: 'Membership',
       text: 'Guidance and research, on top of the free community.',
-      items: ['Everything in the free community', 'Projects I am looking at, released regularly', 'My research and analysis of assets and FX charts'],
+      items: ['Everything in the free community', 'The projects I’m watching, shared regularly', 'My research and analysis of assets and FX charts'],
     },
     whisper: {
       tag: 'Included',
@@ -49,7 +49,7 @@ export const productsCopy = {
     club: {
       tag: 'Lidmaatschap',
       text: 'Begeleiding en research, bovenop de gratis community.',
-      items: ['Alles uit de gratis community', 'Projecten waar ik naar kijk, regelmatig gedeeld', 'Mijn research en analyse van assets en FX-charts'],
+      items: ['Alles uit de gratis community', 'Regelmatig de projecten die ik volg', 'Mijn research en analyse van assets en FX-charts'],
     },
     whisper: {
       tag: 'Inbegrepen',
