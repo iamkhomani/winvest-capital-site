@@ -17,7 +17,6 @@ const copy = {
     h2: 'Log in to Winvest Terminal',
     p: 'Log in with the code we send to your email. After logging in you come straight back here and the terminal opens.',
     login: 'Log in',
-    retry: 'I am logged in, try again',
     member: 'No access yet?',
     about: 'See what Winvest Terminal offers',
   },
@@ -27,7 +26,6 @@ const copy = {
     h2: 'Log in op Winvest Terminal',
     p: 'Log in met de code die je per e-mail krijgt. Daarna kom je direct hier terug en opent de terminal.',
     login: 'Inloggen',
-    retry: 'Ik ben ingelogd, opnieuw proberen',
     member: 'Nog geen toegang?',
     about: 'Bekijk wat Winvest Terminal biedt',
   },
@@ -39,7 +37,6 @@ export default function TerminalApp({ lang }: { lang: Lang }) {
   // The frame is only added after hydration, so its "ready" message can never arrive before we listen.
   const [mounted, setMounted] = useState(false)
   const [phase, setPhase] = useState<'loading' | 'ready' | 'login'>('loading')
-  const [attempt, setAttempt] = useState(0)
 
   useEffect(() => setMounted(true), [])
 
@@ -63,20 +60,10 @@ export default function TerminalApp({ lang }: { lang: Lang }) {
     if (phase !== 'loading') return
     const t = setTimeout(() => setPhase((p) => (p === 'loading' ? 'login' : p)), WAIT_MS)
     return () => clearTimeout(t)
-  }, [phase, attempt])
+  }, [phase])
 
-  const retry = () => {
-    setPhase('loading')
-    setAttempt((n) => n + 1)
-  }
 
-  // Back from the login window: try again automatically.
-  useEffect(() => {
-    if (phase !== 'login') return
-    const onBack = () => document.visibilityState === 'visible' && retry()
-    window.addEventListener('focus', onBack)
-    document.addEventListener('visibilitychange', onBack)
-    return () => {
+  return () => {
       window.removeEventListener('focus', onBack)
       document.removeEventListener('visibilitychange', onBack)
     }
@@ -87,7 +74,6 @@ export default function TerminalApp({ lang }: { lang: Lang }) {
       <h1 className="sr-only">{c.title}</h1>
       {mounted && (
         <iframe
-          key={attempt}
           ref={frame}
           src={TERMINAL_LOGIN_URL + '/'}
           title={c.title}
@@ -113,9 +99,6 @@ export default function TerminalApp({ lang }: { lang: Lang }) {
             <a href={`${TERMINAL_LOGIN_URL}/?return=${lang}`} className="mt-5 block rounded-full bg-[var(--wc-red)] px-5 py-3 font-semibold text-white transition hover:brightness-110">
               {c.login}
             </a>
-            <button type="button" onClick={retry} className="mt-2 w-full rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white/85 transition hover:border-white/40">
-              {c.retry}
-            </button>
             <p className="mt-5 text-xs text-white/45">
               {c.member}{' '}
               <a href={paths[lang].terminal} className="font-semibold text-[var(--wc-red-soft)] hover:underline">
