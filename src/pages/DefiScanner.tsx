@@ -11,8 +11,8 @@ import { safeUrl } from '../safeUrl'
 
 export const scannerCopy = {
   en: {
-    metaTitle: 'DeFi scanner: tokens, smart contracts and wallets | Winvest Capital',
-    description: 'Free DeFi scanner. Search a token, smart contract, wallet or transaction on Ethereum, Solana, XRP Ledger, Bitcoin, XDC, BNB Chain, Base and more. Live price, liquidity and automated scam detection, contract checks and a risk score.',
+    metaTitle: 'Free DeFi Scanner: Token & Wallet Risk Check | Winvest Capital',
+    description: 'Free DeFi scanner: check a token, smart contract or wallet on Ethereum, Solana, BNB Chain, Base, XRP Ledger and more for scams, liquidity and contract risks.',
     h1: 'DeFi scanner',
     intro: 'Search a token by name or ticker, or paste a contract address, wallet address or transaction hash. We fetch live data straight from the blockchains and DEXs.',
     placeholder: 'Token name, ticker, contract, wallet or tx hash',
@@ -40,8 +40,8 @@ export const scannerCopy = {
     levels: { ok: 'OK', warn: 'Caution', bad: 'Risk', info: 'Info' },
   },
   nl: {
-    metaTitle: 'DeFi-scanner: tokens, smart contracts en wallets | Winvest Capital',
-    description: 'Gratis DeFi-scanner. Zoek een token, smart contract, wallet of transactie op Ethereum, Solana, XRP Ledger, Bitcoin, XDC, BNB Chain, Base en meer. Live prijs, liquidity en automatische scamdetectie, contractchecks en een risicoscore.',
+    metaTitle: 'DeFi-scanner: check tokens en wallets | Winvest Capital',
+    description: 'Gratis DeFi-scanner: check een token, smart contract of wallet op Ethereum, Solana, BNB Chain, Base, XRP Ledger en meer op scams, liquidity en contractrisico's.',
     h1: 'DeFi-scanner',
     intro: 'Zoek een token op naam of ticker, of plak een contractadres, walletadres of transactie-hash. We halen live data direct op van de blockchains en DEX’en.',
     placeholder: 'Tokennaam, ticker, contract, wallet of tx-hash',

@@ -4,7 +4,7 @@ export const en: Record<string, ArticleContent> = {
   smc: {
     path: '/learn/what-is-smart-money-concepts/',
     title: 'What are Smart Money Concepts (SMC)? A beginner’s guide',
-    metaTitle: 'What Are Smart Money Concepts (SMC)? Beginner’s Guide | Winvest Capital',
+    metaTitle: 'What Are Smart Money Concepts (SMC)? | Winvest Capital',
     description:
       'Smart Money Concepts (SMC) explained in plain English: market structure, liquidity, order blocks and fair value gaps, and how traders use them on stocks, crypto and FX.',
     intro:
@@ -127,7 +127,7 @@ export const en: Record<string, ArticleContent> = {
   orderblocks: {
     path: '/learn/order-blocks/',
     title: 'Order blocks explained: how to find and trade them',
-    metaTitle: 'Order Blocks Explained: Bullish & Bearish OB in SMC | Winvest Capital',
+    metaTitle: 'Order Blocks Explained: Bullish & Bearish OB | Winvest Capital',
     description:
       'What is an order block in trading? Learn how to identify bullish and bearish order blocks, what makes an order block valid, and how SMC traders use them for entries and stop losses.',
     intro:
@@ -182,7 +182,7 @@ export const en: Record<string, ArticleContent> = {
   liquidity: {
     path: '/learn/liquidity-in-trading/',
     title: 'Liquidity in trading: buy-side, sell-side and liquidity sweeps',
-    metaTitle: 'Liquidity in SMC: Buy-Side, Sell-Side & Liquidity Sweeps | Winvest Capital',
+    metaTitle: 'Liquidity & Liquidity Sweeps in SMC | Winvest Capital',
     description:
       'What does liquidity mean in Smart Money Concepts? Learn where buy-side and sell-side liquidity sits, what a liquidity sweep or stop hunt is, and how to avoid being the liquidity.',
     intro:
@@ -236,7 +236,7 @@ export const en: Record<string, ArticleContent> = {
   fvg: {
     path: '/learn/fair-value-gaps/',
     title: 'Fair value gaps (FVG): what they are and how to trade them',
-    metaTitle: 'Fair Value Gap (FVG) Explained: Imbalances in SMC | Winvest Capital',
+    metaTitle: 'Fair Value Gap (FVG) Explained | Winvest Capital',
     description:
       'A fair value gap (FVG) is a three-candle price imbalance. Learn how to identify bullish and bearish FVGs, why price often revisits them, and how SMC traders use them as entry zones.',
     intro:
@@ -339,7 +339,7 @@ export const en: Record<string, ArticleContent> = {
   risk: {
     path: '/learn/risk-management-lot-size/',
     title: 'Risk management and lot size: how to calculate your position size',
-    metaTitle: 'How to Calculate Lot Size & Position Size (Forex, Crypto) | Winvest Capital',
+    metaTitle: 'How to Calculate Lot Size & Position Size | Winvest Capital',
     description:
       'Step-by-step guide to risk management: the 1% rule, risk-to-reward ratio and how to calculate lot size in forex and position size in stocks and crypto, with worked examples.',
     intro:

@@ -6,8 +6,8 @@ import Prose from './Prose'
 
 export const calcCopy = {
   en: {
-    metaTitle: 'Free Lot Size Calculator for Forex, Gold & Crypto | Winvest Capital',
-    description: 'Free lot size and position size calculator. Enter your balance, risk % and stop loss to get the right lot size for forex pairs, gold (XAU/USD), crypto and stocks.',
+    metaTitle: 'Lot Size Calculator (Forex, Gold, Crypto) | Winvest Capital',
+    description: 'Free lot size calculator. Enter your balance, risk % and stop loss to get the right lot size for forex, gold (XAU/USD), crypto and stocks.',
     h1: 'Lot size calculator',
     intro: 'Calculate the right position size for every trade in seconds. Enter your account balance, how much you want to risk and your stop loss, and the calculator works out your lot size. Free for everyone.',
     faqTitle: 'Frequently asked questions',
@@ -26,8 +26,8 @@ export const calcCopy = {
     ctaBtn: 'Join the free Discord',
   },
   nl: {
-    metaTitle: 'Gratis lotgrootte-calculator voor forex, goud en crypto | Winvest Capital',
-    description: 'Gratis calculator voor lotgrootte en positiegrootte. Vul je saldo, risico % en stop-loss in en zie direct de juiste lotgrootte voor forex, goud (XAU/USD), crypto en aandelen.',
+    metaTitle: 'Lotgrootte-calculator: forex, goud en crypto | Winvest Capital',
+    description: 'Gratis lotgrootte-calculator. Vul je saldo, risico % en stop-loss in en zie direct de juiste lotgrootte voor forex, goud (XAU/USD), crypto en aandelen.',
     h1: 'Lotgrootte-calculator',
     intro: 'Bereken in een paar seconden de juiste positiegrootte voor elke trade. Vul je accountsaldo in, hoeveel je wilt riskeren en je stop-loss, en de calculator rekent je lotgrootte uit. Gratis voor iedereen.',
     faqTitle: 'Veelgestelde vragen',

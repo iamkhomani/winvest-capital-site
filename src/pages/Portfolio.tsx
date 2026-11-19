@@ -21,7 +21,7 @@ const ChartFallback = ({ h = 'h-64' }: { h?: string }) => <div className={`${h} 
 export const portfolioCopy = {
   en: {
     metaTitle: 'Free portfolio tracker for crypto and stocks | Winvest Capital',
-    description: 'Track crypto and stocks in one overview with live prices: profit and loss, allocation, performance per week, month, quarter and year, drawdown and watchlists. Stored only on your own device.',
+    description: 'Free portfolio tracker for crypto and stocks with live prices: P/L, allocation, performance and drawdown, plus automatic wallet tracking. Stored on your device only.',
     h1: 'Portfolio tracker',
     intro: 'Crypto and stocks in one overview, with live prices. Your data is stored only in this browser on this device, not on our servers. Use export to make a backup or move it to another device.',
     tabs: { overview: 'Overview', positions: 'Positions', wallets: 'Wallets', txs: 'Transactions', watch: 'Watchlists', settings: 'Backup & settings' },
@@ -73,8 +73,8 @@ export const portfolioCopy = {
     ctaH: 'Discuss your portfolio with the community', ctaP: 'Ask questions and share ideas in the free Winvest Capital Discord.', ctaBtn: 'Join the free Discord',
   },
   nl: {
-    metaTitle: 'Gratis portfolio tracker voor crypto en aandelen | Winvest Capital',
-    description: 'Volg crypto en aandelen in één overzicht met actuele prijzen: winst en verlies, allocatie, performance per week, maand, kwartaal en jaar, drawdown en watchlists. Alleen opgeslagen op je eigen apparaat.',
+    metaTitle: 'Gratis portfolio tracker: crypto en aandelen | Winvest Capital',
+    description: 'Gratis portfolio tracker voor crypto en aandelen met live koersen: W/V, allocatie, performance en drawdown, plus automatisch wallets volgen. Alleen op je apparaat.',
     h1: 'Portfolio tracker',
     intro: 'Crypto en aandelen in één overzicht, met actuele prijzen. Je gegevens worden alleen in deze browser op dit apparaat opgeslagen, niet op onze servers. Gebruik export voor een back-up of om ze naar een ander apparaat te zetten.',
     tabs: { overview: 'Overzicht', positions: 'Posities', wallets: 'Wallets', txs: 'Transacties', watch: 'Watchlists', settings: 'Back-up & instellingen' },

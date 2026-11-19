@@ -15,7 +15,7 @@ export const homeCopy = {
   en: {
     title: 'Winvest Capital | Free SMC Trading Community & Market Whisper AI',
     description:
-      'Join Winvest Capital: a free community of traders learning Smart Money Concepts (SMC) for stocks, crypto and FX. Includes Market Whisper AI. Upgrade to the One Percent Club for €150 one-time.',
+      `Free trading community for Smart Money Concepts (SMC) in stocks, crypto and FX, with Market Whisper AI and free tools. One Percent Club: ${PRICE} one-time.`,
     badge: 'Advanced SMC Trading',
     h1a: 'Trade smarter,',
     h1b: 'together.',
@@ -116,7 +116,7 @@ export const homeCopy = {
   nl: {
     title: 'Winvest Capital | Gratis SMC Trading Community & Market Whisper AI',
     description:
-      'Word lid van Winvest Capital: een gratis community van traders die Smart Money Concepts (SMC) leren voor aandelen, crypto en FX. Inclusief Market Whisper AI. Upgrade naar de One Percent Club voor €150 eenmalig.',
+      `Gratis tradingcommunity voor Smart Money Concepts (SMC) in aandelen, crypto en FX, met Market Whisper AI en gratis tools. One Percent Club: ${PRICE} eenmalig.`,
     badge: 'Advanced SMC Trading',
     h1a: 'Slimmer traden,',
     h1b: 'samen.',

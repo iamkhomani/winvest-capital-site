@@ -5,7 +5,7 @@ import { paths } from '../paths'
 
 export const productsCopy = {
   en: {
-    metaTitle: 'Products: One Percent Club, Market Whisper AI and Winvest Terminal | Winvest Capital',
+    metaTitle: 'One Percent Club & Winvest Terminal | Winvest Capital',
     description: 'Everything Winvest Capital offers in one place: the One Percent Club with Market Whisper AI, and Winvest Terminal charts.',
     h1: 'Our products',
     intro: 'Tools and guidance for learning Smart Money Concepts. Compare what each one does and pick what fits you.',
@@ -37,7 +37,7 @@ export const productsCopy = {
     notice: 'All products are for educational purposes only and are not financial advice. Trading carries a high risk of loss.',
   },
   nl: {
-    metaTitle: 'Producten: One Percent Club, Market Whisper AI en Winvest Terminal | Winvest Capital',
+    metaTitle: 'One Percent Club en Winvest Terminal | Winvest Capital',
     description: 'Alles van Winvest Capital op één plek: de One Percent Club met Market Whisper AI, en Winvest Terminal charts.',
     h1: 'Onze producten',
     intro: 'Tools en begeleiding om Smart Money Concepts te leren. Vergelijk wat elk product doet en kies wat bij je past.',

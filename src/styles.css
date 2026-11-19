@@ -245,6 +245,12 @@ html.wc-side-mini .wc-side-toggle svg { transform: scaleX(-1); }
   #wc-consent, #wc-install, #wc-install-bar { bottom: calc(72px + env(safe-area-inset-bottom)) !important; }
 }
 
+/* Notches and rounded corners (installed app, landscape). */
+.wc-topbar, .wc-tabbar { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+a, button, summary { -webkit-tap-highlight-color: transparent; }
+/* Installed app: no rubber-band bounce that shows an empty area above the top bar. */
+html.pwa, html.pwa body { overscroll-behavior-y: none; }
+
 /* Dialogs (search, "More" sheet). */
 .wc-dialog { color: var(--wc-text); }
 .wc-dialog::backdrop { background: rgb(0 0 0 / 0.6); backdrop-filter: blur(4px); }

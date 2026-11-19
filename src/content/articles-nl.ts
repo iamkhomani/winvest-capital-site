@@ -4,7 +4,7 @@ export const nl: Record<string, ArticleContent> = {
   smc: {
     path: '/nl/leren/wat-is-smart-money-concepts/',
     title: 'Wat zijn Smart Money Concepts (SMC)? Uitleg voor beginners',
-    metaTitle: 'Wat zijn Smart Money Concepts (SMC)? Uitleg voor beginners | Winvest Capital',
+    metaTitle: 'Wat zijn Smart Money Concepts (SMC)? | Winvest Capital',
     description:
       'Smart Money Concepts (SMC) helder uitgelegd: marktstructuur, liquiditeit, order blocks en fair value gaps, en hoe traders ze gebruiken bij aandelen, crypto en forex.',
     intro:
@@ -127,7 +127,7 @@ export const nl: Record<string, ArticleContent> = {
   orderblocks: {
     path: '/nl/leren/order-blocks/',
     title: 'Order blocks uitgelegd: zo vind en gebruik je ze',
-    metaTitle: 'Order blocks uitgelegd: bullish en bearish OB in SMC | Winvest Capital',
+    metaTitle: 'Order blocks uitgelegd: bullish en bearish OB | Winvest Capital',
     description:
       'Wat is een order block in trading? Leer bullish en bearish order blocks herkennen, wanneer een order block geldig is en hoe SMC-traders ze gebruiken voor instap en stop-loss.',
     intro:
@@ -180,7 +180,7 @@ export const nl: Record<string, ArticleContent> = {
   liquidity: {
     path: '/nl/leren/liquiditeit-trading/',
     title: 'Liquiditeit in trading: buy-side, sell-side en liquidity sweeps',
-    metaTitle: 'Liquiditeit in SMC: buy-side, sell-side en liquidity sweeps | Winvest Capital',
+    metaTitle: 'Liquiditeit en liquidity sweeps in SMC | Winvest Capital',
     description:
       'Wat betekent liquiditeit bij Smart Money Concepts? Ontdek waar buy-side en sell-side liquiditeit ligt, wat een liquidity sweep of stop hunt is en hoe je voorkomt dat jij de liquiditeit bent.',
     intro:
@@ -234,7 +234,7 @@ export const nl: Record<string, ArticleContent> = {
   fvg: {
     path: '/nl/leren/fair-value-gaps/',
     title: 'Fair value gaps (FVG): wat het is en hoe je ermee tradet',
-    metaTitle: 'Fair value gap (FVG) uitgelegd: imbalances in SMC | Winvest Capital',
+    metaTitle: 'Fair value gap (FVG) uitgelegd | Winvest Capital',
     description:
       'Een fair value gap (FVG) is een onevenwichtigheid van drie candles. Leer bullish en bearish FVG’s herkennen, waarom de koers er vaak naar terugkeert en hoe SMC-traders ze gebruiken.',
     intro:
@@ -337,7 +337,7 @@ export const nl: Record<string, ArticleContent> = {
   risk: {
     path: '/nl/leren/risicobeheer-lotgrootte/',
     title: 'Risicobeheer en lotgrootte: zo bereken je je positiegrootte',
-    metaTitle: 'Lotgrootte en positiegrootte berekenen (forex, crypto) | Winvest Capital',
+    metaTitle: 'Lotgrootte en positiegrootte berekenen | Winvest Capital',
     description:
       'Stappenplan voor risicobeheer: de 1%-regel, risico-rendementsverhouding en hoe je je lotgrootte bij forex en positiegrootte bij aandelen en crypto berekent, met rekenvoorbeelden.',
     intro:

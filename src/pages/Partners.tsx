@@ -23,7 +23,7 @@ const wallets: Partner[] = [
 
 export const partnersCopy = {
   en: {
-    metaTitle: 'Partners: crypto exchanges, TradingView and hardware wallets | Winvest Capital',
+    metaTitle: 'Partners: Exchanges, TradingView & Wallets | Winvest Capital',
     description: 'The crypto exchanges, charting platform and hardware wallets Winvest Capital works with. What an exchange and a hardware wallet do, and our partner links.',
     h1: 'Partners',
     intro: 'The platforms and tools we work with. Below you can read what each category is for, so you can choose what fits you. This page contains affiliate links (see the disclosure at the bottom).',
@@ -49,8 +49,8 @@ export const partnersCopy = {
     ctaBtn: 'Join the free Discord',
   },
   nl: {
-    metaTitle: 'Partners: crypto exchanges, TradingView en hardware wallets | Winvest Capital',
-    description: 'De crypto exchanges, het chartplatform en de hardware wallets waar Winvest Capital mee samenwerkt. Wat een exchange en een hardware wallet doen, en onze partnerlinks.',
+    metaTitle: 'Partners: exchanges, TradingView en wallets | Winvest Capital',
+    description: 'De crypto exchanges, het chartplatform en de hardware wallets waar Winvest Capital mee werkt, met uitleg en onze partnerlinks.',
     h1: 'Partners',
     intro: 'De platformen en tools waarmee we samenwerken. Hieronder lees je per categorie waar het voor is, zodat je kunt kiezen wat bij jou past. Deze pagina bevat affiliate links (zie de melding onderaan).',
     disclosureH: 'Affiliate-melding',

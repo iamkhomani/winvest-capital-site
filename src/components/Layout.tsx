@@ -190,7 +190,7 @@ function SearchDialog({ lang, dialog }: { lang: Lang; dialog: ReturnType<typeof 
   }, [dialog])
 
   return (
-    <dialog ref={dialog.ref} aria-label={nl ? 'Zoeken' : 'Search'} className="wc-dialog wc-search m-auto mt-[10vh] w-[min(36rem,calc(100vw-2rem))] rounded-2xl border border-white/10 bg-[var(--wc-panel)] p-0 text-white shadow-2xl shadow-black/60">
+    <dialog ref={dialog.ref} aria-label={nl ? 'Zoeken' : 'Search'} className="wc-dialog wc-search m-auto mt-[10vh] w-[min(36rem,calc(100vw-2rem))] rounded-2xl border border-white/15 bg-[var(--wc-panel)] p-0 text-white shadow-2xl shadow-black/60">
       <form
         method="dialog"
         onSubmit={(e) => {
@@ -204,7 +204,8 @@ function SearchDialog({ lang, dialog }: { lang: Lang; dialog: ReturnType<typeof 
           ref={input}
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          type="search"
+          type="text"
+          inputMode="search"
           autoComplete="off"
           enterKeyHint="go"
           placeholder={nl ? 'Zoek een tool, pagina of les' : 'Search a tool, page or lesson'}

@@ -1,7 +1,15 @@
 // Winvest Capital service worker: makes the site installable and usable offline.
 // Pages: network first, cached copy when offline. Hashed assets and icons: cache first.
-const VERSION = 'wc-v4'
-const CORE = ['/', '/nl/', '/lot-size-calculator/', '/nl/lotgrootte-calculator/', '/app-icon-192.png', '/logo.jpeg']
+const VERSION = 'wc-v5'
+// Pages that are useful offline: the tools keep their data on the device, so they work without a connection.
+const CORE = [
+  '/', '/nl/',
+  '/trading-journal/', '/nl/trading-journal/',
+  '/portfolio/', '/nl/portfolio/',
+  '/lot-size-calculator/', '/nl/lotgrootte-calculator/',
+  '/learn/', '/nl/leren/',
+  '/app-icon-192.png', '/logo.jpeg',
+]
 
 self.addEventListener('install', (e) => {
   // Cache each core file on its own, so one failing request never blocks installation.
@@ -32,7 +40,7 @@ self.addEventListener('fetch', (e) => {
           }
           return res
         })
-        .catch(async () => (await caches.match(req)) || (await caches.match(url.pathname.startsWith('/nl/') ? '/nl/' : '/'))),
+        .catch(async () => (await caches.match(req, { ignoreSearch: true })) || (await caches.match(url.pathname.startsWith('/nl/') ? '/nl/' : '/'))),
     )
     return
   }

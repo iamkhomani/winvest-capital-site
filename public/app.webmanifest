@@ -2,11 +2,10 @@
   "id": "/",
   "name": "Winvest Capital",
   "short_name": "Winvest",
-  "description": "Smart Money Concepts trading community, guides, economic calendar and lot size calculator.",
+  "description": "Free trading tools and community: markets, portfolio tracker, trading journal, DeFi scanner, lot size calculator, economic calendar and Smart Money Concepts lessons.",
   "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#0a0a0b",
   "theme_color": "#0a0a0b",
   "lang": "en",
@@ -36,6 +35,38 @@
   ],
   "shortcuts": [
     {
+      "name": "Markets",
+      "url": "/markets/?source=pwa",
+      "icons": [
+        {
+          "src": "/app-icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Trading journal",
+      "short_name": "Journal",
+      "url": "/trading-journal/?source=pwa",
+      "icons": [
+        {
+          "src": "/app-icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Portfolio tracker",
+      "short_name": "Portfolio",
+      "url": "/portfolio/?source=pwa",
+      "icons": [
+        {
+          "src": "/app-icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
       "name": "Lot size calculator",
       "short_name": "Calculator",
       "url": "/lot-size-calculator/?source=pwa",
@@ -45,26 +76,13 @@
           "sizes": "192x192"
         }
       ]
-    },
-    {
-      "name": "Learn",
-      "url": "/learn/?source=pwa",
-      "icons": [
-        {
-          "src": "/app-icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "Nederlands",
-      "url": "/nl/?source=pwa",
-      "icons": [
-        {
-          "src": "/app-icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
     }
-  ]
+  ],
+  "launch_handler": {
+    "client_mode": [
+      "navigate-existing",
+      "auto"
+    ]
+  },
+  "prefer_related_applications": false
 }

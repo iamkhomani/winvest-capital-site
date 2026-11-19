@@ -1,6 +1,6 @@
 const en = {
-  metaTitle: 'Free forex trading journal: P/L, win rate, R:R and psychology | Winvest Capital',
-  description: 'A free forex trading journal that runs in your browser: balance vs equity, P/L per day, week, month and year, win rate, profit factor, R:R, drawdown, calendar, pair analytics, risk and psychology reports. CSV, MT4, MT5 and cTrader import. Nothing is stored on our servers.',
+  metaTitle: 'Free Trading Journal: P/L, Win Rate & R:R | Winvest Capital',
+  description: 'Free forex trading journal in your browser: P/L per day, week and month, win rate, profit factor, R:R, drawdown and psychology. Import from MT4, MT5 and cTrader.',
   h1: 'Trading journal',
   intro: 'Log your forex trades, see what really works and where your discipline slips. Everything is stored only in this browser on this device. Export regularly to keep a backup.',
   tabs: { dash: 'Dashboard', trades: 'Trades', calendar: 'Calendar', analytics: 'Analytics', risk: 'Risk', psych: 'Psychology', accounts: 'Accounts', import: 'Import', settings: 'Settings & backup' },
@@ -98,8 +98,8 @@ type Copy = typeof en
 
 const nl: Copy = {
   ...en,
-  metaTitle: 'Gratis forex trading journal: W/V, win rate, R:R en psychologie | Winvest Capital',
-  description: 'Een gratis forex trading journal dat in je browser draait: balance vs equity, W/V per dag, week, maand en jaar, win rate, profit factor, R:R, drawdown, kalender, analyse per pair, risico- en psychologierapport. Import uit CSV, MT4, MT5 en cTrader. Niets wordt op onze servers opgeslagen.',
+  metaTitle: 'Gratis trading journal: W/V, win rate en R:R | Winvest Capital',
+  description: 'Gratis forex trading journal in je browser: W/V per dag, week en maand, win rate, profit factor, R:R, drawdown en psychologie. Import uit MT4, MT5 en cTrader.',
   h1: 'Trading journal',
   intro: 'Leg je forex trades vast, zie wat echt werkt en waar je discipline wegzakt. Alles wordt alleen in deze browser op dit apparaat opgeslagen. Exporteer regelmatig voor een back-up.',
   tabs: { dash: 'Dashboard', trades: 'Trades', calendar: 'Kalender', analytics: 'Analyse', risk: 'Risico', psych: 'Psychologie', accounts: 'Accounts', import: 'Importeren', settings: 'Instellingen & back-up' },

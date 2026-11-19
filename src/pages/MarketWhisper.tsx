@@ -32,8 +32,8 @@ const SHOWCASE: Showcase[] = [
 
 export const whisperCopy = {
   en: {
-    metaTitle: 'Market Whisper AI: your AI market assistant in Discord | Winvest Capital',
-    description: 'Market Whisper AI is the AI bot of the Winvest Capital Discord: news, FX calendar events, a lot size calculator and your member card for free. One Percent Club members also get interactive conversations, market analysis and fundamental analysis.',
+    metaTitle: 'Market Whisper AI: AI Market Assistant | Winvest Capital',
+    description: 'Market Whisper AI is the AI bot in the Winvest Capital Discord: free news, FX calendar events, lot size calculator and member card. More in the One Percent Club.',
     badge: 'Built by Winvest Capital',
     h1: 'Your AI market assistant, right inside Discord',
     intro: 'Market Whisper AI lives in the Winvest Capital Discord. It brings the news, the events that move the markets and your risk tools to the place where the community already talks markets. One Percent Club members can also ask it anything about the markets and get analysis on crypto and stocks.',
@@ -70,8 +70,8 @@ export const whisperCopy = {
     note: 'Market Whisper AI output is for educational purposes only and is not financial advice.',
   },
   nl: {
-    metaTitle: 'Market Whisper AI: je AI-marktassistent in Discord | Winvest Capital',
-    description: 'Market Whisper AI is de AI-bot van de Winvest Capital Discord: gratis nieuws, FX-kalenderevents, een lotgrootte-calculator en je member card. Leden van de One Percent Club krijgen ook interactieve gesprekken, marktanalyse en fundamentele analyse.',
+    metaTitle: 'Market Whisper AI: AI-marktassistent | Winvest Capital',
+    description: 'Market Whisper AI is de AI-bot in de Winvest Capital Discord: gratis nieuws, FX-kalenderevents, lotgrootte-calculator en member card. Meer in de One Percent Club.',
     badge: 'Gebouwd door Winvest Capital',
     h1: 'Je AI-marktassistent, gewoon in Discord',
     intro: 'Market Whisper AI zit in de Winvest Capital Discord. Hij brengt het nieuws, de events die de markten bewegen en je risicotools naar de plek waar de community al over de markten praat. Leden van de One Percent Club kunnen hem ook alles vragen over de markten en krijgen analyses van crypto en aandelen.',

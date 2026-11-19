@@ -6,8 +6,8 @@ import { paths } from '../paths'
 
 export const marketsCopy = {
   en: {
-    metaTitle: 'Markets: top 50 crypto and popular stocks, live | Winvest Capital',
-    description: 'Live overview of the top 50 cryptocurrencies by market cap and the most popular stocks and indices. Prices, 1h, 24h and 7d change, market cap, volume and a stock heatmap.',
+    metaTitle: 'Live Crypto & Stock Prices: Top 50 | Winvest Capital',
+    description: 'Live prices of the top 50 cryptocurrencies and popular stocks and indices: 1h, 24h and 7d change, market cap, volume and a stock heatmap. Free, no account.',
     h1: 'Markets',
     intro: 'Live prices of the top 50 cryptocurrencies and the most popular stocks and indices. Crypto data refreshes every minute.',
     crypto: 'Top 50 crypto',
@@ -29,8 +29,8 @@ export const marketsCopy = {
     ctaBtn: 'Join the free Discord',
   },
   nl: {
-    metaTitle: 'Markten: top 50 crypto en populaire aandelen, live | Winvest Capital',
-    description: 'Live overzicht van de top 50 cryptocurrencies op market cap en de populairste aandelen en indices. Prijzen, verandering over 1u, 24u en 7d, market cap, volume en een aandelen-heatmap.',
+    metaTitle: 'Live koersen: top 50 crypto en aandelen | Winvest Capital',
+    description: 'Live koersen van de top 50 cryptocurrencies en populaire aandelen en indices: verandering over 1u, 24u en 7d, market cap, volume en een aandelen-heatmap.',
     h1: 'Markten',
     intro: 'Live prijzen van de top 50 cryptocurrencies en de populairste aandelen en indices. De cryptodata wordt elke minuut ververst.',
     crypto: 'Top 50 crypto',

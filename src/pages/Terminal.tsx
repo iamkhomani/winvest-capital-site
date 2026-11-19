@@ -6,7 +6,7 @@ import { paths } from '../paths'
 export const terminalCopy = {
   en: {
     metaTitle: 'Winvest Terminal: Smart Money Concepts charts | Winvest Capital',
-    description: 'Winvest Terminal is the charting website from Winvest Capital. Market structure, BOS, CHOCH and inducement on the chart, plus the Winvest trade playbook with a setup grade for 51 markets.',
+    description: 'Winvest Terminal: Smart Money Concepts charts with market structure, BOS, CHoCH and inducement, plus a trade playbook with a setup grade for 51 markets.',
     h1: 'Winvest Terminal',
     intro: 'Smart Money Concepts on the chart, in your browser. Winvest Terminal maps market structure for you and shows where each market stands in the Winvest trade playbook, so you can study setups without drawing them by hand.',
     soon: 'Coming soon',
@@ -49,7 +49,7 @@ export const terminalCopy = {
   },
   nl: {
     metaTitle: 'Winvest Terminal: Smart Money Concepts charts | Winvest Capital',
-    description: 'Winvest Terminal is de chartwebsite van Winvest Capital. Marktstructuur, BOS, CHOCH en inducement op de chart, plus het Winvest trade playbook met een setup-score voor 51 markten.',
+    description: 'Winvest Terminal: Smart Money Concepts-charts met marktstructuur, BOS, CHoCH en inducement, plus een trade playbook met een setup-score voor 51 markten.',
     h1: 'Winvest Terminal',
     intro: 'Smart Money Concepts op de chart, in je browser. Winvest Terminal brengt de marktstructuur voor je in kaart en laat zien waar elke markt staat in het Winvest trade playbook, zodat je setups kunt bestuderen zonder alles zelf te tekenen.',
     soon: 'Binnenkort',
