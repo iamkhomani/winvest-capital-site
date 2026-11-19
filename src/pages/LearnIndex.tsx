@@ -12,7 +12,7 @@ export const learnCopy = {
   nl: {
     title: 'Leer traden: gratis lessen van de basis tot Smart Money Concepts',
     metaTitle: 'Leer traden: gratis lessen, van basis tot SMC | Winvest Capital',
-    description: 'Gratis tradingcursus in 12 lessen: candlesticks, lots en pips, leverage en risicobeheer, daarna Smart Money Concepts zoals marktstructuur, FVG's en order blocks.',
+    description: 'Gratis tradingcursus in 12 lessen: candlesticks, lots en pips, leverage en risicobeheer, daarna Smart Money Concepts zoals marktstructuur, FVG’s en order blocks.',
     intro: 'Een gratis cursus in twaalf korte lessen. Elke les bouwt voort op de vorige, dus begin bij les 1 en werk naar beneden. Module 1 behandelt de basis die elke trader nodig heeft; module 2 leert je de Smart Money Concepts die we in de Winvest Capital community gebruiken.',
     lesson: 'Les',
   },

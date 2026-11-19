@@ -41,7 +41,7 @@ export const scannerCopy = {
   },
   nl: {
     metaTitle: 'DeFi-scanner: check tokens en wallets | Winvest Capital',
-    description: 'Gratis DeFi-scanner: check een token, smart contract of wallet op Ethereum, Solana, BNB Chain, Base, XRP Ledger en meer op scams, liquidity en contractrisico's.',
+    description: 'Gratis DeFi-scanner: check een token, smart contract of wallet op Ethereum, Solana, BNB Chain, Base, XRP Ledger en meer op scams, liquidity en contractrisico’s.',
     h1: 'DeFi-scanner',
     intro: 'Zoek een token op naam of ticker, of plak een contractadres, walletadres of transactie-hash. We halen live data direct op van de blockchains en DEX’en.',
     placeholder: 'Tokennaam, ticker, contract, wallet of tx-hash',
