@@ -65,7 +65,7 @@ export function navGroups(lang: Lang): NavGroup[] {
       label: nl ? 'Community en leren' : 'Community and learning',
       items: [
         { label: nl ? 'Discord (gratis)' : 'Discord (free)', href: DISCORD_URL, icon: 'discord', external: true, hint: nl ? 'Word gratis lid' : 'Join for free' },
-        { label: nl ? 'Gratis lessen' : 'Free lessons', href: p.learn, icon: 'learn', hint: nl ? `${ARTICLE_IDS.length} lessen, van de basis tot SMC` : `${ARTICLE_IDS.length} lessons, from basics to SMC`, free: true },
+        { label: nl ? 'Gratis lessen' : 'Free lessons', href: p.learn, icon: 'learn', hint: nl ? `${ARTICLE_IDS.length} lessen, van de basis tot SMC` : `${ARTICLE_IDS.length} lessons, from the basics to SMC`, free: true },
         { label: 'Partners', href: p.partners, icon: 'partners', hint: nl ? 'Exchanges en tools die we gebruiken' : 'Exchanges and tools we use' },
       ],
     },
@@ -77,8 +77,8 @@ export function navGroups(lang: Lang): NavGroup[] {
         { label: 'Portfolio tracker', href: p.portfolio, icon: 'portfolio', hint: nl ? 'Je beleggingen op één plek' : 'All your holdings in one place', free: true },
         { label: 'Trading journal', href: p.journal, icon: 'journal', hint: nl ? 'Leg je trades vast en leer ervan' : 'Log your trades and learn from them', free: true },
         { label: nl ? 'DeFi-scanner' : 'DeFi scanner', href: p.scanner, icon: 'scan', hint: nl ? 'Controleer tokens en wallets op risico’s' : 'Check tokens and wallets for risk', free: true },
-        { label: nl ? 'Lotgrootte-calculator' : 'Lot size calculator', href: p.calculator, icon: 'calc', hint: nl ? 'Bereken je positie op basis van je risico' : 'Position size from your risk', free: true },
-        { label: nl ? 'Economische kalender' : 'Economic calendar', href: p.home + '#calendar', icon: 'calendar', hint: nl ? 'Cijfers en besluiten die de markt bewegen' : 'Events that move the market', free: true },
+        { label: nl ? 'Lotgrootte-calculator' : 'Lot size calculator', href: p.calculator, icon: 'calc', hint: nl ? 'Bereken je positie op basis van je risico' : 'Size positions to your risk', free: true },
+        { label: nl ? 'Economische kalender' : 'Economic calendar', href: p.home + '#calendar', icon: 'calendar', hint: nl ? 'Cijfers en besluiten die de markt bewegen' : 'Data and decisions that move markets', free: true },
       ],
     },
   ]

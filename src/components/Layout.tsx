@@ -151,7 +151,7 @@ function Sidebar({ lang }: { lang: Lang }) {
       <div className="wc-side-label shrink-0 border-t border-white/10 p-3">
         <a href={paths[lang].products} className="block rounded-2xl border border-[var(--wc-red)]/40 bg-[var(--wc-red)]/[0.08] p-4 transition hover:border-[var(--wc-red)]/70">
           <p className="text-sm font-bold">One Percent Club</p>
-          <p className="mt-1 text-xs text-white/60">{nl ? `Volledige toegang tot Market Whisper AI, voor eenmalig ${PRICE}.` : `Full access to Market Whisper AI. ${PRICE} one-time.`}</p>
+          <p className="mt-1 text-xs text-white/60">{nl ? `Volledige toegang tot Market Whisper AI, voor eenmalig ${PRICE}.` : `Full access to Market Whisper AI for a one-time ${PRICE}.`}</p>
           <span className="mt-3 inline-block rounded-full bg-[var(--wc-red)] px-3 py-1.5 text-xs font-semibold text-white">{nl ? 'Bekijk wat je krijgt' : 'See what you get'}</span>
         </a>
         <button type="button" data-install-app hidden className="mt-2 flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm text-white/70 transition hover:bg-white/[0.06] hover:text-white">
@@ -291,7 +291,7 @@ function MoreSheet({ lang, alternate, dialog }: { lang: Lang; alternate?: string
           </button>
         </section>
         <a href={DISCORD_URL} onClick={dialog.close} className="mt-4 block rounded-2xl bg-[var(--wc-red)] px-4 py-3 text-center text-[15px] font-semibold text-white">
-          {nl ? 'Word gratis lid van de Discord' : 'Join the Discord, free'}
+          {nl ? 'Word gratis lid van de Discord' : 'Join the Discord for free'}
         </a>
         <p className="mt-4 flex flex-wrap gap-x-4 gap-y-1 px-1 text-xs text-white/40">
           <a href={p.terms}>{nl ? 'Voorwaarden' : 'Terms'}</a>

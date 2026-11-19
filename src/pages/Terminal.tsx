@@ -25,9 +25,9 @@ export const terminalCopy = {
     featuresH: 'What it shows',
     features: [
       'Swing labels: HH, HL, LH and LL',
-      'Break of structure (BOS) and change of character (CHOCH)',
+      'Break of structure (BOS) and change of character (CHoCH)',
       'Inducement (IDM), live IDM and liquidity sweeps',
-      'Support and Resistance that move with the new leg after a BOS or CHOCH, and with a sweep until a candle body breaks it',
+      'Support and Resistance that move with the new leg after a BOS or CHoCH, and with a sweep until a candle body breaks it',
       'SCOB rectangles and inside bars',
       'Optional 50 and 200 EMAs',
     ],
@@ -68,9 +68,9 @@ export const terminalCopy = {
     featuresH: 'Wat je ziet',
     features: [
       'Swinglabels: HH, HL, LH en LL',
-      'Break of structure (BOS) en change of character (CHOCH)',
+      'Break of structure (BOS) en change of character (CHoCH)',
       'Inducement (IDM), live IDM en liquidity sweeps',
-      'Support en Resistance die meebewegen met de nieuwe leg na een BOS of CHOCH, en met een sweep tot een candle-body erdoorheen breekt',
+      'Support en Resistance die meebewegen met de nieuwe leg na een BOS of CHoCH, en met een sweep tot een candle-body erdoorheen breekt',
       'SCOB-rechthoeken en inside bars',
       'Optionele 50 en 200 EMA',
     ],
