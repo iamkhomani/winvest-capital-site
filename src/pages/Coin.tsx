@@ -106,7 +106,7 @@ const copy = {
     devNote: 'Activity in the main public repository on GitHub. Work in private or other repositories is not counted.',
     exchanges: 'Where it trades',
     showEx: 'Show exchanges',
-    exNote: 'Largest markets by 24h volume, from CoinGecko. Not a recommendation. Our own partners are on the',
+    exNote: 'Largest markets by 24h volume on exchanges with a high CoinGecko trust score. Not a recommendation. Our own partners are on the',
     partners: 'partners page',
     pair: 'Pair',
     exVol: 'Volume 24h',
@@ -173,7 +173,7 @@ const copy = {
     devNote: 'Activiteit in de belangrijkste openbare repository op GitHub. Werk in privé- of andere repositories telt niet mee.',
     exchanges: 'Waar het verhandeld wordt',
     showEx: 'Toon exchanges',
-    exNote: 'Grootste markten op volume over 24 uur, volgens CoinGecko. Geen aanbeveling. Onze eigen partners staan op de',
+    exNote: 'Grootste markten op volume over 24 uur, bij exchanges met een hoge CoinGecko-trustscore. Geen aanbeveling. Onze eigen partners staan op de',
     partners: 'partnerpagina',
     pair: 'Paar',
     exVol: 'Volume 24u',
@@ -235,7 +235,8 @@ function DefiCard({ id, lang }: { id: string; lang: Lang }) {
     let alive = true
     ;(async () => {
       const map = await json<Record<string, { slug: string; category: string }>>('/data/llama.json').catch(() => ({}) as Record<string, { slug: string; category: string }>)
-      const p = map[id]
+      // Foundations and treasuries are listed by DefiLlama too, but their 'TVL' is a treasury, not usage.
+      const p = map[id] && !/foundation|treasury/i.test(map[id].category) ? map[id] : undefined
       const out: { tvl?: number; chainTvl?: number; f24?: number; f30?: number; category?: string } = {}
       if (p) {
         out.category = p.category
@@ -317,7 +318,7 @@ function DevCard({ github, lang }: { github?: string; lang: Lang }) {
 
 /* ---------- Exchanges (CoinGecko tickers, on request to spare the rate limit) ---------- */
 
-type Ticker = { base: string; target: string; market: { name: string }; converted_volume: { usd: number }; trade_url: string | null; is_stale: boolean; is_anomaly: boolean }
+type Ticker = { base: string; target: string; market: { name: string }; converted_volume: { usd: number }; trade_url: string | null; is_stale: boolean; is_anomaly: boolean; trust_score: string | null }
 
 function Exchanges({ id, lang }: { id: string; lang: Lang }) {
   const c = copy[lang]
@@ -328,7 +329,7 @@ function Exchanges({ id, lang }: { id: string; lang: Lang }) {
     json<{ tickers: Ticker[] }>(`${CG}/coins/${id}/tickers?include_exchange_logo=false&order=volume_desc&depth=false`)
       .then((r) => {
         const seen = new Set<string>()
-        const list = r.tickers.filter((t) => !t.is_stale && !t.is_anomaly && !seen.has(t.market.name) && seen.add(t.market.name)).slice(0, 10)
+        const list = r.tickers.filter((t) => t.trust_score === 'green' && !t.is_stale && !t.is_anomaly && !seen.has(t.market.name) && seen.add(t.market.name)).slice(0, 10)
         setRows(list)
         setState('idle')
       })
