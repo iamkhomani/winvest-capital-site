@@ -11,6 +11,7 @@ import { usePageData } from '../pageData'
 import { paths } from '../paths'
 import { usd, usdBig } from '../markets/pulse'
 import { cardBase } from '../components/kit'
+import WatchStar from '../shared/WatchStar'
 
 /** Static facts, from the snapshot (prerendered pages) or from the live CoinGecko answer. */
 export type CoinFacts = {
@@ -594,6 +595,7 @@ export default function Coin({ lang, id: fixedId }: { lang: Lang; id?: string })
                   {f.name} <span className="text-white/45">{f.symbol}</span>
                 </h1>
                 {m?.rank ? <p className="text-sm text-white/50">{c.rank(m.rank)}</p> : null}
+                <div className="mt-2"><WatchStar size="md" lang={lang} item={{ key: `crypto:${f.id}`, kind: 'crypto', symbol: f.symbol, name: f.name, id: f.id, image: f.image }} /></div>
               </div>
               <div className="text-right">
                 <p className="text-3xl font-bold tabular-nums">{m ? usd(m.price) : dash}</p>

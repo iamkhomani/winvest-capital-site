@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { DISCORD_URL, PRICE, SOCIALS } from '../config'
 import { articles } from '../content/articles'
+import { COIN_INDEX, coinHref } from '../markets/coins'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import { Icon, isActive, navGroups, tabItems, useCurrentPath } from './nav'
@@ -175,7 +176,29 @@ function SearchDialog({ lang, dialog }: { lang: Lang; dialog: ReturnType<typeof 
     return [...pages, ...lessons]
   }, [lang, nl])
   const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
-  const hits = q.trim() ? all.filter((i) => norm(`${i.label} ${i.hint ?? ''} ${i.group}`).includes(norm(q.trim()))) : all.slice(0, 12)
+  const term = norm(q.trim())
+  // Coins: the top 100 instantly (symbol or name), others from CoinGecko search while typing
+  const coinItem = (c: { id: string; name: string; symbol: string; rank?: number | null }) => ({ label: `${c.name} (${c.symbol.toUpperCase()})`, href: coinHref(lang, c.id), icon: 'markets' as const, hint: c.rank ? `#${c.rank}` : undefined, group: 'Crypto', external: false })
+  const localCoins = term
+    ? COIN_INDEX.filter((c) => norm(c.symbol) === term || norm(c.name).startsWith(term) || (term.length > 2 && norm(c.name).includes(term)))
+        .sort((a, b) => (norm(b.symbol) === term ? 1 : 0) - (norm(a.symbol) === term ? 1 : 0) || a.rank - b.rank)
+        .slice(0, 6)
+        .map(coinItem)
+    : []
+  const [remote, setRemote] = useState<ReturnType<typeof coinItem>[]>([])
+  useEffect(() => {
+    setRemote([])
+    if (term.length < 2 || localCoins.length >= 4) return
+    const t = setTimeout(() => {
+      fetch(`https://api.coingecko.com/api/v3/search?query=${encodeURIComponent(term)}`, { signal: AbortSignal.timeout(8000) })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((j: { coins?: { id: string; name: string; symbol: string; market_cap_rank: number | null }[] } | null) => setRemote((j?.coins ?? []).slice(0, 5).map((c) => coinItem({ ...c, rank: c.market_cap_rank }))))
+        .catch(() => setRemote([]))
+    }, 350)
+    return () => clearTimeout(t)
+  }, [term]) // eslint-disable-line react-hooks/exhaustive-deps
+  const coins = [...localCoins, ...remote.filter((r) => !localCoins.some((l) => l.href === r.href))].slice(0, 6)
+  const hits = term ? [...coins, ...all.filter((i) => norm(`${i.label} ${i.hint ?? ''} ${i.group}`).includes(term))] : all.slice(0, 12)
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -209,7 +232,7 @@ function SearchDialog({ lang, dialog }: { lang: Lang; dialog: ReturnType<typeof 
           inputMode="search"
           autoComplete="off"
           enterKeyHint="go"
-          placeholder={nl ? 'Zoek een tool, pagina of les' : 'Search a tool, page or lesson'}
+          placeholder={nl ? 'Zoek een munt, tool of les' : 'Search a coin, tool or lesson'}
           aria-label={nl ? 'Zoekterm' : 'Search term'}
           className="h-14 min-w-0 flex-1 bg-transparent text-base text-white outline-none placeholder:text-white/40"
         />
@@ -363,7 +386,7 @@ export default function Layout({ lang, alternate, bare, children }: Props) {
               className="hidden h-10 w-full max-w-sm items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] px-4 text-sm text-white/45 transition hover:border-white/25 hover:text-white/70 lg:flex"
             >
               <Icon name="search" size={17} />
-              <span className="flex-1 text-left">{nl ? 'Zoek een tool, pagina of les' : 'Search a tool, page or lesson'}</span>
+              <span className="flex-1 text-left">{nl ? 'Zoek een munt, tool of les' : 'Search a coin, tool or lesson'}</span>
               <kbd className="rounded-md border border-white/15 px-1.5 py-0.5 font-sans text-[11px] text-white/40">Ctrl K</kbd>
             </button>
             <div className="flex shrink-0 items-center gap-2 sm:gap-3">

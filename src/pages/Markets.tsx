@@ -7,6 +7,7 @@ import { topCoins } from '../markets/pulse'
 import type { Coin } from '../markets/pulse'
 import { MarketOverview, coinHref } from '../markets/Overview'
 import { btn, PageHeader, pageWrap, tabCls } from '../components/kit'
+import WatchStar from '../shared/WatchStar'
 
 export const marketsCopy = {
   en: {
@@ -144,6 +145,7 @@ function CryptoTable({ lang }: { lang: Lang }) {
                   <td className="hidden px-3 py-2.5 text-white/45 sm:table-cell">{x.market_cap_rank}</td>
                   <td className="px-3 py-2.5">
                     <span className="flex items-center gap-2.5">
+                      <WatchStar lang={lang} item={{ key: `crypto:${x.id}`, kind: 'crypto', symbol: x.symbol.toUpperCase(), name: x.name, id: x.id, image: x.image }} />
                       <img src={x.image} alt="" width={22} height={22} loading="lazy" className="size-[22px] rounded-full" />
                       <a href={coinHref(lang, x.id)} className="font-semibold hover:text-[var(--wc-red-soft)] hover:underline">{x.name}</a>
                       <span className="hidden text-xs uppercase text-white/45 sm:inline">{x.symbol}</span>

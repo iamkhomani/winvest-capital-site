@@ -14,6 +14,7 @@ import type { Asset, Currency, PortfolioData, PortfolioIndex, PortfolioMeta, Tx 
 import { Card, PageHeader, btn, pageWrap, tabCls } from '../components/kit'
 import { useWatchlists } from '../shared/watchlist'
 import type { WatchItem } from '../shared/watchlist'
+import { coinHref } from '../markets/coins'
 
 // EvilCharts (Recharts) only downloads when the portfolio overview is shown.
 const ValueChart = lazy(() => import('../portfolio/Charts').then((m) => ({ default: m.ValueChart })))
@@ -217,13 +218,15 @@ const PALETTE = ['#FE0000', 'var(--wc-text)', '#F59E0B', '#34D399', '#60A5FA', '
 function Label({ children }: { children: ReactNode }) {
   return <div className="text-xs font-medium tracking-wide text-white/50 uppercase">{children}</div>
 }
-function AssetBadge({ a }: { a?: Asset }) {
+function AssetBadge({ a, lang }: { a?: Asset; lang?: Lang }) {
   if (!a) return <span>?</span>
+  // crypto names link to their coin page (stocks get pages later)
+  const href = lang && a.kind === 'crypto' ? coinHref(lang, a.id) : undefined
   return (
     <span className="flex min-w-0 items-center gap-2.5">
       {a.image ? <img src={a.image} alt="" width={22} height={22} className="size-[22px] shrink-0 rounded-full bg-white/10" /> : <span className="flex size-[22px] shrink-0 items-center justify-center rounded-full bg-white/10 text-[10px] font-bold">{a.symbol.slice(0, 3)}</span>}
       <span className="min-w-0">
-        <span className="block truncate font-semibold">{a.symbol}</span>
+        {href ? <a href={href} className="block truncate font-semibold hover:text-[var(--wc-red-soft)] hover:underline">{a.symbol}</a> : <span className="block truncate font-semibold">{a.symbol}</span>}
         <span className="block truncate text-xs text-white/45">{a.name}</span>
       </span>
     </span>
@@ -1071,7 +1074,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
                   const a = data.assets[h.key]
                   return (
                     <tr key={h.key} className="hover:bg-white/[0.03]">
-                      <td className="px-3 py-2.5"><AssetBadge a={a ? { ...a, image: a.image ?? q[h.key]?.image } : undefined} /></td>
+                      <td className="px-3 py-2.5"><AssetBadge lang={lang} a={a ? { ...a, image: a.image ?? q[h.key]?.image } : undefined} /></td>
                       <td className="px-3 py-2.5 text-right tabular-nums">{fmtNum(h.qty, lang)}</td>
                       <td className="px-3 py-2.5 text-right tabular-nums text-white/70">{fmtMoney(h.avg, base, lang)}</td>
                       <td className="px-3 py-2.5 text-right tabular-nums">
@@ -1241,7 +1244,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
                   const qt = q[k]
                   return (
                     <li key={k} className="flex items-center justify-between gap-3 px-4 py-3">
-                      <AssetBadge a={a ? { ...a, image: a.image ?? qt?.image } : undefined} />
+                      <AssetBadge lang={lang} a={a ? { ...a, image: a.image ?? qt?.image } : undefined} />
                       <span className="ml-auto text-right">
                         <span className="block font-semibold tabular-nums">{qt ? fmtMoney(qt.price, base, lang) : '–'}</span>
                         <span className={`block text-xs tabular-nums ${tone(qt?.change24h)}`}>{fmtPct(qt?.change24h)} · 24h</span>
