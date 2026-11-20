@@ -7,7 +7,7 @@ import { terminalHref } from '../components/nav'
 export const terminalCopy = {
   en: {
     metaTitle: 'Winvest Terminal: Smart Money Concepts charts | Winvest Capital',
-    description: 'Winvest Terminal: Smart Money Concepts charts with market structure, BOS, CHoCH and inducement, plus a trade playbook with a setup grade for 71 markets.',
+    description: 'Winvest Terminal: Smart Money Concepts charts with market structure, BOS, CHoCH and inducement, plus a trade playbook with a setup grade for 100 markets.',
     h1: 'Winvest Terminal',
     intro: 'Smart Money Concepts on the chart, in your browser. Winvest Terminal maps market structure for you and shows where each market stands in the Winvest trade playbook, so you can study setups without drawing them by hand.',
     soon: 'Coming soon',
@@ -37,11 +37,11 @@ export const terminalCopy = {
       ['Playbook panel', 'Shows which scenario, path and step of the playbook the chart is in, and what that step looks for. Until the inducement is taken out, it tells you to wait and shows the IDM level.'],
       ['Setup grade', 'A score out of 100 with the checklist behind it: trend, higher timeframe and where price sits in its range, BOS with candle closure, IDM taken out, SCOB confirmation, the 0.764 entry level, and how often the market sweeps its levels.'],
       ['Decisional and extreme POI', 'The unmitigated order blocks in the range that the playbook works with, marked on the chart.'],
-      ['Markets panel', 'All 71 markets sorted by grade on the timeframe you have open. One click opens the chart.'],
+      ['Markets panel', 'All 100 markets sorted by grade on the timeframe you have open. One click opens the chart.'],
     ],
     accessH: 'How it works',
     access: [
-      ['Crypto, forex, gold, silver and stocks', '71 markets on timeframes from 5 minutes to 1 month. The chart refreshes every minute.'],
+      ['Crypto, forex, gold, silver and stocks', '100 markets on timeframes from 5 minutes to 1 month. The chart refreshes every minute.'],
       ['Nothing to install', 'It runs in your browser on desktop and phone.'],
       ['Log in with your email', 'No password. You get a one-time code by email.'],
     ],
@@ -50,7 +50,7 @@ export const terminalCopy = {
   },
   nl: {
     metaTitle: 'Winvest Terminal: Smart Money Concepts charts | Winvest Capital',
-    description: 'Winvest Terminal: Smart Money Concepts-charts met marktstructuur, BOS, CHoCH en inducement, plus een trade playbook met een setup-score voor 71 markten.',
+    description: 'Winvest Terminal: Smart Money Concepts-charts met marktstructuur, BOS, CHoCH en inducement, plus een trade playbook met een setup-score voor 100 markten.',
     h1: 'Winvest Terminal',
     intro: 'Smart Money Concepts op de chart, in je browser. Winvest Terminal brengt de marktstructuur voor je in kaart en laat zien waar elke markt staat in het Winvest trade playbook, zodat je setups kunt bestuderen zonder alles zelf te tekenen.',
     soon: 'Binnenkort',
@@ -80,11 +80,11 @@ export const terminalCopy = {
       ['Playbook-paneel', 'Laat zien in welk scenario, pad en welke stap van het playbook de chart staat, en waar die stap op let. Zolang de inducement niet is genomen, zegt het paneel dat je moet wachten en toont het de IDM.'],
       ['Setup-score', 'Een score van 0 tot 100 met de checklist erachter: trend, hogere timeframe en waar de prijs in die range staat, BOS met candle closure, IDM genomen, SCOB-bevestiging, het 0.764-entryniveau en hoe vaak de markt zijn niveaus sweept.'],
       ['Decisional en extreme POI', 'De onaangetaste orderblocks in de range waar het playbook mee werkt, gemarkeerd op de chart.'],
-      ['Markets-paneel', 'Alle 71 markten gesorteerd op score voor de timeframe die je open hebt. Met één klik open je de chart.'],
+      ['Markets-paneel', 'Alle 100 markten gesorteerd op score voor de timeframe die je open hebt. Met één klik open je de chart.'],
     ],
     accessH: 'Hoe het werkt',
     access: [
-      ['Crypto, forex, goud, zilver en aandelen', '71 markten op timeframes van 5 minuten tot 1 maand. De chart ververst elke minuut.'],
+      ['Crypto, forex, goud, zilver en aandelen', '100 markten op timeframes van 5 minuten tot 1 maand. De chart ververst elke minuut.'],
       ['Niets te installeren', 'Het werkt in je browser, op desktop en telefoon.'],
       ['Inloggen met je e-mail', 'Geen wachtwoord. Je krijgt een eenmalige code per e-mail.'],
     ],

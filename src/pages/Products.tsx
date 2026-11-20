@@ -28,7 +28,7 @@ export const productsCopy = {
     terminal: {
       tag: 'Charts',
       text: 'Smart Money Concepts mapped on the chart, in your browser.',
-      items: ['Market structure, BOS, CHoCH and inducement', 'Trade playbook panel with a setup grade out of 100', 'Markets panel: all markets sorted by grade', 'Decisional and extreme POI, Support and Resistance', '71 markets, nothing to install'],
+      items: ['Market structure, BOS, CHoCH and inducement', 'Trade playbook panel with a setup grade out of 100', 'Markets panel: all markets sorted by grade', 'Decisional and extreme POI, Support and Resistance', '100 markets, nothing to install'],
     },
     separate: 'Winvest Terminal and the One Percent Club are separate products, so joining one does not include the other.',
     startH: 'Not sure yet?',
@@ -60,7 +60,7 @@ export const productsCopy = {
     terminal: {
       tag: 'Charts',
       text: 'Smart Money Concepts op de chart, in je browser.',
-      items: ['Marktstructuur, BOS, CHoCH en inducement', 'Playbook-paneel met een setup-score van 0 tot 100', 'Markets-paneel: alle markten gesorteerd op score', 'Decisional en extreme POI, Support en Resistance', '71 markten, niets te installeren'],
+      items: ['Marktstructuur, BOS, CHoCH en inducement', 'Playbook-paneel met een setup-score van 0 tot 100', 'Markets-paneel: alle markten gesorteerd op score', 'Decisional en extreme POI, Support en Resistance', '100 markten, niets te installeren'],
     },
     separate: 'Winvest Terminal en de One Percent Club zijn losse producten: het een zit niet bij het ander inbegrepen.',
     startH: 'Twijfel je nog?',

@@ -14,7 +14,7 @@ const copy = {
   en: {
     title: 'Winvest Terminal',
     loading: 'Opening Winvest Terminal…',
-    intro: 'Smart Money Concepts on the chart: market structure, BOS, CHoCH and inducement drawn for you, with the Winvest trade playbook and a setup grade for 71 markets.',
+    intro: 'Smart Money Concepts on the chart: market structure, BOS, CHoCH and inducement drawn for you, with the Winvest trade playbook and a setup grade for 100 markets.',
     shot: 'Winvest Terminal in the dark theme, with the markets list, the playbook panel and the chart',
     points: ['Crypto, forex, gold, silver and stocks, from 5 minutes to 1 month', 'Every market graded from 0 to 100 against the playbook', 'Nothing to install: works on your phone and computer'],
     p: 'Members log in with a code sent by email and come straight back here.',
@@ -24,7 +24,7 @@ const copy = {
   nl: {
     title: 'Winvest Terminal',
     loading: 'Winvest Terminal wordt geopend…',
-    intro: 'Smart Money Concepts op de chart: marktstructuur, BOS, CHoCH en inducement worden voor je getekend, met het Winvest trade playbook en een setup-score voor 71 markten.',
+    intro: 'Smart Money Concepts op de chart: marktstructuur, BOS, CHoCH en inducement worden voor je getekend, met het Winvest trade playbook en een setup-score voor 100 markten.',
     shot: 'Winvest Terminal in het donkere thema, met de lijst met markten, het playbook-paneel en de chart',
     points: ['Crypto, forex, goud, zilver en aandelen, van 5 minuten tot 1 maand', 'Elke markt krijgt een score van 0 tot 100 volgens het playbook', 'Niets te installeren: werkt op je telefoon en computer'],
     p: 'Leden loggen in met een code per e-mail en komen daarna direct hier terug.',
