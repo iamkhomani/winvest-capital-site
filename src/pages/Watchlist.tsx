@@ -14,6 +14,10 @@ import type { Asset, Currency } from '../portfolio/store'
 import { AssetBadge, AssetSearch } from '../shared/AssetPicker'
 import { exportAll, importAll } from '../shared/backup'
 import { useWatchlists } from '../shared/watchlist'
+import type { WatchItem } from '../shared/watchlist'
+import { newAlertId, useAlerts } from '../shared/alerts'
+import type { AlertKind, PriceAlert } from '../shared/alerts'
+import { alertText } from '../components/AlertWatcher'
 import DataStamp from '../markets/DataStamp'
 
 export const watchlistCopy = {
@@ -39,6 +43,21 @@ export const watchlistCopy = {
     importBad: 'This file is not a Winvest backup.',
     confirm: 'Restoring replaces the same data on this device with what is in the file. Continue?',
     made: (kb: number) => `Backup downloaded (${kb} KB).`,
+    alertBtn: 'Alert',
+    alertsH: 'Price alerts',
+    alertsP: 'Checked every 2 minutes while a Winvest page or the app is open on this device. A closed browser cannot be woken, so do not rely on alerts for urgent decisions.',
+    above: 'Price above',
+    below: 'Price below',
+    move: 'Moves more than (24h, %)',
+    save: 'Set alert',
+    none: 'No alerts yet. Tap “Alert” next to an asset.',
+    active: 'active',
+    firedAt: (t: string) => `went off ${t}`,
+    del: 'Delete',
+    notifOn: 'Turn on notifications',
+    notifOk: 'Notifications are on for this browser.',
+    notifBlocked: 'Notifications are blocked in this browser; alerts show on the page instead.',
+    bad: 'Enter a number above 0.',
   },
   nl: {
     metaTitle: 'Gratis watchlist voor crypto en aandelen | Winvest Capital',
@@ -62,16 +81,61 @@ export const watchlistCopy = {
     importBad: 'Dit bestand is geen Winvest-back-up.',
     confirm: 'Terugzetten vervangt dezelfde gegevens op dit apparaat door wat in het bestand staat. Doorgaan?',
     made: (kb: number) => `Back-up gedownload (${kb} KB).`,
+    alertBtn: 'Alert',
+    alertsH: 'Prijsalerts',
+    alertsP: 'Elke 2 minuten gecontroleerd zolang een Winvest-pagina of de app open is op dit apparaat. Een gesloten browser kan niet worden gewekt, dus vertrouw niet op alerts voor dringende beslissingen.',
+    above: 'Prijs boven',
+    below: 'Prijs onder',
+    move: 'Beweegt meer dan (24u, %)',
+    save: 'Alert instellen',
+    none: 'Nog geen alerts. Tik op “Alert” naast een asset.',
+    active: 'actief',
+    firedAt: (t: string) => `afgegaan ${t}`,
+    del: 'Verwijderen',
+    notifOn: 'Meldingen aanzetten',
+    notifOk: 'Meldingen staan aan voor deze browser.',
+    notifBlocked: 'Meldingen zijn geblokkeerd in deze browser; alerts verschijnen dan op de pagina.',
+    bad: 'Vul een getal boven 0 in.',
   },
 }
 
 const money = (v: number, cur: Currency, lang: Lang) =>
   new Intl.NumberFormat(lang === 'nl' ? 'nl-NL' : 'en-US', { style: 'currency', currency: cur, maximumFractionDigits: v >= 1 ? 2 : 6 }).format(v)
-const pct = (v?: number) => (v === undefined || v === null ? '–' : (v >= 0 ? '+' : '') + v.toFixed(2) + '%')
+const pct = (v?: number, lang: Lang = 'en') => (v === undefined || v === null ? '–' : (v >= 0 ? '+' : '') + v.toFixed(2).replace('.', lang === 'nl' ? ',' : '.') + '%')
 const tone = (v?: number) => (v === undefined || v === null ? 'text-white/40' : v >= 0 ? 'text-emerald-400' : 'text-[var(--wc-red-soft)]')
 
 export function addHref(lang: Lang, a: { kind: string; id: string }) {
   return `${paths[lang].portfolio}?add=${encodeURIComponent(a.kind === 'stock' ? `stock:${a.id}` : a.id)}`
+}
+
+function AlertForm({ lang, item, price, base, onSave }: { lang: Lang; item: WatchItem; price?: number; base: Currency; onSave: (a: PriceAlert) => void }) {
+  const c = watchlistCopy[lang]
+  const [type, setType] = useState<AlertKind>('above')
+  const sig = (v: number) => String(Number(v.toPrecision(v >= 1 ? 6 : 4)))
+  const preset = (t: AlertKind) => (t === 'move' ? '5' : price ? sig(price * (t === 'above' ? 1.05 : 0.95)) : '')
+  const [value, setValue] = useState(preset('above'))
+  const [err, setErr] = useState(false)
+  const pick = (t: AlertKind) => { setType(t); setValue(preset(t)); setErr(false) }
+  const save = () => {
+    const v = parseFloat(value.replace(',', '.'))
+    if (!(v > 0)) return setErr(true)
+    onSave({ id: newAlertId(), key: item.key, kind: item.kind, assetId: item.id, symbol: item.symbol, name: item.name, type, value: v, currency: base, created: Date.now(), active: true })
+  }
+  return (
+    <div className="basis-full rounded-xl border border-white/10 bg-white/[0.03] p-3">
+      <div className="flex flex-wrap gap-1" role="radiogroup" aria-label={c.alertsH}>
+        {(['above', 'below', 'move'] as AlertKind[]).map((t) => (
+          <button key={t} type="button" role="radio" aria-checked={type === t} onClick={() => pick(t)} className={`rounded-full px-3 py-1.5 text-xs font-semibold ${type === t ? 'bg-white text-black' : 'border border-white/15 text-white/70 hover:text-white'}`}>{c[t]}</button>
+        ))}
+      </div>
+      <div className="mt-2 flex flex-wrap items-center gap-2">
+        <input inputMode="decimal" aria-label={c[type]} value={value} onChange={(e) => { setValue(e.target.value); setErr(false) }} className="w-36 rounded-xl border border-white/15 bg-white/[0.04] px-3 py-2 text-sm outline-none focus:border-[var(--wc-red)]" />
+        <span className="text-xs text-white/50">{type === 'move' ? '%' : base}</span>
+        <button type="button" onClick={save} className={btn('primary', 'sm')}>{c.save}</button>
+      </div>
+      {err ? <p className="mt-1 text-xs text-[var(--wc-red-soft)]">{c.bad}</p> : null}
+    </div>
+  )
 }
 
 export default function Watchlist({ lang }: { lang: Lang }) {
@@ -85,6 +149,15 @@ export default function Watchlist({ lang }: { lang: Lang }) {
   const [at, setAt] = useState<number | null>(null)
   const [msg, setMsg] = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
+  const A = useAlerts()
+  const [alertFor, setAlertFor] = useState<string | null>(null)
+  const [perm, setPerm] = useState<string>('default')
+  useEffect(() => {
+    if ('Notification' in window) setPerm(Notification.permission)
+    else setPerm('unsupported')
+    // fired alerts are seen once this page shows them
+    if (location.hash === '#alerts') A.set((l) => l.map((a) => ({ ...a, seen: true })))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
   const list = lists[Math.min(wl, Math.max(0, lists.length - 1))]
 
   useEffect(() => {
@@ -159,12 +232,14 @@ export default function Watchlist({ lang }: { lang: Lang }) {
                       <span className="min-w-0 flex-1"><AssetBadge lang={lang} a={{ ...it, image: it.image ?? qt?.image }} /></span>
                       <span className="text-right">
                         <span className="block font-semibold tabular-nums">{qt ? money(qt.price, base, lang) : '–'}</span>
-                        <span className={`block text-xs tabular-nums ${tone(qt?.change24h)}`}>{pct(qt?.change24h)} · 24{lang === 'nl' ? 'u' : 'h'}{qt?.stale ? ' · ⏱' : ''}</span>
+                        <span className={`block text-xs tabular-nums ${tone(qt?.change24h)}`}>{pct(qt?.change24h, lang)} · 24{lang === 'nl' ? 'u' : 'h'}{qt?.stale ? ' · ⏱' : ''}</span>
                       </span>
                       <span className="flex shrink-0 items-center gap-1">
+                        <button type="button" aria-expanded={alertFor === it.key} onClick={() => setAlertFor(alertFor === it.key ? null : it.key)} className={`rounded-full border px-2.5 py-1 text-xs hover:text-white ${(A.alerts ?? []).some((a) => a.key === it.key && a.active) ? 'border-amber-300/50 text-amber-300' : 'border-white/15 text-white/70 hover:border-white/40'}`}>🔔 {c.alertBtn}</button>
                         <a href={addHref(lang, it)} className="rounded-full border border-white/15 px-2.5 py-1 text-xs text-white/70 hover:border-[var(--wc-red)] hover:text-white">{c.toPortfolio}</a>
                         <button type="button" aria-label={c.remove(it.name)} title={c.remove(it.name)} onClick={() => W.set((ls) => ls.map((x, i) => (i === wl ? { ...x, items: x.items.filter((y) => y.key !== it.key) } : x)))} className="rounded-full px-2 py-1 text-white/40 hover:text-[var(--wc-red-soft)]">✕</button>
                       </span>
+                      {alertFor === it.key ? <AlertForm lang={lang} item={it} price={qt?.price} base={base} onSave={(a) => { A.set((l) => [...l, a]); setAlertFor(null) }} /> : null}
                     </li>
                   )
                 })}
@@ -184,6 +259,27 @@ export default function Watchlist({ lang }: { lang: Lang }) {
               )}
             </div>
           </>
+        ) : null}
+
+        {W.lists ? (
+          <section id="alerts" className="mt-10 scroll-mt-24">
+            <Card title={c.alertsH} desc={c.alertsP}>
+              <div className="mt-3 text-sm">
+                {perm === 'granted' ? <p className="text-emerald-300">✓ {c.notifOk}</p> : perm === 'denied' ? <p className="text-white/55">{c.notifBlocked}</p> : perm === 'default' ? <button type="button" onClick={() => void Notification.requestPermission().then(setPerm)} className={btn('secondary', 'sm')}>{c.notifOn}</button> : null}
+              </div>
+              <ul className="mt-3 divide-y divide-white/5 text-sm">
+                {(A.alerts ?? []).map((a) => (
+                  <li key={a.id} className="flex flex-wrap items-center gap-x-3 gap-y-1 py-2">
+                    <span className={`size-2 shrink-0 rounded-full ${a.active ? 'bg-emerald-400' : 'bg-white/25'}`} aria-hidden="true" />
+                    <span className="min-w-0 flex-1">{alertText(a, lang)}</span>
+                    <span className={`text-xs ${a.fired && !a.seen ? 'font-semibold text-amber-300' : 'text-white/45'}`}>{a.fired ? c.firedAt(new Date(a.fired).toLocaleString(lang === 'nl' ? 'nl-NL' : 'en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })) : c.active}</span>
+                    <button type="button" onClick={() => A.set((l) => l.filter((x) => x.id !== a.id))} className="text-xs text-white/45 hover:text-[var(--wc-red-soft)]">{c.del}</button>
+                  </li>
+                ))}
+                {A.alerts && !A.alerts.length ? <li className="py-3 text-white/50">{c.none}</li> : null}
+              </ul>
+            </Card>
+          </section>
         ) : null}
 
         <div id="backup" className="scroll-mt-24" />

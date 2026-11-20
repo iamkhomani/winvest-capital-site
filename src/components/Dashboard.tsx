@@ -10,6 +10,8 @@ import { useWatchlists } from '../shared/watchlist'
 import type { WatchItem } from '../shared/watchlist'
 import type { Asset, Currency } from '../portfolio/store'
 import { cardBase } from './kit'
+import { useAlerts } from '../shared/alerts'
+import { alertText } from './AlertWatcher'
 
 type CardId = 'start' | 'myday' | 'alerts' | 'watch' | 'activity' | 'news'
 const ALL: CardId[] = ['start', 'myday', 'alerts', 'watch', 'activity', 'news']
@@ -108,6 +110,7 @@ export default function Dashboard({ lang }: { lang: Lang }) {
   const p = paths[lang]
   const locale = lang === 'nl' ? 'nl-NL' : 'en-US'
   const W = useWatchlists()
+  const PA = useAlerts()
   const [pref, setPref] = useState<Pref | null>(null)
   const [edit, setEdit] = useState(false)
   const [me, setMe] = useState<Personal | null>(null)
@@ -218,10 +221,12 @@ export default function Dashboard({ lang }: { lang: Lang }) {
       .slice(0, 4),
   ]
 
+  const firedAlerts = (PA.alerts ?? []).filter((a) => a.fired && !a.seen && Date.now() - a.fired < 3 * 864e5).slice(0, 3)
+
   const has: Record<CardId, boolean> = {
     start: isNew,
     myday: !!me && (me.hasPortfolio || me.tradeCount > 0),
-    alerts: alerts.length > 0 || (me?.openTrades ?? 0) > 0,
+    alerts: alerts.length > 0 || firedAlerts.length > 0 || (me?.openTrades ?? 0) > 0,
     watch: watch.length > 0,
     activity: !!me && (me.recentTx.length > 0 || me.recentTrades.length > 0),
     news: !!news && news.length > 0,
@@ -261,6 +266,9 @@ export default function Dashboard({ lang }: { lang: Lang }) {
       case 'alerts':
         return (
           <ul className="mt-3 space-y-2 text-sm">
+            {firedAlerts.map((a) => (
+              <li key={a.id}><a href={p.watchlist + '#alerts'} className="font-semibold text-amber-300 hover:underline">🔔 {alertText(a, lang)}</a></li>
+            ))}
             {alerts.map(({ i, ch }) => (
               <li key={i.key} className="flex items-center gap-2">
                 <span className={`size-2 shrink-0 rounded-full ${ch >= 0 ? 'bg-emerald-400' : 'bg-[var(--wc-red)]'}`} aria-hidden="true" />

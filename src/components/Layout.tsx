@@ -9,6 +9,7 @@ import { Icon, isActive, navGroups, tabItems, toolItems, useCurrentPath } from '
 import type { NavItem } from './nav'
 import SmoothScroll from './SmoothScroll'
 import Ticker from './Ticker'
+import AlertWatcher from './AlertWatcher'
 
 /** `bare`: full-screen app page (Winvest Terminal) without the ticker and footer. */
 type Props = { lang: Lang; alternate?: string; bare?: boolean; children: ReactNode }
@@ -417,6 +418,7 @@ export default function Layout({ lang, alternate, bare, children }: Props) {
         </header>
         {!bare && <Ticker lang={lang} />}
         <div id="main">{children}</div>
+        <AlertWatcher lang={lang} />
         {!bare && (
         <footer className="border-t border-white/10 bg-black">
           <div className="mx-auto max-w-6xl px-4 py-10 text-sm text-white/45 sm:px-6">
