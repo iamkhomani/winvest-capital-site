@@ -108,7 +108,7 @@ export function useLive<T>(load: () => Promise<T>, everyMs = 60_000) {
 
 // Stablecoins and wrapped or staked versions of other coins say nothing about altcoins versus Bitcoin.
 const NOT_ALT = /usd|eur|dai$|^wbtc$|^cbbtc$|^weth$|^steth$|^wsteth$|^weeth$|^wbeth$|^reth$|^jitosol$|^msol$|^bnsol$|^lbtc$|^solvbtc$|^tbtc$|^xaut$|^paxg$|^buidl$/i
-const NOT_ALT_NAME = /wrapped|staked|bridged|restaked|tokenized|liquid staking/i
+const NOT_ALT_NAME = /wrapped|staked|bridged|restaked|tokenized|liquid staking|money market|t-bills|treasur/i
 
 /** Altcoins in the top 100 that are not stablecoins, wrapped or staked tokens, or gold tokens. */
 export const realAlts = (coins: Coin[]) => coins.filter((c) => c.id !== 'bitcoin' && !NOT_ALT.test(c.symbol) && !NOT_ALT_NAME.test(c.name))

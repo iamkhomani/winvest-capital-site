@@ -241,35 +241,46 @@ function Stablecoins({ lang }: { lang: Lang }) {
 
 function History({ lang }: { lang: Lang }) {
   const t = copy[lang]
+  const opts = [
+    ['CRYPTOCAP:TOTAL', t.total],
+    ['CRYPTOCAP:TOTAL2', t.total2],
+    ['CRYPTOCAP:BTC.D', t.dom],
+  ] as const
+  const [sym, setSym] = useState<string>(opts[0][0])
   return (
     <div className={`${card} md:col-span-2`}>
-      <h3 className="font-semibold">{t.history}</h3>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h3 className="font-semibold">{t.history}</h3>
+        <div role="tablist" aria-label={t.history} className="flex max-w-full gap-1 overflow-x-auto rounded-full border border-white/15 p-1">
+          {opts.map(([v, label]) => (
+            <button key={v} type="button" role="tab" aria-selected={sym === v} onClick={() => setSym(v)} className={tabCls(sym === v)}>{label}</button>
+          ))}
+        </div>
+      </div>
       <p className="mt-1 text-xs text-white/45">{t.historyP}</p>
-      <div className="mt-3">
+      <div className="mt-3 overflow-hidden rounded-xl">
         <TradingViewWidget
-          className="min-h-[380px]"
-          script="embed-widget-symbol-overview.js"
+          className="h-[400px]"
+          script="embed-widget-advanced-chart.js"
           config={{
-            symbols: [[t.total, 'CRYPTOCAP:TOTAL|1D'], [t.total2, 'CRYPTOCAP:TOTAL2|1D'], [t.dom, 'CRYPTOCAP:BTC.D|1D']],
-            chartOnly: false,
+            symbol: sym,
+            interval: 'D',
+            range: '12M',
             width: '100%',
-            height: 380,
-            locale: lang === 'nl' ? 'nl_NL' : 'en',
-            colorTheme: 'dark',
-            isTransparent: true,
+            height: 400,
             autosize: false,
-            showVolume: false,
-            scalePosition: 'right',
-            scaleMode: 'Normal',
-            chartType: 'area',
-            lineWidth: 2,
-            lineType: 0,
-            lineColor: 'rgba(218, 41, 28, 1)',
-            topColor: 'rgba(218, 41, 28, 0.25)',
-            bottomColor: 'rgba(218, 41, 28, 0)',
-            fontColor: 'rgb(106, 109, 120)',
-            gridLineColor: 'rgba(242, 242, 242, 0.06)',
-            dateRanges: ['12m|1D', '1m|30', '3m|60', '60m|1W', 'all|1M'],
+            timezone: 'Etc/UTC',
+            theme: 'dark',
+            style: '3',
+            locale: lang === 'nl' ? 'nl_NL' : 'en',
+            backgroundColor: 'rgba(0, 0, 0, 0)',
+            gridColor: 'rgba(242, 242, 242, 0.06)',
+            hide_side_toolbar: true,
+            hide_legend: false,
+            allow_symbol_change: false,
+            save_image: false,
+            calendar: false,
+            support_host: 'https://www.tradingview.com',
           }}
         />
       </div>
