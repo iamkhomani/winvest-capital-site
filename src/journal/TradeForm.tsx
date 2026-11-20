@@ -77,7 +77,7 @@ export default function TradeForm({ c, state, accounts, trade, draft, defaultAcc
   const [confirmDel, setConfirmDel] = useState(false)
   const [adv, setAdv] = useState(false)
   // "More details" starts open only when an existing trade already uses one of its fields.
-  const [more, setMore] = useState(Boolean(init && (trade.setup || trade.notes || trade.condition || trade.plan || trade.emotion || trade.revenge || trade.leverage || trade.riskPct
+  const [more, setMore] = useState(Boolean(init && (init.setup || init.notes || init.condition || init.plan || init.emotion || init.revenge || init.leverage || init.riskPct
     || init.links?.length || init.shots?.length || init.slMoves?.length || (init.tps?.length ?? 0) > 1 || (init.timeframe && init.timeframe !== 'H1'))))
 
   const pairEff = market === 'units' ? unitsPair(ukind, usym, uquote) : pair
