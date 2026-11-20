@@ -129,12 +129,17 @@ export default function LotSizeCalculator({ lang, preset }: { lang: Lang; preset
     if (st.balance) setBalance(st.balance)
     if (st.currency) setCurrency(st.currency)
     if (st.risk) setRisk(st.risk)
-    if (preset && preset.entry > 0) {
+    if (preset) {
       const sig = (v: number) => String(Number(v.toPrecision(v >= 1 ? 6 : 4)))
       setMode('units')
       setCurrency(preset.currency)
-      setEntry(sig(preset.entry))
-      setStopPrice(sig(preset.entry * 0.95))
+      if (preset.entry > 0) {
+        setEntry(sig(preset.entry))
+        setStopPrice(sig(preset.entry * 0.95))
+      } else {
+        setEntry('')
+        setStopPrice('')
+      }
     }
     setMounted(true)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps

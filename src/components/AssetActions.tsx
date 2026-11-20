@@ -77,7 +77,7 @@ export default function AssetActions({ lang, id, name, symbol, price, contract }
           <button type="button" onClick={() => planRef.current?.close()} className="text-sm font-semibold text-white/60 hover:text-white">{c.close}</button>
         </div>
         <p className="mt-1 text-sm text-white/60">{c.planP}</p>
-        <div className="mt-4">{planOpen ? <LotSizeCalculator lang={lang} preset={price ? { entry: price, currency: 'USD' } : undefined} /> : null}</div>
+        <div className="mt-4">{planOpen ? <LotSizeCalculator lang={lang} preset={{ entry: price ?? 0, currency: 'USD' }} /> : null}</div>
       </dialog>
 
       <dialog ref={askRef} onClose={onClose} aria-label={c.askH} className={dlg}>
