@@ -486,7 +486,7 @@ export default function Journal({ lang }: { lang: Lang }) {
           </div>
         ) : null}
 
-        <IdeasPanel lang={lang} canRecord={state.accounts.length > 0} onRecord={(i) => setForm({ draft: ideaDraft(i), ideaId: i.id })} />
+        <IdeasPanel lang={lang} canRecord={state.accounts.length > 0} onRecord={(i) => setForm({ draft: ideaDraft(i), ideaId: i.id })} onCreateAccount={(a) => update((st) => { st.accounts.push(a) })} />
 
         {!state.accounts.length ? (
           <div className="mt-8"><p className="mb-4 max-w-2xl text-white/70">{c.noAccount}</p><AccountsPanel c={c} state={state} update={update} /></div>

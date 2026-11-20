@@ -5,17 +5,17 @@
 import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import TradingViewWidget from '../components/TradingViewWidget'
-import { DISCORD_URL } from '../config'
 import type { Lang } from '../i18n'
 import { usePageData } from '../pageData'
 import { paths } from '../paths'
 import { usd, usdBig } from '../markets/pulse'
 import { cardBase } from '../components/kit'
 import WatchStar from '../shared/WatchStar'
-import AssetActions from '../components/AssetActions'
+import AssetActions, { CoinWhisper } from '../components/AssetActions'
 import { CoinNews, Technicals } from '../markets/AssetInsights'
 import DataStamp from '../markets/DataStamp'
 import Derivatives from '../markets/Derivatives'
+import CoinAlert from '../shared/CoinAlert'
 import * as W from '../shared/whisperContext'
 import { usePart } from '../shared/whisperContext'
 
@@ -535,6 +535,7 @@ export default function Coin({ lang, id: fixedId }: { lang: Lang; id?: string })
   const [facts, setFacts] = useState<CoinFacts | null>(snapshot)
   const [live, setLive] = useState<Live | null>(null)
   const [liveAt, setLiveAt] = useState<number | null>(null)
+  const [moreOpen, setMoreOpen] = useState(false)
   const [state, setState] = useState<'loading' | 'ok' | 'notfound' | 'error'>('loading')
   const [attempt, setAttempt] = useState(0)
 
@@ -615,7 +616,10 @@ export default function Coin({ lang, id: fixedId }: { lang: Lang; id?: string })
                   {f.name} <span className="text-white/45">{f.symbol}</span>
                 </h1>
                 {m?.rank ? <p className="text-sm text-white/50">{c.rank(m.rank)}</p> : null}
-                <div className="mt-2"><WatchStar size="md" lang={lang} item={{ key: `crypto:${f.id}`, kind: 'crypto', symbol: f.symbol, name: f.name, id: f.id, image: f.image }} /></div>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  <WatchStar size="md" lang={lang} item={{ key: `crypto:${f.id}`, kind: 'crypto', symbol: f.symbol, name: f.name, id: f.id, image: f.image }} />
+                  <CoinAlert lang={lang} price={m?.price} item={{ key: `crypto:${f.id}`, kind: 'crypto', symbol: f.symbol, name: f.name, id: f.id, image: f.image }} />
+                </div>
               </div>
               <div className="text-right">
                 <p className="text-3xl font-bold tabular-nums">{m ? usd(m.price) : dash}</p>
@@ -751,44 +755,12 @@ export default function Coin({ lang, id: fixedId }: { lang: Lang; id?: string })
                     {f.about.length ? f.about.map((x, i) => <p key={i}>{x}</p>) : <p>{c.noAbout}</p>}
                   </div>
                 </section>
-                <div id="onchain" className="grid scroll-mt-24 gap-4 md:grid-cols-2">
+                <div id="onchain" className="grid scroll-mt-24 gap-4">
                   <DefiCard id={f.id} lang={lang} />
-                  <DevCard github={f.links.github} lang={lang} />
+                  {f.holders ? <HoldersCard h={f.holders} lang={lang} /> : null}
                 </div>
-                {f.holders ? <HoldersCard h={f.holders} lang={lang} /> : null}
-                <Exchanges id={f.id} lang={lang} />
               </div>
               <div className="grid content-start gap-4">
-                {f.genesis || f.algorithm || f.categories.length ? (
-                  <section className={card}>
-                    <h2 className="font-semibold">{c.facts}</h2>
-                    <dl className="mt-2 divide-y divide-white/5">
-                      {f.genesis ? <Row k={c.since} v={date(f.genesis, lang)} /> : null}
-                      {f.algorithm ? <Row k={c.algo} v={f.algorithm} /> : null}
-                    </dl>
-                    {f.categories.length ? (
-                      <>
-                        <p className="mt-3 text-xs text-white/50">{c.cats}</p>
-                        <ul className="mt-1.5 flex flex-wrap gap-1.5">
-                          {f.categories.map((x) => (
-                            <li key={x} className="rounded-full border border-white/15 px-2.5 py-0.5 text-xs text-white/70">{x}</li>
-                          ))}
-                        </ul>
-                      </>
-                    ) : null}
-                  </section>
-                ) : null}
-                <section className={card}>
-                  <h2 className="font-semibold">{c.links}</h2>
-                  <ul className="mt-2 space-y-1.5 text-sm">
-                    {f.links.website ? <li><a href={f.links.website} target="_blank" rel="noopener nofollow" className="text-[var(--wc-red-soft)] hover:underline">{c.website}: {host(f.links.website)} ↗</a></li> : null}
-                    {f.links.whitepaper ? <li><a href={f.links.whitepaper} target="_blank" rel="noopener nofollow" className="text-[var(--wc-red-soft)] hover:underline">{c.whitepaper} ↗</a></li> : null}
-                    {f.links.explorers.map((u) => (
-                      <li key={u}><a href={u} target="_blank" rel="noopener nofollow" className="text-[var(--wc-red-soft)] hover:underline">{c.explorer}: {host(u)} ↗</a></li>
-                    ))}
-                    {f.links.github ? <li><a href={f.links.github} target="_blank" rel="noopener nofollow" className="text-[var(--wc-red-soft)] hover:underline">{c.code} (GitHub) ↗</a></li> : null}
-                  </ul>
-                </section>
                 {f.contracts.length ? (
                   <section className={card}>
                     <h2 className="font-semibold">{c.contracts}</h2>
@@ -805,8 +777,55 @@ export default function Coin({ lang, id: fixedId }: { lang: Lang; id?: string })
                     </ul>
                   </section>
                 ) : null}
+                <section className={card}>
+                  <h2 className="font-semibold">{c.links}</h2>
+                  <ul className="mt-2 space-y-1.5 text-sm">
+                    {f.links.website ? <li><a href={f.links.website} target="_blank" rel="noopener nofollow" className="text-[var(--wc-red-soft)] hover:underline">{c.website}: {host(f.links.website)} ↗</a></li> : null}
+                    {f.links.whitepaper ? <li><a href={f.links.whitepaper} target="_blank" rel="noopener nofollow" className="text-[var(--wc-red-soft)] hover:underline">{c.whitepaper} ↗</a></li> : null}
+                    {f.links.explorers.map((u) => (
+                      <li key={u}><a href={u} target="_blank" rel="noopener nofollow" className="text-[var(--wc-red-soft)] hover:underline">{c.explorer}: {host(u)} ↗</a></li>
+                    ))}
+                    {f.links.github ? <li><a href={f.links.github} target="_blank" rel="noopener nofollow" className="text-[var(--wc-red-soft)] hover:underline">{c.code} (GitHub) ↗</a></li> : null}
+                  </ul>
+                </section>
               </div>
             </div>
+
+            {/* Reference data, closed by default so the analysis and actions above stay in view (quality review, item 4). */}
+            <details className={`${card} mt-4 group`} onToggle={(e) => setMoreOpen((e.currentTarget as HTMLDetailsElement).open)}>
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 [&::-webkit-details-marker]:hidden">
+                <span>
+                  <span className="block font-semibold">{lang === 'nl' ? 'Meer details' : 'More details'}</span>
+                  <span className="block text-xs text-white/50">{lang === 'nl' ? 'Ontwikkeling, waar het verhandeld wordt, gegevens' : 'Development, where it trades, facts'}</span>
+                </span>
+                <span aria-hidden="true" className="shrink-0 text-white/50 transition group-open:rotate-180">▾</span>
+              </summary>
+              {moreOpen ? (
+                <div className="mt-4 grid gap-4 lg:grid-cols-2">
+                  <DevCard github={f.links.github} lang={lang} />
+                  {f.genesis || f.algorithm || f.categories.length ? (
+                    <section className={card}>
+                      <h2 className="font-semibold">{c.facts}</h2>
+                      <dl className="mt-2 divide-y divide-white/5">
+                        {f.genesis ? <Row k={c.since} v={date(f.genesis, lang)} /> : null}
+                        {f.algorithm ? <Row k={c.algo} v={f.algorithm} /> : null}
+                      </dl>
+                      {f.categories.length ? (
+                        <>
+                          <p className="mt-3 text-xs text-white/50">{c.cats}</p>
+                          <ul className="mt-1.5 flex flex-wrap gap-1.5">
+                            {f.categories.map((x) => (
+                              <li key={x} className="rounded-full border border-white/15 px-2.5 py-0.5 text-xs text-white/70">{x}</li>
+                            ))}
+                          </ul>
+                        </>
+                      ) : null}
+                    </section>
+                  ) : null}
+                  <div className="lg:col-span-2"><Exchanges id={f.id} lang={lang} /></div>
+                </div>
+              ) : null}
+            </details>
 
             <section id="whisper" className="mt-6 flex scroll-mt-24 flex-col items-start justify-between gap-4 rounded-2xl border border-[var(--wc-red)]/40 bg-[var(--wc-red)]/[0.06] p-6 sm:flex-row sm:items-center">
               <div>
@@ -814,8 +833,8 @@ export default function Coin({ lang, id: fixedId }: { lang: Lang; id?: string })
                 <p className="mt-1 max-w-2xl text-sm text-white/65">{c.askP}</p>
               </div>
               <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-                <a href={p.products} className="rounded-full bg-[var(--wc-red)] px-5 py-2.5 text-center text-sm font-semibold text-white hover:brightness-110">{c.askBtn}</a>
-                <a href={DISCORD_URL} className="rounded-full border border-white/20 px-5 py-2.5 text-center text-sm font-semibold hover:border-white/50">{c.join}</a>
+                <CoinWhisper lang={lang} id={f.id} name={f.name} symbol={f.symbol} className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--wc-red)] px-5 py-2.5 text-center text-sm font-semibold text-white hover:brightness-110" />
+                <a href={p.products} className="rounded-full border border-white/20 px-5 py-2.5 text-center text-sm font-semibold hover:border-white/50">{c.askBtn}</a>
               </div>
             </section>
             <p className="mt-4 text-xs text-white/40">{c.source}</p>

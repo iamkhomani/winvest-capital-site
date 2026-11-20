@@ -79,9 +79,17 @@ async function fromOkx(sym: string): Promise<Deriv> {
   return { source: 'OKX', funding: Number(fr.fundingRate), hours: t && n && n > t ? Math.round((n - t) / 36e5) : 8, nextFunding: t || undefined, oiUsd: Number(o.oiUsd), at: Date.now() }
 }
 
-const cache = new Map<string, Promise<Deriv | null>>()
+// null = this coin has no USDT perpetual (the card hides); 'error' = the exchanges could not be reached.
+// Errors are not cached, so a retry asks again.
+const cache = new Map<string, Promise<Deriv | null | 'error'>>()
 const load = (sym: string) => {
-  if (!cache.has(sym)) cache.set(sym, fromBinance(sym).catch(() => fromOkx(sym)).catch(() => null))
+  if (!cache.has(sym)) {
+    const run = fromBinance(sym)
+      .catch(() => fromOkx(sym))
+      .catch((e: unknown) => (e instanceof Error && e.message === 'no market' ? null : ('error' as const)))
+    run.then((v) => { if (v === 'error') cache.delete(sym) })
+    cache.set(sym, run)
+  }
   return cache.get(sym)!
 }
 
@@ -99,20 +107,33 @@ function Spark({ values }: { values: number[] }) {
 
 export default function Derivatives({ lang, symbol, name }: { lang: Lang; symbol: string; name: string }) {
   const nl = lang === 'nl'
-  const [d, setD] = useState<Deriv | null | undefined>(undefined)
+  const [res, setD] = useState<Deriv | null | 'error' | undefined>(undefined)
+  const [tries, setTries] = useState(0)
   useEffect(() => {
     let alive = true
     const sym = symbol.toUpperCase().replace(/[^A-Z0-9]/g, '')
     if (!sym || /^(USDT|USDC|DAI|USDE|FDUSD|USDS|PYUSD)$/.test(sym)) return setD(null)
+    setD(undefined)
     void load(sym).then((v) => alive && setD(v))
     return () => { alive = false }
-  }, [symbol])
+  }, [symbol, tries])
+  const d = res === 'error' ? null : res
   usePart(
     'derivatives',
     d
       ? [`Derivatives (${d.source} ${symbol.toUpperCase()}/USDT perpetual, ${hhmm(d.at)}): funding ${p(d.funding * 100, 4)} per ${d.hours}h | open interest ${big(d.oiUsd)} USD${d.oiHist && d.oiHist.length > 7 ? ` (${p((d.oiUsd / d.oiHist[d.oiHist.length - 8] - 1) * 100)} 7d)` : ''}${d.longShare !== undefined ? ` | ${Math.round(d.longShare * 100)}% of accounts net long` : ''}`]
       : null,
   )
+  if (res === 'error')
+    return (
+      <section id="derivatives" className={`${cardBase} scroll-mt-24 p-4 sm:p-5`}>
+        <h2 className="font-semibold">{nl ? 'Derivaten' : 'Derivatives'}</h2>
+        <p className="mt-2 text-sm text-white/55">
+          {nl ? 'Funding en open interest konden nu niet worden geladen. Binance en OKX waren niet bereikbaar vanaf je verbinding.' : 'Funding and open interest could not be loaded right now. Binance and OKX could not be reached from your connection.'}{' '}
+          <button type="button" onClick={() => setTries((t) => t + 1)} className="font-semibold underline">{nl ? 'Opnieuw' : 'Retry'}</button>
+        </p>
+      </section>
+    )
   if (!d) return null // loading, or no perpetual market for this coin
 
   const ratePct = d.funding * 100

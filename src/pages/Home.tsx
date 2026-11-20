@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import { DISCORD_URL, NEWSLETTER_EMAIL_FIELD, NEWSLETTER_FORM_ACTION, NEWSLETTER_LIST_UUID, PRICE, STRIPE_PAYMENT_LINK, TRUSTPILOT_URL } from '../config'
 import { reviews } from '../content/reviews'
 import { articles } from '../content/articles'
@@ -347,25 +347,7 @@ function Overview({ lang }: { lang: Lang }) {
           </ul>
         </div>
 
-        <div id="calendar" className={`${card} order-3 scroll-mt-24 p-5 lg:col-span-2`}>
-          <h2 className="text-xl font-bold tracking-tight">{c.calH2}</h2>
-          <p className="mt-1 text-sm text-white/60">{c.calP}</p>
-          <TradingViewWidget
-            className="mt-3 min-h-[380px]"
-            script="embed-widget-events.js"
-            config={{
-              colorTheme: 'dark',
-              isTransparent: true,
-              width: '100%',
-              height: 380,
-              locale: tv,
-              importanceFilter: '0,1',
-              countryFilter: 'us,eu,gb,jp,ch,ca,au,nz,cn',
-            }}
-          />
-        </div>
-
-        <div id="learn" className={`${card} order-3 flex scroll-mt-24 flex-col p-5`}>
+        <div id="learn" className={`${card} order-3 flex scroll-mt-24 flex-col p-5 lg:col-span-3`}>
           <h2 className="text-xl font-bold tracking-tight">{c.learnH2}</h2>
           <p className="mt-1 text-sm text-white/60">{c.learnP}</p>
           <ol className="mt-4 space-y-1">
@@ -382,6 +364,43 @@ function Overview({ lang }: { lang: Lang }) {
         </div>
       </div>
     </section>
+  )
+}
+
+// Returning visitors (they have a portfolio, ideas, alerts, a custom watchlist or dashboard) see Home as a
+// workspace: the sections that introduce Winvest fold into one "About Winvest Capital" block. Newcomers and
+// search engines (prerendered HTML) see everything (quality review, item 5).
+function isReturning() {
+  try {
+    const ls = (k: string) => localStorage.getItem(k)
+    const pf = JSON.parse(ls('wc-portfolio-v1') || 'null') as { txs?: unknown[] } | null
+    if (pf?.txs?.length) return true
+    if (ls('wc-ideas-v1') || ls('wc-alerts-v1') || ls('wc-dash-v1')) return true
+    const wl = JSON.parse(ls('wc-watchlist-v1') || 'null') as { items?: { key: string }[] }[] | null
+    const keys = (wl ?? []).flatMap((l) => (l.items ?? []).map((i) => i.key))
+    return keys.some((k) => k !== 'crypto:bitcoin' && k !== 'crypto:ethereum')
+  } catch {
+    return false
+  }
+}
+
+function ForNewcomers({ lang, children, hideOnly = false }: { lang: Lang; children: ReactNode; hideOnly?: boolean }) {
+  const [returning, setReturning] = useState(false)
+  useEffect(() => setReturning(isReturning()), [])
+  if (!returning) return <>{children}</>
+  if (hideOnly) return null
+  const nl = lang === 'nl'
+  return (
+    <details className="group mx-auto mt-2 max-w-6xl border-t border-white/10 px-4 sm:px-6">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-3 py-5 [&::-webkit-details-marker]:hidden">
+        <span>
+          <span className="block font-semibold">{nl ? 'Over Winvest Capital' : 'About Winvest Capital'}</span>
+          <span className="block text-xs text-white/50">{nl ? 'Lidmaatschap, wat leden zeggen en Market Whisper AI' : 'Membership, what members say and Market Whisper AI'}</span>
+        </span>
+        <span aria-hidden="true" className="text-white/50 transition group-open:rotate-180">▾</span>
+      </summary>
+      <div className="-mx-4 sm:-mx-6">{children}</div>
+    </details>
   )
 }
 
@@ -433,6 +452,7 @@ export default function Home({ lang }: { lang: Lang }) {
 
       <Overview lang={lang} />
 
+      <ForNewcomers lang={lang}>
       <section id="membership" className="scroll-mt-24 border-t border-white/10 bg-[var(--wc-ink)]">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">{c.memH2}</h2>
@@ -532,8 +552,11 @@ export default function Home({ lang }: { lang: Lang }) {
         </div>
       </section>
 
+      </ForNewcomers>
+
       <Newsletter lang={lang} />
 
+      <ForNewcomers lang={lang} hideOnly>
       <section className="border-t border-white/10 bg-[var(--wc-ink)]">
         <div className="mx-auto max-w-6xl px-4 py-20 text-center sm:px-6">
           <img src="/logo.jpeg" alt="" width={64} height={64} className="mx-auto size-16 rounded-full object-cover ring-2 ring-[var(--wc-red)]/50" />
@@ -542,6 +565,7 @@ export default function Home({ lang }: { lang: Lang }) {
           <a href={FREE_URL} className={`mt-8 ${btn()}`}>{c.joinFree}</a>
         </div>
       </section>
+      </ForNewcomers>
     </main>
   )
 }

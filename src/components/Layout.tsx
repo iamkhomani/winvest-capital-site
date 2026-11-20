@@ -335,7 +335,10 @@ function MoreSheet({ lang, alternate, dialog }: { lang: Lang; alternate?: string
 function TabBar({ lang, onMore }: { lang: Lang; onMore: () => void }) {
   const current = useCurrentPath()
   const nl = lang === 'nl'
-  const tabs = tabItems(lang)
+  const [last, setLast] = useState<string | null>(null)
+  useEffect(() => { try { setLast(localStorage.getItem('wc-mine-last')) } catch { /* private mode */ } }, [current])
+  const p = paths[lang]
+  const tabs = tabItems(lang).map((t) => t.href === p.portfolio && (last === 'watchlist' || last === 'journal') ? { ...t, href: p[last], also: [p.portfolio, p.journal, p.watchlist] } : t)
   const onTab = tabs.some((t) => isActive(current, t.href, lang, t.also))
   const cls = 'flex flex-col items-center gap-1 pt-2 pb-1.5 text-[11px] font-medium text-white/55 transition active:scale-95 aria-[current=page]:text-white'
   return (

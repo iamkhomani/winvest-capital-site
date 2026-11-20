@@ -20,6 +20,17 @@ const RULES = [
   ['infra', /infrastructure|oracle|depin|storage|interoperability|wallets|bridge/i],
 ]
 
+// Large coins whose CoinGecko tags put them in the wrong group (a side tag such as "AI" or
+// "Privacy Blockchain" wins over "Layer 1"). Checked by hand; review when the top 60 changes.
+const OVERRIDE = {
+  litecoin: 'l1',
+  near: 'l1',
+  stellar: 'l1',
+  'canton-network': 'l1',
+  'quant-network': 'infra',
+  'world-liberty-financial': 'defi', // governance token of a stablecoin issuer, not a stablecoin
+}
+
 export function sectorOf(categories = []) {
   for (const [code, re] of RULES) if (categories.some((c) => re.test(c))) return code
   return 'other'
@@ -29,7 +40,7 @@ export function buildSectors(coins) {
   const byId = {}
   const bySymbol = {}
   for (const c of Object.values(coins)) {
-    const code = sectorOf(c.categories)
+    const code = OVERRIDE[c.id] || sectorOf(c.categories)
     byId[c.id] = code
     if (!bySymbol[c.symbol]) bySymbol[c.symbol] = code // ranked order: the larger coin keeps the symbol
   }

@@ -125,7 +125,7 @@ export default function News({ lang }: { lang: Lang }) {
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
               <h2 className="font-semibold">{c.calH}</h2>
               <p className="mt-1 text-sm text-white/60">{c.calP}</p>
-              <a href={p.home + '#calendar'} className="mt-3 inline-block rounded-full border border-white/20 px-4 py-2 text-sm font-semibold transition hover:border-white/50">{c.calBtn}</a>
+              <a href={p.markets + '#calendar'} className="mt-3 inline-block rounded-full border border-white/20 px-4 py-2 text-sm font-semibold transition hover:border-white/50">{c.calBtn}</a>
             </div>
             <div className="rounded-2xl border border-[var(--wc-red)]/40 bg-[var(--wc-red)]/[0.06] p-5">
               <h2 className="font-semibold">{c.mwH}</h2>

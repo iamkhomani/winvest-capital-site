@@ -5,7 +5,7 @@ import { useRef, useState } from 'react'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import LotSizeCalculator from './LotSizeCalculator'
-import { Icon } from './nav'
+import { Icon, terminalHref } from './nav'
 import WhisperAsk from './WhisperAsk'
 import { collect } from '../shared/whisperContext'
 import { newIdeaId, saveIdeas, loadIdeas } from '../shared/ideas'
@@ -100,15 +100,8 @@ export default function AssetActions({ lang, id, name, symbol, price, contract, 
       <a href={`${p.portfolio}?add=${encodeURIComponent(id)}`} className={chip}><Icon name="portfolio" size={16} className="text-[var(--wc-red)]" />{c.add}</a>
       <button type="button" onClick={() => { setPlanOpen(true); open(planRef.current) }} className={chip}><Icon name="calc" size={16} className="text-[var(--wc-red)]" />{c.plan}</button>
       {contract ? <a href={`${p.scanner}?q=${encodeURIComponent(contract)}`} className={chip}><Icon name="scan" size={16} className="text-[var(--wc-red)]" />{c.check}</a> : null}
-      <WhisperAsk
-        lang={lang}
-        kind="coin"
-        subject={`${name} (${symbol})`}
-        lines={() => collect(['coin', 'derivatives', 'news'])}
-        questions={lang === 'nl'
-          ? [`Analyseer ${name}: trend, drijfveren en risico's.`, `Verklaar de koersbeweging van ${name} in de laatste 24 uur.`, `Vat de laatste ontwikkelingen rond ${name} samen.`, `Vergelijk ${name} met ${id === 'bitcoin' ? 'Ethereum' : 'Bitcoin'}.`]
-          : [`Analyse ${name}: trend, key drivers and risks.`, `Explain the price move of ${name} over the last 24 hours.`, `Summarise the latest developments around ${name}.`, `Compare ${name} with ${id === 'bitcoin' ? 'Ethereum' : 'Bitcoin'}.`]}
-      />
+      <CoinWhisper lang={lang} id={id} name={name} symbol={symbol} />
+      <a href={terminalHref(lang)} className={chip} title={lang === 'nl' ? 'Winvest Terminal (leden): SMC-analyse op de chart' : 'Winvest Terminal (members): SMC analysis on the chart'}><Icon name="terminal" size={16} className="text-[var(--wc-red)]" />{lang === 'nl' ? 'Open in Terminal' : 'Open in Terminal'}</a>
 
       <dialog ref={planRef} onClose={() => { onClose(); setPlanOpen(false) }} aria-label={c.planH(symbol)} className={dlg}>
         <div className="flex items-start justify-between gap-3">
@@ -132,5 +125,21 @@ export default function AssetActions({ lang, id, name, symbol, price, contract, 
       </dialog>
 
     </div>
+  )
+}
+
+/** "Ask Market Whisper" for a coin, with the coin page's context pack. Used in the action row and the banner. */
+export function CoinWhisper({ lang, id, name, symbol, className }: { lang: Lang; id: string; name: string; symbol: string; className?: string }) {
+  return (
+    <WhisperAsk
+        lang={lang}
+        kind="coin"
+        subject={`${name} (${symbol})`}
+        lines={() => collect(['coin', 'derivatives', 'news'])}
+        questions={lang === 'nl'
+          ? [`Analyseer ${name}: trend, drijfveren en risico's.`, `Verklaar de koersbeweging van ${name} in de laatste 24 uur.`, `Vat de laatste ontwikkelingen rond ${name} samen.`, `Vergelijk ${name} met ${id === 'bitcoin' ? 'Ethereum' : 'Bitcoin'}.`]
+          : [`Analyse ${name}: trend, key drivers and risks.`, `Explain the price move of ${name} over the last 24 hours.`, `Summarise the latest developments around ${name}.`, `Compare ${name} with ${id === 'bitcoin' ? 'Ethereum' : 'Bitcoin'}.`]}
+      className={className}
+    />
   )
 }
