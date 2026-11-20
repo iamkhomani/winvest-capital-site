@@ -114,7 +114,48 @@
      "solana",
      "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0xdac17f958d2ee523a2206206994597c13d831ec7",
+    "holders": 17204187,
+    "accounts": false,
+    "top10": 0.4401,
+    "top10Contracts": 0.0454,
+    "top50": 0.5802,
+    "top": [
+     {
+      "label": "0xF977…aceC",
+      "share": 0.1744,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xF977814e90dA44bFA03b6295A0616a897441aceC"
+     },
+     {
+      "label": "0x47ac…D503",
+      "share": 0.1144,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x47ac0Fb4F2D84898e4D9E7b4DaB3C24507a6D503"
+     },
+     {
+      "label": "TransparentUpgradeableProxy",
+      "share": 0.0454,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x6C96dE32CEa08842dcc4058c14d3aaAD7Fa41dee"
+     },
+     {
+      "label": "0x5a52…Efcb",
+      "share": 0.0313,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x5a52E96BAcdaBb82fd05763E25335261B270Efcb"
+     },
+     {
+      "label": "0x8356…0007",
+      "share": 0.0281,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x835678a611B28684005a5e2233695fB6cbbB0007"
+     }
+    ]
+   }
   },
   "binancecoin": {
    "id": "binancecoin",
@@ -151,7 +192,48 @@
      "ethereum",
      "0xb8c77482e45f1f44de1745f52c74426c631bdd52"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0xb8c77482e45f1f44de1745f52c74426c631bdd52",
+    "holders": 305961,
+    "accounts": false,
+    "top10": 0.5795,
+    "top10Contracts": 0.0793,
+    "top50": 0.7211,
+    "top": [
+     {
+      "label": "0xF977…aceC",
+      "share": 0.2352,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xF977814e90dA44bFA03b6295A0616a897441aceC"
+     },
+     {
+      "label": "0x4802…7e5F",
+      "share": 0.078,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x480234599362dC7a76cd99D09738A626F6d77e5F"
+     },
+     {
+      "label": "0xA73d…a1FC",
+      "share": 0.0749,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xA73d9021f67931563fDfe3E8f66261086319a1FC"
+     },
+     {
+      "label": "BNB",
+      "share": 0.0599,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xB8c77482e45F1F44dE1745F52C74426C631bDD52"
+     },
+     {
+      "label": "0xA74E…053F",
+      "share": 0.0463,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xA74E8aE2F83d2564Af25420Ad4D6A7Fe224B053F"
+     }
+    ]
+   }
   },
   "usd-coin": {
    "id": "usd-coin",
@@ -203,7 +285,48 @@
      "arc",
      "0x3600000000000000000000000000000000000000"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+    "holders": 9614182,
+    "accounts": false,
+    "top10": 0.2273,
+    "top10Contracts": 0.1625,
+    "top50": 0.4204,
+    "top": [
+     {
+      "label": "ERC1967Proxy",
+      "share": 0.0332,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xffA69C0080582098aF595156240214b742735a5e"
+     },
+     {
+      "label": "Aave v3 USDC",
+      "share": 0.0331,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c"
+     },
+     {
+      "label": "ERC1967Proxy",
+      "share": 0.0314,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xaD354CfBAa4A8572DD6Df021514a3931A8329Ef5"
+     },
+     {
+      "label": "0x3730…7341",
+      "share": 0.0239,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x37305B1cD40574E4C5Ce33f8e8306Be057fD7341"
+     },
+     {
+      "label": "RootChainManagerProxy",
+      "share": 0.0235,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x40ec5B33f54e0E8A33A975908C5BA1c14e5BbbDf"
+     }
+    ]
+   }
   },
   "ripple": {
    "id": "ripple",
@@ -481,7 +604,48 @@
      "sora",
      "0x009e199267a6a2c8ae075bb8d4c40ee8d05c1b769085ee59ce98e50c2b2d8756"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x2af5d2ad76741191d15dfe7bf6ac92d4bd912ca3",
+    "holders": 3800,
+    "accounts": false,
+    "top10": 0.9992,
+    "top10Contracts": 0.9818,
+    "top50": 1,
+    "top": [
+     {
+      "label": "GnosisSafeProxy",
+      "share": 0.9818,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xC61b9BB3A7a0767E3179713f3A5c7a9aeDCE193C"
+     },
+     {
+      "label": "0x742d…f44e",
+      "share": 0.0147,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+     },
+     {
+      "label": "0xf9b3…8057",
+      "share": 0.0009,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xf9b35626AE6A1940F4310145B28b2F72e4098057"
+     },
+     {
+      "label": "0x7713…35EC",
+      "share": 0.0008,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x77134cbC06cB00b66F4c7e623D5fdBF6777635EC"
+     },
+     {
+      "label": "0xE623…f0d2",
+      "share": 0.0005,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xE623A583888e9796eA0F3629dA15665CB1Cef0d2"
+     }
+    ]
+   }
   },
   "whitebit": {
    "id": "whitebit",
@@ -521,7 +685,48 @@
      "tron",
      "TFptbWaARrWTX5Yvy3gNG5Lm8BmhPx82Bt"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x925206b8a707096ed26ae47c84747fe0bb734f59",
+    "holders": 905,
+    "accounts": false,
+    "top10": 0.9721,
+    "top10Contracts": 0,
+    "top50": 1,
+    "top": [
+     {
+      "label": "0x7f88…6610",
+      "share": 0.3631,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x7f881c8aA7f992d6a02C28e65459A88770A66610"
+     },
+     {
+      "label": "0xA028…545d",
+      "share": 0.1816,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xA028ad90f7bD93fFBbFf590C7E05fEE9032C545d"
+     },
+     {
+      "label": "0x0000…0001",
+      "share": 0.1513,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x0000000000000000000000000000000000000001"
+     },
+     {
+      "label": "0x597D…eF85",
+      "share": 0.0726,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x597DF1181b24502B2B8D8C5cAb3dC3f469dFeF85"
+     },
+     {
+      "label": "0x0A65…ff2f",
+      "share": 0.0695,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x0A65d6c14aE35b912fA1f5017A7aF70866C3ff2f"
+     }
+    ]
+   }
   },
   "chainlink": {
    "id": "chainlink",
@@ -576,7 +781,48 @@
      "hydration",
      "asset_registry%2F1000794"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x514910771af9ca656af840dff83e8264ecf986ca",
+    "holders": 1014946,
+    "accounts": false,
+    "top10": 0.296,
+    "top10Contracts": 0.249,
+    "top50": 0.5029,
+    "top": [
+     {
+      "label": "CommunityStakingPool",
+      "share": 0.0409,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xBc10f2E862ED4502144c7d632a3459F49DFCDB5e"
+     },
+     {
+      "label": "GnosisSafeProxy",
+      "share": 0.03,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x9BBb46637A1Df7CADec2AFcA19C2920CdDCc8Db8"
+     },
+     {
+      "label": "GnosisSafeProxy",
+      "share": 0.03,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x8652Fb672253607c0061677bDCaFb77a324DE081"
+     },
+     {
+      "label": "GnosisSafeProxy",
+      "share": 0.03,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x76287e0F7b107d1C9f8f01D5aFac314Ea8461a04"
+     },
+     {
+      "label": "GnosisSafeProxy",
+      "share": 0.03,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x7594Eb0ca0a7f313bEFD59AfE9e95c2201a443e4"
+     }
+    ]
+   }
   },
   "usds": {
    "id": "usds",
@@ -622,7 +868,48 @@
      "solana",
      "USDSwr9ApdHk5bvJKMjzff41FfuX8bSxdKcR81vTwcA"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0xdc035d45d973e3ec169d2276ddab16f1e407384f",
+    "holders": 17219,
+    "accounts": false,
+    "top10": 0.8793,
+    "top10Contracts": 0.865,
+    "top50": 0.978,
+    "top": [
+     {
+      "label": "ERC1967Proxy",
+      "share": 0.6316,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xa3931d71877C0E7a3148CB7Eb4463524FEc27fbD"
+     },
+     {
+      "label": "InitializableImmutableAdminUpgradeabilit",
+      "share": 0.057,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xC02aB1A5eaA8d1B114EF786D9bde108cD4364359"
+     },
+     {
+      "label": "ERC1967Proxy",
+      "share": 0.0514,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x99CD4Ec3f88A45940936F469E4bB72A2A701EEB9"
+     },
+     {
+      "label": "StakingRewards",
+      "share": 0.0323,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x173e314C7635B45322cd8Cb14f44b312e079F3af"
+     },
+     {
+      "label": "UsdsUsdcPocket",
+      "share": 0.0318,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x2Cd296095788A2741e72056D66B3Ae1fAeE23ea2"
+     }
+    ]
+   }
   },
   "cardano": {
    "id": "cardano",
@@ -705,7 +992,48 @@
      "swellchain",
      "0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x4c9edd5852cd905f086c759e8383e09bff1e68b3",
+    "holders": 47143,
+    "accounts": false,
+    "top10": 0.9378,
+    "top10Contracts": 0.8045,
+    "top50": 0.9917,
+    "top": [
+     {
+      "label": "USDeOFTAdapter",
+      "share": 0.391,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34"
+     },
+     {
+      "label": "Staked USDe",
+      "share": 0.2385,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x9D39A5DE30e57443BfF2A8307A4256c8797A3497"
+     },
+     {
+      "label": "Aave Ethereum USDe",
+      "share": 0.1506,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x4F5923Fc5FD4a93352581b38B7cD26943012DECF"
+     },
+     {
+      "label": "0x33AE…c74C",
+      "share": 0.0358,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x33AE83071432116AE892693b45466949a38Ac74C"
+     },
+     {
+      "label": "0x63be…0936",
+      "share": 0.0358,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x63beE4A7e4aa5d76Dc6AB9b9d1852AABB9a40936"
+     }
+    ]
+   }
   },
   "stellar": {
    "id": "stellar",
@@ -772,7 +1100,48 @@
      "ethereum",
      "0x6b175474e89094c44da98b954eedeac495271d0f"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x6b175474e89094c44da98b954eedeac495271d0f",
+    "holders": 801263,
+    "accounts": false,
+    "top10": 0.3763,
+    "top10Contracts": 0.3549,
+    "top50": 0.4928,
+    "top": [
+     {
+      "label": "DssLitePsm",
+      "share": 0.181,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xf6e72Db5454dd049d0788e411b06CfAF16853042"
+     },
+     {
+      "label": "RootChainManagerProxy",
+      "share": 0.0986,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x40ec5B33f54e0E8A33A975908C5BA1c14e5BbbDf"
+     },
+     {
+      "label": "ERC1967Proxy",
+      "share": 0.0351,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x250BA4E73A365CEfdd170a2b1ff9fc03097D64f3"
+     },
+     {
+      "label": "ERC1967Proxy",
+      "share": 0.0117,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x8932fe7726C1EE743F662f485C3e5a5D1D595F71"
+     },
+     {
+      "label": "InitializableImmutableAdminUpgradeabilit",
+      "share": 0.0114,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x4DEDf26112B3Ec8eC46e7E31EA5e123490B05B8B"
+     }
+    ]
+   }
   },
   "bitcoin-cash": {
    "id": "bitcoin-cash",
@@ -916,39 +1285,6 @@
    },
    "contracts": []
   },
-  "rain": {
-   "id": "rain",
-   "name": "Rain",
-   "symbol": "RAIN",
-   "image": "https://coin-images.coingecko.com/coins/images/69134/large/Rain_logo_1_.png?1762952191",
-   "about": [
-    "Rain is a decentralized options protocol built on Arbitrum. It enables anyone to create and trade custom markets without restrictions, offering a permissionless framework for prediction and options trading. Public markets are resolved using Olympus AI’s oracle agent, while private markets allow creators to act as resolvers. The protocol supports secondary trading, account abstraction for smoother user experience, and a deflationary token model where 2.5% of trading volume is allocated to buy and burn the $RAIN token. Governance of the protocol is carried out by token holders through a DAO."
-   ],
-   "categories": [
-    "Gambling (GambleFi)",
-    "Decentralized Finance (DeFi)",
-    "Options",
-    "Prediction Markets",
-    "Arbitrum Ecosystem"
-   ],
-   "genesis": null,
-   "algorithm": null,
-   "links": {
-    "website": "https://rain.one",
-    "whitepaper": "https://whitepaper.rain.one",
-    "explorers": [
-     "https://arbiscan.io/token/0x25118290e6A5f4139381D072181157035864099d",
-     "https://intel.arkm.com/explorer/token/rain"
-    ],
-    "github": "https://github.com/rainlanguage"
-   },
-   "contracts": [
-    [
-     "arbitrum-one",
-     "0x25118290e6a5f4139381d072181157035864099d"
-    ]
-   ]
-  },
   "uniswap": {
    "id": "uniswap",
    "name": "Uniswap",
@@ -999,7 +1335,48 @@
      "arbitrum-one",
      "0xfa7f8980b0f1e64a2062791cc3b0871572f1f7f0"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x1f9840a85d5af5bf1d1762f925bdaddc4201f984",
+    "holders": 431400,
+    "accounts": false,
+    "top10": 0.5209,
+    "top10Contracts": 0.2622,
+    "top50": 0.7084,
+    "top": [
+     {
+      "label": "Timelock",
+      "share": 0.2622,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x1a9C8182C09F50C8318d769245beA52c32BE35BC"
+     },
+     {
+      "label": "0x0000…dEaD",
+      "share": 0.1143,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x000000000000000000000000000000000000dEaD"
+     },
+     {
+      "label": "0x5a52…Efcb",
+      "share": 0.0354,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x5a52E96BAcdaBb82fd05763E25335261B270Efcb"
+     },
+     {
+      "label": "0xF977…aceC",
+      "share": 0.024,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xF977814e90dA44bFA03b6295A0616a897441aceC"
+     },
+     {
+      "label": "0x61CB…96eB",
+      "share": 0.023,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x61CB39BecE033c5bdA281747db1c15CceD2096eB"
+     }
+    ]
+   }
   },
   "the-open-network": {
    "id": "the-open-network",
@@ -1041,7 +1418,122 @@
      "binance-smart-chain",
      "0x76a797a59ba2c17726896976b7b3747bfd1d220f"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x582d872a1b094fc48f5de31d3b73f2d9be47def1",
+    "holders": 42146,
+    "accounts": false,
+    "top10": 0.296,
+    "top10Contracts": 0.0549,
+    "top50": 0.5516,
+    "top": [
+     {
+      "label": "0x5897…421C",
+      "share": 0.0441,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x5897045cffB2D1253e8a78A85DFecee95437421C"
+     },
+     {
+      "label": "0xedA4…a494",
+      "share": 0.0414,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xedA440497C1c846AaDe75FB012915A6AeAf5a494"
+     },
+     {
+      "label": "0xB2DB…F1E7",
+      "share": 0.0384,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xB2DBf8bd5d66154EB92f94d9e2CAcAD9166aF1E7"
+     },
+     {
+      "label": "UniswapV3Pool",
+      "share": 0.0358,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x4b62Fa30Fea125e43780DC425C2BE5acb4BA743b"
+     },
+     {
+      "label": "0x2c3B…cabd",
+      "share": 0.0349,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x2c3BbA10d66235A3F3028371677A027c30cBcabd"
+     }
+    ]
+   }
+  },
+  "tether-gold": {
+   "id": "tether-gold",
+   "name": "Tether Gold",
+   "symbol": "XAUT",
+   "image": "https://coin-images.coingecko.com/coins/images/10481/large/logo.png?1774627372",
+   "about": [
+    "Each XAU₮ token represents ownership of one troy fine ounce of physical gold on a specific gold bar. XAU₮, which is available as an ERC-20 token on the Ethereum blockchain and as a TRC20 token on the TRON blockchain, can be transferred to any on-chain address from the purchasers’ Tether wallet. Furthermore, Tether Gold (XAU₮) is the only product among the competition that offers zero custody fees and has direct control over the physical gold storage, safely held in a Switzerland vault, adopting best in class security and anti-threat measures. Today, Tether Gold (XAU₮) is the best way to hold Gold."
+   ],
+   "categories": [
+    "Tokenized Assets",
+    "Tokenized Gold",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Tokenized Commodities",
+    "Tether Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://gold.tether.to/",
+    "whitepaper": "https://gold.tether.to/Relevant%20Information%20Document%20-%20TG%20Commodities,%20S.A.%20de%20C.V.%20(ENG).pdf",
+    "explorers": [
+     "https://etherscan.io/token/0x68749665ff8d2d112fa859aa293f07a622782f38",
+     "https://intel.arkm.com/explorer/token/tether-gold"
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x68749665ff8d2d112fa859aa293f07a622782f38"
+    ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x68749665ff8d2d112fa859aa293f07a622782f38",
+    "holders": 63670,
+    "accounts": false,
+    "top10": 0.5489,
+    "top10Contracts": 0.0374,
+    "top50": 0.816,
+    "top": [
+     {
+      "label": "0x73f1…c32E",
+      "share": 0.1802,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x73f17D2F6572b436E0F5ED90Ea66DC54123ac32E"
+     },
+     {
+      "label": "0x5754…B949",
+      "share": 0.0943,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x5754284f345afc66a98fbB0a0Afe71e0F007B949"
+     },
+     {
+      "label": "0x785f…FF76",
+      "share": 0.0517,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x785f041A4DAe0C1E5eDcBB081F1a2BB9684eFF76"
+     },
+     {
+      "label": "0xf9b3…8057",
+      "share": 0.0462,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xf9b35626AE6A1940F4310145B28b2F72e4098057"
+     },
+     {
+      "label": "0x79EE…B74f",
+      "share": 0.0419,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x79EE72B4038C1dA4613ac6D1c16305AFE7d7B74f"
+     }
+    ]
+   }
   },
   "usd1-wlfi": {
    "id": "usd1-wlfi",
@@ -1089,7 +1581,48 @@
      "tron",
      "TPFqcBAaaUMCSVRCqPaQ9QnzKhmuoLR6Rc"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x8d0d000ee44948fc98c9b98a4fa4921476f08b0d",
+    "holders": 43000,
+    "accounts": false,
+    "top10": 0.892,
+    "top10Contracts": 0.102,
+    "top50": 0.9933,
+    "top": [
+     {
+      "label": "0x5a52…Efcb",
+      "share": 0.2793,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x5a52E96BAcdaBb82fd05763E25335261B270Efcb"
+     },
+     {
+      "label": "0x47ac…D503",
+      "share": 0.2618,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x47ac0Fb4F2D84898e4D9E7b4DaB3C24507a6D503"
+     },
+     {
+      "label": "0xF977…aceC",
+      "share": 0.1155,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xF977814e90dA44bFA03b6295A0616a897441aceC"
+     },
+     {
+      "label": "DolomiteMargin",
+      "share": 0.057,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x003Ca23Fd5F0ca87D01F6eC6CD14A8AE60c2b97D"
+     },
+     {
+      "label": "0x25c7…E1EA",
+      "share": 0.0416,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x25c7d768a7D53E6EBE5590c621437126c766E1EA"
+     }
+    ]
+   }
   },
   "sui": {
    "id": "sui",
@@ -1127,36 +1660,36 @@
     ]
    ]
   },
-  "tether-gold": {
-   "id": "tether-gold",
-   "name": "Tether Gold",
-   "symbol": "XAUT",
-   "image": "https://coin-images.coingecko.com/coins/images/10481/large/logo.png?1774627372",
+  "rain": {
+   "id": "rain",
+   "name": "Rain",
+   "symbol": "RAIN",
+   "image": "https://coin-images.coingecko.com/coins/images/69134/large/Rain_logo_1_.png?1762952191",
    "about": [
-    "Each XAU₮ token represents ownership of one troy fine ounce of physical gold on a specific gold bar. XAU₮, which is available as an ERC-20 token on the Ethereum blockchain and as a TRC20 token on the TRON blockchain, can be transferred to any on-chain address from the purchasers’ Tether wallet. Furthermore, Tether Gold (XAU₮) is the only product among the competition that offers zero custody fees and has direct control over the physical gold storage, safely held in a Switzerland vault, adopting best in class security and anti-threat measures. Today, Tether Gold (XAU₮) is the best way to hold Gold."
+    "Rain is a decentralized options protocol built on Arbitrum. It enables anyone to create and trade custom markets without restrictions, offering a permissionless framework for prediction and options trading. Public markets are resolved using Olympus AI’s oracle agent, while private markets allow creators to act as resolvers. The protocol supports secondary trading, account abstraction for smoother user experience, and a deflationary token model where 2.5% of trading volume is allocated to buy and burn the $RAIN token. Governance of the protocol is carried out by token holders through a DAO."
    ],
    "categories": [
-    "Tokenized Assets",
-    "Tokenized Gold",
-    "Ethereum Ecosystem",
-    "Real World Assets (RWA)",
-    "Tokenized Commodities",
-    "Tether Ecosystem"
+    "Gambling (GambleFi)",
+    "Decentralized Finance (DeFi)",
+    "Options",
+    "Prediction Markets",
+    "Arbitrum Ecosystem"
    ],
    "genesis": null,
    "algorithm": null,
    "links": {
-    "website": "https://gold.tether.to/",
-    "whitepaper": "https://gold.tether.to/Relevant%20Information%20Document%20-%20TG%20Commodities,%20S.A.%20de%20C.V.%20(ENG).pdf",
+    "website": "https://rain.one",
+    "whitepaper": "https://whitepaper.rain.one",
     "explorers": [
-     "https://etherscan.io/token/0x68749665ff8d2d112fa859aa293f07a622782f38",
-     "https://intel.arkm.com/explorer/token/tether-gold"
-    ]
+     "https://arbiscan.io/token/0x25118290e6A5f4139381D072181157035864099d",
+     "https://intel.arkm.com/explorer/token/rain"
+    ],
+    "github": "https://github.com/rainlanguage"
    },
    "contracts": [
     [
-     "ethereum",
-     "0x68749665ff8d2d112fa859aa293f07a622782f38"
+     "arbitrum-one",
+     "0x25118290e6a5f4139381d072181157035864099d"
     ]
    ]
   },
@@ -1196,7 +1729,48 @@
      "ethereum",
      "0x8292bb45bf1ee4d140127049757c2e0ff06317ed"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x8292bb45bf1ee4d140127049757c2e0ff06317ed",
+    "holders": 13344,
+    "accounts": false,
+    "top10": 0.7534,
+    "top10Contracts": 0.3461,
+    "top50": 0.975,
+    "top": [
+     {
+      "label": "VaultV2",
+      "share": 0.2251,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xFC8C624B6080a0a780583799f2A862DE936F6E22"
+     },
+     {
+      "label": "0x2d4d…7bB4",
+      "share": 0.1459,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x2d4d2A025b10C09BDbd794B4FCe4F7ea8C7d7bB4"
+     },
+     {
+      "label": "0x8D6D…f3a2",
+      "share": 0.0921,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x8D6D3479c94BB95e737B72186192ff5e7fedf3a2"
+     },
+     {
+      "label": "0x80a9…6628",
+      "share": 0.0808,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x80a9B4aAb0AD3c73cCE1C9223236b722DB5d6628"
+     },
+     {
+      "label": "ALMProxy",
+      "share": 0.0615,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x1601843c5E9bC251A3272907010AFa41Fa18347E"
+     }
+    ]
+   }
   },
   "global-dollar": {
    "id": "global-dollar",
@@ -1252,7 +1826,48 @@
      "robinhood",
      "0x5fc5360d0400a0fd4f2af552add042d716f1d168"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0xe343167631d89b6ffc58b88d6b7fb0228795491d",
+    "holders": 10276,
+    "accounts": false,
+    "top10": 0.8112,
+    "top10Contracts": 0.0707,
+    "top50": 0.9751,
+    "top": [
+     {
+      "label": "0xcC28…5ec7",
+      "share": 0.3957,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xcC282E2004428939ee5149A9e7872F0B4d5d5ec7"
+     },
+     {
+      "label": "0x817d…20AA",
+      "share": 0.139,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x817dafceE58beef498FE640DBe0fac09929920AA"
+     },
+     {
+      "label": "0xeAEa…036b",
+      "share": 0.1339,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xeAEaA6D1891037f74cE54dB935eeF03212E6036b"
+     },
+     {
+      "label": "CurveStableSwapNG",
+      "share": 0.0299,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xc061caa073f3d95F80f8e5428d32D2d76F5e1622"
+     },
+     {
+      "label": "TransparentUpgradeableProxy",
+      "share": 0.0246,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xCca852Bc40e560adC3b1Cc58CA5b55638ce826c9"
+     }
+    ]
+   }
   },
   "paypal-usd": {
    "id": "paypal-usd",
@@ -1303,7 +1918,48 @@
      "stable",
      "0x28f1f38a9f7db1f769a71af0a13e8bace2ab0e9f"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x6c3ea9036406852006290770bedfcaba0e23a0e8",
+    "holders": 115403,
+    "accounts": false,
+    "top10": 0.8934,
+    "top10Contracts": 0.3113,
+    "top50": 0.9852,
+    "top": [
+     {
+      "label": "0x2fb0…41a4",
+      "share": 0.2545,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x2fb074FA59c9294c71246825C1c9A0c7782d41a4"
+     },
+     {
+      "label": "0xAFBb…2a62",
+      "share": 0.1862,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xAFBb1a7E9ddEf38D9bC4A220E702B18DAcaa2a62"
+     },
+     {
+      "label": "ALMProxy",
+      "share": 0.1428,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x1601843c5E9bC251A3272907010AFa41Fa18347E"
+     },
+     {
+      "label": "0xffBc…3C61",
+      "share": 0.0677,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xffBc24d96F9b08789b3b80562C0cE86F22D03C61"
+     },
+     {
+      "label": "InitializableImmutableAdminUpgradeabilit",
+      "share": 0.0472,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x779224df1c756b4EDD899854F32a53E8c2B2ce5d"
+     }
+    ]
+   }
   },
   "hedera-hashgraph": {
    "id": "hedera-hashgraph",
@@ -1381,40 +2037,48 @@
      "sui",
      "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY"
     ]
-   ]
-  },
-  "shiba-inu": {
-   "id": "shiba-inu",
-   "name": "Shiba Inu",
-   "symbol": "SHIB",
-   "image": "https://coin-images.coingecko.com/coins/images/11939/large/shiba.png?1696511800",
-   "about": [
-    "Shiba Inu (SHIB) is a decentralized, community-led cryptocurrency ecosystem built on the Ethereum blockchain. Originally launched as a meme-based project, it has evolved into a comprehensive financial ecosystem designed to offer a decentralized alternative to traditional banking. Its main value proposition lies in its transition from a social phenomenon into a functional utility network, supported by a vast global community known as the ShibArmy and a commitment to 100% community ownership with no central leadership.",
-    "The ecosystem features its own decentralized exchange, ShibaSwap, where users can trade, provide liquidity, and earn rewards. To address Ethereum’s high costs and slow speeds, the project utilizes Shibarium, a Layer 2 scaling solution that processes transactions faster and more affordably.",
-    "The project employs a unique three-token model to manage its economy and governance. SHIB serves as the primary currency for trading and payments, while LEASH offers scarcity-based incentives for dedicated supporters. BONE acts as the governance token, allowing holders to vote on proposals through the Doggy DAO and serving as the native gas token for the Shibarium network."
    ],
-   "categories": [
-    "Meme",
-    "Ethereum Ecosystem",
-    "Dog-Themed"
-   ],
-   "genesis": null,
-   "algorithm": null,
-   "links": {
-    "website": "https://shibatoken.com/",
-    "whitepaper": "https://shib.io/documents/SHIBPAPER-ABRIDGED-V.1.pdf",
-    "explorers": [
-     "https://etherscan.io/token/0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce",
-     "https://intel.arkm.com/explorer/token/shiba-inu"
-    ],
-    "github": "https://github.com/shibaone"
-   },
-   "contracts": [
-    [
-     "ethereum",
-     "0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce"
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x96f6ef951840721adbf46ac996b59e0235cb985c",
+    "holders": 1363,
+    "accounts": false,
+    "top10": 0.9455,
+    "top10Contracts": 0.8329,
+    "top50": 0.9939,
+    "top": [
+     {
+      "label": "SafeProxy",
+      "share": 0.3208,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xA5b614026dCB1ef6e0E39AA53351b4F4bd225302"
+     },
+     {
+      "label": "SafeProxy",
+      "share": 0.2714,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x661b5e00424B56Ba6e369e0c2f21E31B6FB8ee1a"
+     },
+     {
+      "label": "SafeProxy",
+      "share": 0.0966,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x9C6Fa3b81cE92B7D82980D68CCCE9D6e48fe4AC2"
+     },
+     {
+      "label": "0xC882…F071",
+      "share": 0.0864,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xC882b111A75C0c657fC507C04FbFcD2cC984F071"
+     },
+     {
+      "label": "SafeProxy",
+      "share": 0.0758,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xC392749B6ff2cd95e5a4e3Ed396c93f813395041"
+     }
     ]
-   ]
+   }
   },
   "bittensor": {
    "id": "bittensor",
@@ -1448,6 +2112,155 @@
     "github": "https://github.com/opentensor/BitTensor"
    },
    "contracts": []
+  },
+  "shiba-inu": {
+   "id": "shiba-inu",
+   "name": "Shiba Inu",
+   "symbol": "SHIB",
+   "image": "https://coin-images.coingecko.com/coins/images/11939/large/shiba.png?1696511800",
+   "about": [
+    "Shiba Inu (SHIB) is a decentralized, community-led cryptocurrency ecosystem built on the Ethereum blockchain. Originally launched as a meme-based project, it has evolved into a comprehensive financial ecosystem designed to offer a decentralized alternative to traditional banking. Its main value proposition lies in its transition from a social phenomenon into a functional utility network, supported by a vast global community known as the ShibArmy and a commitment to 100% community ownership with no central leadership.",
+    "The ecosystem features its own decentralized exchange, ShibaSwap, where users can trade, provide liquidity, and earn rewards. To address Ethereum’s high costs and slow speeds, the project utilizes Shibarium, a Layer 2 scaling solution that processes transactions faster and more affordably.",
+    "The project employs a unique three-token model to manage its economy and governance. SHIB serves as the primary currency for trading and payments, while LEASH offers scarcity-based incentives for dedicated supporters. BONE acts as the governance token, allowing holders to vote on proposals through the Doggy DAO and serving as the native gas token for the Shibarium network."
+   ],
+   "categories": [
+    "Meme",
+    "Ethereum Ecosystem",
+    "Dog-Themed"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://shibatoken.com/",
+    "whitepaper": "https://shib.io/documents/SHIBPAPER-ABRIDGED-V.1.pdf",
+    "explorers": [
+     "https://etherscan.io/token/0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce",
+     "https://intel.arkm.com/explorer/token/shiba-inu"
+    ],
+    "github": "https://github.com/shibaone"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce"
+    ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce",
+    "holders": 1851078,
+    "accounts": false,
+    "top10": 0.6342,
+    "top10Contracts": 0,
+    "top50": 0.7758,
+    "top": [
+     {
+      "label": "0xdEAD…2069",
+      "share": 0.4104,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xdEAD000000000000000042069420694206942069"
+     },
+     {
+      "label": "0x02E2…481e",
+      "share": 0.0641,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x02E2201576FBbeFb52812f2eE7F08eB4774B481e"
+     },
+     {
+      "label": "0x40B3…E489",
+      "share": 0.0393,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x40B38765696e3d5d8d9d834D8AaD4bB6e418E489"
+     },
+     {
+      "label": "0x5a52…Efcb",
+      "share": 0.0351,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x5a52E96BAcdaBb82fd05763E25335261B270Efcb"
+     },
+     {
+      "label": "0xA023…947e",
+      "share": 0.0271,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xA023f08c70A23aBc7EdFc5B6b5E171d78dFc947e"
+     }
+    ]
+   }
+  },
+  "crypto-com-chain": {
+   "id": "crypto-com-chain",
+   "name": "Cronos",
+   "symbol": "CRO",
+   "image": "https://coin-images.coingecko.com/coins/images/7310/large/CRO.png?1794186148",
+   "about": [
+    "Cronos is an institutional-grade, high-performance, EVM-compatible Layer-1 blockchain built on the Cosmos SDK and integrated with the Inter-Blockchain Communication (IBC) protocol, designed as the backbone for open, compliant, and AI-accessible tokenized markets. It supports up to 60,000 transactions per second (TPS), 500ms block times, instant finality, and sub-$0.01 fees via Proof of Authority consensus."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Exchange-based Tokens",
+    "Centralized Exchange (CEX) Token",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "Crypto Card Issuer"
+   ],
+   "genesis": "2018-11-14",
+   "algorithm": "Ethash",
+   "links": {
+    "website": "https://cronos.org/",
+    "whitepaper": "https://whitepaper.cronos.org/",
+    "explorers": [
+     "https://etherscan.io/token/0xa0b73e1ff0b80914ab6fe0444e65848c4c34450b",
+     "https://intel.arkm.com/explorer/token/crypto-com-chain"
+    ],
+    "github": "https://github.com/crypto-org-chain/chain-main"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0xa0b73e1ff0b80914ab6fe0444e65848c4c34450b"
+    ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0xa0b73e1ff0b80914ab6fe0444e65848c4c34450b",
+    "holders": 354085,
+    "accounts": false,
+    "top10": 0.9673,
+    "top10Contracts": 0.0184,
+    "top50": 0.9909,
+    "top": [
+     {
+      "label": "0x0000…dEaD",
+      "share": 0.8685,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x000000000000000000000000000000000000dEaD"
+     },
+     {
+      "label": "0xA023…947e",
+      "share": 0.0303,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xA023f08c70A23aBc7EdFc5B6b5E171d78dFc947e"
+     },
+     {
+      "label": "MultiSigWalletWithDailyLimit",
+      "share": 0.0184,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x20a0BEe429d6907e556205ef9d48Ab6fE6a55531"
+     },
+     {
+      "label": "0xebAA…62cB",
+      "share": 0.015,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xebAA76C77aDd435a57b841f43252Bc770DdF62cB"
+     },
+     {
+      "label": "0x3Fd4…5DDD",
+      "share": 0.0086,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x3Fd446ea49F90530E81564c70711a332BD085DDD"
+     }
+    ]
+   }
   },
   "quant-network": {
    "id": "quant-network",
@@ -1483,41 +2296,48 @@
      "energi",
      "0x462b35452e552a66b519ecf70aedb1835d434965"
     ]
-   ]
-  },
-  "crypto-com-chain": {
-   "id": "crypto-com-chain",
-   "name": "Cronos",
-   "symbol": "CRO",
-   "image": "https://coin-images.coingecko.com/coins/images/7310/large/CRO.png?1794186148",
-   "about": [
-    "Cronos is an institutional-grade, high-performance, EVM-compatible Layer-1 blockchain built on the Cosmos SDK and integrated with the Inter-Blockchain Communication (IBC) protocol, designed as the backbone for open, compliant, and AI-accessible tokenized markets. It supports up to 60,000 transactions per second (TPS), 500ms block times, instant finality, and sub-$0.01 fees via Proof of Authority consensus."
    ],
-   "categories": [
-    "Smart Contract Platform",
-    "Exchange-based Tokens",
-    "Centralized Exchange (CEX) Token",
-    "Layer 1 (L1)",
-    "Ethereum Ecosystem",
-    "Crypto Card Issuer"
-   ],
-   "genesis": "2018-11-14",
-   "algorithm": "Ethash",
-   "links": {
-    "website": "https://cronos.org/",
-    "whitepaper": "https://whitepaper.cronos.org/",
-    "explorers": [
-     "https://etherscan.io/token/0xa0b73e1ff0b80914ab6fe0444e65848c4c34450b",
-     "https://intel.arkm.com/explorer/token/crypto-com-chain"
-    ],
-    "github": "https://github.com/crypto-org-chain/chain-main"
-   },
-   "contracts": [
-    [
-     "ethereum",
-     "0xa0b73e1ff0b80914ab6fe0444e65848c4c34450b"
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x4a220e6096b25eadb88358cb44068a3248254675",
+    "holders": 197455,
+    "accounts": false,
+    "top10": 0.2832,
+    "top10Contracts": 0.2101,
+    "top50": 0.377,
+    "top": [
+     {
+      "label": "StandardToken",
+      "share": 0.2101,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x4a220E6096B25EADb88358cb44068A3248254675"
+     },
+     {
+      "label": "0x8266…d78b",
+      "share": 0.0132,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x826678aD6b1aaa5e1f20E079333D9b66ab22d78b"
+     },
+     {
+      "label": "0x48E9…a170",
+      "share": 0.0132,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x48E9Af81fB93d144Ad4683FCF219974c8304a170"
+     },
+     {
+      "label": "0x7513…4C57",
+      "share": 0.01,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x7513Ae7E87290094B17b35e26cDb537170634C57"
+     },
+     {
+      "label": "0x5a52…Efcb",
+      "share": 0.0068,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x5a52E96BAcdaBb82fd05763E25335261B270Efcb"
+     }
     ]
-   ]
+   }
   },
   "spiko-amundi-overnight-swap-fund-eur": {
    "id": "spiko-amundi-overnight-swap-fund-eur",
@@ -1611,7 +2431,48 @@
      "solana",
      "7LWanZteUKtvFjv4MHYgKXXdAuCQYFPJysL9pxxdRQGn"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x136471a34f6ef19fe571effc1ca711fdb8e49f2b",
+    "holders": 24,
+    "accounts": false,
+    "top10": 1,
+    "top10Contracts": 0.8062,
+    "top50": null,
+    "top": [
+     {
+      "label": "SafeProxy",
+      "share": 0.4805,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xB1a6ac52a21435C744b5B4129b07E6c44bCd629b"
+     },
+     {
+      "label": "GnosisSafeProxy",
+      "share": 0.3257,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xdd82875f0840AAD58a455A70B88eEd9F59ceC7c7"
+     },
+     {
+      "label": "0x4e67…3caC",
+      "share": 0.1317,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x4e67722883AD992182e83b79Bf06A93972963caC"
+     },
+     {
+      "label": "0xc712…A84e",
+      "share": 0.0173,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xc7125DA07a7110049eCC68F43BF10DE4d45CA84e"
+     },
+     {
+      "label": "0x19FF…AC68",
+      "share": 0.0145,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x19FF1184FA488AcFBcD26eb978E13854BfDBAC68"
+     }
+    ]
+   }
   },
   "memecore": {
    "id": "memecore",
@@ -1690,7 +2551,48 @@
      "xdc-network",
      "0x8210c0634ab8f273806e4b7866e9db353773c44b"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0xfa2b947eec368f42195f24f36d2af29f7c24cec2",
+    "holders": 6403,
+    "accounts": false,
+    "top10": 0.7833,
+    "top10Contracts": 0.1353,
+    "top50": 0.9893,
+    "top": [
+     {
+      "label": "0x742d…f44e",
+      "share": 0.1634,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+     },
+     {
+      "label": "0xE97e…b01b",
+      "share": 0.1094,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xE97e5B10CCfAcd097D91551C5309B685f30Ab01b"
+     },
+     {
+      "label": "LockReleaseTokenPool",
+      "share": 0.1025,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xEcf61D6fAA3B9faE7195AF3bc9891450C1733f78"
+     },
+     {
+      "label": "0x2E0b…5E6d",
+      "share": 0.0807,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x2E0b91d7c6350e46BDAb220F58e9864198fD5E6d"
+     },
+     {
+      "label": "0xFddE…4bDC",
+      "share": 0.0774,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xFddE90aC5bB47D751A965fafcD9C10A749794bDC"
+     }
+    ]
+   }
   },
   "okb": {
    "id": "okb",
@@ -1733,7 +2635,48 @@
      "sora",
      "0x0080edc40a944d29562b2dea2de42ed27b9047d16eeea27c5bc1b2e02786abe9"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x75231f58b43240c9718dd58b4967c5114342a86c",
+    "holders": 20415,
+    "accounts": false,
+    "top10": 0.8879,
+    "top10Contracts": 0,
+    "top50": 2.9542,
+    "top": [
+     {
+      "label": "0x91D4…DEbE",
+      "share": 0.3018,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x91D40E4818F4D4C57b4578d9ECa6AFc92aC8DEbE"
+     },
+     {
+      "label": "0xe5f3…c293",
+      "share": 0.1398,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xe5f39BE6ff0D7dA94274B552891461Cd691Cc293"
+     },
+     {
+      "label": "0xC0Bf…9C9e",
+      "share": 0.0664,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xC0Bfd9D655300B198936D8fFBe036C4322c49C9e"
+     },
+     {
+      "label": "0x2de7…4Ec4",
+      "share": 0.0552,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x2de7aCADF5a973AaddE3371109734522B5224Ec4"
+     },
+     {
+      "label": "0x6c90…5965",
+      "share": 0.0551,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x6c9079AFA5826159e19B7e88740164C034E35965"
+     }
+    ]
+   }
   },
   "united-stables": {
    "id": "united-stables",
@@ -1775,7 +2718,135 @@
      "tron",
      "TFNirp6PbqYE1ZTtWuCMUKJWLNZkoCoeFJ"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0xce24439f2d9c6a2289f741120fe202248b666666",
+    "holders": 105,
+    "accounts": false,
+    "top10": 0.9999,
+    "top10Contracts": 0.001,
+    "top50": 1,
+    "top": [
+     {
+      "label": "0xF977…aceC",
+      "share": 0.8993,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xF977814e90dA44bFA03b6295A0616a897441aceC"
+     },
+     {
+      "label": "0x5a52…Efcb",
+      "share": 0.0855,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x5a52E96BAcdaBb82fd05763E25335261B270Efcb"
+     },
+     {
+      "label": "0x690C…91cC",
+      "share": 0.0099,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x690C3Eebf6ee237f00fc96f9766282F096C191cC"
+     },
+     {
+      "label": "SafeProxy",
+      "share": 0.001,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xD2538a30ccE25189De5BA2478F89cf6aa8603593"
+     },
+     {
+      "label": "0xde1C…fe78",
+      "share": 0.0008,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xde1C31ef18A36e44125c641063544eD5D44bfe78"
+     }
+    ]
+   }
+  },
+  "pax-gold": {
+   "id": "pax-gold",
+   "name": "PAX Gold",
+   "symbol": "PAXG",
+   "image": "https://coin-images.coingecko.com/coins/images/9519/large/asset-paxg.png?1785284785",
+   "about": [
+    "PAX Gold (PAXG) is an asset-backed token where one token should represent one fine troy ounce of a London Good Delivery gold bar, stored in professional vault facilities. Anyone who owns PAXG has ownership rights to that gold under the custody of Paxos Trust Company. Since PAXG represents physical gold, its value is tied directly to the real-time market value of that physical gold.",
+    "PAXG gives customers the benefits of actual physical ownership of specific gold bars with the speed and mobility of a digital asset. Customers are able to have fractional ownership of physical bars. On the Paxos platform, customers can convert their tokens to allocated gold, unallocated gold, or fiat currency (and vice versa) quickly and efficiently, reducing their exposure to settlement risk. PAXG is also available for trading on Paxos’ itBit exchange. PAXG will also be available on other crypto-asset exchanges, wallets, lending platforms and elsewhere within the crypto ecosystem.",
+    "At any time, PAXG holders can lookup the serial number, value and physical characteristics of their vaulted gold just by entering their Ethereum wallet address on the PAXG lookup tool on Paxos.com/paxgold."
+   ],
+   "categories": [
+    "Tokenized Assets",
+    "Tokenized Gold",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Base Ecosystem",
+    "Tokenized Commodities",
+    "Paxos Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.paxg.com/",
+    "whitepaper": "https://www.paxos.com/pax-gold",
+    "explorers": [
+     "https://etherscan.io/token/0x45804880de22913dafe09f4980848ece6ecbaf78",
+     "https://intel.arkm.com/explorer/token/pax-gold"
+    ],
+    "github": "https://github.com/paxosglobal/paxos-gold-contract"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x45804880de22913dafe09f4980848ece6ecbaf78"
+    ],
+    [
+     "base",
+     "0xe904aea5e1b110c9174728fa2effc8aed19e98ef"
+    ],
+    [
+     "solana",
+     "5GgRAEmv8ZxF2PR5hY72Qs5x1bnQ6UK2RbTPoqJ3wSwW"
+    ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x45804880de22913dafe09f4980848ece6ecbaf78",
+    "holders": 90317,
+    "accounts": false,
+    "top10": 0.338,
+    "top10Contracts": 0,
+    "top50": 0.4931,
+    "top": [
+     {
+      "label": "0x5a52…Efcb",
+      "share": 0.1637,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x5a52E96BAcdaBb82fd05763E25335261B270Efcb"
+     },
+     {
+      "label": "0xF977…aceC",
+      "share": 0.0539,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xF977814e90dA44bFA03b6295A0616a897441aceC"
+     },
+     {
+      "label": "0xd2DD…869F",
+      "share": 0.0264,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xd2DD7b597Fd2435b6dB61ddf48544fd931e6869F"
+     },
+     {
+      "label": "0x7d76…107d",
+      "share": 0.0252,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x7d766B06e7164Be4196EE62E6036c9FCFF68107d"
+     },
+     {
+      "label": "0x7DAF…6f83",
+      "share": 0.0138,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x7DAFbA1d69F6C01AE7567Ffd7b046Ca03B706f83"
+     }
+    ]
+   }
   },
   "aave": {
    "id": "aave",
@@ -1827,53 +2898,48 @@
      "harmony-shard-0",
      "0xcf323aad9e522b93f11c352caa519ad0e14eb40f"
     ]
-   ]
-  },
-  "pax-gold": {
-   "id": "pax-gold",
-   "name": "PAX Gold",
-   "symbol": "PAXG",
-   "image": "https://coin-images.coingecko.com/coins/images/9519/large/asset-paxg.png?1785284785",
-   "about": [
-    "PAX Gold (PAXG) is an asset-backed token where one token should represent one fine troy ounce of a London Good Delivery gold bar, stored in professional vault facilities. Anyone who owns PAXG has ownership rights to that gold under the custody of Paxos Trust Company. Since PAXG represents physical gold, its value is tied directly to the real-time market value of that physical gold.",
-    "PAXG gives customers the benefits of actual physical ownership of specific gold bars with the speed and mobility of a digital asset. Customers are able to have fractional ownership of physical bars. On the Paxos platform, customers can convert their tokens to allocated gold, unallocated gold, or fiat currency (and vice versa) quickly and efficiently, reducing their exposure to settlement risk. PAXG is also available for trading on Paxos’ itBit exchange. PAXG will also be available on other crypto-asset exchanges, wallets, lending platforms and elsewhere within the crypto ecosystem.",
-    "At any time, PAXG holders can lookup the serial number, value and physical characteristics of their vaulted gold just by entering their Ethereum wallet address on the PAXG lookup tool on Paxos.com/paxgold."
    ],
-   "categories": [
-    "Tokenized Assets",
-    "Tokenized Gold",
-    "Solana Ecosystem",
-    "Ethereum Ecosystem",
-    "Real World Assets (RWA)",
-    "Base Ecosystem",
-    "Tokenized Commodities",
-    "Paxos Ecosystem"
-   ],
-   "genesis": null,
-   "algorithm": null,
-   "links": {
-    "website": "https://www.paxg.com/",
-    "whitepaper": "https://www.paxos.com/pax-gold",
-    "explorers": [
-     "https://etherscan.io/token/0x45804880de22913dafe09f4980848ece6ecbaf78",
-     "https://intel.arkm.com/explorer/token/pax-gold"
-    ],
-    "github": "https://github.com/paxosglobal/paxos-gold-contract"
-   },
-   "contracts": [
-    [
-     "ethereum",
-     "0x45804880de22913dafe09f4980848ece6ecbaf78"
-    ],
-    [
-     "base",
-     "0xe904aea5e1b110c9174728fa2effc8aed19e98ef"
-    ],
-    [
-     "solana",
-     "5GgRAEmv8ZxF2PR5hY72Qs5x1bnQ6UK2RbTPoqJ3wSwW"
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9",
+    "holders": 196922,
+    "accounts": false,
+    "top10": 0.4348,
+    "top10Contracts": 0.3093,
+    "top50": 0.6831,
+    "top": [
+     {
+      "label": "Staked AAVE",
+      "share": 0.1535,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x4da27a545c0c5B758a6BA100e3a049001de870f5"
+     },
+     {
+      "label": "InitializableImmutableAdminUpgradeabilit",
+      "share": 0.0498,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+     },
+     {
+      "label": "SafeProxy",
+      "share": 0.0494,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x494AA25fA055d370424eD9dB3839E76EE3E9E945"
+     },
+     {
+      "label": "0xF977…aceC",
+      "share": 0.0442,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xF977814e90dA44bFA03b6295A0616a897441aceC"
+     },
+     {
+      "label": "InitializableAdminUpgradeabilityProxy",
+      "share": 0.0349,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x25F2226B597E8F9514B3F68F00f494cF4f286491"
+     }
     ]
-   ]
+   }
   },
   "blackrock-usd-institutional-digital-liquidity-fund": {
    "id": "blackrock-usd-institutional-digital-liquidity-fund",
@@ -1922,7 +2988,48 @@
      "avalanche",
      "0x53fc82f14f009009b440a706e31c9021e1196a2f"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x7712c34205737192402172409a8f7ccef8aa2aec",
+    "holders": 54,
+    "accounts": false,
+    "top10": 0.875,
+    "top10Contracts": 0.1542,
+    "top50": 1,
+    "top": [
+     {
+      "label": "0xEd71…Cf72",
+      "share": 0.3235,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xEd71aa0dA4fdBA512FfA398fcFf9db8C49A5Cf72"
+     },
+     {
+      "label": "0x7137…A258",
+      "share": 0.1861,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x713742701e5aec2E31C272705D85Aa8C3a51A258"
+     },
+     {
+      "label": "TransparentUpgradeableProxy",
+      "share": 0.0934,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xE827ABf9F462Ac4f147753D86bc5f91E186E4E9c"
+     },
+     {
+      "label": "0xa318…d67b",
+      "share": 0.0631,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xa318d9aF160110330d7E3B56cb7Da0D9F7d6d67b"
+     },
+     {
+      "label": "0xb48C…CC32",
+      "share": 0.051,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xb48CFe40Ab635F6875b570D391dff805cF3ACC32"
+     }
+    ]
+   }
   },
   "pepe": {
    "id": "pepe",
@@ -1972,7 +3079,48 @@
      "arbitrum-one",
      "0x25d887ce7a35172c62febfd67a1856f20faebb00"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x6982508145454ce325ddbe47a25d4ec3d2311933",
+    "holders": 574765,
+    "accounts": false,
+    "top10": 0.3944,
+    "top10Contracts": 0,
+    "top50": 0.6866,
+    "top": [
+     {
+      "label": "0xF977…aceC",
+      "share": 0.1192,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xF977814e90dA44bFA03b6295A0616a897441aceC"
+     },
+     {
+      "label": "0x1d48…0270",
+      "share": 0.0648,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x1d48963DD8FAdA6aB5C2C7b92Eba81ECC5030270"
+     },
+     {
+      "label": "0x5a52…Efcb",
+      "share": 0.0517,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x5a52E96BAcdaBb82fd05763E25335261B270Efcb"
+     },
+     {
+      "label": "0x3f9a…99b8",
+      "share": 0.0309,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x3f9a8345729eA842708E080e238C92731e5699b8"
+     },
+     {
+      "label": "0x611f…B09d",
+      "share": 0.0296,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x611f7bF868a6212f871e89F7e44684045DdFB09d"
+     }
+    ]
+   }
   },
   "usdd": {
    "id": "usdd",
@@ -2014,7 +3162,48 @@
      "binance-smart-chain",
      "0x45e51bc23d592eb2dba86da3985299f7895d66ba"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x4f8e5de400de08b164e7421b3ee387f461becd1a",
+    "holders": 6162,
+    "accounts": false,
+    "top10": 0.9948,
+    "top10Contracts": 0.029,
+    "top50": 0.9998,
+    "top": [
+     {
+      "label": "0x7213…5991",
+      "share": 0.659,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x72132bF09a9ee6517F3f1d997b4b3cd2115E5991"
+     },
+     {
+      "label": "0x1870…a12e",
+      "share": 0.2958,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x18709E89BD403F470088aBDAcEbE86CC60dda12e"
+     },
+     {
+      "label": "GnosisSafeProxy",
+      "share": 0.0119,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x29065a4C1f2F20d1E263930088890d6F49Fe715a"
+     },
+     {
+      "label": "SafeProxy",
+      "share": 0.0108,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xdAA4393013F359fD63a133A3b893D311Aba4e471"
+     },
+     {
+      "label": "0x1756…9386",
+      "share": 0.0056,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x1756613Fa60b99518ca62024Cf3f6Ad4f70A9386"
+     }
+    ]
+   }
   },
   "world-liberty-financial": {
    "id": "world-liberty-financial",
@@ -2053,7 +3242,48 @@
      "binance-smart-chain",
      "0x47474747477b199288bf72a1d702f7fe0fb1deea"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0xda5e1988097297dcdc1f90d4dfe7909e847cbef6",
+    "holders": 97656,
+    "accounts": false,
+    "top10": 0.8564,
+    "top10Contracts": 0.7858,
+    "top50": 0.9747,
+    "top": [
+     {
+      "label": "TransparentUpgradeableProxy",
+      "share": 0.4767,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x74B4f6A2E579D730aAcb9dD23cfbbAEb95029583"
+     },
+     {
+      "label": "GnosisSafeProxy",
+      "share": 0.1305,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x5be9a4959308A0D0c7bC0870E319314d8D957dBB"
+     },
+     {
+      "label": "SafeProxy",
+      "share": 0.0744,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xFef30c262676dE9AF5e5E9Ba999cF774000b14B4"
+     },
+     {
+      "label": "DolomiteMargin",
+      "share": 0.0527,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x003Ca23Fd5F0ca87D01F6eC6CD14A8AE60c2b97D"
+     },
+     {
+      "label": "0x4Af8…7bF9",
+      "share": 0.0371,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x4Af8911204909F6B234Da8deB3680738ef967bF9"
+     }
+    ]
+   }
   },
   "ondo-finance": {
    "id": "ondo-finance",
@@ -2087,7 +3317,48 @@
      "ethereum",
      "0xfaba6f8e4a5e8ab82f62fe7c39859fa577269be3"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0xfaba6f8e4a5e8ab82f62fe7c39859fa577269be3",
+    "holders": 223507,
+    "accounts": false,
+    "top10": 0.6837,
+    "top10Contracts": 0.5279,
+    "top50": 0.8459,
+    "top": [
+     {
+      "label": "SafeProxy",
+      "share": 0.5179,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x677FD4Ed8aE623f2f625DEB2D64F2070E46cA1A1"
+     },
+     {
+      "label": "0x460a…6537",
+      "share": 0.0727,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x460aE5a6666fcB9635BA99b541b31279e5966537"
+     },
+     {
+      "label": "0xa63e…0182",
+      "share": 0.0217,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xa63eaCe47618B9677261B09B32E3ca2B5C0A0182"
+     },
+     {
+      "label": "0xF977…aceC",
+      "share": 0.018,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xF977814e90dA44bFA03b6295A0616a897441aceC"
+     },
+     {
+      "label": "0xB829…7589",
+      "share": 0.0111,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xB829e684Df8e31B402a4D4AEDF3bbC18A52e7589"
+     }
+    ]
+   }
   },
   "ethena": {
    "id": "ethena",
@@ -2136,7 +3407,48 @@
      "kava",
      "0x58538e6a46e07434d7e7375bc268d3cb839c0133"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x57e114b691db790c35207b2e685d4a43181e6061",
+    "holders": 107044,
+    "accounts": false,
+    "top10": 0.5944,
+    "top10Contracts": 0.1419,
+    "top50": 0.813,
+    "top": [
+     {
+      "label": "0xfa84…a078",
+      "share": 0.0821,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xfa847C23ae9BD5407A64aCb2678F584bA350a078"
+     },
+     {
+      "label": "0x2146…F1d0",
+      "share": 0.0779,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x2146AA5807D96E6B2922a149CeE870F17347F1d0"
+     },
+     {
+      "label": "0xB805…0936",
+      "share": 0.0733,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xB805Ef84dd9c7DE96D8Fe79C1B6F2cA52E890936"
+     },
+     {
+      "label": "Ethena Staked ENA",
+      "share": 0.0641,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x8bE3460A480c80728a8C4D7a5D5303c85ba7B3b9"
+     },
+     {
+      "label": "0xd332…aeC9",
+      "share": 0.061,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xd332AB00f78884a467f11ba9c7551EC32671aeC9"
+     }
+    ]
+   }
   },
   "htx-dao": {
    "id": "htx-dao",
@@ -2176,7 +3488,48 @@
      "binance-smart-chain",
      "0x61ec85ab89377db65762e234c946b5c25a56e99e"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x61ec85ab89377db65762e234c946b5c25a56e99e",
+    "holders": 1206,
+    "accounts": false,
+    "top10": 0.9911,
+    "top10Contracts": 0.4658,
+    "top50": 0.9956,
+    "top": [
+     {
+      "label": "UniswapV2Pair",
+      "share": 0.4637,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xAcA1973A26692742A783d63dc198C99fb0fDc98d"
+     },
+     {
+      "label": "0x0000…dEaD",
+      "share": 0.3225,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x000000000000000000000000000000000000dEaD"
+     },
+     {
+      "label": "0x1870…a12e",
+      "share": 0.1846,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x18709E89BD403F470088aBDAcEbE86CC60dda12e"
+     },
+     {
+      "label": "0x9Be5…7516",
+      "share": 0.0163,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x9Be5b8A7314552FA47FeB1355CD5b4ADC7Bb7516"
+     },
+     {
+      "label": "PoolManager",
+      "share": 0.0009,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x000000000004444c5dc75cB358380D2e3dE08A90"
+     }
+    ]
+   }
   },
   "bfusd": {
    "id": "bfusd",
@@ -2234,7 +3587,48 @@
      "mantle",
      "0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x3c3a81e81dc49a522a592e7622a7e711c06bf354",
+    "holders": 30740,
+    "accounts": false,
+    "top10": 0.87,
+    "top10Contracts": 0.5225,
+    "top50": 0.9942,
+    "top": [
+     {
+      "label": "GnosisSafeProxy",
+      "share": 0.4663,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x78605Df79524164911C144801f41e9811B7DB73D"
+     },
+     {
+      "label": "0x8Ed5…a3EB",
+      "share": 0.0746,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x8Ed5b6Bc3D85Be31209FAc182466E0BcC30ba3EB"
+     },
+     {
+      "label": "0xe466…F243",
+      "share": 0.0574,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xe46620553d6b28E5D2520b366942990D8654F243"
+     },
+     {
+      "label": "0x8859…1E66",
+      "share": 0.0563,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x8859Eb340330492CB66f3B193e22696de8251E66"
+     },
+     {
+      "label": "Proxy",
+      "share": 0.0562,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xc54cb22944F2bE476E02dECfCD7e3E7d3e15A8Fb"
+     }
+    ]
+   }
   },
   "aster-2": {
    "id": "aster-2",
@@ -2353,7 +3747,48 @@
      "ethereum",
      "0x00f3c42833c3170159af4e92dbb451fb3f708917"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x00f3c42833c3170159af4e92dbb451fb3f708917",
+    "holders": 3405,
+    "accounts": false,
+    "top10": 0.328,
+    "top10Contracts": 0.0682,
+    "top50": 0.5359,
+    "top": [
+     {
+      "label": "0x0d56…4c11",
+      "share": 0.1349,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x0d565Ffa0267c0b70A2916683d196292674e4c11"
+     },
+     {
+      "label": "UniswapV3Pool",
+      "share": 0.0511,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x4068038AB5490063a3eAd93B3712Ed082e62bD59"
+     },
+     {
+      "label": "0xdAbF…bFe4",
+      "share": 0.0289,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xdAbF4a27627E68a5823054dEEA5F7FF08B5DbFe4"
+     },
+     {
+      "label": "0x7894…5Db2",
+      "share": 0.0269,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x7894984aF4BbA1784ce57cF7a75B68BF5F715Db2"
+     },
+     {
+      "label": "0x0761…00D8",
+      "share": 0.0212,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x0761D6c7f6441CC8Db15bAD2aFbCff05024D00D8"
+     }
+    ]
+   }
   },
   "just": {
    "id": "just",
@@ -2468,7 +3903,48 @@
      "arbitrum-one",
      "0x40bd670a58238e6e230c430bbb5ce6ec0d40df48"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x58d97b57bb95320f9a05dc918aef65434969c2b2",
+    "holders": 24343,
+    "accounts": false,
+    "top10": 0.6141,
+    "top10Contracts": 0.5387,
+    "top50": 0.822,
+    "top": [
+     {
+      "label": "Wrapper",
+      "share": 0.3557,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x9D03bb2092270648d7480049d0E58d2FcF0E5123"
+     },
+     {
+      "label": "GnosisSafeProxy",
+      "share": 0.077,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x6ABfd6139c7C3CC270ee2Ce132E309F59cAaF6a2"
+     },
+     {
+      "label": "SafeProxy",
+      "share": 0.0414,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x53051Ef9E20cB8Ad9262b77754b1D95e7B79b281"
+     },
+     {
+      "label": "0x72b2…6Fae",
+      "share": 0.0281,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x72b23AeBbD4aBfc1cEA755686710E74c93696Fae"
+     },
+     {
+      "label": "GnosisSafeProxy",
+      "share": 0.026,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x2fE3f12227e8eECf80aFFdAd3935de48513bbE9A"
+     }
+    ]
+   }
   },
   "bitget-token": {
    "id": "bitget-token",
@@ -2509,7 +3985,48 @@
      "morph-l2",
      "0x389c08bc23a7317000a1fd76c7c5b0cb0b4640b5"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x54d2252757e1672eead234d27b1270728ff90581",
+    "holders": 24221,
+    "accounts": false,
+    "top10": 0.8937,
+    "top10Contracts": 0.1548,
+    "top50": 0.998,
+    "top": [
+     {
+      "label": "0x0000…dEaD",
+      "share": 0.5461,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x000000000000000000000000000000000000dEaD"
+     },
+     {
+      "label": "0x43f1…556D",
+      "share": 0.1645,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x43f17ce0473709e9F5c91cF950811171A248556D"
+     },
+     {
+      "label": "SafeProxy",
+      "share": 0.1039,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x6ef3c37b4640BeecdC1c4Ba95d589FdA55d7CD12"
+     },
+     {
+      "label": "0x47Fa…b2d6",
+      "share": 0.0283,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x47Fa2AaA7acD628A1e72683Cdb3C4D7fc9FAb2d6"
+     },
+     {
+      "label": "LockReleaseTokenPool",
+      "share": 0.0114,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x41993c7228221403723B37D9F0B5F162C2902aA8"
+     }
+    ]
+   }
   },
   "sky": {
    "id": "sky",
@@ -2547,7 +4064,48 @@
      "hydration",
      "asset_registry%2F1000795"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x56072c95faa701256059aa122697b133aded9279",
+    "holders": 17577,
+    "accounts": false,
+    "top10": 0.8892,
+    "top10Contracts": 0.8332,
+    "top50": 0.9527,
+    "top": [
+     {
+      "label": "LockstakeEngine",
+      "share": 0.4366,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xCe01C90dE7FD1bcFa39e237FE6D8D9F569e8A6a3"
+     },
+     {
+      "label": "Chief",
+      "share": 0.3041,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x929d9A1435662357F54AdcF64DcEE4d6b867a6f9"
+     },
+     {
+      "label": "MkrSky",
+      "share": 0.0863,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xA1Ea1bA18E88C381C724a75F23a130420C403f9a"
+     },
+     {
+      "label": "0xbaF2…1897",
+      "share": 0.0162,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xbaF24C32652c35f14687eA1EA997e6348f731897"
+     },
+     {
+      "label": "0xF977…aceC",
+      "share": 0.0107,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xF977814e90dA44bFA03b6295A0616a897441aceC"
+     }
+    ]
+   }
   },
   "venice-token": {
    "id": "venice-token",
@@ -2622,7 +4180,121 @@
      "morph-l2",
      "0x4cf5920df52f5b1f246e2e38e1786ae1cf03ecf5"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x4cf5920df52f5b1f246e2e38e1786ae1cf03ecf5",
+    "holders": 16,
+    "accounts": false,
+    "top10": 0.9998,
+    "top10Contracts": 0.0017,
+    "top50": null,
+    "top": [
+     {
+      "label": "0x19C8…6175",
+      "share": 0.8603,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x19C8eD6602Ce31a51f2C9c28bD923847739f6175"
+     },
+     {
+      "label": "0x1368…11CE",
+      "share": 0.0956,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x1368487BccEE27421c5b4a90A437Dbb8e8ea11CE"
+     },
+     {
+      "label": "0x6bbf…95e9",
+      "share": 0.0371,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x6bbf1CcC9d3B758B7551Ed0a090253808Aab95e9"
+     },
+     {
+      "label": "0x0Fb7…4462",
+      "share": 0.0019,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x0Fb74E27912fD138064F267cB8FE357E9E204462"
+     },
+     {
+      "label": "0x18b2…3BbA",
+      "share": 0.0017,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x18b24D30494aB9895598a62cb9792C294EcF3BbA"
+     }
+    ]
+   }
+  },
+  "bitway": {
+   "id": "bitway",
+   "name": "Bitway",
+   "symbol": "BTW",
+   "image": "https://coin-images.coingecko.com/coins/images/71205/large/BTW_Token_200x200.png?1786291907",
+   "about": [
+    "BTW is the native utility and governance token of the Bitway ecosystem. It powers network operations, enables staking and governance participation, and aligns incentives across Bitway’s yield, payment, and financing products. BTW serves as the core asset that unifies the Bitway network and supports its long-term growth."
+   ],
+   "categories": [
+    "Decentralized Finance (DeFi)",
+    "Yield Farming",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Binance Alpha Spotlight",
+    "Governance"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://bitway.com/",
+    "whitepaper": "https://docs.bitway.com/",
+    "explorers": [
+     "https://bscscan.com/token/0x444045B0EE1ee319A660a5E3d604CA0ffA35ACaA",
+     "https://binplorer.com/address/0x444045B0EE1ee319A660a5E3d604CA0ffA35ACaA"
+    ],
+    "github": "https://github.com/bitwaylabs"
+   },
+   "contracts": [
+    [
+     "binance-smart-chain",
+     "0x444045b0ee1ee319a660a5e3d604ca0ffa35acaa"
+    ],
+    [
+     "ethereum",
+     "0x3a63de3572c69a1307ff08394f3ee7702c16d25d"
+    ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x3a63de3572c69a1307ff08394f3ee7702c16d25d",
+    "holders": 4,
+    "accounts": false,
+    "top10": 1,
+    "top10Contracts": 1,
+    "top50": null,
+    "top": [
+     {
+      "label": "ERC1967Proxy",
+      "share": 0.297,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x8549F3C2deF32734C27C57F16dc188f8C935Bf99"
+     },
+     {
+      "label": "ERC1967Proxy",
+      "share": 0.2743,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x71720eF192F5ae7fF616904feAE4a7EC272Ab2b4"
+     },
+     {
+      "label": "ERC1967Proxy",
+      "share": 0.224,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x729d894f658A12B562f372Bf5cB6C039a1531436"
+     },
+     {
+      "label": "ERC1967Proxy",
+      "share": 0.2047,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x0f614ec11588e9cb53Ad3c45dE5DD71AdC8F6fDe"
+     }
+    ]
+   }
   },
   "open-usd": {
    "id": "open-usd",
@@ -2667,7 +4339,48 @@
      "tempo",
      "0x20c0000000000000000000006a37da5c996874be"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x9f6f3991d525015a6f8caf062c83b62fd3ac4436",
+    "holders": 235,
+    "accounts": false,
+    "top10": 0.8445,
+    "top10Contracts": 0,
+    "top50": 0.9999,
+    "top": [
+     {
+      "label": "0xfB25…9F1b",
+      "share": 0.3317,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xfB25C06aA181894BC2343dB7ea8a2A59799b9F1b"
+     },
+     {
+      "label": "0xcC9b…7867",
+      "share": 0.1534,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xcC9b7967B94EBE803d36068F879875Da25157867"
+     },
+     {
+      "label": "0xb1DF…2103",
+      "share": 0.1391,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xb1DF4EcEc4Bd12756f4a8Da054BA11605D6b2103"
+     },
+     {
+      "label": "0x4c2c…00B8",
+      "share": 0.0836,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x4c2c0F0bB2631B02aC9299C59690914ee7A200B8"
+     },
+     {
+      "label": "0xF9AC…0838",
+      "share": 0.033,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xF9AC5b12de7375923FB78eAd512496d09f420838"
+     }
+    ]
+   }
   },
   "worldcoin-wld": {
    "id": "worldcoin-wld",
@@ -2712,45 +4425,48 @@
      "optimistic-ethereum",
      "0xdc6ff44d5d932cbd77b52e5612ba0529dc6226f1"
     ]
-   ]
-  },
-  "bitway": {
-   "id": "bitway",
-   "name": "Bitway",
-   "symbol": "BTW",
-   "image": "https://coin-images.coingecko.com/coins/images/71205/large/BTW_Token_200x200.png?1786291907",
-   "about": [
-    "BTW is the native utility and governance token of the Bitway ecosystem. It powers network operations, enables staking and governance participation, and aligns incentives across Bitway’s yield, payment, and financing products. BTW serves as the core asset that unifies the Bitway network and supports its long-term growth."
    ],
-   "categories": [
-    "Decentralized Finance (DeFi)",
-    "Yield Farming",
-    "BNB Chain Ecosystem",
-    "Ethereum Ecosystem",
-    "Binance Alpha Spotlight",
-    "Governance"
-   ],
-   "genesis": null,
-   "algorithm": null,
-   "links": {
-    "website": "https://bitway.com/",
-    "whitepaper": "https://docs.bitway.com/",
-    "explorers": [
-     "https://bscscan.com/token/0x444045B0EE1ee319A660a5E3d604CA0ffA35ACaA",
-     "https://binplorer.com/address/0x444045B0EE1ee319A660a5E3d604CA0ffA35ACaA"
-    ],
-    "github": "https://github.com/bitwaylabs"
-   },
-   "contracts": [
-    [
-     "binance-smart-chain",
-     "0x444045b0ee1ee319a660a5e3d604ca0ffa35acaa"
-    ],
-    [
-     "ethereum",
-     "0x3a63de3572c69a1307ff08394f3ee7702c16d25d"
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x163f8c2467924be0ae7b5347228cabf260318753",
+    "holders": 65662,
+    "accounts": false,
+    "top10": 0.6697,
+    "top10Contracts": 0.6697,
+    "top50": 0.8244,
+    "top": [
+     {
+      "label": "VestingWallet",
+      "share": 0.175,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xaEE0360b73B5D01dad134f234d3a93adc1680e57"
+     },
+     {
+      "label": "GnosisSafeProxy",
+      "share": 0.1183,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x59a0f98345f54bAB245A043488ECE7FCecD7B596"
+     },
+     {
+      "label": "VestingWallet",
+      "share": 0.0875,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x938ceD2D1eE4AFB220929F96c2eB754C053C77F7"
+     },
+     {
+      "label": "VestingWallet",
+      "share": 0.0875,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x5B5442C5fcEaE3b40C230C32a3Ffe924BcBe7D93"
+     },
+     {
+      "label": "L1ChugSplashProxy",
+      "share": 0.0818,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x470458C91978D2d929704489Ad730DC3E3001113"
+     }
     ]
-   ]
+   }
   },
   "ethereum-classic": {
    "id": "ethereum-classic",
@@ -2831,7 +4547,48 @@
      "polygon-pos",
      "0x0000000000000000000000000000000000001010"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x455e53cbb86018ac2b8092fdcd39d8444affc3f6",
+    "holders": 108069,
+    "accounts": false,
+    "top10": 0.8023,
+    "top10Contracts": 0.6864,
+    "top50": 0.9314,
+    "top": [
+     {
+      "label": "StakeManagerProxy",
+      "share": 0.3668,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x5e3Ef299fDDf15eAa0432E6e66473ace8c13D908"
+     },
+     {
+      "label": "DepositManagerProxy",
+      "share": 0.2858,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x401F6c983eA34274ec46f84D70b31C151321188b"
+     },
+     {
+      "label": "0xF977…aceC",
+      "share": 0.0396,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xF977814e90dA44bFA03b6295A0616a897441aceC"
+     },
+     {
+      "label": "TransparentUpgradeableProxy",
+      "share": 0.0337,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x29e7DF7b6A1B2b07b731457f499E1696c60E2C4e"
+     },
+     {
+      "label": "0x4c56…9FF4",
+      "share": 0.0158,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x4c569c1e541A19132AC893748E0ad54C7c989FF4"
+     }
+    ]
+   }
   },
   "arbitrum": {
    "id": "arbitrum",
@@ -2873,41 +4630,157 @@
      "ethereum",
      "0xb50721bcf8d664c30412cfbc6cf7a15145234ad1"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0xb50721bcf8d664c30412cfbc6cf7a15145234ad1",
+    "holders": 67513,
+    "accounts": false,
+    "top10": 0.6118,
+    "top10Contracts": 0,
+    "top50": 0.7331,
+    "top": [
+     {
+      "label": "0x611f…B09d",
+      "share": 0.3251,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x611f7bF868a6212f871e89F7e44684045DdFB09d"
+     },
+     {
+      "label": "0x92EA…d4eA",
+      "share": 0.0752,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x92EA7496eba5F001d620005f88F3e8e686e3d4eA"
+     },
+     {
+      "label": "0x0529…53B7",
+      "share": 0.0415,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x0529ea5885702715e83923c59746ae8734c553B7"
+     },
+     {
+      "label": "0xB0A2…3d64",
+      "share": 0.0322,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xB0A27099582833c0Cb8C7A0565759fF145113d64"
+     },
+     {
+      "label": "0x62d9…609e",
+      "share": 0.0286,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x62d94D917138fdff4cc88afcbFc388f59Eca609e"
+     }
+    ]
+   }
   },
-  "pieverse": {
-   "id": "pieverse",
-   "name": "Pieverse",
-   "symbol": "PIEVERSE",
-   "image": "https://coin-images.coingecko.com/coins/images/68773/large/pieverse.png?1756546685",
-   "about": [],
+  "pearl-2": {
+   "id": "pearl-2",
+   "name": "Pearl",
+   "symbol": "PEARL",
+   "image": "https://coin-images.coingecko.com/coins/images/102173580/large/pearl.png?1780324634",
+   "about": [
+    "Pearl network — a Proof-of-Useful-Work L1 protocol, where mining is produced natively from AI computations. The heart of the protocol is a new and efficient implementation of the core GPU operation (matrix-multiplication), allowing GPUs to implement proof-of-work as a side-effect of AI training and inference workloads (2-for-1). As such, the Pearl protocol intertwines energy, data, and money into a single atomic digital asset. This document outlines the protocol design, key implementation choices, and various economic aspects of the system."
+   ],
    "categories": [
     "Artificial Intelligence (AI)",
-    "BNB Chain Ecosystem",
-    "Ethereum Ecosystem",
-    "AI Applications",
-    "Binance Alpha Spotlight",
-    "TimeFi"
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Near Protocol Ecosystem",
+    "Proof of Work (PoW)"
    ],
    "genesis": null,
    "algorithm": null,
    "links": {
-    "website": "https://www.pieverse.io/",
+    "website": "https://pearlresearch.ai/",
     "explorers": [
-     "https://bscscan.com/token/0x0e63b9c287e32a05e6b9ab8ee8df88a2760225a9",
-     "https://binplorer.com/address/0x0e63b9c287e32a05e6b9ab8ee8df88a2760225a9"
-    ]
+     "https://explorer.pearlresearch.ai/",
+     "https://www.pearltrack.io/"
+    ],
+    "github": "https://github.com/pearl-research-labs/pearl"
    },
    "contracts": [
     [
-     "binance-smart-chain",
-     "0x0e63b9c287e32a05e6b9ab8ee8df88a2760225a9"
-    ],
-    [
-     "ethereum",
-     "0x0e63b9c287e32a05e6b9ab8ee8df88a2760225a9"
+     "near-protocol",
+     "prl.omft.near"
     ]
    ]
+  },
+  "render-token": {
+   "id": "render-token",
+   "name": "Render",
+   "symbol": "RENDER",
+   "image": "https://coin-images.coingecko.com/coins/images/11636/large/rndr.png?1696511529",
+   "about": [
+    "The Render Network is a leading decentralized GPU compute platform for applications ranging from 3D rendering to machine learning and generative AI.  The network connects node operators looking to monetize their idle GPU compute power with artists and developers looking to scale intensive 3D rendering work and machine learning applications in the cloud. Through a decentralized peer-to-peer network, the Render Network achieves unprecedented levels of scale, speed, and economic efficiency. Facilitated by the Render Network Foundation, the ecosystem empowers artists and developers to build services and applications for the emerging digital economy."
+   ],
+   "categories": [
+    "Artificial Intelligence (AI)",
+    "NFT",
+    "Metaverse",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "DePIN"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "explorers": [
+     "https://solscan.io/token/rndrizkt3mk1iimdxrdwabcf7zg7ar5t4nud4ekhbof",
+     "https://intel.arkm.com/explorer/token/render-token"
+    ],
+    "github": "https://github.com/rendernetwork"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x6de037ef9ad2725eb40118bb1702ebb27e4aeb24"
+    ],
+    [
+     "solana",
+     "rndrizKT3MK1iimdxRdWabcF7Zg7AR5T4nud4EkHBof"
+    ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x6de037ef9ad2725eb40118bb1702ebb27e4aeb24",
+    "holders": 94292,
+    "accounts": false,
+    "top10": 0.9397,
+    "top10Contracts": 0.9216,
+    "top50": 0.957,
+    "top": [
+     {
+      "label": "TokenBridge",
+      "share": 0.8589,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x3ee18B2214AFF97000D974cf647E7C347E8fa585"
+     },
+     {
+      "label": "0xA9D1…3E43",
+      "share": 0.0288,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xA9D1e08C7793af67e9d92fe308d5697FB81d3E43"
+     },
+     {
+      "label": "SafeProxy",
+      "share": 0.0277,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xB6E39e540e3472E927001bbBf77FFB5AB357b0e0"
+     },
+     {
+      "label": "0xf97D…31Df",
+      "share": 0.0122,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xf97DeB1C0BB4536ff16617D29E5F4B340fE231Df"
+     },
+     {
+      "label": "RootChainManagerProxy",
+      "share": 0.0027,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x40ec5B33f54e0E8A33A975908C5BA1c14e5BbbDf"
+     }
+    ]
+   }
   },
   "jupiter-exchange-solana": {
    "id": "jupiter-exchange-solana",
@@ -2946,42 +4819,6 @@
     ]
    ]
   },
-  "render-token": {
-   "id": "render-token",
-   "name": "Render",
-   "symbol": "RENDER",
-   "image": "https://coin-images.coingecko.com/coins/images/11636/large/rndr.png?1696511529",
-   "about": [
-    "The Render Network is a leading decentralized GPU compute platform for applications ranging from 3D rendering to machine learning and generative AI.  The network connects node operators looking to monetize their idle GPU compute power with artists and developers looking to scale intensive 3D rendering work and machine learning applications in the cloud. Through a decentralized peer-to-peer network, the Render Network achieves unprecedented levels of scale, speed, and economic efficiency. Facilitated by the Render Network Foundation, the ecosystem empowers artists and developers to build services and applications for the emerging digital economy."
-   ],
-   "categories": [
-    "Artificial Intelligence (AI)",
-    "NFT",
-    "Metaverse",
-    "Solana Ecosystem",
-    "Ethereum Ecosystem",
-    "DePIN"
-   ],
-   "genesis": null,
-   "algorithm": null,
-   "links": {
-    "explorers": [
-     "https://solscan.io/token/rndrizkt3mk1iimdxrdwabcf7zg7ar5t4nud4ekhbof",
-     "https://intel.arkm.com/explorer/token/render-token"
-    ],
-    "github": "https://github.com/rendernetwork"
-   },
-   "contracts": [
-    [
-     "ethereum",
-     "0x6de037ef9ad2725eb40118bb1702ebb27e4aeb24"
-    ],
-    [
-     "solana",
-     "rndrizKT3MK1iimdxRdWabcF7Zg7AR5T4nud4EkHBof"
-    ]
-   ]
-  },
   "kaspa": {
    "id": "kaspa",
    "name": "Kaspa",
@@ -3010,38 +4847,6 @@
     "github": "https://github.com/kaspanet/kaspad"
    },
    "contracts": []
-  },
-  "pearl-2": {
-   "id": "pearl-2",
-   "name": "Pearl",
-   "symbol": "PEARL",
-   "image": "https://coin-images.coingecko.com/coins/images/102173580/large/pearl.png?1780324634",
-   "about": [
-    "Pearl network — a Proof-of-Useful-Work L1 protocol, where mining is produced natively from AI computations. The heart of the protocol is a new and efficient implementation of the core GPU operation (matrix-multiplication), allowing GPUs to implement proof-of-work as a side-effect of AI training and inference workloads (2-for-1). As such, the Pearl protocol intertwines energy, data, and money into a single atomic digital asset. This document outlines the protocol design, key implementation choices, and various economic aspects of the system."
-   ],
-   "categories": [
-    "Artificial Intelligence (AI)",
-    "Smart Contract Platform",
-    "Layer 1 (L1)",
-    "Near Protocol Ecosystem",
-    "Proof of Work (PoW)"
-   ],
-   "genesis": null,
-   "algorithm": null,
-   "links": {
-    "website": "https://pearlresearch.ai/",
-    "explorers": [
-     "https://explorer.pearlresearch.ai/",
-     "https://www.pearltrack.io/"
-    ],
-    "github": "https://github.com/pearl-research-labs/pearl"
-   },
-   "contracts": [
-    [
-     "near-protocol",
-     "prl.omft.near"
-    ]
-   ]
   },
   "midnight-3": {
    "id": "midnight-3",
@@ -3112,7 +4917,123 @@
      "ethereum",
      "0xe66747a101bff2dba3697199dcce5b743b454759"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0xe66747a101bff2dba3697199dcce5b743b454759",
+    "holders": 4263,
+    "accounts": false,
+    "top10": 0.9987,
+    "top10Contracts": 0,
+    "top50": 0.9999,
+    "top": [
+     {
+      "label": "0x2b8F…f308",
+      "share": 0.6398,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x2b8F8d19F5ba3bEc5B44dEDeD3818a427895f308"
+     },
+     {
+      "label": "0x76bb…B8bc",
+      "share": 0.1747,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x76bbb8D5dbedde9cB34882c9588DFa9dEF00B8bc"
+     },
+     {
+      "label": "0xC882…F071",
+      "share": 0.0812,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xC882b111A75C0c657fC507C04FbFcD2cC984F071"
+     },
+     {
+      "label": "0x9BBE…2B19",
+      "share": 0.0408,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x9BBE47fe66b3580551aAc3124CF9Fc6560252B19"
+     },
+     {
+      "label": "0x1C4b…558c",
+      "share": 0.0354,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x1C4b70a3968436B9A0a9cf5205c787eb81Bb558c"
+     }
+    ]
+   }
+  },
+  "pieverse": {
+   "id": "pieverse",
+   "name": "Pieverse",
+   "symbol": "PIEVERSE",
+   "image": "https://coin-images.coingecko.com/coins/images/68773/large/pieverse.png?1756546685",
+   "about": [],
+   "categories": [
+    "Artificial Intelligence (AI)",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "AI Applications",
+    "Binance Alpha Spotlight",
+    "TimeFi"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.pieverse.io/",
+    "explorers": [
+     "https://bscscan.com/token/0x0e63b9c287e32a05e6b9ab8ee8df88a2760225a9",
+     "https://binplorer.com/address/0x0e63b9c287e32a05e6b9ab8ee8df88a2760225a9"
+    ]
+   },
+   "contracts": [
+    [
+     "binance-smart-chain",
+     "0x0e63b9c287e32a05e6b9ab8ee8df88a2760225a9"
+    ],
+    [
+     "ethereum",
+     "0x0e63b9c287e32a05e6b9ab8ee8df88a2760225a9"
+    ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x0e63b9c287e32a05e6b9ab8ee8df88a2760225a9",
+    "holders": 62238,
+    "accounts": false,
+    "top10": 0.832,
+    "top10Contracts": 0.7627,
+    "top50": 0.9709,
+    "top": [
+     {
+      "label": "SafeProxy",
+      "share": 0.1826,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x82a4Db55e5E2c9820E925A63F539a5d7C8bdb441"
+     },
+     {
+      "label": "SafeProxy",
+      "share": 0.165,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xDef63CeEE6Ce11b75576b460c012136D8FD89Ef4"
+     },
+     {
+      "label": "SafeProxy",
+      "share": 0.165,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xA8Bcbb04fDC56929D88b63eE842Fc0c9Da8d84dd"
+     },
+     {
+      "label": "SafeProxy",
+      "share": 0.11,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x0df019931E0c7a6E884A46c8E9852a56a864990E"
+     },
+     {
+      "label": "SafeProxy",
+      "share": 0.055,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x3d4f0C1A5416AD1271679e91bC67a0FE5Fb3c1D4"
+     }
+    ]
+   }
   },
   "gho": {
    "id": "gho",
@@ -3162,7 +5083,48 @@
      "plasma",
      "0xb77e872a68c62cfc0dfb02c067ecc3da23b4bbf3"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x40d16fc0246ad3160ccc09b8d0d3a2cd28ae6c2f",
+    "holders": 8200,
+    "accounts": false,
+    "top10": 0.9757,
+    "top10Contracts": 0.9722,
+    "top50": 0.9969,
+    "top": [
+     {
+      "label": "TransparentUpgradeableProxy",
+      "share": 0.4119,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x54C58157DeF387A880AE62332D1445f03adbE7E9"
+     },
+     {
+      "label": "TransparentUpgradeableProxy",
+      "share": 0.2778,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xE1753F2e00940cC31213dd92013cF019DFE4ca1d"
+     },
+     {
+      "label": "TransparentUpgradeableProxy",
+      "share": 0.0966,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x06179f7C1be40863405f374E7f5F8806c728660A"
+     },
+     {
+      "label": "InitializableImmutableAdminUpgradeabilit",
+      "share": 0.0706,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x946281A2d0DD6e650d08f74833323D66AE4c8b12"
+     },
+     {
+      "label": "InitializableImmutableAdminUpgradeabilit",
+      "share": 0.055,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x00907f9921424583e7ffBfEdf84F92B7B2Be4977"
+     }
+    ]
+   }
   },
   "algorand": {
    "id": "algorand",
@@ -3238,7 +5200,48 @@
      "solana",
      "CCz3SGVziFeLYk2xfEstkiqJfYkjaSWb2GCABYsVcjo2"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x43415eb6ff9db7e26a15b704e7a3edce97d31c4e",
+    "holders": 81,
+    "accounts": false,
+    "top10": 0.8595,
+    "top10Contracts": 0.1829,
+    "top50": 1,
+    "top": [
+     {
+      "label": "0x0A49…cf0d",
+      "share": 0.4386,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x0A4956A93FA13c34b84f5720b5499Da9193fcf0d"
+     },
+     {
+      "label": "TransparentUpgradeableProxy",
+      "share": 0.1441,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x569D7dccBF6923350521ecBC28A555A500c4f0Ec"
+     },
+     {
+      "label": "0x235A…8A0c",
+      "share": 0.0851,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x235Adf84139701024eDbA844EbF76FA7eeD98A0c"
+     },
+     {
+      "label": "0xDbA9…9c29",
+      "share": 0.0473,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xDbA942a872c5AF6F10Fbb3BB897dE11C48529c29"
+     },
+     {
+      "label": "0xD886…F0E7",
+      "share": 0.0301,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xD886E890C05Bec13a3164891A6227E2F25f1F0E7"
+     }
+    ]
+   }
   },
   "cosmos": {
    "id": "cosmos",
@@ -3345,7 +5348,48 @@
      "secret",
      "secret14706vxakdzkz9a36872cs62vpl5qd84kpwvpew"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0xe28b3b32b6c345a34ff64674606124dd5aceca30",
+    "holders": 50597,
+    "accounts": false,
+    "top10": 0.963,
+    "top10Contracts": 0.9503,
+    "top50": 0.9708,
+    "top": [
+     {
+      "label": "TransparentUpgradeableProxy",
+      "share": 0.9497,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xF955C57f9EA9Dc8781965FEaE0b6A2acE2BAD6f3"
+     },
+     {
+      "label": "0xAd8a…26F0",
+      "share": 0.006,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xAd8ae4e49e764E95c786d4F9cb0110c2A15126F0"
+     },
+     {
+      "label": "0x4e19…1a6C",
+      "share": 0.0029,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x4e19698c366f7DCD1cfAd4D7f621B4D275Bb1a6C"
+     },
+     {
+      "label": "0x6DdD…95E2",
+      "share": 0.0014,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x6DdD27F6235DA141217bc01250288e164B4C95E2"
+     },
+     {
+      "label": "0x50E1…Fb24",
+      "share": 0.0006,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x50E11Ee6Ecd5DC8f5Cbd06951FcA04c536e8Fb24"
+     }
+    ]
+   }
   },
   "lighter": {
    "id": "lighter",
@@ -3383,7 +5427,48 @@
      "robinhood",
      "0xeeca2e7dc194a320d349122d88259bb9595a4cb0"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x232ce3bd40fcd6f80f3d55a522d03f25df784ee2",
+    "holders": 12474,
+    "accounts": false,
+    "top10": 0.6264,
+    "top10Contracts": 0.1359,
+    "top50": 0.8587,
+    "top": [
+     {
+      "label": "0xe554…9D62",
+      "share": 0.2318,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xe554dcb002E4f3546d67E6dEed84323eed989D62"
+     },
+     {
+      "label": "Proxy",
+      "share": 0.1359,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x3B4D794a66304F130a4Db8F2551B0070dfCf5ca7"
+     },
+     {
+      "label": "0xA9f5…44e8",
+      "share": 0.0589,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xA9f5beb22C396aB05552fce0fe8B4335875e44e8"
+     },
+     {
+      "label": "0x47Fa…b2d6",
+      "share": 0.0512,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x47Fa2AaA7acD628A1e72683Cdb3C4D7fc9FAb2d6"
+     },
+     {
+      "label": "0xE5fD…FA59",
+      "share": 0.0424,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xE5fD7437d0eE86B4789a9f489Ed0670B0966FA59"
+     }
+    ]
+   }
   },
   "nexo": {
    "id": "nexo",
@@ -3440,7 +5525,48 @@
      "polygon-pos",
      "0x41b3966b4ff7b427969ddf5da3627d6aeae9a48e"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0xb62132e35a6c13ee1ee0f84dc5d40bad8d815206",
+    "holders": 73137,
+    "accounts": false,
+    "top10": 0.7624,
+    "top10Contracts": 0,
+    "top50": 0.7916,
+    "top": [
+     {
+      "label": "0x9bdB…4447",
+      "share": 0.2132,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x9bdB521a97E95177BF252C253E256A60C3e14447"
+     },
+     {
+      "label": "0x1111…1111",
+      "share": 0.2083,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x1111111111111111111111111111111111111111"
+     },
+     {
+      "label": "0x1C43…B497",
+      "share": 0.1148,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x1C433CBF4777e1f0dCe0374d79aaa8ecDC76B497"
+     },
+     {
+      "label": "0x9099…cD07",
+      "share": 0.1,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x9099ffBbe0f127741d58760fBAF644DeF3cCcD07"
+     },
+     {
+      "label": "0x7AB6…CcCF",
+      "share": 0.0609,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x7AB6c736baf1DAc266aAb43884d82974a9ADCcCF"
+     }
+    ]
+   }
   },
   "pi-network": {
    "id": "pi-network",
@@ -3518,7 +5644,48 @@
      "monad",
      "0xad48f183e586e92a591a610397ebf534609df797"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x5a0f93d040de44e78f251b03c43be9cf317dcf64",
+    "holders": 21,
+    "accounts": false,
+    "top10": 0.9962,
+    "top10Contracts": 0.6856,
+    "top50": null,
+    "top": [
+     {
+      "label": "ALMProxy",
+      "share": 0.4416,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x491EDFB0B8b608044e227225C715981a30F3A44E"
+     },
+     {
+      "label": "0x5d2c…d03B",
+      "share": 0.2783,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x5d2c428E04F3A10b963F5C8f216071DDcDBdd03B"
+     },
+     {
+      "label": "InitializableImmutableAdminUpgradeabilit",
+      "share": 0.1832,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xB0EC6c4482Ac1Ef77bE239C0AC833CF37A27c876"
+     },
+     {
+      "label": "SafeProxy",
+      "share": 0.0451,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x227942bD9C3e4ECA1b76E8199e407e6c52fdacd6"
+     },
+     {
+      "label": "0xf26E…4836",
+      "share": 0.0172,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xf26EfA5b4a207f63FDd8bB881cA789DEd2Ab4836"
+     }
+    ]
+   }
   },
   "xdce-crowd-sale": {
    "id": "xdce-crowd-sale",
@@ -3625,7 +5792,48 @@
      "binance-smart-chain",
      "0x758a3e0b1f842c9306b783f8a4078c6c8c03a270"
     ]
-   ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x73a15fed60bf67631dc6cd7bc5b6e8da8190acf5",
+    "holders": 123096,
+    "accounts": false,
+    "top10": 0.998,
+    "top10Contracts": 0.9974,
+    "top50": 0.9994,
+    "top": [
+     {
+      "label": "Staked USD0",
+      "share": 0.927,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x35D8949372D46B7a3D5A56006AE77B215fc69bC0"
+     },
+     {
+      "label": "USLLendingMarket",
+      "share": 0.0395,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xa428723eE8ffD87088C36121d72100B43F11fb6A"
+     },
+     {
+      "label": "EVK Vault eUSD0-4",
+      "share": 0.023,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xd001f0a15D272542687b2677BA627f48A4333b5d"
+     },
+     {
+      "label": "UniswapV3Pool",
+      "share": 0.0039,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xABfCA96716cf2911bBB50A4CDBcBAffA2ef8EcDa"
+     },
+     {
+      "label": "UniswapV3Pool",
+      "share": 0.0018,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x4e665157291DBcb25152ebB01061E4012F58aDd2"
+     }
+    ]
+   }
   },
   "pancakeswap-token": {
    "id": "pancakeswap-token",
@@ -3677,56 +5885,48 @@
      "base",
      "0x3055913c90fcc1a6ce9a358911721eeb942013a1"
     ]
-   ]
-  },
-  "layerzero": {
-   "id": "layerzero",
-   "name": "LayerZero",
-   "symbol": "ZRO",
-   "image": "https://coin-images.coingecko.com/coins/images/28206/large/ftxG9_TJ_400x400.jpeg?1696527208",
-   "about": [],
-   "categories": [
-    "Smart Contract Platform",
-    "BNB Chain Ecosystem",
-    "Avalanche Ecosystem",
-    "Polygon Ecosystem",
-    "Arbitrum Ecosystem",
-    "Ethereum Ecosystem",
-    "Optimism Ecosystem",
-    "Base Ecosystem"
    ],
-   "genesis": null,
-   "algorithm": null,
-   "links": {
-    "website": "https://layerzero.network/",
-    "whitepaper": "https://layerzero.network/publications/LayerZero_Whitepaper_V2.1.1.pdf",
-    "explorers": [
-     "https://etherscan.io/token/0x6985884c4392d348587b19cb9eaaf157f13271cd",
-     "https://intel.arkm.com/explorer/token/layerzero "
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x152649ea73beab28c5b49b26eb48f7ead6d4c898",
+    "holders": 20239,
+    "accounts": false,
+    "top10": 0.5808,
+    "top10Contracts": 0.016,
+    "top50": 0.7501,
+    "top": [
+     {
+      "label": "0x6A0b…2b52",
+      "share": 0.1295,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x6A0b3611214D5001FA5EFAe91b7222A316c12b52"
+     },
+     {
+      "label": "0xcF5A…401a",
+      "share": 0.1139,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xcF5AD13B9Fa83C70EeAc67380Abe665c701A401a"
+     },
+     {
+      "label": "0xaD60…F614",
+      "share": 0.1003,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xaD60C7Ed88Aa960D86b677a8ee2663b560F2F614"
+     },
+     {
+      "label": "0xF977…aceC",
+      "share": 0.0591,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xF977814e90dA44bFA03b6295A0616a897441aceC"
+     },
+     {
+      "label": "0xc82c…bB87",
+      "share": 0.0553,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xc82cdd3e8C9beCAbb26dCdFC7573FC3b6992bB87"
+     }
     ]
-   },
-   "contracts": [
-    [
-     "ethereum",
-     "0x6985884c4392d348587b19cb9eaaf157f13271cd"
-    ],
-    [
-     "base",
-     "0x6985884c4392d348587b19cb9eaaf157f13271cd"
-    ],
-    [
-     "polygon-pos",
-     "0x6985884c4392d348587b19cb9eaaf157f13271cd"
-    ],
-    [
-     "binance-smart-chain",
-     "0x6985884c4392d348587b19cb9eaaf157f13271cd"
-    ],
-    [
-     "arbitrum-one",
-     "0x6985884c4392d348587b19cb9eaaf157f13271cd"
-    ]
-   ]
+   }
   },
   "euro-coin": {
    "id": "euro-coin",
@@ -3775,6 +5975,96 @@
     [
      "base",
      "0x60a3e35cc302bfa44cb288bc5a4f316fdb1adb42"
+    ]
+   ],
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x1abaea1f7c830bd89acc67ec4af516284b1bc33c",
+    "holders": 28230,
+    "accounts": false,
+    "top10": 0.4733,
+    "top10Contracts": 0.3773,
+    "top50": 0.6896,
+    "top": [
+     {
+      "label": "ERC1967Proxy",
+      "share": 0.1974,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x9eA0F72EEAeb2c7CA6C12c03574d66d8A2D57A45"
+     },
+     {
+      "label": "ERC1967Proxy",
+      "share": 0.0845,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x27f7a520f85219c4322798FD0a1738560B5528cd"
+     },
+     {
+      "label": "InitializableImmutableAdminUpgradeabilit",
+      "share": 0.0387,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0xAA6e91C82942aeAE040303Bf96c15a6dBcB82CA0"
+     },
+     {
+      "label": "ERC1967Proxy",
+      "share": 0.0338,
+      "contract": true,
+      "url": "https://eth.blockscout.com/address/0x3B9308CaC276E3BF85eE65e0D3ad41A773ED2Cd6"
+     },
+     {
+      "label": "0xfed5…32E3",
+      "share": 0.0308,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xfed521944146A85e2D148a9476BFF212341f32E3"
+     }
+    ]
+   }
+  },
+  "layerzero": {
+   "id": "layerzero",
+   "name": "LayerZero",
+   "symbol": "ZRO",
+   "image": "https://coin-images.coingecko.com/coins/images/28206/large/ftxG9_TJ_400x400.jpeg?1696527208",
+   "about": [],
+   "categories": [
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Avalanche Ecosystem",
+    "Polygon Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem",
+    "Base Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://layerzero.network/",
+    "whitepaper": "https://layerzero.network/publications/LayerZero_Whitepaper_V2.1.1.pdf",
+    "explorers": [
+     "https://etherscan.io/token/0x6985884c4392d348587b19cb9eaaf157f13271cd",
+     "https://intel.arkm.com/explorer/token/layerzero "
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x6985884c4392d348587b19cb9eaaf157f13271cd"
+    ],
+    [
+     "base",
+     "0x6985884c4392d348587b19cb9eaaf157f13271cd"
+    ],
+    [
+     "polygon-pos",
+     "0x6985884c4392d348587b19cb9eaaf157f13271cd"
+    ],
+    [
+     "binance-smart-chain",
+     "0x6985884c4392d348587b19cb9eaaf157f13271cd"
+    ],
+    [
+     "arbitrum-one",
+     "0x6985884c4392d348587b19cb9eaaf157f13271cd"
     ]
    ]
   },
@@ -3827,34 +6117,48 @@
      "avalanche",
      "0x1c20e891bab6b1727d14da358fae2984ed9b59eb"
     ]
-   ]
-  },
-  "blockstack": {
-   "id": "blockstack",
-   "name": "Stacks",
-   "symbol": "STX",
-   "image": "https://coin-images.coingecko.com/coins/images/2069/large/Stacks_Logo_png.png?1709979332",
-   "about": [
-    "Stacks brings Apps and Smart Contracts to Bitcoin. Apps built on Stacks inherit all of Bitcoin’s powers. They run their logic on the blockchain with smart contracts, are controlled by code instead of companies, and are accessible to anyone. This enables decentralized apps to do things that regular apps can’t."
    ],
-   "categories": [
-    "Infrastructure",
-    "Smart Contract Platform",
-    "Layer 2 (L2)",
-    "Bitcoin Sidechains",
-    "Stacks Ecosystem",
-    "SideChain"
-   ],
-   "genesis": null,
-   "algorithm": null,
-   "links": {
-    "whitepaper": "https://gaia.blockstack.org/hub/1AxyPunHHAHiEffXWESKfbvmBpGQv138Fp/stacks.pdf",
-    "explorers": [
-     "https://explorer.stacks.co/"
-    ],
-    "github": "https://github.com/stacks-network"
-   },
-   "contracts": []
+   "holders": {
+    "chain": "Ethereum",
+    "explorer": "https://eth.blockscout.com/token/0x0000000000085d4780b73119b644ae5ecd22b376",
+    "holders": 346856,
+    "accounts": false,
+    "top10": 0.9194,
+    "top10Contracts": 0.0061,
+    "top50": 0.9798,
+    "top": [
+     {
+      "label": "0xd423…c261",
+      "share": 0.3097,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xd423022fFc3aA8915924DD484044987BC0A4c261"
+     },
+     {
+      "label": "0x7000…ad34",
+      "share": 0.2539,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x7000000Cd0fc88461a74C9df0809B58E7F60ad34"
+     },
+     {
+      "label": "0x2bb1…CA7d",
+      "share": 0.2475,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x2bb12A057e69775Ae8b68019BC1Bf21FCC95CA7d"
+     },
+     {
+      "label": "0x9390…A1D1",
+      "share": 0.0523,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0x93904eeC579e5bF7a57C2DD4AfbEA0F1C3e6A1D1"
+     },
+     {
+      "label": "0xF977…aceC",
+      "share": 0.0183,
+      "contract": false,
+      "url": "https://eth.blockscout.com/address/0xF977814e90dA44bFA03b6295A0616a897441aceC"
+     }
+    ]
+   }
   },
   "filecoin": {
    "id": "filecoin",
@@ -3881,6 +6185,33 @@
      "https://filscan.io/#/tipset/chain"
     ],
     "github": "https://github.com/filecoin-project/lotus"
+   },
+   "contracts": []
+  },
+  "blockstack": {
+   "id": "blockstack",
+   "name": "Stacks",
+   "symbol": "STX",
+   "image": "https://coin-images.coingecko.com/coins/images/2069/large/Stacks_Logo_png.png?1709979332",
+   "about": [
+    "Stacks brings Apps and Smart Contracts to Bitcoin. Apps built on Stacks inherit all of Bitcoin’s powers. They run their logic on the blockchain with smart contracts, are controlled by code instead of companies, and are accessible to anyone. This enables decentralized apps to do things that regular apps can’t."
+   ],
+   "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "Layer 2 (L2)",
+    "Bitcoin Sidechains",
+    "Stacks Ecosystem",
+    "SideChain"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "whitepaper": "https://gaia.blockstack.org/hub/1AxyPunHHAHiEffXWESKfbvmBpGQv138Fp/stacks.pdf",
+    "explorers": [
+     "https://explorer.stacks.co/"
+    ],
+    "github": "https://github.com/stacks-network"
    },
    "contracts": []
   }

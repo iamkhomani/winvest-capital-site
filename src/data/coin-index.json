@@ -156,21 +156,21 @@
   "rank": 26
  },
  {
-  "id": "rain",
-  "name": "Rain",
-  "symbol": "RAIN",
-  "rank": 27
- },
- {
   "id": "uniswap",
   "name": "Uniswap",
   "symbol": "UNI",
-  "rank": 28
+  "rank": 27
  },
  {
   "id": "the-open-network",
   "name": "Gram (prev. Toncoin)",
   "symbol": "GRAM",
+  "rank": 28
+ },
+ {
+  "id": "tether-gold",
+  "name": "Tether Gold",
+  "symbol": "XAUT",
   "rank": 29
  },
  {
@@ -186,9 +186,9 @@
   "rank": 31
  },
  {
-  "id": "tether-gold",
-  "name": "Tether Gold",
-  "symbol": "XAUT",
+  "id": "rain",
+  "name": "Rain",
+  "symbol": "RAIN",
   "rank": 32
  },
  {
@@ -222,27 +222,27 @@
   "rank": 37
  },
  {
-  "id": "shiba-inu",
-  "name": "Shiba Inu",
-  "symbol": "SHIB",
-  "rank": 38
- },
- {
   "id": "bittensor",
   "name": "Bittensor",
   "symbol": "TAO",
-  "rank": 39
+  "rank": 38
  },
  {
-  "id": "quant-network",
-  "name": "Quant",
-  "symbol": "QNT",
-  "rank": 40
+  "id": "shiba-inu",
+  "name": "Shiba Inu",
+  "symbol": "SHIB",
+  "rank": 39
  },
  {
   "id": "crypto-com-chain",
   "name": "Cronos",
   "symbol": "CRO",
+  "rank": 40
+ },
+ {
+  "id": "quant-network",
+  "name": "Quant",
+  "symbol": "QNT",
   "rank": 41
  },
  {
@@ -282,15 +282,15 @@
   "rank": 47
  },
  {
-  "id": "aave",
-  "name": "Aave",
-  "symbol": "AAVE",
-  "rank": 48
- },
- {
   "id": "pax-gold",
   "name": "PAX Gold",
   "symbol": "PAXG",
+  "rank": 48
+ },
+ {
+  "id": "aave",
+  "name": "Aave",
+  "symbol": "AAVE",
   "rank": 49
  },
  {
@@ -309,13 +309,13 @@
   "id": "usdd",
   "name": "USDD",
   "symbol": "USDD",
-  "rank": 53
+  "rank": 52
  },
  {
   "id": "world-liberty-financial",
   "name": "World Liberty Financial",
   "symbol": "WLFI",
-  "rank": 52
+  "rank": 53
  },
  {
   "id": "ondo-finance",
@@ -408,21 +408,21 @@
   "rank": 68
  },
  {
+  "id": "bitway",
+  "name": "Bitway",
+  "symbol": "BTW",
+  "rank": 69
+ },
+ {
   "id": "open-usd",
   "name": "Open USD",
   "symbol": "OUSD",
-  "rank": 69
+  "rank": 70
  },
  {
   "id": "worldcoin-wld",
   "name": "Worldcoin",
   "symbol": "WLD",
-  "rank": 70
- },
- {
-  "id": "bitway",
-  "name": "Bitway",
-  "symbol": "BTW",
   "rank": 71
  },
  {
@@ -450,21 +450,21 @@
   "rank": 75
  },
  {
-  "id": "pieverse",
-  "name": "Pieverse",
-  "symbol": "PIEVERSE",
+  "id": "pearl-2",
+  "name": "Pearl",
+  "symbol": "PEARL",
   "rank": 76
- },
- {
-  "id": "jupiter-exchange-solana",
-  "name": "Jupiter",
-  "symbol": "JUP",
-  "rank": 77
  },
  {
   "id": "render-token",
   "name": "Render",
   "symbol": "RENDER",
+  "rank": 77
+ },
+ {
+  "id": "jupiter-exchange-solana",
+  "name": "Jupiter",
+  "symbol": "JUP",
   "rank": 78
  },
  {
@@ -474,21 +474,21 @@
   "rank": 79
  },
  {
-  "id": "pearl-2",
-  "name": "Pearl",
-  "symbol": "PEARL",
-  "rank": 80
- },
- {
   "id": "midnight-3",
   "name": "Midnight",
   "symbol": "NIGHT",
-  "rank": 81
+  "rank": 80
  },
  {
   "id": "gatechain-token",
   "name": "Gate",
   "symbol": "GT",
+  "rank": 81
+ },
+ {
+  "id": "pieverse",
+  "name": "Pieverse",
+  "symbol": "PIEVERSE",
   "rank": 82
  },
  {
@@ -549,13 +549,13 @@
   "id": "xdce-crowd-sale",
   "name": "XDC Network",
   "symbol": "XDC",
-  "rank": 93
+  "rank": 92
  },
  {
   "id": "beldex",
   "name": "Beldex",
   "symbol": "BDX",
-  "rank": 92
+  "rank": 93
  },
  {
   "id": "usual-usd",
@@ -570,15 +570,15 @@
   "rank": 95
  },
  {
-  "id": "layerzero",
-  "name": "LayerZero",
-  "symbol": "ZRO",
-  "rank": 96
- },
- {
   "id": "euro-coin",
   "name": "EURC",
   "symbol": "EURC",
+  "rank": 96
+ },
+ {
+  "id": "layerzero",
+  "name": "LayerZero",
+  "symbol": "ZRO",
   "rank": 97
  },
  {
@@ -588,15 +588,15 @@
   "rank": 98
  },
  {
-  "id": "blockstack",
-  "name": "Stacks",
-  "symbol": "STX",
-  "rank": 99
- },
- {
   "id": "filecoin",
   "name": "Filecoin",
   "symbol": "FIL",
+  "rank": 99
+ },
+ {
+  "id": "blockstack",
+  "name": "Stacks",
+  "symbol": "STX",
   "rank": 100
  }
 ]
