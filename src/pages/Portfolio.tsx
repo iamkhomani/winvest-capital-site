@@ -526,6 +526,23 @@ export default function Portfolio({ lang }: { lang: Lang }) {
     switchTo('main', { ...pf, list: pf.list.filter((p) => p.id !== pf.active) })
   }
 
+  // Opened from a coin page with "Add to portfolio": ?add=<CoinGecko id> opens the form prefilled
+  const ready = data !== null
+  useEffect(() => {
+    if (!ready || !data) return
+    const id = new URLSearchParams(location.search).get('add')
+    if (!id || !/^[a-z0-9-]{1,80}$/.test(id)) return
+    history.replaceState(null, '', location.pathname + location.hash)
+    const known = data.assets[`crypto:${id}`]
+    if (known) { setForm({ preset: known }); return }
+    void searchCrypto(id)
+      .then((list) => {
+        const f = list.find((x) => x.id === id)
+        if (f) setForm({ preset: { key: f.key, kind: 'crypto', symbol: f.symbol, name: f.name, id: f.id, image: f.image } })
+      })
+      .catch(() => {})
+  }, [ready]) // eslint-disable-line react-hooks/exhaustive-deps
+
   // assets that need prices: held assets + shared watchlist assets
   const watchMap = useMemo(() => new Map<string, WatchItem>((W.lists ?? []).flatMap((l) => l.items.map((i) => [i.key, i] as [string, WatchItem]))), [W.lists])
   const assetOf = (k: string): Asset | undefined => data?.assets[k] ?? watchMap.get(k)

@@ -106,7 +106,9 @@ function Select({ label, value, onChange, options, id }: { label: string; value:
   )
 }
 
-export default function LotSizeCalculator({ lang }: { lang: Lang }) {
+/** `preset`: opened from an asset page (Plan trade): crypto/stock mode with the live price as entry, in that
+ *  price's currency; the shared settings are then read but not overwritten. */
+export default function LotSizeCalculator({ lang, preset }: { lang: Lang; preset?: { entry: number; currency: string } }) {
   const c = copy[lang]
   const locale = lang === 'nl' ? 'nl-NL' : 'en-US'
   const [mode, setMode] = useState<'fx' | 'units'>('fx')
@@ -127,11 +129,18 @@ export default function LotSizeCalculator({ lang }: { lang: Lang }) {
     if (st.balance) setBalance(st.balance)
     if (st.currency) setCurrency(st.currency)
     if (st.risk) setRisk(st.risk)
+    if (preset && preset.entry > 0) {
+      const sig = (v: number) => String(Number(v.toPrecision(v >= 1 ? 6 : 4)))
+      setMode('units')
+      setCurrency(preset.currency)
+      setEntry(sig(preset.entry))
+      setStopPrice(sig(preset.entry * 0.95))
+    }
     setMounted(true)
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (mounted) saveSettings({ balance, currency, risk })
-  }, [mounted, balance, currency, risk])
+    if (mounted && !preset) saveSettings({ balance, currency, risk })
+  }, [mounted, balance, currency, risk]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     fetch('https://api.frankfurter.dev/v1/latest?base=USD&symbols=EUR,GBP,JPY,CHF,CAD,AUD,NZD')

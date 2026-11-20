@@ -12,6 +12,7 @@ import { paths } from '../paths'
 import { usd, usdBig } from '../markets/pulse'
 import { cardBase } from '../components/kit'
 import WatchStar from '../shared/WatchStar'
+import AssetActions from '../components/AssetActions'
 
 /** Static facts, from the snapshot (prerendered pages) or from the live CoinGecko answer. */
 export type CoinFacts = {
@@ -602,6 +603,7 @@ export default function Coin({ lang, id: fixedId }: { lang: Lang; id?: string })
                 <p className={`text-sm tabular-nums ${tone(m?.ch24)}`}>{m ? `${pct(m.ch24, lang)} 24${lang === 'nl' ? 'u' : 'h'}` : ' '}</p>
               </div>
             </header>
+            <AssetActions lang={lang} id={f.id} name={f.name} symbol={f.symbol} price={m?.price} contract={f.contracts.find(([pl]) => pl === 'ethereum')?.[1] ?? f.contracts[0]?.[1]} />
 
             <div className="mt-6 grid gap-4 lg:grid-cols-3">
               <div className={`${card} lg:col-span-2`}>
