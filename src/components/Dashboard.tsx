@@ -124,7 +124,7 @@ export default function Dashboard({ lang }: { lang: Lang }) {
   // after the 19:00 Debrief. No AI call here; hidden when the file is missing or older than 36 hours.
   const [brief, setBrief] = useState<{ generated: string; markets: { market: string; headline: string }[]; events?: { time: string; title: string }[] } | null>(null)
   useEffect(() => {
-    fetch('https://media.winvestcapital.nl/teaser.json', { signal: AbortSignal.timeout(10000) })
+    fetch('https://media.winvestcapital.nl/teaser.json', { cache: 'no-cache', signal: AbortSignal.timeout(10000) }) // revalidate: an old 404 from before the Debrief may sit in the browser cache
       .then((r) => (r.ok ? r.json() : null))
       .then((j) => {
         if (!j || !Array.isArray(j.markets) || Date.now() - Date.parse(j.generated) > 36 * 36e5) return
