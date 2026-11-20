@@ -273,10 +273,14 @@ export default function Coin({ lang }: { lang: Lang }) {
                     scalePosition: 'right',
                     scaleMode: 'Normal',
                     chartType: 'area',
-                    lineColor: '#DA291C',
+                    lineWidth: 2,
+                    lineType: 0,
+                    lineColor: 'rgba(218, 41, 28, 1)',
                     topColor: 'rgba(218, 41, 28, 0.25)',
                     bottomColor: 'rgba(218, 41, 28, 0)',
-                    dateRanges: ['1d|1', '1m|30', '3m|60', '12m|1D', '60m|1W', 'all|1M'],
+                    fontColor: 'rgb(106, 109, 120)',
+                    gridLineColor: 'rgba(242, 242, 242, 0.06)',
+                    dateRanges: ['12m|1D', '1m|30', '3m|60', '60m|1W', 'all|1M'],
                   }}
                 />
                 <p className="mt-2 text-xs text-white/40">{c.chartNote}</p>
