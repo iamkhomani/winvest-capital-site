@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      full:
+        description: 'Also refresh the weekly coin snapshot (slow)'
+        type: boolean
+        default: false
   # Weekly market data snapshot (coin pages, DefiLlama map): Monday 04:17 UTC.
   # Daily DeFi market snapshot (DeFi Scanner): every day 05:23 UTC.
   schedule:
@@ -30,7 +35,7 @@ jobs:
       # npm ci installs exactly the versions in package-lock.json (no surprise updates)
       - run: npm ci
       - name: Refresh market data snapshot (weekly schedule and manual runs only)
-        if: github.event_name == 'workflow_dispatch' || github.event.schedule == '17 4 * * 1'
+        if: inputs.full || github.event.schedule == '17 4 * * 1'
         continue-on-error: true
         run: |
           node scripts/fetch-data.mjs

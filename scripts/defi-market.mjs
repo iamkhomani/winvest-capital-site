@@ -22,7 +22,9 @@ const round = (v, d = 2) => (typeof v === 'number' && Number.isFinite(v) ? +v.to
 const big = (v) => (typeof v === 'number' && Number.isFinite(v) ? Math.round(v) : null)
 
 // Categories that are not DeFi protocols in the usual sense (exchanges, bridges of chains themselves).
-const NOT_DEFI = new Set(['CEX', 'Chain', 'Canonical Bridge'])
+const NOT_DEFI = new Set(['CEX', 'Chain', 'Canonical Bridge', 'Bridge', 'Cross Chain Bridge'])
+// Large, widely used dollar stablecoins only; synthetic "yield-bearing" coins carry their own risks.
+const MAJOR = /^(USDC|USDT|USDT0|DAI|USDS|PYUSD|FDUSD|RLUSD|GHO|USDC\.E|USDBC)$/
 
 const [protocols, dexs, pools] = await Promise.all([
   get('https://api.llama.fi/protocols'),
@@ -43,16 +45,16 @@ const out = {
     ch1d: round(dexs.change_1d),
     ch7d: round(dexs.change_7dover7d),
     top: (dexs.protocols ?? [])
-      .filter((p) => typeof p.total24h === 'number' && p.total24h > 0)
+      .filter((p) => p.category === 'Dexs' && typeof p.total24h === 'number' && p.total24h > 0)
       .sort((a, b) => b.total24h - a.total24h)
       .slice(0, 10)
       .map((p) => ({ name: p.displayName || p.name, slug: p.slug, vol24h: big(p.total24h), ch1d: round(p.change_1d), chains: Array.isArray(p.chains) ? p.chains.length : 0, logo: p.logo })),
   },
-  // Stablecoin pools only (no price risk on the deposit itself), at least $25M deposited, not flagged as outliers.
-  // Sorted by the 30-day average APY so a one-day spike does not top the list.
+  // The largest pools of major dollar stablecoins (no price exposure to other tokens), not flagged as outliers.
+  // Sorted by size, not by yield: the highest yields are usually the riskiest.
   yields: (pools.data ?? [])
-    .filter((p) => p.stablecoin && p.ilRisk === 'no' && p.exposure === 'single' && !p.outlier && p.tvlUsd >= 25e6 && p.apy > 0 && p.apy < 40 && typeof p.apyMean30d === 'number')
-    .sort((a, b) => b.apyMean30d - a.apyMean30d)
+    .filter((p) => p.stablecoin && p.ilRisk === 'no' && p.exposure === 'single' && !p.outlier && MAJOR.test(String(p.symbol).toUpperCase()) && p.tvlUsd >= 25e6 && p.apy > 0 && p.apy < 40 && typeof p.apyMean30d === 'number')
+    .sort((a, b) => b.tvlUsd - a.tvlUsd)
     .slice(0, 10)
     .map((p) => ({ pool: p.pool, project: p.project, chain: p.chain, symbol: p.symbol, tvl: big(p.tvlUsd), apy: round(p.apy), apyBase: round(p.apyBase), apyReward: round(p.apyReward), apy30d: round(p.apyMean30d), meta: p.poolMeta ?? null })),
 }
