@@ -2,6 +2,8 @@ import { StrictMode } from 'react'
 import { renderToString } from 'react-dom/server'
 import { SITE_URL } from './config'
 import { PathContext } from './components/nav'
+import { PageDataContext } from './pageData'
+import coinData from '../data/coins.json'
 import type { Meta } from './head'
 import { routes, type Route } from './routes'
 
@@ -38,13 +40,20 @@ function head(r: Meta) {
   return tags.join('\n    ')
 }
 
+// Server-only: facts per coin for the prerendered coin pages (never in the browser bundle).
+const COINS = (coinData as { coins: Record<string, unknown> }).coins
+
 export function render(r: Route) {
+  const data = r.dataKey ? (COINS[r.dataKey] ?? null) : null
   const html = renderToString(
     <StrictMode>
       <PathContext.Provider value={r.path}>
-        <r.element />
+        <PageDataContext.Provider value={data}>
+          <r.element />
+        </PageDataContext.Provider>
       </PathContext.Provider>
     </StrictMode>,
   )
-  return { html, head: head(r) }
+  const dataTag = data ? `\n    <script type="application/json" id="wc-page-data">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>` : ''
+  return { html, head: head(r) + dataTag }
 }

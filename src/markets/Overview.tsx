@@ -2,11 +2,11 @@
 // top gainers and losers, and volume leaders. Everything is loaded in the browser (see pulse.ts).
 import type { ReactNode } from 'react'
 import type { Lang } from '../i18n'
-import { paths } from '../paths'
+import { coinHref } from './coins'
 import { altSeason, fearGreed, globalData, realAlts, topCoins, trending, useLive, usdBig } from './pulse'
 import type { Coin } from './pulse'
 
-export const coinHref = (lang: Lang, id: string) => `${paths[lang].markets}coin/?id=${encodeURIComponent(id)}`
+export { coinHref }
 
 const FNG_NL: Record<string, string> = { 'Extreme Fear': 'Extreme angst', Fear: 'Angst', Neutral: 'Neutraal', Greed: 'Hebzucht', 'Extreme Greed': 'Extreme hebzucht' }
 

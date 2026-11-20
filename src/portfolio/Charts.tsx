@@ -118,3 +118,35 @@ export function AllocationChart({ parts, money }: { parts: { label: string; valu
     </div>
   )
 }
+
+/** Portfolio return (time-weighted) against simply holding Bitcoin or Ethereum over the same period, in %. */
+export function BenchmarkChart({ rows, locale, t }: { rows: { t: number; you: number; btc?: number; eth?: number }[]; locale: string; t: { you: string; btc: string; eth: string; empty: string } }) {
+  const data = useMemo(() => rows.map((r) => ({ ...r, label: day(r.t, locale) })), [rows, locale])
+  const config = useMemo(
+    () =>
+      ({
+        you: { label: t.you, colors: { dark: [RED], light: [RED] } },
+        btc: { label: t.btc, colors: { dark: ['#F7931A'], light: ['#D97706'] } },
+        eth: { label: t.eth, colors: { dark: ['#8B9DF9'], light: ['#4F46E5'] } },
+      }) satisfies ChartConfig,
+    [t.you, t.btc, t.eth],
+  )
+  if (data.length < 2) return <div className="flex h-56 items-center justify-center text-sm text-white/40">{t.empty}</div>
+  const pct = (v: number) => (v > 0 ? '+' : '') + v.toFixed(1) + '%'
+  return (
+    <div className="h-64 w-full min-w-0 overflow-hidden sm:h-72">
+      <EvilAreaChart data={data} config={config} className="h-full w-full" curveType="monotone" xDataKey="label">
+        <EvilAreaChart.Grid />
+        <EvilAreaChart.XAxis dataKey="label" minTickGap={32} />
+        <EvilAreaChart.YAxis width={52} tickFormatter={(v: number) => v.toFixed(0) + '%'} domain={['auto', 'auto']} />
+        <EvilAreaChart.Legend isClickable />
+        <EvilAreaChart.Tooltip variant="frosted-glass" valueFormatter={pct} />
+        <EvilAreaChart.Area dataKey="btc" variant="lines" strokeWidth={1.5} isClickable />
+        <EvilAreaChart.Area dataKey="eth" variant="lines" strokeWidth={1.5} isClickable />
+        <EvilAreaChart.Area dataKey="you" variant="gradient" strokeWidth={2.5} isClickable>
+          <EvilAreaChart.ActiveDot variant="default" />
+        </EvilAreaChart.Area>
+      </EvilAreaChart>
+    </div>
+  )
+}

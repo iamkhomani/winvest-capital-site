@@ -19,6 +19,7 @@ import Products, { productsCopy } from './pages/Products'
 import Terminal, { terminalCopy } from './pages/Terminal'
 import TerminalApp from './pages/TerminalApp'
 import Coin from './pages/Coin'
+import { COIN_INDEX } from './markets/coins'
 import Journal from './pages/Journal'
 import { journalCopy } from './journal/copy'
 import Welcome from './pages/Welcome'
@@ -268,7 +269,20 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
     description: L ? 'Koers, grafiek, market cap, aanbod, all-time high en projectinformatie van een cryptomunt.' : 'Price, chart, market cap, supply, all-time high and project information for a cryptocurrency.',
     element: wrap(lang, o.markets + 'coin/', <Coin lang={lang} />),
   }
-  return [home, products, calculator, markets, coin, portfolio, journal, whisper, terminal, terminalApp, scanner, partners, learn, ...arts, ...docs, welcome]
+  // Own, indexable page for each of the top 100 coins (facts from the weekly snapshot, prices live).
+  const coinPages: Route[] = COIN_INDEX.map((x) => ({
+    path: `${p.markets}${x.id}/`,
+    alternate: `${o.markets}${x.id}/`,
+    lang,
+    dataKey: x.id,
+    title: L ? `${x.name} (${x.symbol}) koers, grafiek en info | Winvest Capital` : `${x.name} (${x.symbol}) price, chart and info | Winvest Capital`,
+    description: L
+      ? `Live koers en grafiek van ${x.name} (${x.symbol}), met market cap, aanbod, all-time high, links en wat ${x.name} is. Gratis op Winvest Capital.`
+      : `Live ${x.name} (${x.symbol}) price and chart, with market cap, supply, all-time high, links and what ${x.name} is. Free on Winvest Capital.`,
+    jsonLd: [crumbs([['Home', p.home], [L ? 'Markten' : 'Markets', p.markets], [x.name, `${p.markets}${x.id}/`]])],
+    element: wrap(lang, `${o.markets}${x.id}/`, <Coin lang={lang} id={x.id} />),
+  }))
+  return [home, products, calculator, markets, coin, ...coinPages, portfolio, journal, whisper, terminal, terminalApp, scanner, partners, learn, ...arts, ...docs, welcome]
 })
 
 export function findRoute(pathname: string): Route | undefined {

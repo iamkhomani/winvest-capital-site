@@ -9,4 +9,6 @@ export type Meta = {
   noindex?: boolean
   jsonLd?: object[]
   ogType?: 'website' | 'article'
+  /** Key of the static page data the build embeds (see pageData.ts), e.g. a coin id. */
+  dataKey?: string
 }

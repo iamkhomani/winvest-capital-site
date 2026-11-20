@@ -151,3 +151,73 @@ export function exportCsv(d: PortfolioData) {
   a.click()
   a.remove()
 }
+
+// ---- CSV import ----
+// Reads the CSV this tracker exports (date,type,symbol,name,kind,quantity,price_EUR,fee_EUR,note)
+// and simple files with at least date, type, symbol, quantity and price columns.
+export type CsvRow = { date: string; type: 'buy' | 'sell'; symbol: string; name: string; kind: Kind; qty: number; price: number; fee: number; note?: string }
+
+function splitCsvLine(line: string, sep: string): string[] {
+  const out: string[] = []
+  let cur = ''
+  let q = false
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i]
+    if (q) {
+      if (ch === '"' && line[i + 1] === '"') {
+        cur += '"'
+        i++
+      } else if (ch === '"') q = false
+      else cur += ch
+    } else if (ch === '"') q = true
+    else if (ch === sep) {
+      out.push(cur)
+      cur = ''
+    } else cur += ch
+  }
+  out.push(cur)
+  return out.map((s) => s.trim())
+}
+
+export function parseCsv(text: string, base: Currency): { rows: CsvRow[]; skipped: number; currencyMismatch: boolean } {
+  const lines = text.replace(/^﻿/, '').split(/\r?\n/).filter((l) => l.trim())
+  if (lines.length < 2) return { rows: [], skipped: 0, currencyMismatch: false }
+  const sep = (lines[0].match(/;/g)?.length ?? 0) > (lines[0].match(/,/g)?.length ?? 0) ? ';' : ','
+  const head = splitCsvLine(lines[0], sep).map((h) => h.toLowerCase())
+  const col = (...names: string[]) => head.findIndex((h) => names.some((n) => h === n || h.startsWith(n + '_')))
+  const iDate = col('date', 'datum')
+  const iType = col('type', 'side')
+  const iSym = col('symbol', 'ticker', 'asset')
+  const iName = col('name', 'naam')
+  const iKind = col('kind', 'soort')
+  const iQty = col('quantity', 'qty', 'amount', 'aantal')
+  const iPrice = col('price', 'prijs')
+  const iFee = col('fee', 'kosten')
+  const iNote = col('note', 'notitie')
+  const priceCur = iPrice >= 0 ? head[iPrice].split('_')[1]?.toUpperCase() : undefined
+  const currencyMismatch = !!priceCur && priceCur !== base
+  if ([iDate, iType, iSym, iQty, iPrice].some((i) => i < 0) || currencyMismatch) return { rows: [], skipped: lines.length - 1, currencyMismatch }
+  const n = (s?: string) => {
+    const v = String(s ?? '').replace(/\s/g, '')
+    return Number(sep === ';' ? v.replace(',', '.') : v)
+  }
+  const rows: CsvRow[] = []
+  let skipped = 0
+  for (const line of lines.slice(1)) {
+    const c = splitCsvLine(line, sep)
+    const type = c[iType]?.toLowerCase()
+    const t = type === 'buy' || type === 'koop' ? 'buy' : type === 'sell' || type === 'verkoop' ? 'sell' : null
+    const date = c[iDate]?.slice(0, 10)
+    const qty = n(c[iQty])
+    const price = n(c[iPrice])
+    const fee = iFee >= 0 ? n(c[iFee]) || 0 : 0
+    const symbol = (c[iSym] ?? '').toUpperCase().slice(0, 20)
+    if (!t || !/^\d{4}-\d{2}-\d{2}$/.test(date ?? '') || !(qty > 0) || !(price >= 0) || !symbol) {
+      skipped++
+      continue
+    }
+    const kind: Kind = iKind >= 0 && c[iKind]?.toLowerCase() === 'stock' ? 'stock' : 'crypto'
+    rows.push({ date, type: t, symbol, name: (iName >= 0 ? c[iName] : '') || symbol, kind, qty, price, fee: fee >= 0 ? fee : 0, note: iNote >= 0 && c[iNote] ? c[iNote].slice(0, 200) : undefined })
+  }
+  return { rows, skipped, currencyMismatch: false }
+}

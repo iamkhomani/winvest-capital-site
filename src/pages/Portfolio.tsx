@@ -5,16 +5,17 @@ import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import { STABLES, diversification, drawdown, holdings, periods, series, volatility } from '../portfolio/calc'
 import type { Holding } from '../portfolio/calc'
-import { history as fetchHistory, fxNow, quotes, searchCrypto, searchStock } from '../portfolio/data'
+import { history as fetchHistory, fxNow, priceAt, quotes, searchCrypto, searchStock } from '../portfolio/data'
 import { cachedSync, detectWallet, syncAll } from '../portfolio/wallets'
 import type { WalletSync, WalletToken } from '../portfolio/wallets'
 import type { Found, History, Quote } from '../portfolio/data'
-import { exportCsv, exportJson, load, save, uid, validate } from '../portfolio/store'
+import { exportCsv, exportJson, load, save, uid, validate, parseCsv, DEFAULT_ASSETS } from '../portfolio/store'
 import type { Asset, Currency, PortfolioData, Tx } from '../portfolio/store'
 
 // EvilCharts (Recharts) only downloads when the portfolio overview is shown.
 const ValueChart = lazy(() => import('../portfolio/Charts').then((m) => ({ default: m.ValueChart })))
 const MonthlyChart = lazy(() => import('../portfolio/Charts').then((m) => ({ default: m.MonthlyChart })))
+const BenchmarkChart = lazy(() => import('../portfolio/Charts').then((m) => ({ default: m.BenchmarkChart })))
 const AllocationChart = lazy(() => import('../portfolio/Charts').then((m) => ({ default: m.AllocationChart })))
 const ChartFallback = ({ h = 'h-64' }: { h?: string }) => <div className={`${h} w-full animate-pulse rounded-xl bg-white/[0.03]`} />
 
@@ -46,6 +47,7 @@ export const portfolioCopy = {
     perf: 'Performance', week: 'Week', month: 'Month', quarter: 'Quarter', year: 'Year', sinceStart: 'since start',
     valueChart: 'Portfolio value, last 12 months',
     chart: { value: 'Portfolio value', invested: 'Net invested', gain: 'Gain', loss: 'Loss', empty: 'Not enough history yet' },
+    bench: { h: 'You versus Bitcoin and Ethereum', you: 'Your portfolio', btc: 'Bitcoin', eth: 'Ethereum', note: 'Your time-weighted return against simply holding BTC or ETH from the same start date. Past results say nothing about the future.' },
     monthly: 'Monthly return',
     monthlyNote: 'Time-weighted: deposits and withdrawals do not count as gains or losses.',
     alloc: 'Allocation', byClass: 'By asset class', crypto: 'Crypto', stocks: 'Stocks',
@@ -66,6 +68,7 @@ export const portfolioCopy = {
       base: 'Base currency', baseLocked: 'The base currency is locked because transaction prices are stored in it. Export, clear and re-enter to change it.',
       exportH: 'Export', exportP: 'Download a backup of all your data (JSON) or your transactions as a spreadsheet (CSV).', exportJson: 'Export backup (JSON)', exportCsv: 'Export transactions (CSV)',
       importH: 'Import', importP: 'Restore a backup made with this tracker. This replaces the data in this browser.', importBtn: 'Choose backup file', importOk: 'Backup imported.', importBad: 'This file is not a valid Winvest portfolio backup.',
+      csvP: 'Or add transactions from a CSV file: the CSV this tracker exports, or a file with the columns date (YYYY-MM-DD), type (buy/sell), symbol, quantity and price. Existing data stays.', csvBtn: 'Add from CSV', csvBusy: 'Reading the CSV and looking up the assets…', csvBad: 'No usable rows found. Check the columns date, type, symbol, quantity and price.', csvCurrency: (b: string) => `The prices in this file are not in ${b}, the currency of this portfolio.`, csvDone: (a: number, m: number) => `${a} transactions added${m ? `, ${m} rows skipped (unknown asset or incomplete row)` : ''}.`,
       clearH: 'Clear all data', clearP: 'Removes your portfolio and watchlists from this browser. Make an export first.', clear: 'Clear all data', confirm: 'Yes, delete everything',
       privacyH: 'Privacy', privacyP: 'Your portfolio is saved in this browser’s local storage only. To fetch prices, only the names of the assets are sent to CoinGecko and, for stocks, via our Cloudflare proxy to Yahoo Finance. Clearing your browser data deletes the portfolio, so export regularly.',
       storageFail: 'Your browser blocks local storage (for example in private mode). Changes will be lost when you close this page.',
@@ -100,6 +103,7 @@ export const portfolioCopy = {
     perf: 'Performance', week: 'Week', month: 'Maand', quarter: 'Kwartaal', year: 'Jaar', sinceStart: 'sinds start',
     valueChart: 'Portfoliowaarde, laatste 12 maanden',
     chart: { value: 'Portfoliowaarde', invested: 'Netto ingelegd', gain: 'Winst', loss: 'Verlies', empty: 'Nog niet genoeg historie' },
+    bench: { h: 'Jij tegenover Bitcoin en Ethereum', you: 'Jouw portfolio', btc: 'Bitcoin', eth: 'Ethereum', note: 'Je tijdgewogen rendement tegenover gewoon BTC of ETH aanhouden vanaf dezelfde startdatum. Resultaten uit het verleden zeggen niets over de toekomst.' },
     monthly: 'Rendement per maand',
     monthlyNote: 'Tijdgewogen: stortingen en opnames tellen niet als winst of verlies.',
     alloc: 'Allocatie', byClass: 'Per categorie', crypto: 'Crypto', stocks: 'Aandelen',
@@ -120,6 +124,7 @@ export const portfolioCopy = {
       base: 'Basisvaluta', baseLocked: 'De basisvaluta ligt vast omdat de transactieprijzen daarin zijn opgeslagen. Exporteer, wis en voer opnieuw in om te wijzigen.',
       exportH: 'Exporteren', exportP: 'Download een back-up van al je gegevens (JSON) of je transacties als spreadsheet (CSV).', exportJson: 'Back-up exporteren (JSON)', exportCsv: 'Transacties exporteren (CSV)',
       importH: 'Importeren', importP: 'Zet een back-up van deze tracker terug. Dit vervangt de gegevens in deze browser.', importBtn: 'Kies back-upbestand', importOk: 'Back-up geïmporteerd.', importBad: 'Dit bestand is geen geldige back-up van de Winvest portfolio tracker.',
+      csvP: 'Of voeg transacties toe uit een CSV-bestand: de CSV die deze tracker exporteert, of een bestand met de kolommen date (JJJJ-MM-DD), type (buy/sell), symbol, quantity en price. Bestaande gegevens blijven staan.', csvBtn: 'Toevoegen uit CSV', csvBusy: 'CSV lezen en de assets opzoeken…', csvBad: 'Geen bruikbare regels gevonden. Controleer de kolommen date, type, symbol, quantity en price.', csvCurrency: (b: string) => `De prijzen in dit bestand zijn niet in ${b}, de valuta van deze portfolio.`, csvDone: (a: number, m: number) => `${a} transacties toegevoegd${m ? `, ${m} regels overgeslagen (onbekende asset of onvolledige regel)` : ''}.`,
       clearH: 'Alle gegevens wissen', clearP: 'Verwijdert je portfolio en watchlists uit deze browser. Maak eerst een export.', clear: 'Alle gegevens wissen', confirm: 'Ja, alles verwijderen',
       privacyH: 'Privacy', privacyP: 'Je portfolio staat alleen in de lokale opslag van deze browser. Om prijzen op te halen worden alleen de namen van de assets naar CoinGecko gestuurd en, voor aandelen, via onze Cloudflare-proxy naar Yahoo Finance. Als je je browsergegevens wist, is het portfolio weg, dus exporteer regelmatig.',
       storageFail: 'Je browser blokkeert lokale opslag (bijvoorbeeld in privémodus). Wijzigingen gaan verloren als je deze pagina sluit.',
@@ -437,6 +442,37 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   const hs: Holding[] = useMemo(() => (data ? holdings(data, prices, changes) : []), [data, prices, changes])
   const open = hs.filter((h) => h.qty > 0)
   const pts = useMemo(() => (data ? series(data, hist, prices) : []), [data, hist, prices])
+
+  // Benchmark: what simply holding Bitcoin or Ethereum would have done over the same period.
+  const [bench, setBench] = useState<{ btc?: History; eth?: History }>({})
+  const baseCur = data?.base
+  useEffect(() => {
+    if (!baseCur || !pts.length) return
+    let alive = true
+    Promise.all([fetchHistory(DEFAULT_ASSETS['crypto:bitcoin'], baseCur).catch(() => undefined), fetchHistory(DEFAULT_ASSETS['crypto:ethereum'], baseCur).catch(() => undefined)]).then(
+      ([btc, eth]) => alive && setBench({ btc, eth }),
+    )
+    return () => {
+      alive = false
+    }
+  }, [baseCur, pts.length > 0]) // eslint-disable-line react-hooks/exhaustive-deps
+  const benchRows = useMemo(() => {
+    const start = pts.findIndex((p) => p.value > 0)
+    if (start < 0) return []
+    const p0 = pts[start]
+    const b0 = bench.btc ? priceAt(bench.btc, p0.t) : undefined
+    const e0 = bench.eth ? priceAt(bench.eth, p0.t) : undefined
+    return pts.slice(start).map((p) => {
+      const b = bench.btc && b0 ? priceAt(bench.btc, p.t) : undefined
+      const e = bench.eth && e0 ? priceAt(bench.eth, p.t) : undefined
+      return {
+        t: p.t,
+        you: Math.round((p.index / p0.index - 1) * 1000) / 10,
+        btc: b !== undefined && b0 ? Math.round((b / b0 - 1) * 1000) / 10 : undefined,
+        eth: e !== undefined && e0 ? Math.round((e / e0 - 1) * 1000) / 10 : undefined,
+      }
+    })
+  }, [pts, bench])
   const per = useMemo(() => periods(pts), [pts])
   const dd = useMemo(() => drawdown(pts), [pts])
   const vol = useMemo(() => volatility(pts), [pts])
@@ -500,6 +536,51 @@ export default function Portfolio({ lang }: { lang: Lang }) {
     } catch {
       setMsg(c.settings.importBad)
     }
+  }
+
+  // CSV import: adds transactions (does not replace). Assets are matched on symbol: first the ones
+  // already in the portfolio, then a search (crypto: CoinGecko, highest ranked exact symbol; stocks: Yahoo).
+  const csvRef = useRef<HTMLInputElement>(null)
+  const onImportCsv = async (e: ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0]
+    e.target.value = ''
+    if (!f || !data) return
+    setMsg(c.settings.csvBusy)
+    const { rows, skipped, currencyMismatch } = parseCsv(await f.text(), data.base)
+    if (currencyMismatch) return setMsg(c.settings.csvCurrency(data.base))
+    if (!rows.length) return setMsg(c.settings.csvBad)
+    const known = new Map<string, Asset>()
+    for (const a of [...Object.values(DEFAULT_ASSETS), ...Object.values(data.assets)]) known.set(`${a.kind}:${a.symbol.toUpperCase()}`, a)
+    const found = new Map<string, Asset | null>()
+    for (const r of rows) {
+      const k = `${r.kind}:${r.symbol}`
+      if (known.has(k) || found.has(k)) continue
+      try {
+        const list = r.kind === 'stock' ? await searchStock(r.symbol) : await searchCrypto(r.name !== r.symbol ? r.name : r.symbol)
+        const exact = list.filter((x) => x.symbol.toUpperCase() === r.symbol).sort((a, b) => (a.rank ?? 1e9) - (b.rank ?? 1e9))[0]
+        found.set(k, exact ? { key: exact.key, kind: exact.kind, symbol: exact.symbol, name: exact.name, id: exact.id, image: exact.image } : null)
+      } catch {
+        found.set(k, null)
+      }
+    }
+    const add: { a: Asset; tx: Tx }[] = []
+    let missing = skipped
+    for (const r of rows) {
+      const a = known.get(`${r.kind}:${r.symbol}`) ?? found.get(`${r.kind}:${r.symbol}`)
+      if (!a) missing++
+      else add.push({ a, tx: { id: uid(), asset: a.key, type: r.type, date: r.date, qty: r.qty, price: r.price, fee: r.fee, note: r.note } })
+    }
+    const added = add.length
+    if (added)
+      update((d) => {
+        for (const { a, tx } of add) {
+          d.assets[a.key] = d.assets[a.key] ?? a
+          d.txs.push(tx)
+        }
+        d.txs.sort((x, y) => x.date.localeCompare(y.date))
+        return d
+      })
+    setMsg(c.settings.csvDone(added, missing))
   }
 
   const tabBtn = (t: Tab) => (
@@ -617,6 +698,12 @@ export default function Portfolio({ lang }: { lang: Lang }) {
                   <h2 className="text-lg font-bold">{c.monthly}</h2>
                   <div className="mt-3"><Suspense fallback={<ChartFallback h="h-60" />}><MonthlyChart pts={pts} locale={locale} t={c.chart} /></Suspense></div>
                   <p className="mt-2 text-xs text-white/40">{c.monthlyNote}</p>
+                </Card>
+
+                <Card>
+                  <h2 className="text-lg font-bold">{c.bench.h}</h2>
+                  <div className="mt-3"><Suspense fallback={<ChartFallback h="h-72" />}><BenchmarkChart rows={benchRows} locale={locale} t={{ ...c.bench, empty: c.chart.empty }} /></Suspense></div>
+                  <p className="mt-2 text-xs text-white/40">{c.bench.note}</p>
                 </Card>
 
                 <div className="grid gap-4 lg:grid-cols-2">
@@ -936,6 +1023,9 @@ export default function Portfolio({ lang }: { lang: Lang }) {
               <p className="mt-1 text-sm text-white/60">{c.settings.importP}</p>
               <input ref={fileRef} type="file" accept="application/json,.json" className="hidden" onChange={(e) => void onImport(e)} />
               <button type="button" onClick={() => fileRef.current?.click()} className="mt-3 rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white/80 hover:border-white/40">{c.settings.importBtn}</button>
+              <input ref={csvRef} type="file" accept="text/csv,.csv" className="hidden" onChange={(e) => void onImportCsv(e)} />
+              <p className="mt-4 text-sm text-white/60">{c.settings.csvP}</p>
+              <button type="button" onClick={() => csvRef.current?.click()} className="mt-2 rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white/80 hover:border-white/40">{c.settings.csvBtn}</button>
               {msg ? <p className="mt-2 text-sm text-white/70">{msg}</p> : null}
             </Card>
             <Card>
