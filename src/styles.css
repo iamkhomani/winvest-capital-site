@@ -281,3 +281,7 @@ html.wc-returning .wc-intro-h1 { margin-top: 0; font-size: 1.75rem; }
 html.wc-returning .wc-intro-ctas { flex-direction: row; }
 html.wc-returning .wc-intro-ctas > a { flex: 1; padding: 0.625rem 1rem; font-size: 0.875rem; }
 @media (min-width: 640px) { html.wc-returning .wc-intro-h1 { font-size: 2.25rem; } }
+/* Short button labels for returning visitors, so both buttons fit on one line on phones. */
+.wc-label-short { display: none; }
+html.wc-returning .wc-intro-ctas .wc-label-full { display: none; }
+html.wc-returning .wc-intro-ctas .wc-label-short { display: inline; }

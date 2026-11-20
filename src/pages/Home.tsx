@@ -440,10 +440,12 @@ export default function Home({ lang }: { lang: Lang }) {
               </p>
               <div className="wc-intro-ctas mt-5 flex flex-col gap-3 sm:flex-row">
                 <a href={FREE_URL} className="rounded-full bg-[var(--wc-red)] px-6 py-3 text-center font-semibold text-white shadow-[0_8px_30px_-8px_var(--wc-red)] transition hover:brightness-110">
-                  {c.ctaFree}
+                  <span className="wc-label-full">{c.ctaFree}</span>
+                  <span className="wc-label-short">{lang === 'nl' ? 'Gratis lidmaatschap' : 'Join free'}</span>
                 </a>
                 <a href="#membership" className="rounded-full border border-white/15 px-6 py-3 text-center font-semibold text-white/90 transition hover:border-white/40">
-                  {c.ctaSee}
+                  <span className="wc-label-full">{c.ctaSee}</span>
+                  <span className="wc-label-short">One Percent Club</span>
                 </a>
               </div>
               <p className="wc-intro-more mt-3 text-xs text-white/40">{c.note}</p>
