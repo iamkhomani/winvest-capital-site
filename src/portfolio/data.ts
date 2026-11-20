@@ -170,6 +170,33 @@ export async function history(a: Asset, base: Currency): Promise<History> {
   return h
 }
 
+// ---- Dividends (stocks): ex-dates and gross amount per share, in base currency ----
+export type Dividend = [number, number] // [ex-date unix ms (UTC midnight), amount per share in base currency]
+export async function dividends(a: Asset, base: Currency): Promise<Dividend[]> {
+  if (a.kind !== 'stock') return []
+  const k = `d-${base}-${a.key}`
+  const c = cacheGet<Dividend[]>(k, 12 * 3600e3)
+  if (c) return c
+  const j = await getJson(`${STOCK_API}/dividends/${encodeURIComponent(a.id)}`)
+  const res = j?.chart?.result?.[0]
+  if (!res) throw new Error('no data')
+  const { cur, div } = normCurrency(res.meta?.currency)
+  const events = (res.events?.dividends ?? {}) as Record<string, { amount: number; date: number }>
+  const raw: Dividend[] = Object.values(events)
+    .filter((x) => x && isFinite(x.amount) && x.amount > 0 && isFinite(x.date))
+    .map((x): Dividend => [day(x.date * 1000), x.amount / div])
+    .sort((x, y) => x[0] - y[0])
+  let out = raw
+  if (cur !== base && raw.length) {
+    // exchange rate of the ex-date where the 1-year FX history reaches, otherwise today's rate
+    const fxh = await fxHistory(cur, base).catch(() => [] as History)
+    const fxn = await fxNow(cur, base)
+    out = raw.map(([t, v]): Dividend => [t, v * (fxh.length && t >= fxh[0][0] ? priceAt(fxh, t) ?? fxn : fxn)])
+  }
+  cacheSet(k, out)
+  return out
+}
+
 // ---- Search ----
 export type Found = Asset & { rank?: number; exchange?: string; type?: string }
 

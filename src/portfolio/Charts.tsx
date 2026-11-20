@@ -150,3 +150,26 @@ export function BenchmarkChart({ rows, locale, t }: { rows: { t: number; you: nu
     </div>
   )
 }
+
+/** Total value per day as saved on this device (daily snapshots, including wallets). */
+export function SnapshotChart({ rows, money, compact, locale, t }: { rows: { t: number; value: number }[]; money: Fmt; compact: Fmt; locale: string; t: { value: string; empty: string } }) {
+  const data = useMemo(() => rows.map((r) => ({ t: r.t, label: day(r.t, locale), value: Math.round(r.value * 100) / 100 })), [rows, locale])
+  const config = useMemo(() => ({ value: { label: t.value, colors: { dark: [RED], light: [RED] } } }) satisfies ChartConfig, [t.value])
+  if (data.length < 2) return <div className="flex h-40 items-center justify-center text-center text-sm text-white/40">{t.empty}</div>
+  return (
+    <div className="h-56 w-full min-w-0 overflow-hidden">
+      <EvilAreaChart data={data} config={config} className="h-full w-full" curveType="monotone" xDataKey="label">
+        <EvilAreaChart.Grid />
+        <EvilAreaChart.XAxis dataKey="label" minTickGap={32} />
+        <EvilAreaChart.YAxis width={64} tickFormatter={(v: number) => compact(v)} domain={['auto', 'auto']} />
+        <EvilAreaChart.Tooltip variant="frosted-glass" valueFormatter={money} labelFormatter={(_l: unknown, payload: unknown) => {
+          const row = (payload as { payload?: { t?: number } }[] | undefined)?.[0]?.payload
+          return row?.t ? day(row.t, locale, true) : ''
+        }} />
+        <EvilAreaChart.Area dataKey="value" variant="gradient" strokeWidth={2.5} isClickable>
+          <EvilAreaChart.ActiveDot variant="default" />
+        </EvilAreaChart.Area>
+      </EvilAreaChart>
+    </div>
+  )
+}

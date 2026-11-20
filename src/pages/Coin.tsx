@@ -23,6 +23,19 @@ export type CoinFacts = {
   algorithm: string | null
   links: { website?: string; whitepaper?: string; explorers: string[]; github?: string }
   contracts: [string, string][]
+  holders?: Holders
+}
+
+/** Holder concentration from the weekly snapshot (scripts/holders.mjs). Shares are fractions of the supply on that chain. */
+export type Holders = {
+  chain: string
+  explorer: string
+  holders: number | null
+  accounts: boolean
+  top10: number
+  top10Contracts: number
+  top50: number | null
+  top: { label: string; share: number; contract: boolean; url: string }[]
 }
 
 type Live = {
@@ -104,6 +117,16 @@ const copy = {
     commits: 'Commits, last 4 weeks',
     lastPush: 'Last code change',
     devNote: 'Activity in the main public repository on GitHub. Work in private or other repositories is not counted.',
+    hold: 'Holder distribution',
+    holdOn: (chain: string) => `Token on ${chain}`,
+    holdCount: 'Number of holders',
+    holdTop10: 'Largest 10 addresses',
+    holdTop50: 'Largest 50 addresses',
+    holdContracts: 'Of which in smart contracts',
+    holdContract: 'contract',
+    holdNote: 'Updated weekly from Blockscout or the Solana network. Large addresses are often exchanges, bridges, staking or a project treasury, so a high share does not always mean one person owns it. Only the supply on this chain is counted.',
+    holdAccounts: 'On Solana these are token accounts; one owner can have several.',
+    holdExplorer: 'All holders',
     exchanges: 'Where it trades',
     showEx: 'Show exchanges',
     exNote: 'Largest markets by 24h volume on exchanges with a high CoinGecko trust score. Not a recommendation. Our own partners are on the',
@@ -171,6 +194,16 @@ const copy = {
     commits: 'Commits, laatste 4 weken',
     lastPush: 'Laatste codewijziging',
     devNote: 'Activiteit in de belangrijkste openbare repository op GitHub. Werk in privé- of andere repositories telt niet mee.',
+    hold: 'Verdeling van houders',
+    holdOn: (chain: string) => `Token op ${chain}`,
+    holdCount: 'Aantal houders',
+    holdTop10: 'Grootste 10 adressen',
+    holdTop50: 'Grootste 50 adressen',
+    holdContracts: 'Waarvan in smart contracts',
+    holdContract: 'contract',
+    holdNote: 'Wekelijks bijgewerkt via Blockscout of het Solana-netwerk. Grote adressen zijn vaak exchanges, bridges, staking of de kas van het project, dus een groot aandeel betekent niet altijd dat één persoon het bezit. Alleen het aanbod op deze blockchain telt mee.',
+    holdAccounts: 'Op Solana zijn dit tokenaccounts; één eigenaar kan er meerdere hebben.',
+    holdExplorer: 'Alle houders',
     exchanges: 'Waar het verhandeld wordt',
     showEx: 'Toon exchanges',
     exNote: 'Grootste markten op volume over 24 uur, bij exchanges met een hoge CoinGecko-trustscore. Geen aanbeveling. Onze eigen partners staan op de',
@@ -312,6 +345,42 @@ function DevCard({ github, lang }: { github?: string; lang: Lang }) {
         <Row k={c.lastPush} v={date(d.pushed, lang)} />
       </dl>
       <p className="mt-2 text-xs text-white/40">{c.devNote}</p>
+    </section>
+  )
+}
+
+/* ---------- Holder distribution (weekly snapshot) ---------- */
+
+function HoldersCard({ h, lang }: { h: Holders; lang: Lang }) {
+  const c = copy[lang]
+  const p = (v: number) => (v * 100).toFixed(1).replace('.', lang === 'nl' ? ',' : '.') + '%'
+  return (
+    <section className={card}>
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h2 className="font-semibold">{c.hold}</h2>
+        <span className="text-xs text-white/45">{c.holdOn(h.chain)}</span>
+      </div>
+      <dl className="mt-2 divide-y divide-white/5">
+        {h.holders ? <Row k={c.holdCount} v={num(h.holders, lang)} /> : null}
+        <Row k={c.holdTop10} v={p(h.top10)} />
+        {h.top50 !== null ? <Row k={c.holdTop50} v={p(h.top50)} /> : null}
+        {h.top10Contracts > 0 ? <Row k={c.holdContracts} v={p(h.top10Contracts)} /> : null}
+      </dl>
+      <div className="mt-3 flex h-2.5 overflow-hidden rounded-full bg-white/10" aria-hidden="true">
+        {h.top.map((t, i) => <div key={i} style={{ width: `${t.share * 100}%`, opacity: 1 - i * 0.15 }} className="bg-[var(--wc-red)]" />)}
+      </div>
+      <ol className="mt-3 space-y-1.5 text-sm">
+        {h.top.map((t, i) => (
+          <li key={i} className="flex items-center gap-2">
+            <span className="w-4 text-xs text-white/35 tabular-nums">{i + 1}</span>
+            <a href={t.url} target="_blank" rel="noopener nofollow" className="min-w-0 flex-1 truncate text-white/75 hover:text-white">{t.label}</a>
+            {t.contract ? <span className="rounded-full border border-white/15 px-2 py-0.5 text-[10px] text-white/50">{c.holdContract}</span> : null}
+            <span className="w-14 text-right tabular-nums">{p(t.share)}</span>
+          </li>
+        ))}
+      </ol>
+      <p className="mt-3 text-xs text-white/40">{c.holdNote}{h.accounts ? ' ' + c.holdAccounts : ''}</p>
+      <a href={h.explorer} target="_blank" rel="noopener nofollow" className="mt-2 inline-block text-xs font-semibold text-[var(--wc-red-soft)] hover:underline">{c.holdExplorer} →</a>
     </section>
   )
 }
@@ -625,6 +694,7 @@ export default function Coin({ lang, id: fixedId }: { lang: Lang; id?: string })
                   <DefiCard id={f.id} lang={lang} />
                   <DevCard github={f.links.github} lang={lang} />
                 </div>
+                {f.holders ? <HoldersCard h={f.holders} lang={lang} /> : null}
                 <Exchanges id={f.id} lang={lang} />
               </div>
               <div className="grid content-start gap-4">

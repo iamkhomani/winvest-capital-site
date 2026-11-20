@@ -435,6 +435,7 @@ export default function Layout({ lang, alternate, bare, children }: Props) {
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-white/30">
               <span>&copy; 2026 Winvest Capital</span>
+              <a href="mailto:info@winvestcapital.nl" className="hover:text-white/60">info@winvestcapital.nl</a>
               <a href={p.terms} className="hover:text-white/60">{nl ? 'Voorwaarden' : 'Terms'}</a>
               <a href={p.privacy} className="hover:text-white/60">Privacy</a>
               <a href={p.refunds} className="hover:text-white/60">{nl ? 'Terugbetaling' : 'Refunds'}</a>

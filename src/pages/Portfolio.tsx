@@ -5,10 +5,10 @@ import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import { STABLES, diversification, drawdown, holdings, periods, series, volatility } from '../portfolio/calc'
 import type { Holding } from '../portfolio/calc'
-import { cryptoSectors, history as fetchHistory, fxNow, priceAt, quotes, searchCrypto, searchStock, stockSector } from '../portfolio/data'
+import { cryptoSectors, dividends as fetchDividends, history as fetchHistory, fxNow, priceAt, quotes, searchCrypto, searchStock, stockSector } from '../portfolio/data'
 import { cachedSync, detectWallet, syncAll } from '../portfolio/wallets'
 import type { WalletSync, WalletToken } from '../portfolio/wallets'
-import type { Found, History, Quote, SectorMap } from '../portfolio/data'
+import type { Dividend, Found, History, Quote, SectorMap } from '../portfolio/data'
 import { exportCsv, exportJson, load, loadIndex, removeStored, save, saveIndex, storageKey, uid, validate, parseCsv, DEFAULT_ASSETS } from '../portfolio/store'
 import type { Asset, Currency, PortfolioData, PortfolioIndex, PortfolioMeta, Tx } from '../portfolio/store'
 
@@ -16,6 +16,7 @@ import type { Asset, Currency, PortfolioData, PortfolioIndex, PortfolioMeta, Tx 
 const ValueChart = lazy(() => import('../portfolio/Charts').then((m) => ({ default: m.ValueChart })))
 const MonthlyChart = lazy(() => import('../portfolio/Charts').then((m) => ({ default: m.MonthlyChart })))
 const BenchmarkChart = lazy(() => import('../portfolio/Charts').then((m) => ({ default: m.BenchmarkChart })))
+const SnapshotChart = lazy(() => import('../portfolio/Charts').then((m) => ({ default: m.SnapshotChart })))
 const AllocationChart = lazy(() => import('../portfolio/Charts').then((m) => ({ default: m.AllocationChart })))
 const ChartFallback = ({ h = 'h-64' }: { h?: string }) => <div className={`${h} w-full animate-pulse rounded-xl bg-white/[0.03]`} />
 
@@ -60,6 +61,23 @@ export const portfolioCopy = {
       unknown: 'Stocks, sector unknown',
       crypto: { l1: 'Layer 1', l2: 'Layer 2', defi: 'DeFi', stable: 'Stablecoins', meme: 'Meme coins', exchange: 'Exchange tokens', ai: 'AI', privacy: 'Privacy', infra: 'Infrastructure', rwa: 'Real-world assets', other: 'Other crypto' } as Record<string, string>,
       stocks: {} as Record<string, string>,
+    },
+    dividend: {
+      h: 'Dividend',
+      p: 'Dividends your stocks paid, worked out from your transactions and the ex-dividend dates. Gross amounts before tax, converted at the exchange rate of the ex-date where available.',
+      total: 'Received in total',
+      last12: 'Last 12 months',
+      next: 'Expected next 12 months',
+      stock: 'Stock',
+      nextNote: 'Expected = the dividends per share of the past 12 months times the shares you hold now. Companies can change or stop their dividend.',
+    },
+    snap: {
+      h: 'Your own history',
+      p: 'Each day you open the tracker, the total value (including wallets) is saved on this device. This shows how your portfolio really developed, including deposits and withdrawals.',
+      value: 'Total value',
+      empty: 'Saved once per day when you open the tracker. The chart appears from the second day.',
+      since: (d: string) => `Since ${d}`,
+      days: (n: number) => `${n} days saved`,
     },
     pf: { label: 'Your portfolios', main: 'Main portfolio', new: 'New portfolio', rename: 'Rename', del: 'Delete', delConfirm: (n: string) => `Delete “${n}” and all its transactions from this device?`, name: 'Portfolio name', create: 'Create', save: 'Save', cancel: 'Cancel', defaultName: (n: number) => `Portfolio ${n}` },
     risk: 'Risk exposure', maxDd: 'Max drawdown (1y)', curDd: 'Current drawdown', vol: 'Volatility (annualised, 90d)', largest: 'Largest position', top3: 'Top 3 positions', effective: 'Effective number of positions', stable: 'Stablecoins',
@@ -126,6 +144,23 @@ export const portfolioCopy = {
       unknown: 'Aandelen, sector onbekend',
       crypto: { l1: 'Layer 1', l2: 'Layer 2', defi: 'DeFi', stable: 'Stablecoins', meme: 'Memecoins', exchange: 'Exchangetokens', ai: 'AI', privacy: 'Privacy', infra: 'Infrastructuur', rwa: 'Echte activa (RWA)', other: 'Overige crypto' } as Record<string, string>,
       stocks: { Technology: 'Technologie', Healthcare: 'Gezondheidszorg', 'Financial Services': 'Financiële diensten', 'Consumer Cyclical': 'Cyclische consumptie', 'Communication Services': 'Communicatiediensten', Industrials: 'Industrie', 'Consumer Defensive': 'Basisconsumptie', Energy: 'Energie', 'Basic Materials': 'Grondstoffen', 'Real Estate': 'Vastgoed', Utilities: 'Nutsbedrijven' } as Record<string, string>,
+    },
+    dividend: {
+      h: 'Dividend',
+      p: 'Dividend dat je aandelen hebben uitgekeerd, berekend uit je transacties en de ex-dividenddata. Brutobedragen vóór belasting, omgerekend tegen de wisselkoers van de ex-datum waar die bekend is.',
+      total: 'Totaal ontvangen',
+      last12: 'Laatste 12 maanden',
+      next: 'Verwacht komende 12 maanden',
+      stock: 'Aandeel',
+      nextNote: 'Verwacht = het dividend per aandeel van de afgelopen 12 maanden maal de aandelen die je nu hebt. Bedrijven kunnen hun dividend aanpassen of stoppen.',
+    },
+    snap: {
+      h: 'Je eigen verloop',
+      p: 'Elke dag dat je de tracker opent, wordt de totale waarde (inclusief wallets) op dit apparaat opgeslagen. Zo zie je hoe je portfolio echt is gegroeid, inclusief stortingen en opnames.',
+      value: 'Totale waarde',
+      empty: 'Wordt één keer per dag opgeslagen als je de tracker opent. De grafiek verschijnt vanaf de tweede dag.',
+      since: (d: string) => `Sinds ${d}`,
+      days: (n: number) => `${n} dagen opgeslagen`,
     },
     pf: { label: 'Je portfolio’s', main: 'Hoofdportfolio', new: 'Nieuw portfolio', rename: 'Naam wijzigen', del: 'Verwijderen', delConfirm: (n: string) => `“${n}” en alle transacties ervan van dit apparaat verwijderen?`, name: 'Naam van het portfolio', create: 'Aanmaken', save: 'Opslaan', cancel: 'Annuleren', defaultName: (n: number) => `Portfolio ${n}` },
     risk: 'Risico', maxDd: 'Max drawdown (1j)', curDd: 'Huidige drawdown', vol: 'Volatiliteit (per jaar, 90d)', largest: 'Grootste positie', top3: 'Top 3 posities', effective: 'Effectief aantal posities', stable: 'Stablecoins',
@@ -356,6 +391,8 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   const [pfEdit, setPfEdit] = useState<null | 'new' | 'rename' | 'delete'>(null)
   const [pfName, setPfName] = useState('')
   const [sectors, setSectors] = useState<SectorMap | null>(null)
+  const [divs, setDivs] = useState<Record<string, Dividend[]>>({})
+  const snapRef = useRef<{ ready: boolean; value: number }>({ ready: false, value: 0 })
 
   useEffect(() => {
     const ix = loadIndex()
@@ -423,6 +460,36 @@ export default function Portfolio({ lang }: { lang: Lang }) {
     })()
     return () => { alive = false }
   }, [sectorSig]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Dividend history for stocks that have transactions (one request per stock, cached 12 hours).
+  const divKeys = data ? [...new Set(data.txs.map((t) => t.asset))].filter((k) => data.assets[k]?.kind === 'stock') : []
+  const divSig = divKeys.join('|') + '|' + (data?.base ?? '')
+  useEffect(() => {
+    if (!data || !divKeys.length) { setDivs({}); return }
+    let alive = true
+    void (async () => {
+      const out: Record<string, Dividend[]> = {}
+      for (const k of divKeys) {
+        try {
+          out[k] = await fetchDividends(data.assets[k], data.base)
+        } catch {
+          /* source down: skip this stock for now */
+        }
+      }
+      if (alive) setDivs(out)
+    })()
+    return () => { alive = false }
+  }, [divSig]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Daily snapshot of the total value, saved once all prices (and wallets) are in.
+  useEffect(() => {
+    const { ready, value } = snapRef.current
+    if (!ready || !data) return
+    const today = new Date().toLocaleDateString('sv-SE')
+    const v = Math.round(value * 100) / 100
+    if (data.snapshots[today] === v) return
+    update((d) => { d.snapshots[today] = v; return d })
+  })
 
   // ---- several portfolios ----
   const switchTo = (id: string, ix: PortfolioIndex = pf) => {
@@ -700,6 +767,32 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   const secTotal = secSorted.reduce((s, [, v]) => s + v, 0)
   const secParts = secSorted.slice(0, 9).map(([k, value], i) => ({ label: secLabel(k), value, color: PALETTE[i % PALETTE.length] }))
   const secRest = secSorted.slice(9).reduce((s, [, v]) => s + v, 0)
+  // Dividends received per stock (shares held on the day before the ex-date)
+  const nowMs = Date.now()
+  const yearAgo = nowMs - 365 * 864e5
+  const divRows = Object.entries(divs)
+    .map(([key, list]) => {
+      const a = data.assets[key]
+      if (!a) return null
+      const own = data.txs.filter((t) => t.asset === key)
+      const sharesAt = (t: number) => Math.max(0, own.reduce((s, x) => (Date.parse(x.date) < t ? s + (x.type === 'buy' ? x.qty : -x.qty) : s), 0))
+      let total = 0, last12 = 0, perShare12 = 0
+      for (const [t, v] of list) {
+        if (t > nowMs) continue
+        const got = sharesAt(t) * v
+        total += got
+        if (t >= yearAgo) { last12 += got; perShare12 += v }
+      }
+      return { key, symbol: a.symbol, total, last12, next: sharesAt(nowMs + 864e5) * perShare12 }
+    })
+    .filter((r): r is { key: string; symbol: string; total: number; last12: number; next: number } => !!r && (r.total > 0 || r.next > 0))
+    .sort((x, y) => y.total - x.total)
+  const divTotal = divRows.reduce((s, r) => s + r.total, 0)
+  const div12 = divRows.reduce((s, r) => s + r.last12, 0)
+  const divNext = divRows.reduce((s, r) => s + r.next, 0)
+  // Own history: daily snapshots on this device
+  const snapRows = Object.entries(data.snapshots).sort((x, y) => x[0].localeCompare(y[0])).map(([d, value]) => ({ t: Date.parse(d), value }))
+  snapRef.current = { ready: !loadingQ && missing.length === 0 && (data.wallets.length === 0 || !!wsync) && grandTotal > 0, value: grandTotal }
   if (secRest > 0) secParts.push({ label: lang === 'nl' ? 'Overig' : 'Other', value: secRest, color: '#475569' })
   const pfLabel = (p: PortfolioMeta) => p.name || (p.id === 'main' ? c.pf.main : c.pf.defaultName(pf.list.indexOf(p) + 1))
   const activePf = pf.list.find((p) => p.id === pf.active) ?? pf.list[0]
@@ -921,6 +1014,41 @@ export default function Portfolio({ lang }: { lang: Lang }) {
                     <p className="mt-3 text-xs text-white/40">{c.sector.note}</p>
                   </Card>
                 ) : null}
+                {divRows.length ? (
+                  <Card>
+                    <h2 className="text-lg font-bold">{c.dividend.h}</h2>
+                    <p className="mt-1 text-sm text-white/55">{c.dividend.p}</p>
+                    <dl className="mt-4 grid grid-cols-1 gap-3 text-sm sm:grid-cols-3">
+                      {([[c.dividend.total, divTotal], [c.dividend.last12, div12], [c.dividend.next, divNext]] as [string, number][]).map(([l, v]) => (
+                        <div key={l} className="rounded-xl bg-white/[0.04] p-3">
+                          <dt className="text-xs text-white/50">{l}</dt>
+                          <dd className="mt-1 text-lg font-bold tabular-nums">{money(v)}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                    <div className="mt-4 overflow-x-auto">
+                      <table className="w-full min-w-[420px] text-sm">
+                        <thead className="text-left text-xs text-white/45">
+                          <tr><th className="py-2 font-medium">{c.dividend.stock}</th><th className="py-2 text-right font-medium">{c.dividend.total}</th><th className="py-2 text-right font-medium">{c.dividend.last12}</th><th className="py-2 text-right font-medium">{c.dividend.next}</th></tr>
+                        </thead>
+                        <tbody className="divide-y divide-white/10">
+                          {divRows.map((r) => (
+                            <tr key={r.key}><td className="py-2 font-semibold">{r.symbol}</td><td className="py-2 text-right tabular-nums">{money(r.total)}</td><td className="py-2 text-right tabular-nums">{money(r.last12)}</td><td className="py-2 text-right tabular-nums text-white/70">{money(r.next)}</td></tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    <p className="mt-3 text-xs text-white/40">{c.dividend.nextNote}</p>
+                  </Card>
+                ) : null}
+                <Card>
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <h2 className="text-lg font-bold">{c.snap.h}</h2>
+                    {snapRows.length ? <span className="text-xs text-white/45">{c.snap.days(snapRows.length)} · {c.snap.since(new Date(snapRows[0].t).toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' }))}</span> : null}
+                  </div>
+                  <p className="mt-1 text-sm text-white/55">{c.snap.p}</p>
+                  <div className="mt-3"><Suspense fallback={<ChartFallback h="h-56" />}><SnapshotChart rows={snapRows} money={money} compact={moneyCompact} locale={locale} t={c.snap} /></Suspense></div>
+                </Card>
               </>
             )}
           </div>

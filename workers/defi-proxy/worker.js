@@ -6,6 +6,7 @@
 //   POST /rpc/xdc                 -> public XDC nodes (JSON-RPC, read-only methods)
 //   GET  /stock/chart/<symbol>    -> Yahoo Finance daily chart (?range=5d|1mo|1y|2y), for the portfolio tracker
 //   GET  /stock/search?q=<text>   -> Yahoo Finance symbol search
+//   GET  /stock/dividends/<symbol> -> Yahoo Finance dividend history (10 years), for the portfolio tracker
 //   GET  /news                    -> latest headlines from publisher RSS feeds (crypto, forex and macro, stocks),
 //                                    the same feeds Market Whisper posts in Discord. Headline, source, time and link only.
 
@@ -105,12 +106,16 @@ export default {
 
     // Stocks, ETFs, indices and FX (Yahoo Finance), read-only and cached
     if (request.method === 'GET' && url.pathname.startsWith('/stock/')) {
-      let upstreamPath, ttl
+      let upstreamPath, ttl, chart2
       const chart = url.pathname.match(/^\/stock\/chart\/([A-Za-z0-9.^=\-]{1,20})$/)
       if (chart) {
         const range = ['5d', '1mo', '1y', '2y'].includes(url.searchParams.get('range')) ? url.searchParams.get('range') : '5d'
         upstreamPath = `/v8/finance/chart/${encodeURIComponent(chart[1])}?range=${range}&interval=1d`
         ttl = range === '5d' ? 120 : 3600
+      } else if ((chart2 = url.pathname.match(/^\/stock\/dividends\/([A-Za-z0-9.^=\-]{1,20})$/))) {
+        // Dividend history (ex-dates and amounts) for the portfolio tracker
+        upstreamPath = `/v8/finance/chart/${encodeURIComponent(chart2[1])}?range=10y&interval=1mo&events=div`
+        ttl = 86400
       } else if (url.pathname === '/stock/search') {
         const q = (url.searchParams.get('q') || '').slice(0, 40)
         if (!q) return json({ error: 'missing q' }, 400, origin)

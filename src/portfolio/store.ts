@@ -40,6 +40,7 @@ export type PortfolioData = {
   watchlists: Watchlist[]
   manualPrices: Record<string, number> // fallback when no live price is available
   wallets: Wallet[] // public crypto addresses tracked automatically (read-only)
+  snapshots: Record<string, number> // YYYY-MM-DD (local day) -> total value incl. wallets, in the base currency
 }
 
 const KEY = 'wc-portfolio-v1'
@@ -95,6 +96,7 @@ export const empty = (): PortfolioData => ({
   watchlists: [{ id: 'default', name: 'Watchlist', assets: ['crypto:bitcoin', 'crypto:ethereum'] }],
   manualPrices: {},
   wallets: [],
+  snapshots: {},
 })
 
 export const DEFAULT_ASSETS: Record<string, Asset> = {
@@ -161,6 +163,8 @@ export function validate(x: unknown): PortfolioData | null {
       d.wallets.push({ id: String(w.id || uid()).slice(0, 30), type: det.type, address: det.address, label: w.label ? String(w.label).slice(0, 40) : undefined })
     }
   }
+  const snaps = (o.snapshots && typeof o.snapshots === 'object' ? o.snapshots : {}) as Record<string, number>
+  for (const [k, v] of Object.entries(snaps).sort((a, b) => a[0].localeCompare(b[0])).slice(-1100)) if (/^\d{4}-\d{2}-\d{2}$/.test(k) && num(v) >= 0) d.snapshots[k] = v
   d.txs.sort((a, b) => a.date.localeCompare(b.date))
   return d
 }

@@ -3,7 +3,7 @@
 //
 // Writes:
 //   src/data/coin-index.json  small list of the top 100 coins (id, name, symbol, rank) -> routes
-//   data/coins.json           facts per coin (description, links, categories) -> prerendered coin pages only
+//   data/coins.json           facts per coin (description, links, categories, holder concentration) -> prerendered coin pages only
 //   public/data/llama.json    CoinGecko id -> DefiLlama protocol slug, so coin pages can show TVL and fees
 //   public/data/sectors.json  crypto sector per coin (from CoinGecko categories) for the portfolio tracker
 //
@@ -13,6 +13,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { buildSectors } from './sectors.mjs'
+import { holdersFor } from './holders.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const CG = 'https://api.coingecko.com/api/v3'
@@ -80,7 +81,16 @@ for (const [i, c] of index.entries()) {
   await sleep(2600)
 }
 
-// 3. DefiLlama protocols that have a CoinGecko id
+// 3. Holder concentration (Blockscout for EVM chains, public Solana RPC) for coins with a token contract
+for (const c of Object.values(coins)) {
+  if (!c.contracts?.length) continue
+  const h = await holdersFor(c.contracts)
+  if (h) c.holders = h
+  await sleep(400)
+}
+console.log('holders:', Object.values(coins).filter((c) => c.holders).length)
+
+// 4. DefiLlama protocols that have a CoinGecko id
 const protocols = await get('https://api.llama.fi/protocols')
 const llama = {}
 for (const p of protocols) {

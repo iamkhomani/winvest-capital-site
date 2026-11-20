@@ -54,6 +54,7 @@ export const homeCopy = {
     ],
     revH2: 'What members say',
     revP: 'Real reviews from members of the Winvest Capital community, as posted on Trustpilot.',
+    revNote: 'Please note: Winvest Capital is not Winvest AI or any other platform with a similar name. We are an educational community and never hold or manage members’ money.',
     revKicker: 'Reviews',
     revVerified: 'Review on Trustpilot',
     tpTitle: 'See our reviews on Trustpilot',
@@ -156,6 +157,7 @@ export const homeCopy = {
     ],
     revH2: 'Wat leden zeggen',
     revP: 'Echte reviews van leden, zoals ze op Trustpilot staan (in het Engels).',
+    revNote: 'Let op: Winvest Capital is niet hetzelfde als Winvest AI of andere platforms met een vergelijkbare naam. Wij zijn een educatieve community en beheren nooit geld van leden.',
     revKicker: 'Reviews',
     revVerified: 'Review op Trustpilot',
     tpTitle: 'Bekijk ons op Trustpilot',
@@ -512,6 +514,7 @@ export default function Home({ lang }: { lang: Lang }) {
               <span className="text-sm font-semibold tracking-wide text-[var(--wc-red-soft)] uppercase">{c.revKicker}</span>
               <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">{c.revH2}</h2>
               <p className="mt-3 text-white/60">{c.revP}</p>
+              <p className="mt-2 max-w-2xl text-sm text-white/45">{c.revNote}</p>
             </div>
             <div className="flex flex-wrap gap-3">
               <a href={TRUSTPILOT_URL} target="_blank" rel="noopener" className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3 transition hover:border-[var(--wc-red)]/60">
