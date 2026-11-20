@@ -324,6 +324,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   const [wl, setWl] = useState(0)
   const [wlSearch, setWlSearch] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
+  const csvRef = useRef<HTMLInputElement>(null)
   const [wsync, setWsync] = useState<WalletSync | null>(null)
   const [wBusy, setWBusy] = useState(false)
   const [usdRate, setUsdRate] = useState(1)
@@ -540,7 +541,6 @@ export default function Portfolio({ lang }: { lang: Lang }) {
 
   // CSV import: adds transactions (does not replace). Assets are matched on symbol: first the ones
   // already in the portfolio, then a search (crypto: CoinGecko, highest ranked exact symbol; stocks: Yahoo).
-  const csvRef = useRef<HTMLInputElement>(null)
   const onImportCsv = async (e: ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0]
     e.target.value = ''
