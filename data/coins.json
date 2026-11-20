@@ -1,1 +1,3888 @@
-{"updated":null,"coins":{}}
+{
+ "updated": "2026-11-20",
+ "coins": {
+  "bitcoin": {
+   "id": "bitcoin",
+   "name": "Bitcoin",
+   "symbol": "BTC",
+   "image": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
+   "about": [
+    "Bitcoin is the world's first decentralized cryptocurrency, created in 2009 by the pseudonymous Satoshi Nakamoto. It enables peer-to-peer electronic cash transactions without intermediaries like banks or governments, operating on a blockchain secured by Proof of Work mining and the SHA-256 cryptographic algorithm.",
+    "With a fixed supply cap of 21 million coins and programmatic halvings every four years that reduce miner rewards, Bitcoin is designed as a deflationary digital asset often called \"digital gold.\" Its value stems from solving the double-spending problem without trusted intermediaries, creating the first truly scarce digital asset with censorship resistance and permissionless access that no government, corporation, or individual can control.",
+    "Bitcoin operates as a decentralized peer-to-peer network where transactions are recorded on a public ledger called the blockchain, distributed across thousands of computers globally. Transactions are grouped into blocks added approximately every 10 minutes through mining, where specialized computers compete to solve complex mathematical puzzles.",
+    "Bitcoin has achieved mainstream adoption through multiple vectors. The January 2024 SEC approval of 11 spot Bitcoin ETFs opened Bitcoin investment to traditional finance participants, and corporations like Strategy (formerly MicroStrategy) are using Bitcoin as a treasury reserve asset to protect against currency debasement, offering MSTR holders amplified exposure to Bitcoin.",
+    "The Bitcoin ecosystem continues to evolve with innovations like Ordinals, which emerged in January 2023 to enable NFT-like functionality directly on Bitcoin, and BRC-20 tokens, an experimental standard for creating fungible tokens using Ordinal inscriptions. BTCFi (Bitcoin Finance) represents emerging financial applications extending beyond Bitcoin's traditional role, with protocols like Babylon allowing Bitcoin holders to stake BTC to secure Proof of Stake chains."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Proof of Work (PoW)",
+    "Bitcoin Ecosystem"
+   ],
+   "genesis": "2009-01-03",
+   "algorithm": "SHA-256",
+   "links": {
+    "whitepaper": "https://bitcoin.org/bitcoin.pdf",
+    "explorers": [
+     "https://mempool.space/",
+     "https://platform.arkhamintelligence.com/explorer/token/bitcoin"
+    ],
+    "github": "https://github.com/bitcoin/bitcoin"
+   },
+   "contracts": []
+  },
+  "ethereum": {
+   "id": "ethereum",
+   "name": "Ethereum",
+   "symbol": "ETH",
+   "image": "https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628",
+   "about": [
+    "Ethereum is a global, open-source platform for decentralized applications. In other words, it is a decentralized blockchain platform that enables developers to build and deploy smart contracts and applications without central authority control. Unlike Bitcoin, which primarily functions as digital currency, Ethereum operates as a programmable global computer where developers can create any type of decentralized service.",
+    "The platform hosts over $14 billion in DeFi applications with hundreds of thousands of active users across financial protocols, NFT marketplaces, and gaming platforms. Its transition to Proof of Stake in September 2022 reduced energy consumption by over 99%, addressing environmental concerns while strengthening network security.",
+    "The network operates through thousands of independent validator nodes that process transactions and execute smart contracts on the Ethereum Virtual Machine. Smart contracts are self-executing programs written in Solidity that automatically carry out agreements when conditions are met, eliminating intermediaries like banks or brokers.",
+    "Validators stake ETH as collateral to propose and validate blocks, earning rewards for honest participation while facing penalties for malicious behavior. The EIP-1559 upgrade introduced a dynamic base fee mechanism that burns ETH with each transaction, creating deflationary pressure during high network activity when more ETH is burned than issued to validators.",
+    "Vitalik Buterin proposed Ethereum in 2013, but seven co-founders helped build it, including Gavin Wood who created Solidity and the EVM technical specification, and Joseph Lubin who founded ConsenSys. The project launched in July 2015 after raising over $18 million through crowdfunding, quickly becoming the largest blockchain developer community. Major milestones include the 2020 Beacon Chain launch, the 2021 London hard fork implementing fee burning, and the 2022 Merge to Proof of Stake.",
+    "Ether (ETH) serves multiple functions: paying transaction fees (gas), staking to secure the network and earn 3-5% annual yields, serving as collateral in DeFi protocols, and purchasing NFTs and digital assets. The asset is increasingly adopted by traditional institutions, with publicly traded companies adding ETH to corporate treasuries to generate staking yields while maintaining blockchain exposure, and in 2024, the SEC approved spot Ethereum ETFs, allowing traditional investors to gain exposure through conventional brokerage accounts."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "Proof of Stake (PoS)"
+   ],
+   "genesis": "2015-07-30",
+   "algorithm": "Ethash",
+   "links": {
+    "website": "https://www.ethereum.org/",
+    "whitepaper": "https://ethereum.org/whitepaper/",
+    "explorers": [
+     "https://etherscan.io/",
+     "https://platform.arkhamintelligence.com/explorer/token/ethereum"
+    ],
+    "github": "https://github.com/ethereum/go-ethereum"
+   },
+   "contracts": []
+  },
+  "tether": {
+   "id": "tether",
+   "name": "Tether",
+   "symbol": "USDT",
+   "image": "https://coin-images.coingecko.com/coins/images/325/large/Tether.png?1696501661",
+   "about": [
+    "Tether (USDT) is a cryptocurrency with a value meant to mirror the value of the U.S. dollar. The idea was to create a stable cryptocurrency that can be used like digital dollars. Coins that serve this purpose of being a stable dollar substitute are called “stable coins.” Tether is the most popular stable coin and even acts as a dollar replacement on many popular exchanges! According to their site, Tether converts cash into digital currency, to anchor or “tether” the value of the coin to the price of national currencies like the US dollar, the Euro, and the Yen. Like other cryptos it uses blockchain. Unlike other cryptos, it is [according to the official Tether site] “100% backed by USD” (USD is held in reserve). The primary use of Tether is that it offers some stability to the otherwise volatile crypto space and offers liquidity to exchanges who can’t deal in dollars and with banks (for example to the sometimes controversial but leading exchange Bitfinex)",
+    "The digital coins are issued by a company called Tether Limited that is governed by the laws of the British Virgin Islands, according to the legal part of its website. It is incorporated in Hong Kong. It has emerged that Jan Ludovicus van der Velde is the CEO of cryptocurrency exchange Bitfinex, which has been accused of being involved in the price manipulation of bitcoin, as well as tether. Many people trading on exchanges, including Bitfinex, will use tether to buy other cryptocurrencies like bitcoin. Tether Limited argues that using this method to buy virtual currencies allows users to move fiat in and out of an exchange more quickly and cheaply. Also, exchanges typically have rocky relationships with banks, and using Tether is a way to circumvent that.",
+    "USDT is fairly simple to use. Once on exchanges like Poloniex or Bittrex, it can be used to purchase Bitcoin and other cryptocurrencies. It can be easily transferred from an exchange to any Omni Layer enabled wallet. Tether has no transaction fees, although external wallets and exchanges may charge one. In order to convert USDT to USD and vise versa through the Tether.to Platform, users must pay a small fee. Buying and selling Tether for Bitcoin can be done through a variety of exchanges like the ones mentioned previously or through the Tether.to platform, which also allows the conversion between USD to and from your bank account."
+   ],
+   "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Solana Ecosystem",
+    "Avalanche Ecosystem",
+    "Near Protocol Ecosystem",
+    "Celo Ecosystem",
+    "Ethereum Ecosystem",
+    "Tezos Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://tether.to/",
+    "whitepaper": "https://tether.to/wp-content/uploads/2016/06/TetherWhitePaper.pdf",
+    "explorers": [
+     "https://etherscan.io/token/0xdac17f958d2ee523a2206206994597c13d831ec7",
+     "https://ethplorer.io/address/0xdac17f958d2ee523a2206206994597c13d831ec7"
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0xdac17f958d2ee523a2206206994597c13d831ec7"
+    ],
+    [
+     "klay-token",
+     "0xd077a400968890eacc75cdc901f0356c943e4fdb"
+    ],
+    [
+     "tezos",
+     "KT1XnTn74bUtxHfDtBmm2bGZAQfhPbvKWR8o"
+    ],
+    [
+     "tron",
+     "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t"
+    ],
+    [
+     "solana",
+     "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB"
+    ]
+   ]
+  },
+  "binancecoin": {
+   "id": "binancecoin",
+   "name": "BNB",
+   "symbol": "BNB",
+   "image": "https://coin-images.coingecko.com/coins/images/825/large/bnb-icon2_2x.png?1696501970",
+   "about": [
+    "BNB is the native utility token of the BNB Chain ecosystem, acting as a multi-chain asset that powers decentralized applications and facilitates value exchange across its network. It serves as the primary asset for paying transaction gas and smart contract deployment fees while providing users with tiered fee discounts on the Binance exchange. The project’s main value proposition lies in its unified multi-chain architecture, which integrates a smart contract platform, a Layer 2 scaling solution, and a decentralized data storage network into a cohesive settlement and data availability layer.",
+    "The network operates on a Proof of Staked Authority consensus mechanism, utilizing a group of 21 active validators known as the Cabinet to verify transactions and produce blocks every 3 seconds. Validators are elected daily based on the amount of BNB staked or delegated to them, and the system employs fast finality and slashing penalties to maintain security and integrity. To manage its long-term economy, the project uses a programmatic dual-burn strategy that permanently removes tokens through real-time fee destruction and quarterly buybacks.",
+    "Launched in 2017 by the Binance platform, the project initially distributed 50% of its 200 million token supply to the public, while the founding team received 40% and angel investors were allocated 10%. Though it began as a token on the Ethereum network, it eventually migrated to its own autonomous architecture that remains fully compatible with the Ethereum Virtual Machine. Today, the token's utility includes paying for network gas, participating in staking rewards, and enabling decentralized governance through which holders can vote on technical upgrades and economic changes."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Exchange-based Tokens",
+    "BNB Chain Ecosystem",
+    "Centralized Exchange (CEX) Token",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "Proof of Stake (PoS)"
+   ],
+   "genesis": "2017-07-08",
+   "algorithm": null,
+   "links": {
+    "website": "https://www.binance.com",
+    "whitepaper": "https://github.com/bnb-chain/whitepaper/blob/master/WHITEPAPER.md",
+    "explorers": [
+     "https://bscscan.com",
+     "https://intel.arkm.com/explorer/token/binancecoin"
+    ],
+    "github": "https://github.com/binance"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0xb8c77482e45f1f44de1745f52c74426c631bdd52"
+    ]
+   ]
+  },
+  "usd-coin": {
+   "id": "usd-coin",
+   "name": "USDC",
+   "symbol": "USDC",
+   "image": "https://coin-images.coingecko.com/coins/images/6319/large/USDC.png?1769615602",
+   "about": [
+    "USDC is a fully collateralized US dollar stablecoin. USDC is the bridge between dollars and trading on cryptocurrency exchanges. The technology behind CENTRE makes it possible to exchange value between people, businesses and financial institutions just like email between mail services and texts between SMS providers. We believe by removing artificial economic borders, we can create a more inclusive global economy."
+   ],
+   "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Solana Ecosystem",
+    "Avalanche Ecosystem",
+    "Polygon Ecosystem",
+    "Near Protocol Ecosystem",
+    "Arbitrum Ecosystem",
+    "Celo Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.circle.com/en/usdc",
+    "whitepaper": "https://www.circle.com/legal/mica-usdc-whitepaper",
+    "explorers": [
+     "https://etherscan.io/token/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+     "https://bscscan.com/token/0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d"
+    ],
+    "github": "https://github.com/centrehq/centre-tokens"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+    ],
+    [
+     "monad",
+     "0x754704bc059f8c67012fed69bc8a327a5aafb603"
+    ],
+    [
+     "sui",
+     "0xdba34672e30cb065b1f93e3ab55318768fd6fef66c15942c9f7cb846e2f900e7::usdc::USDC"
+    ],
+    [
+     "sonic",
+     "0x29219dd400f2bf60e5a23d13be72b486d4038894"
+    ],
+    [
+     "arc",
+     "0x3600000000000000000000000000000000000000"
+    ]
+   ]
+  },
+  "ripple": {
+   "id": "ripple",
+   "name": "XRP",
+   "symbol": "XRP",
+   "image": "https://coin-images.coingecko.com/coins/images/44/large/xrp-symbol-white-128.png?1696501442",
+   "about": [
+    "XRP is a decentralized digital asset and the native token of the XRP Ledger, a Layer 1 blockchain designed for high-performance global payments. Its primary value proposition is offering a fast, cost-effective alternative to traditional banking systems by enabling near-instant cross-border settlements that finalize in three to five seconds. By serving as a neutral bridge asset between different fiat currencies, it helps financial institutions lower liquidity costs and eliminates the need for pre-funded accounts.",
+    "The network is unique because it utilizes a federated consensus protocol instead of energy-intensive mining or staking. This system achieves deterministic finality through a Unique Node List of trusted validators who must reach an eighty percent agreement threshold to permanently record transactions. This infrastructure supports a sustained throughput of 1,500 transactions per second and includes a built-in decentralized exchange that allows for the automated trading of any tokenized asset without intermediaries.",
+    "The project traces its origins back to 2004 with Ryan Fugger before being co-founded in its modern form by Jed McCaleb and Chris Larsen. The company, now known as Ripple, works with major financial institutions as partners and investors to build global payment solutions. To protect the network from spam, a small amount of XRP is burned during every transaction, and the token is further utilized by institutions as collateral to access traditional markets and manage digital asset infrastructure.",
+    "Institutional adoption of the asset reached a major milestone in November 2025 when the SEC approved the first wave of spot XRP ETFs. These products, offered by major issuers including Bitwise, Grayscale, 21Shares, Canary Capital, and Franklin Templeton, are now listed on prominent exchanges like the NYSE Arca, Nasdaq, and Cboe BZX. While Ripple remains a key contributor to the ecosystem, the underlying XRP Ledger continues to operate as an open-source and decentralized network."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "XRP Ledger Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://ripple.com/currency/",
+    "whitepaper": "https://xrpl.org/docs",
+    "explorers": [
+     "https://blockchair.com/ripple",
+     "https://xrpcharts.ripple.com"
+    ],
+    "github": "https://github.com/ripple/rippled"
+   },
+   "contracts": []
+  },
+  "solana": {
+   "id": "solana",
+   "name": "Solana",
+   "symbol": "SOL",
+   "image": "https://coin-images.coingecko.com/coins/images/4128/large/solana.png?1718769756",
+   "about": [
+    "Solana is a high-performance Layer 1 blockchain designed for mass adoption by providing a fast, secure, and low-cost environment for decentralized applications. It distinguishes itself by scaling globally without the use of complex sharding or multiple layers, instead maintaining a single, unified ledger to avoid liquidity fragmentation. This architecture allows it to process thousands of transactions per second with sub-second finality, often at a cost of less than a penny per transaction.",
+    "The network operates on a unique hybrid model that combines Proof of Stake with an innovation called Proof of History, which functions as a decentralized clock to timestamp transactions. This system reduces the need for constant node communication, allowing the Sealevel engine to run non-conflicting smart contracts in parallel across multiple CPU cores. Further efficiency is gained through the Gulf Stream protocol, which reduces confirmation times by forwarding transactions to validators before the current block is finished.",
+    "Founded in 2017 by Anatoly Yakovenko, Solana is now supported by the Switzerland-based Solana Foundation and significant institutional investors like Andreessen Horowitz and Polychain Capital. The platform’s native token, SOL, serves as the primary currency for paying transaction fees, participating in network governance, and securing the system through staking.",
+    "Solana has also seen significant institutional adoption ranging from spot Solana ETFs to major partnerships including Visa's 2025 launch of USDC settlement on the network and the tokenization of public equity by firms like Galaxy Digital."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Solana Ecosystem",
+    "Layer 1 (L1)",
+    "Proof of Stake (PoS)"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://solana.com/",
+    "whitepaper": "https://solana.com/solana-whitepaper.pdf",
+    "explorers": [
+     "https://solscan.io/",
+     "https://platform.arkhamintelligence.com/explorer/token/solana"
+    ],
+    "github": "https://github.com/solana-labs/solana"
+   },
+   "contracts": []
+  },
+  "tron": {
+   "id": "tron",
+   "name": "TRON",
+   "symbol": "TRX",
+   "image": "https://coin-images.coingecko.com/coins/images/1094/large/photo_2026-04-13_09-59-16.png?1776048311",
+   "about": [
+    "TRON is a decentralized blockchain-based operating system designed to accelerate the decentralization of the internet and its underlying infrastructure. It serves as a global settlement layer for stablecoins and everyday digital purchases, providing a high-throughput environment to support large-scale decentralized applications. The network is governed by a decentralized autonomous organization (DAO), which allows the community to manage the protocol without a central authority. Its primary value proposition includes a unique resource model that utilizes bandwidth and energy to allow for high transaction volumes without traditional fee spikes.",
+    "The platform functions as a smart contract platform that enables the creation of decentralized applications and is compatible with the Ethereum Virtual Machine, allowing developers to easily migrate applications. TRON operates using a Delegated Proof of Stake consensus mechanism where token holders vote for 27 Super Representatives to verify transactions and maintain the ledger. This structure is built for scalability and fast finality, aiming to handle more transactions per second than many established legacy blockchains. Users can interact with the ecosystem for various purposes, including decentralized finance (DeFi) through platforms like JustLend DAO and decentralized storage via the BitTorrent File System.",
+    "Value moves through the system via its native utility token, TRX, which facilitates transactions and grants users access to network resources. Holders can lock their TRX in a staking mechanism to gain TRON Power, which is used to vote on network rules and elect Super Representatives, earning rewards for securing the network. Established by the TRON Foundation and led by founder Justin Sun, the project has transitioned into a community-led DAO. The ecosystem is supported by strategic partnerships with major global entities, including Samsung, which integrated TRON into its blockchain keystore, as well as BitTorrent, Opera, and Swisscom Blockchain."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Tron Ecosystem",
+    "Proof of Stake (PoS)"
+   ],
+   "genesis": "2017-08-28",
+   "algorithm": "Delegated Proof-of-Stake",
+   "links": {
+    "website": "https://tron.network",
+    "whitepaper": "https://tron.network/static/doc/white_paper.pdf",
+    "explorers": [
+     "https://tronscan.org/#/token/0/transfers",
+     "https://platform.arkhamintelligence.com/explorer/token/tron"
+    ],
+    "github": "https://github.com/tronprotocol/java-tron"
+   },
+   "contracts": []
+  },
+  "figure-heloc": {
+   "id": "figure-heloc",
+   "name": "Figure Heloc",
+   "symbol": "FIGR_HELOC",
+   "image": "https://coin-images.coingecko.com/coins/images/68480/large/figure.png?1755863954",
+   "about": [
+    "This project is building the foundational protocol layer for institutional debt markets on blockchain. Powered by Provenance Blockchain, Figure Connect and Figure Markets are transforming the way loan assets are originated, traded, and settled. Figure Connect functions as a primary market for credit—standardizing and tokenizing debt assets such as HELOCs and private credit into composable on-chain formats. Figure Markets acts as a secondary trading venue, enabling 24/7 settlement of these digital loan assets through decentralized custody, with support for both crypto and fiat on/off ramps. Together, they offer an integrated protocol for real-world asset finance, with deep roots in the lending ecosystem."
+   ],
+   "categories": [
+    "Tokenized Assets",
+    "Real World Assets (RWA)",
+    "Provenance Ecosystem",
+    "Tokenized Private Credit"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.figure.com",
+    "whitepaper": "https://www.figure.com/about/",
+    "explorers": [
+     "https://explorer.provenance.io/nft/scope1qrm5d0wjzamyywvjuws6774ljmrqu8kh9x",
+     "https://api.provenance.io/provenance/metadata/v1/scope/scope1qrm5d0wjzamyywvjuws6774ljmrqu8kh9x/record/token"
+    ]
+   },
+   "contracts": [
+    [
+     "provenance",
+     "scope1qrm5d0wjzamyywvjuws6774ljmrqu8kh9x"
+    ]
+   ]
+  },
+  "hyperliquid": {
+   "id": "hyperliquid",
+   "name": "Hyperliquid",
+   "symbol": "HYPE",
+   "image": "https://coin-images.coingecko.com/coins/images/50882/large/hyperliquid.jpg?1729431300",
+   "about": [
+    "Hyperliquid is a layer one (L1) blockchain best known for perpetual futures and spot trading. Beyond its flagship DEX trading platform, the ecosystem supports borrowing, lending, real world assets (RWAs), and a full-fledged Ethereum Virtual Machine (EVM), making it a leading force in decentralized finance (defi).",
+    "Just as electronic trading dramatically improved markets in the 2000s, Hyperliquid offers an opportunity for a massive technical upgrade of the existing financial system through a transparent, efficient, and resilient blockchain. HYPE is the native token of the Hyperliquid blockchain, with a maximum supply of 1 billion."
+   ],
+   "categories": [
+    "Decentralized Exchange (DEX)",
+    "Smart Contract Platform",
+    "Exchange-based Tokens",
+    "Decentralized Finance (DeFi)",
+    "Derivatives",
+    "Perpetuals",
+    "Layer 1 (L1)",
+    "Proof of Stake (PoS)"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://app.hyperliquid.xyz/trade",
+    "whitepaper": "https://hyperliquid.gitbook.io/hyperliquid-docs",
+    "explorers": [
+     "https://app.hyperliquid.xyz/explorer/token/0x0d01dc56dcaaca66ad901c959b4011ec",
+     "https://hypurrscan.io/token/0x0d01dc56dcaaca66ad901c959b4011ec"
+    ]
+   },
+   "contracts": [
+    [
+     "hyperliquid",
+     "0x0d01dc56dcaaca66ad901c959b4011ec"
+    ]
+   ]
+  },
+  "zcash": {
+   "id": "zcash",
+   "name": "Zcash",
+   "symbol": "ZEC",
+   "image": "https://coin-images.coingecko.com/coins/images/486/large/Brandmark-Yellow_%281%29.png?1785810558",
+   "about": [
+    "Zcash is a privacy-focused cryptocurrency that uses trustless zero-knowledge proofs to enable fully encrypted transactions while maintaining blockchain transparency and security. It was the first cryptocurrency to implement zero-knowledge encryption for private peer-to-peer payments, addressing the fundamental privacy gap in traditional cryptocurrencies that expose transaction details publicly.",
+    "With a fixed supply of 21 million ZEC and a halving schedule similar to Bitcoin, Zcash allows users to prove transactions are valid without revealing sensitive information like wallet balances, transaction amounts, or participant identities, making it suitable for everyday payments, long-term savings, and cross-border money transfers where financial confidentiality matters.",
+    "The protocol operates on its own blockchain currently using Proof-of-Work consensus, though it's evolving toward Proof-of-Stake through the planned \"Crosslink\" upgrade to enhance security, scalability, and energy efficiency. Zcash employs trustless zero-knowledge proofs (Halo) within its Orchard shielded pool to verify transactions without revealing sender, receiver, or amount information.",
+    "Users can choose between transparent public transactions and shielded private transactions through Unified Addresses, which work with both types. The network is faster and cheaper than Bitcoin, with new blocks mined every 75 seconds and transaction fees typically just a fraction of a cent. Privacy adoption has surged in 2025, with over 30% of total ZEC supply now held in fully shielded pools.",
+    "Zcash was created by a group of scientists in 2013 who initially proposed Zerocoin as a privacy extension to Bitcoin before building a standalone protocol. The ecosystem operates with a self-funded development model where block rewards support independent teams through the Zcash Community Grants Committee and a new Coinholder-Controlled Fund."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Privacy Coins",
+    "Layer 1 (L1)",
+    "Zero Knowledge (ZK)",
+    "Proof of Work (PoW)",
+    "Quantum-Resistant",
+    "Privacy"
+   ],
+   "genesis": "2016-10-28",
+   "algorithm": "Equihash",
+   "links": {
+    "website": "https://z.cash/",
+    "whitepaper": "https://zips.z.cash/protocol/protocol.pdf",
+    "explorers": [
+     "https://zecblock.com/",
+     "https://blockchair.com/zcash"
+    ],
+    "github": "https://github.com/zcash/zcash"
+   },
+   "contracts": []
+  },
+  "dogecoin": {
+   "id": "dogecoin",
+   "name": "Dogecoin",
+   "symbol": "DOGE",
+   "image": "https://coin-images.coingecko.com/coins/images/5/large/dogecoin.png?1696501409",
+   "about": [
+    "Dogecoin is an open-source digital currency based on the \"Doge\" meme that functions as a peer-to-peer medium for fast payments and digital tipping. Unlike projects backed by corporate entities, its value is driven by a global community, and the project is managed by a decentralized group of volunteers and the non-profit Dogecoin Foundation rather than a formal company.",
+    "Originally created in 2013 by software engineers Billy Markus and Jackson Palmer as a market parody, the project held no public sale or venture capital rounds. The network operates as a fork of LuckyCoin, which itself was a fork of Litecoin, using a proof of work consensus mechanism. It employs the Scrypt algorithm to ensure the mining process remains fast and efficient, with new blocks processed every 60 seconds. A unique technical feature is its use of merged mining, allowing miners to secure Dogecoin simultaneously with other Scrypt-based networks like Litecoin.",
+    "To keep transaction fees low and the network running indefinitely, Dogecoin features an uncapped supply where new coins are added forever. In a major regulatory milestone in March 2026, a joint SEC and CFTC framework officially classified Dogecoin as a digital commodity, placing it in the same asset category as gold or oil."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Meme",
+    "Dog-Themed",
+    "Elon Musk-Inspired",
+    "Proof of Work (PoW)",
+    "4chan-Themed"
+   ],
+   "genesis": "2013-12-08",
+   "algorithm": "Scrypt",
+   "links": {
+    "whitepaper": "https://dogecoin.com/dogepedia/",
+    "explorers": [
+     "https://blockchair.com/dogecoin",
+     "https://doge.tokenview.io/"
+    ],
+    "github": "https://github.com/dogecoin/dogecoin"
+   },
+   "contracts": []
+  },
+  "monero": {
+   "id": "monero",
+   "name": "Monero",
+   "symbol": "XMR",
+   "image": "https://coin-images.coingecko.com/coins/images/69/large/monero_logo.png?1696501460",
+   "about": [],
+   "categories": [
+    "Smart Contract Platform",
+    "Privacy Coins",
+    "Layer 1 (L1)",
+    "Proof of Work (PoW)",
+    "Privacy"
+   ],
+   "genesis": "2014-04-18",
+   "algorithm": "RandomX",
+   "links": {
+    "website": "https://www.getmonero.org/",
+    "whitepaper": "https://www.getmonero.org/library/Zero-to-Monero-2-0-0.pdf",
+    "explorers": [
+     "https://monero.com/explorer",
+     "https://blockchair.com/monero"
+    ],
+    "github": "https://github.com/monero-project/monero"
+   },
+   "contracts": []
+  },
+  "leo-token": {
+   "id": "leo-token",
+   "name": "LEO Token",
+   "symbol": "LEO",
+   "image": "https://coin-images.coingecko.com/coins/images/8418/large/leo-token.png?1696508607",
+   "about": [],
+   "categories": [
+    "Exchange-based Tokens",
+    "Centralized Exchange (CEX) Token",
+    "Ethereum Ecosystem",
+    "Sora Ecosystem"
+   ],
+   "genesis": "2019-05-20",
+   "algorithm": null,
+   "links": {
+    "website": "https://www.bitfinex.com/",
+    "whitepaper": "https://www.bitfinex.com/wp-2019-05.pdf",
+    "explorers": [
+     "https://eosflare.io/account/bitfinexleo1",
+     "https://intel.arkm.com/explorer/token/leo-token"
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x2af5d2ad76741191d15dfe7bf6ac92d4bd912ca3"
+    ],
+    [
+     "sora",
+     "0x009e199267a6a2c8ae075bb8d4c40ee8d05c1b769085ee59ce98e50c2b2d8756"
+    ]
+   ]
+  },
+  "whitebit": {
+   "id": "whitebit",
+   "name": "WhiteBIT Coin",
+   "symbol": "WBT",
+   "image": "https://coin-images.coingecko.com/coins/images/27045/large/wbt_token.png?1696526096",
+   "about": [
+    "WhiteBIT Coin is the native utility token of the WhiteBIT cryptocurrency exchange and the primary asset of the Whitechain blockchain.",
+    "Holders can stake the token to access tiered benefits including trading fee discounts, increased referral rates, and free daily withdrawals.\nThe token employs a deflationary model through regular burning of a portion of exchange-generated fees.\nWhiteBIT Coin serves as the native gas token for transaction processing and smart contract execution on the Whitechain network.",
+    "What Is WhiteBIT Coin",
+    "WhiteBIT Coin (WBT) is an exchange-based tokens utility asset designed to integrate the services of the WhiteBIT ecosystem into a unified financial infrastructure. Launched by a major European centralized exchange, the token facilitates value transfer between the trading platform and its native Layer 2 blockchain, Whitechain. The ecosystem emphasizes the mass adoption of blockchain technology by providing tools for spot trading, margin trading, and decentralized identity through the WB Soul system.",
+    "The token acts as the central mechanism for rewarding community participation and platform loyalty. By locking WBT in a dedicated holding program, users gain access to a multi-level privilege system that scales with the amount of assets committed. This architecture is designed to align the interests of the exchange, the blockchain network, and the individual token holders as the ecosystem expands its product offerings.",
+    "What Makes WhiteBIT Coin Unique"
+   ],
+   "categories": [
+    "Exchange-based Tokens",
+    "Centralized Exchange (CEX) Token",
+    "Ethereum Ecosystem",
+    "Tron Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://whitebit.com/wbt",
+    "whitepaper": "https://cdn.whitebit.com/wbt/whitepaper-en.pdf",
+    "explorers": [
+     "https://etherscan.io/token/0x925206b8a707096ed26ae47c84747fe0bb734f59",
+     "https://intel.arkm.com/explorer/token/whitebit"
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x925206b8a707096ed26ae47c84747fe0bb734f59"
+    ],
+    [
+     "tron",
+     "TFptbWaARrWTX5Yvy3gNG5Lm8BmhPx82Bt"
+    ]
+   ]
+  },
+  "chainlink": {
+   "id": "chainlink",
+   "name": "Chainlink",
+   "symbol": "LINK",
+   "image": "https://coin-images.coingecko.com/coins/images/877/large/Chainlink_Logo_500.png?1760023405",
+   "about": [
+    "Chainlink is the industry-standard decentralized oracle network that solves the \"oracle problem\" by connecting smart contracts with real-world data. Blockchains cannot access external information on their own, so Chainlink acts as a secure bridge, enabling smart contracts to react to real-world events using verified, tamper-proof data. It is widely considered one of the first decentralized oracle networks and is the market leader in bringing off-chain data on-chain.",
+    "The platform operates through a decentralized network of nodes that fetch, validate, and deliver data to smart contracts. When a contract requests information like a stock price, a committee of independent nodes retrieves and aggregates the data to reach consensus, then delivers a single trustworthy answer. Chainlink offers a suite of services including Data Feeds for asset prices, CCIP for cross-chain token transfers and messaging, Automation for triggering smart contract functions, and Proof of Reserve for verifying asset collateralization.",
+    "Chainlink has established itself as critical infrastructure for both DeFi and institutional adoption, with partnerships including Swift, Euroclear, Mastercard, UBS, ANZ, Fidelity International, and J.P. Morgan. Its institutional products include the Chainlink Runtime Environment for tokenized asset workflows, Confidential Compute for privacy-preserving computation, and the Automated Compliance Engine for embedding regulatory rules into smart contracts.",
+    "The LINK token is the native asset used to pay node operators for services, fund subscription accounts, and incentivize network security through staking. Node operators stake LINK as collateral, which can be slashed if they provide inaccurate data. Chainlink was co-founded in 2017 by Sergey Nazarov and Steve Ellis, who co-authored the white paper with Ari Juels, and raised $32 million in its September 2017 ICO."
+   ],
+   "categories": [
+    "Infrastructure",
+    "Decentralized Finance (DeFi)",
+    "Oracle",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Avalanche Ecosystem",
+    "Polygon Ecosystem",
+    "Near Protocol Ecosystem"
+   ],
+   "genesis": "2017-09-16",
+   "algorithm": null,
+   "links": {
+    "website": "https://chain.link/",
+    "whitepaper": "https://research.chain.link/whitepaper-v2.pdf",
+    "explorers": [
+     "https://etherscan.io/token/0x514910771af9ca656af840dff83e8264ecf986ca",
+     "https://intel.arkm.com/explorer/token/chainlink"
+    ],
+    "github": "https://github.com/smartcontractkit/chainlink"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x514910771af9ca656af840dff83e8264ecf986ca"
+    ],
+    [
+     "monad",
+     "0x76f257b1dda5cc71bee4ef637fbdde4c801310a9"
+    ],
+    [
+     "bittensor",
+     "0xf09afe78d3c7d359b334d7cb88995751f7ec5e13"
+    ],
+    [
+     "xdc-network",
+     "0xe27dd9bf01b55ce6803c0d81386a04212c718b95"
+    ],
+    [
+     "hydration",
+     "asset_registry%2F1000794"
+    ]
+   ]
+  },
+  "usds": {
+   "id": "usds",
+   "name": "USDS",
+   "symbol": "USDS",
+   "image": "https://coin-images.coingecko.com/coins/images/39926/large/usds.webp?1726666683",
+   "about": [
+    "USDS is the stablecoin of the decentralized Sky ecosystem, designed to maintain a soft peg (a value intended to stay close) to the U.S. dollar. It functions as a versatile tool for&nbsp;decentralized finance (DeFi), allowing value to move through the system via peer-to-peer lending and saving without a middleman. The token is 'put to work' by being supplied to various protocol modules; for example, users can convert USDS into sUSDS to earn interest from protocol revenue or lock it to receive&nbsp;SKY governance tokens. As the ecosystem grows, this scales through \"Sky Stars,\" which are semi-autonomous projects that expand the stablecoin’s utility into specialized areas like institutional credit and advanced lending."
+   ],
+   "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Solana Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Fiat-backed Stablecoin",
+    "Base Native"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://sky.money/",
+    "whitepaper": "https://developers.sky.money/",
+    "explorers": [
+     "https://etherscan.io/token/0xdc035d45d973e3ec169d2276ddab16f1e407384f",
+     "https://intel.arkm.com/explorer/token/usds"
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0xdc035d45d973e3ec169d2276ddab16f1e407384f"
+    ],
+    [
+     "base",
+     "0x820c137fa70c8691f0e44dc420a5e53c168921dc"
+    ],
+    [
+     "arbitrum-one",
+     "0x6491c05a82219b8d1479057361ff1654749b876b"
+    ],
+    [
+     "solana",
+     "USDSwr9ApdHk5bvJKMjzff41FfuX8bSxdKcR81vTwcA"
+    ]
+   ]
+  },
+  "cardano": {
+   "id": "cardano",
+   "name": "Cardano",
+   "symbol": "ADA",
+   "image": "https://coin-images.coingecko.com/coins/images/975/large/cardano.png?1696502090",
+   "about": [
+    "Cardano is a blockchain platform built on academic research that enables smart contracts and decentralized applications while using significantly less energy than traditional cryptocurrencies like Bitcoin.",
+    "What sets Cardano apart is its methodical, research-driven approach — every major feature is peer-reviewed by scientists and cryptographers before being added to the network. This careful process aims to create a more secure and stable foundation compared to platforms that prioritize speed over thorough testing. The platform's native cryptocurrency, ADA, is used to send money, pay transaction fees, and participate in network governance.",
+    "Cardano uses a proof-of-stake system to process transactions, which works differently from Bitcoin's mining approach. Instead of competing to solve complex puzzles, users can \"stake\" their ADA — essentially locking it up temporarily — to become validators who verify transactions. The system selects validators based on how much ADA they've staked and for how long, then rewards them with additional ADA for their participation. This approach uses far less energy than traditional mining while keeping the network secure. The platform also features a two-layer design that separates basic payment transactions from smart contract operations, allowing each function to be optimized independently for better performance.",
+    "ADA holders can earn staking rewards by locking up their tokens to help secure the network, vote on proposed changes to the platform, and use ADA for international money transfers with lower fees than traditional services.",
+    "Cardano was founded in 2017 by Charles Hoskinson, who previously helped create Ethereum. Hoskinson leads Input Output Global (IOG), the technology company that builds and maintains Cardano's core software. The ecosystem operates through three organizations: IOG handles technical development, the Cardano Foundation promotes adoption and standardization, and Emurgo helps businesses integrate blockchain technology into their operations. This structure distributes responsibilities across multiple groups rather than concentrating control in a single entity.",
+    "In February 2025, major asset manager Grayscale Investments filed to create an exchange-traded fund (ETF) for Cardano with the U.S. Securities and Exchange Commission, which would allow traditional investors to buy ADA through their regular brokerage accounts without needing to set up cryptocurrency wallets."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Cardano Ecosystem",
+    "Proof of Stake (PoS)"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://cardano.org/",
+    "whitepaper": "https://docs.cardano.org/introduction",
+    "explorers": [
+     "https://cardanoscan.io/",
+     "https://cardanoexplorer.com/"
+    ],
+    "github": "https://github.com/input-output-hk/cardano-sl"
+   },
+   "contracts": []
+  },
+  "ethena-usde": {
+   "id": "ethena-usde",
+   "name": "Ethena USDe",
+   "symbol": "USDE",
+   "image": "https://coin-images.coingecko.com/coins/images/33613/large/usde.png?1733810059",
+   "about": [
+    "Ethena is a delta-hedged synthetic dollar with native crypto yield derived from staking and perpetual funding rate"
+   ],
+   "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Avalanche Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Metis Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://app.ethena.fi/",
+    "whitepaper": "https://ethena-labs.gitbook.io/",
+    "explorers": [
+     "https://etherscan.io/token/0x4c9edd5852cd905f086c759e8383e09bff1e68b3",
+     "https://ethplorer.io/address/0x4c9edd5852cd905f086c759e8383e09bff1e68b3"
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x4c9edd5852cd905f086c759e8383e09bff1e68b3"
+    ],
+    [
+     "monad",
+     "0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34"
+    ],
+    [
+     "plasma",
+     "0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34"
+    ],
+    [
+     "metis-andromeda",
+     "0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34"
+    ],
+    [
+     "swellchain",
+     "0x5d3a1ff2b6bab83b63cd9ad0787074081a52ef34"
+    ]
+   ]
+  },
+  "stellar": {
+   "id": "stellar",
+   "name": "Stellar",
+   "symbol": "XLM",
+   "image": "https://coin-images.coingecko.com/coins/images/100/large/fmpFRHHQ_400x400.jpg?1735231350",
+   "about": [
+    "Stellar is an open-source, decentralized network co-founded in 2014 by Jed McCaleb and Joyce Kim to facilitate the fast and low-cost transfer of value across different currencies and assets globally. Managed by the non-profit Stellar Development Foundation, the project serves as a global infrastructure that connects banks, payment systems, and individuals to expand financial access to underserved populations. Its main value proposition lies in providing a bridge between traditional money and digital networks through the use of Anchors, which are trusted entities that hold deposits and issue credits on the ledger.",
+    "The network operates using the Stellar Consensus Protocol and a Federated Byzantine Agreement, where nodes choose trusted sets of other nodes to agree on the state of the ledger. This system ensures high throughput and fast finality, where transactions are considered permanent and irreversible within seconds. Key features include a built-in distributed exchange for trading assets without intermediaries and the Soroban platform for developing smart contracts. Users can also utilize the network for tokenizing real-world assets or accessing decentralized finance services like peer-to-peer lending.",
+    "Stellar's native token, XLM, is essential for maintaining network integrity by acting as an intermediary to find efficient exchange paths and preventing spam through small transaction fees and minimum account balance requirements. Unlike many other digital assets, the network has no inflation because the community voted to disable the automatic creation of new tokens. While the project received early funding from the payments company Stripe, it is now sustained by a global community of validators and developers rather than traditional venture capital."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Real World Assets (RWA)",
+    "Stellar Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.stellar.org/",
+    "whitepaper": "https://8130068.fs1.hubspotusercontent-na1.net/hubfs/8130068/stellar-consensus-protocol.pdf",
+    "explorers": [
+     "https://dashboard.stellar.org/",
+     "https://stellar.expert/explorer/public/"
+    ],
+    "github": "https://github.com/stellar/stellar-core"
+   },
+   "contracts": [
+    [
+     "stellar",
+     "CAS3J7GYLGXMF6TDJBBYYSE3HQ6BBSMLNUQ34T6TZMYMW2EVH34XOWMA"
+    ]
+   ]
+  },
+  "dai": {
+   "id": "dai",
+   "name": "Dai",
+   "symbol": "DAI",
+   "image": "https://coin-images.coingecko.com/coins/images/9956/large/Badge_Dai.png?1696509996",
+   "about": [
+    "MakerDAO has launched Multi-collateral DAI (MCD). This token refers to the new DAI that is collaterized by multiple assets."
+   ],
+   "categories": [
+    "Stablecoins",
+    "Decentralized Finance (DeFi)",
+    "USD Stablecoin",
+    "Ethereum Ecosystem",
+    "Crypto-backed Stablecoin",
+    "Fiat-backed Stablecoin"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://makerdao.com/",
+    "whitepaper": "https://makerdao.com/en/whitepaper/",
+    "explorers": [
+     "https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f",
+     "https://intel.arkm.com/explorer/token/dai"
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x6b175474e89094c44da98b954eedeac495271d0f"
+    ]
+   ]
+  },
+  "bitcoin-cash": {
+   "id": "bitcoin-cash",
+   "name": "Bitcoin Cash",
+   "symbol": "BCH",
+   "image": "https://coin-images.coingecko.com/coins/images/780/large/bitcoin-cash-circle.png?1696501932",
+   "about": [
+    "Bitcoin Cash is a hard fork of Bitcoin with a protocol upgrade to fix on-chain capacity. Bitcoin Cash intends to be a Bitcoin without Segregated Witness (SegWit) as soft fork, where upgrades of the protocol are done mainly through hard forks and without changing the original economic rules of the Bitcoin.",
+    "Bitcoin Cash (BCH) is released on 1st August 2017 as an upgraded version of the original Bitcoin Core software. The main upgrade is the increase in the block size limit from 1MB to 8MB. This effectively allows miners on the BCH chain to process up to 8 times more payments per second in comparison to Bitcoin. This makes for faster, cheaper transactions and a much smoother user experience.",
+    "Why was Bitcoin Cash Created?",
+    "The main objective of Bitcoin Cash is to to bring back the essential qualities of money inherent in the original Bitcoin software. Over the years, these qualities were filtered out of Bitcoin Core and progress was stifled by various people, organizations, and companies involved in Bitcoin protocol development. The result is that Bitcoin Core is currently unusable as money due to increasingly high fees per transactions and transfer times taking hours to complete. This is all because of the 1MB limitation of Bitcoin Core’s block size, causing it unable to accommodate to large number of transactions.",
+    "Essentially Bitcoin Cash is a community-activated upgrade (otherwise known as a hard fork) of Bitcoin that increased the block size to 8MB, solving the scaling issues that plague Bitcoin Core today.",
+    "Nov 16th 2018: A hashwar resulted in a split between Bitcoin SV and Bitcoin ABC"
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Bitcoin Fork",
+    "Proof of Work (PoW)"
+   ],
+   "genesis": null,
+   "algorithm": "SHA-256",
+   "links": {
+    "website": "https://bch.info/",
+    "whitepaper": "https://bch.info/bitcoin.pdf",
+    "explorers": [
+     "https://blockchair.com/bitcoin-cash",
+     "https://explorer.bitcoin.com/bch"
+    ],
+    "github": "https://github.com/bitcoincashorg/bitcoincash.org"
+   },
+   "contracts": []
+  },
+  "near": {
+   "id": "near",
+   "name": "NEAR Protocol",
+   "symbol": "NEAR",
+   "image": "https://coin-images.coingecko.com/coins/images/10365/large/near.jpg?1696510367",
+   "about": [
+    "NEAR Protocol is the blockchain for AI. A high-performance, AI-native platform built to power the next generation of decentralized applications and intelligent agents. It provides the infrastructure AI needs to transact, operate, and interact across Web2 and Web3. NEAR combines three core elements: User-Owned AI, which ensures agents act in users’ best interests; Intents and Chain Abstraction, which eliminate blockchain complexity for seamless, goal-driven transactions across chains; and a sharded blockchain architecture that delivers the scalability, speed, and low-cost execution needed for real-world AI and Web3 use. This integrated stack makes NEAR the foundation for building secure, user-owned, AI-native applications at internet scale."
+   ],
+   "categories": [
+    "Artificial Intelligence (AI)",
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Near Protocol Ecosystem",
+    "Data Availability",
+    "Proof of Stake (PoS)",
+    "Chain Abstraction",
+    "Privacy Infrastructure"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://near.org/",
+    "whitepaper": "https://near.org/papers/the-official-near-white-paper/",
+    "explorers": [
+     "https://nearblocks.io",
+     "https://intel.arkm.com/explorer/token/near"
+    ],
+    "github": "https://github.com/nearprotocol/nearcore"
+   },
+   "contracts": []
+  },
+  "litecoin": {
+   "id": "litecoin",
+   "name": "Litecoin",
+   "symbol": "LTC",
+   "image": "https://coin-images.coingecko.com/coins/images/2/large/litecoin.png?1696501400",
+   "about": [
+    "Litecoin is a decentralized, peer-to-peer digital currency designed to enable instant, near-zero cost payments to individuals and merchants worldwide. As an open-source global payment network that functions independently of central banks or intermediaries, its main value proposition lies in providing a scarce digital asset with a fixed maximum supply of 84 million tokens.",
+    "The network operates using a Proof of Work mechanism where computers solve complex puzzles to confirm transactions and secure the blockchain. It is distinguished by a block generation time of 2.5 minutes, which allows for faster transaction confirmations and a higher total throughput than earlier protocols. Key technical features include the Scrypt hashing algorithm, which promotes wider network participation, and MimbleWimble Extension Blocks, which improve user privacy by allowing transaction details to be hidden.",
+    "The LTC token is used for settling global payments, executing microtransactions through smaller units called litoshis, and diversifying digital portfolios with a highly liquid asset. New tokens are issued to miners as rewards for verifying blocks, though these rewards undergo a halving event approximately every four years to strictly control inflation. This process ensures the ledger maintains immutability, meaning records cannot be changed once they are saved to the global network.",
+    "Created by former Google engineer Charlie Lee, the project is supported by the Litecoin Foundation, a non-profit organization dedicated to ecosystem adoption. Unlike many venture-backed projects, it is maintained by a decentralized community of independent developers and a global network of miners. The project has seen recent institutional adoption, with entities like Lite Strategy and Luxxfolio Holdings adding significant amounts of LTC to their corporate treasuries as of late 2025."
+   ],
+   "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Proof of Work (PoW)",
+    "Privacy"
+   ],
+   "genesis": "2011-10-08",
+   "algorithm": "Scrypt",
+   "links": {
+    "whitepaper": "https://crypto-risk-metrics.com/wp-content/uploads/2025-04-22-White-paper-Litecoin-FFG-D74JZ1VRD.pdf",
+    "explorers": [
+     "https://blockchair.com/litecoin",
+     "https://chainz.cryptoid.info/ltc/"
+    ],
+    "github": "https://github.com/litecoin-project/litecoin"
+   },
+   "contracts": []
+  },
+  "canton-network": {
+   "id": "canton-network",
+   "name": "Canton",
+   "symbol": "CC",
+   "image": "https://coin-images.coingecko.com/coins/images/70468/large/Canton-Ticker_%281%29.png?1762826299",
+   "about": [
+    "Canton Coin (CC), the network’s native utility token, was designed to reward real network usage over speculation. It aligns the success of the network with the participants who make it work, fairly rewarding app builders and app users, as well as those operating decentralized infrastructure. The result is a fundamentally different model where rewards flow to those creating value through real activity, not only miners or early investors."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Privacy Blockchain"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.canton.network/",
+    "whitepaper": "https://www.canton.network/whitepapers",
+    "explorers": []
+   },
+   "contracts": []
+  },
+  "avalanche-2": {
+   "id": "avalanche-2",
+   "name": "Avalanche",
+   "symbol": "AVAX",
+   "image": "https://coin-images.coingecko.com/coins/images/12559/large/Avalanche_Circle_RedWhite_Trans.png?1696512369",
+   "about": [
+    "Avalanche is a high throughput smart contract blockchain&nbsp;platform. Validators secure the network through a proof-of-stake consensus protocol. It is said to be fast, low cost, and environmental friendly."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Avalanche Ecosystem",
+    "Proof of Stake (PoS)"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.avax.network",
+    "whitepaper": "https://cdn.prod.website-files.com/5d80307810123f5ffbb34d6e/6008d7bbf8b10d1eb01e7e16_Avalanche%20Platform%20Whitepaper.pdf",
+    "explorers": [
+     "https://snowtrace.io/",
+     "https://platform.arkhamintelligence.com/explorer/token/avalanche-2"
+    ],
+    "github": "https://github.com/ava-labs/avalanchego"
+   },
+   "contracts": []
+  },
+  "rain": {
+   "id": "rain",
+   "name": "Rain",
+   "symbol": "RAIN",
+   "image": "https://coin-images.coingecko.com/coins/images/69134/large/Rain_logo_1_.png?1762952191",
+   "about": [
+    "Rain is a decentralized options protocol built on Arbitrum. It enables anyone to create and trade custom markets without restrictions, offering a permissionless framework for prediction and options trading. Public markets are resolved using Olympus AI’s oracle agent, while private markets allow creators to act as resolvers. The protocol supports secondary trading, account abstraction for smoother user experience, and a deflationary token model where 2.5% of trading volume is allocated to buy and burn the $RAIN token. Governance of the protocol is carried out by token holders through a DAO."
+   ],
+   "categories": [
+    "Gambling (GambleFi)",
+    "Decentralized Finance (DeFi)",
+    "Options",
+    "Prediction Markets",
+    "Arbitrum Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://rain.one",
+    "whitepaper": "https://whitepaper.rain.one",
+    "explorers": [
+     "https://arbiscan.io/token/0x25118290e6A5f4139381D072181157035864099d",
+     "https://intel.arkm.com/explorer/token/rain"
+    ],
+    "github": "https://github.com/rainlanguage"
+   },
+   "contracts": [
+    [
+     "arbitrum-one",
+     "0x25118290e6a5f4139381d072181157035864099d"
+    ]
+   ]
+  },
+  "uniswap": {
+   "id": "uniswap",
+   "name": "Uniswap",
+   "symbol": "UNI",
+   "image": "https://coin-images.coingecko.com/coins/images/12504/large/uniswap-logo.png?1720676669",
+   "about": [
+    "UNI is the governance token for Uniswap, an Automated Market Marker DEX on the Ethereum blockchain. The UNI token allows token holders to participate in the governance of the protocol. Key decisions such as usage of the treasury or future upgrades can be decided through a governance vote."
+   ],
+   "categories": [
+    "Decentralized Exchange (DEX)",
+    "Exchange-based Tokens",
+    "Decentralized Finance (DeFi)",
+    "Yield Farming",
+    "Automated Market Maker (AMM)",
+    "BNB Chain Ecosystem",
+    "Avalanche Ecosystem",
+    "Polygon Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://uniswap.org/",
+    "whitepaper": "https://blog.uniswap.org/uni",
+    "explorers": [
+     "https://etherscan.io/token/0x1f9840a85d5af5bf1d1762f925bdaddc4201f984",
+     "https://ethplorer.io/address/0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"
+    ],
+    "github": "https://github.com/Uniswap/uniswap-v3-core"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"
+    ],
+    [
+     "unichain",
+     "0x8f187aa05619a017077f5308904739877ce9ea21"
+    ],
+    [
+     "near-protocol",
+     "1f9840a85d5af5bf1d1762f925bdaddc4201f984.factory.bridge.near"
+    ],
+    [
+     "polygon-pos",
+     "0x06e8bde95be4ce5cb1134bd47ad18a79ffb35822"
+    ],
+    [
+     "arbitrum-one",
+     "0xfa7f8980b0f1e64a2062791cc3b0871572f1f7f0"
+    ]
+   ]
+  },
+  "the-open-network": {
+   "id": "the-open-network",
+   "name": "Gram (prev. Toncoin)",
+   "symbol": "GRAM",
+   "image": "https://coin-images.coingecko.com/coins/images/17980/large/Gram_Circular_Badge.png?1781524778",
+   "about": [
+    "TON (The Open Network) is a general-purpose&nbsp;blockchain that allows developers to build decentralized apps and tokens."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "TON Ecosystem",
+    "Proof of Stake (PoS)"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://ton.org/",
+    "whitepaper": "https://ton.org/whitepaper.pdf",
+    "explorers": [
+     "https://tonviewer.com/EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c",
+     "https://youton.org/"
+    ],
+    "github": "https://github.com/ton-blockchain/ton"
+   },
+   "contracts": [
+    [
+     "the-open-network",
+     "EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c"
+    ],
+    [
+     "ethereum",
+     "0x582d872a1b094fc48f5de31d3b73f2d9be47def1"
+    ],
+    [
+     "binance-smart-chain",
+     "0x76a797a59ba2c17726896976b7b3747bfd1d220f"
+    ]
+   ]
+  },
+  "usd1-wlfi": {
+   "id": "usd1-wlfi",
+   "name": "USD1",
+   "symbol": "USD1",
+   "image": "https://coin-images.coingecko.com/coins/images/54977/large/USD1_1000x1000_transparent.png?1749297002",
+   "about": [],
+   "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "Aptos Ecosystem",
+    "Mantle Ecosystem",
+    "Tron Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.worldlibertyfinancial.com/",
+    "explorers": [
+     "https://bscscan.com/token/0x8d0d000ee44948fc98c9b98a4fa4921476f08b0d",
+     "https://intel.arkm.com/explorer/token/usd1-wlfi "
+    ]
+   },
+   "contracts": [
+    [
+     "binance-smart-chain",
+     "0x8d0d000ee44948fc98c9b98a4fa4921476f08b0d"
+    ],
+    [
+     "plume-network",
+     "0x111111d2bf19e43c34263401e0cad979ed1cdb61"
+    ],
+    [
+     "ethereum",
+     "0x8d0d000ee44948fc98c9b98a4fa4921476f08b0d"
+    ],
+    [
+     "solana",
+     "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB"
+    ],
+    [
+     "tron",
+     "TPFqcBAaaUMCSVRCqPaQ9QnzKhmuoLR6Rc"
+    ]
+   ]
+  },
+  "sui": {
+   "id": "sui",
+   "name": "Sui",
+   "symbol": "SUI",
+   "image": "https://coin-images.coingecko.com/coins/images/26375/large/sui-ocean-square.png?1727791290",
+   "about": [
+    "Sui s a Layer 1 blockchain developed by Mysten Labs, a team founded by former lead engineers from Meta’s blockchain research division. It is designed for global adoption by providing a secure, high-speed environment for digital asset ownership and removing technical barriers for Web3 applications. The platform utilizes the Move programming language to create a safe framework and supports horizontal scaling to keep fees stable and speeds high as the network grows. Significant institutional support comes from major venture capital firms including Andreessen Horowitz, Coinbase Ventures, Circle Ventures, and YZi Labs.",
+    "The system functions by organizing data into independent objects rather than a single ledger of accounts. This object-centric data model enables parallel execution, allowing the network to process many transactions simultaneously instead of waiting for one to finish before starting the next. This architecture is built for rapid transaction finalization to ensure near-instant results. To maintain long-term stability, the network collects fees into a storage fund that rewards validators for keeping data on the network indefinitely.",
+    "Sui offers several advanced tools including zkLogin for easier account access and sponsored transactions that allow users to interact with apps without managing complex wallets or immediate fees. Developers can also create tailored object types that work across the entire network, which encourages innovation and deep composability. These features are designed to create a more user-friendly experience for interacting with decentralized applications and digital games.",
+    "The SUI token is central to the ecosystem, serving as the primary asset for transaction fees and on-chain utility within decentralized exchanges and lending platforms. Users participate in a proof-of-stake mechanism by locking their tokens to support validators and secure the blockchain in exchange for rewards. Additionally, token holders have a role in governance, allowing them to participate in voting on network rules and future protocol upgrades. Value moves through the system through these staking rewards and transaction fees to ensure the platform scales sustainably"
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Binance Launchpool",
+    "Layer 1 (L1)",
+    "Sui Ecosystem",
+    "Proof of Stake (PoS)"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://sui.io/",
+    "whitepaper": "https://github.com/MystenLabs/sui/blob/main/doc/paper/sui.pdf",
+    "explorers": [
+     "https://suiscan.xyz/mainnet/home",
+     "https://www.oklink.com/sui"
+    ],
+    "github": "https://github.com/MystenLabs/sui"
+   },
+   "contracts": [
+    [
+     "sui",
+     "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
+    ]
+   ]
+  },
+  "tether-gold": {
+   "id": "tether-gold",
+   "name": "Tether Gold",
+   "symbol": "XAUT",
+   "image": "https://coin-images.coingecko.com/coins/images/10481/large/logo.png?1774627372",
+   "about": [
+    "Each XAU₮ token represents ownership of one troy fine ounce of physical gold on a specific gold bar. XAU₮, which is available as an ERC-20 token on the Ethereum blockchain and as a TRC20 token on the TRON blockchain, can be transferred to any on-chain address from the purchasers’ Tether wallet. Furthermore, Tether Gold (XAU₮) is the only product among the competition that offers zero custody fees and has direct control over the physical gold storage, safely held in a Switzerland vault, adopting best in class security and anti-threat measures. Today, Tether Gold (XAU₮) is the best way to hold Gold."
+   ],
+   "categories": [
+    "Tokenized Assets",
+    "Tokenized Gold",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Tokenized Commodities",
+    "Tether Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://gold.tether.to/",
+    "whitepaper": "https://gold.tether.to/Relevant%20Information%20Document%20-%20TG%20Commodities,%20S.A.%20de%20C.V.%20(ENG).pdf",
+    "explorers": [
+     "https://etherscan.io/token/0x68749665ff8d2d112fa859aa293f07a622782f38",
+     "https://intel.arkm.com/explorer/token/tether-gold"
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x68749665ff8d2d112fa859aa293f07a622782f38"
+    ]
+   ]
+  },
+  "ripple-usd": {
+   "id": "ripple-usd",
+   "name": "Ripple USD",
+   "symbol": "RLUSD",
+   "image": "https://coin-images.coingecko.com/coins/images/39651/large/RLUSD_200x200_%281%29.png?1727376633",
+   "about": [
+    "Ripple USD (“RLUSD”), issued by Standard Custody &amp; Trust Company, LLC, a wholly owned subsidiary of Ripple Labs, is a USD denominated stablecoin created with trust, liquidity, and compliance at its core. Each RLUSD is backed by at least an equivalent amount of U.S. dollars and other cash equivalents. RLUSD is purpose-built for cross-border payments and delivers reliable access to digital dollars.",
+    "As an industry leader for over a decade, Ripple has a proven track record of delivering breakthrough blockchain solutions at scale. Strong ecosystem relationships built over a decade facilitates RLUSD’s broad accessibility for use by financial institutions, enterprises and developers. Ripple’s commitment to regulatory compliance, combined with its global license portfolio, enables RLUSD users to transact with confidence.",
+    "RLUSD delivers the reliability of USD combined with the efficiencies of blockchain technology in a trusted, liquid, and compliant manner."
+   ],
+   "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Ethereum Ecosystem",
+    "XRP Ledger Ecosystem",
+    "Fiat-backed Stablecoin"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://ripple.com/solutions/stablecoin/",
+    "whitepaper": "https://docs.ripple.com/",
+    "explorers": [
+     "https://xrpscan.com/token/524C555344000000000000000000000000000000.rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De",
+     "https://intel.arkm.com/explorer/token/ripple-usd"
+    ]
+   },
+   "contracts": [
+    [
+     "xrp",
+     "524C555344000000000000000000000000000000.rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De"
+    ],
+    [
+     "ethereum",
+     "0x8292bb45bf1ee4d140127049757c2e0ff06317ed"
+    ]
+   ]
+  },
+  "global-dollar": {
+   "id": "global-dollar",
+   "name": "Global Dollar",
+   "symbol": "USDG",
+   "image": "https://coin-images.coingecko.com/coins/images/51281/large/GDN_USDG_Token_200x200.png?1730484111",
+   "about": [
+    "Global Dollar (USDG) is a single-currency stablecoin pegged to the US dollar. USDG is fully redeemable from Paxos on a one-to-one basis for US dollars.",
+    "Global Dollar (USDG) is issued by Paxos Digital Singapore (PDS), which is a Major Payments Institution supervised by the Monetary Authority of Singapore. USDG is issued in the EU by Paxos Issuance Europe Oy (PIE), an Electronic Money Institution regulated by the Finnish Financial Supervisory Authority (FIN-FSA). USDG is fully compliant with the EU’s Markets in Crypto Assets Regulation (MiCA).",
+    "USDG combines the stability and reach of US dollars with the added security and efficiency of blockchain technology. USDG is always available and accessible, offering high transfer speeds and programmability. USDG is always available for 1:1 redemption for US dollars, 24/7.",
+    "USDG's issuance will adhere to strict regulatory standards, including requirements for value stability, capital adequacy, redemption and par and comprehensive disclosure. Specific regulatory obligations include substantial capital reserve requirements, frequent regulatory examinations, monthly independent attestations of reserve assets, monitoring of operating procedures and annual audits of reserve assets. It also provides protection from bankruptcy by holding stablecoin reserve assets in segregated accounts held on trust by PDS for the benefit of USDG holders.",
+    "USDG represents the pinnacle of regulated stablecoins, offering unparalleled stability, security and compliance in the rapidly evolving world of digital finance."
+   ],
+   "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Solana Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Mantle Ecosystem",
+    "X Layer Ecosystem",
+    "Fiat-backed Stablecoin"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://globaldollar.com",
+    "whitepaper": "https://424565.fs1.hubspotusercontent-na1.net/hubfs/424565/USDGWhitePaper.pdf",
+    "explorers": [
+     "https://etherscan.io/token/0xe343167631d89B6Ffc58B88d6b7fB0228795491D",
+     "https://intel.arkm.com/explorer/token/global-dollar"
+    ],
+    "github": "https://github.com/paxosglobal/usdg-contract"
+   },
+   "contracts": [
+    [
+     "solana",
+     "2u1tszSeqZ3qBWF3uNGPFc8TzMk2tdiwknnRMWGWjGWH"
+    ],
+    [
+     "ink",
+     "0xe343167631d89b6ffc58b88d6b7fb0228795491d"
+    ],
+    [
+     "ethereum",
+     "0xe343167631d89b6ffc58b88d6b7fb0228795491d"
+    ],
+    [
+     "x-layer",
+     "0x4ae46a509f6b1d9056937ba4500cb143933d2dc8"
+    ],
+    [
+     "robinhood",
+     "0x5fc5360d0400a0fd4f2af552add042d716f1d168"
+    ]
+   ]
+  },
+  "paypal-usd": {
+   "id": "paypal-usd",
+   "name": "PayPal USD",
+   "symbol": "PYUSD",
+   "image": "https://coin-images.coingecko.com/coins/images/31212/large/PYUSD_Token_Logo_2x.png?1765987788",
+   "about": [
+    "PayPal USD is designed to contribute to the opportunity stablecoins offer for payments and is 100% backed by U.S. dollar deposits, short-term U.S Treasuries and similar cash equivalents. PayPal USD is redeemable 1:1 for U.S. dollars and is issued by Paxos Trust Company."
+   ],
+   "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Solana Ecosystem",
+    "Polygon Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Starknet Ecosystem",
+    "Stellar Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.paypal.com/us/digital-wallet/manage-money/crypto/pyusd",
+    "whitepaper": "https://developer.paypal.com/dev-center/pyusd/",
+    "explorers": [
+     "https://etherscan.io/token/0x6c3ea9036406852006290770bedfcaba0e23a0e8",
+     "https://intel.arkm.com/explorer/token/paypal-usd"
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x6c3ea9036406852006290770bedfcaba0e23a0e8"
+    ],
+    [
+     "polygon-pos",
+     "0x99af3eea856556646c98c8b9b2548fe815240750"
+    ],
+    [
+     "ink",
+     "0x142cdc44890978b506e745bb3bd11607b7f7faef"
+    ],
+    [
+     "x-layer",
+     "0x87b4a8176b3df6b71e26cc095edcaf4db07506b4"
+    ],
+    [
+     "stable",
+     "0x28f1f38a9f7db1f769a71af0a13e8bace2ab0e9f"
+    ]
+   ]
+  },
+  "hedera-hashgraph": {
+   "id": "hedera-hashgraph",
+   "name": "Hedera",
+   "symbol": "HBAR",
+   "image": "https://coin-images.coingecko.com/coins/images/3688/large/hbar.png?1696504364",
+   "about": [
+    "Hedera is a decentralized public network where developers can build secure, fair applications with near real-time consensus. The platform is owned and governed by a council of global innovators including Avery Dennison, Boeing, Deutsche Telekom, DLA Piper, FIS (WorldPay), Google, IBM, LG Electronics, Magalu, Nomura, Swirlds, Tata Communications, University College London (UCL), Wipro, and Zain Group.",
+    "The Hedera Consensus Service (HCS) acts as a trust layer for any application or permissioned network and allows for the creation of an immutable and verifiable log of messages. Application messages are submitted to the Hedera network for consensus, given a trusted timestamp, and fairly ordered. Use HCS to track assets across a supply chain, create auditable logs of events in an advertising platform, or even use it as a decentralized ordering service."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Hedera Ecosystem",
+    "Directed Acyclic Graph (DAG)"
+   ],
+   "genesis": null,
+   "algorithm": "Directed Acyclic Graph (DAG)",
+   "links": {
+    "website": "https://www.hedera.com/",
+    "whitepaper": "https://hedera.com/wp-content/uploads/2025/12/hh_whitepaper.pdf",
+    "explorers": [
+     "https://hashscan.io/",
+     "https://explorer.arkhia.io/mainnet/dashboard"
+    ],
+    "github": "https://github.com/hashgraph"
+   },
+   "contracts": []
+  },
+  "ondo-us-dollar-yield": {
+   "id": "ondo-us-dollar-yield",
+   "name": "Ondo US Dollar Yield",
+   "symbol": "USDY",
+   "image": "https://coin-images.coingecko.com/coins/images/31700/large/usdy_%281%29.png?1696530524",
+   "about": [],
+   "categories": [
+    "Tokenized Assets",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Aptos Ecosystem",
+    "Sui Ecosystem",
+    "Real World Assets (RWA)"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://ondo.finance/",
+    "whitepaper": "https://docs.ondo.finance/general-access-products/usdy/basics",
+    "explorers": [
+     "https://etherscan.io/token/0x96f6ef951840721adbf46ac996b59e0235cb985c",
+     "https://ethplorer.io/address/0x96f6ef951840721adbf46ac996b59e0235cb985c"
+    ],
+    "github": "https://github.com/ondoprotocol/tokenized-funds"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x96f6ef951840721adbf46ac996b59e0235cb985c"
+    ],
+    [
+     "noble",
+     "ausdy"
+    ],
+    [
+     "mantle",
+     "0x5be26527e817998a7206475496fde1e68957c5a6"
+    ],
+    [
+     "tempo",
+     "0x20c000000000000000000000d479b9f6ec0ceff9"
+    ],
+    [
+     "sui",
+     "0x960b531667636f39e85867775f52f6b1f220a058c4de786905bdf761e06a56bb::usdy::USDY"
+    ]
+   ]
+  },
+  "shiba-inu": {
+   "id": "shiba-inu",
+   "name": "Shiba Inu",
+   "symbol": "SHIB",
+   "image": "https://coin-images.coingecko.com/coins/images/11939/large/shiba.png?1696511800",
+   "about": [
+    "Shiba Inu (SHIB) is a decentralized, community-led cryptocurrency ecosystem built on the Ethereum blockchain. Originally launched as a meme-based project, it has evolved into a comprehensive financial ecosystem designed to offer a decentralized alternative to traditional banking. Its main value proposition lies in its transition from a social phenomenon into a functional utility network, supported by a vast global community known as the ShibArmy and a commitment to 100% community ownership with no central leadership.",
+    "The ecosystem features its own decentralized exchange, ShibaSwap, where users can trade, provide liquidity, and earn rewards. To address Ethereum’s high costs and slow speeds, the project utilizes Shibarium, a Layer 2 scaling solution that processes transactions faster and more affordably.",
+    "The project employs a unique three-token model to manage its economy and governance. SHIB serves as the primary currency for trading and payments, while LEASH offers scarcity-based incentives for dedicated supporters. BONE acts as the governance token, allowing holders to vote on proposals through the Doggy DAO and serving as the native gas token for the Shibarium network."
+   ],
+   "categories": [
+    "Meme",
+    "Ethereum Ecosystem",
+    "Dog-Themed"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://shibatoken.com/",
+    "whitepaper": "https://shib.io/documents/SHIBPAPER-ABRIDGED-V.1.pdf",
+    "explorers": [
+     "https://etherscan.io/token/0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce",
+     "https://intel.arkm.com/explorer/token/shiba-inu"
+    ],
+    "github": "https://github.com/shibaone"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce"
+    ]
+   ]
+  },
+  "bittensor": {
+   "id": "bittensor",
+   "name": "Bittensor",
+   "symbol": "TAO",
+   "image": "https://coin-images.coingecko.com/coins/images/28452/large/ARUsPeNQ_400x400.jpeg?1696527447",
+   "about": [
+    "Bittensor is an open-source protocol that powers a decentralized, blockchain-based machine learning network. Machine learning models train collaboratively and are rewarded in TAO according to the informational value they offer the collective. TAO also grants external access, allowing users to extract information from the network while tuning its activities to their needs.",
+    "Ultimately, BitTensors vision is to create a pure market for artificial intelligence, an incentivized arena in which consumers and producers of this valuable commodity can interact in a trustless, open and transparent context.",
+    "Bittensor enables:",
+    "-A novel, optimized strategy for the development and distribution of artificial intelligence technology by leveraging the possibilities of a distributed ledger. Specifically, its facilitation of open access/ownership, decentralized governance, and the ability to harness globally-distributed resources of computing power and innovation within an incentivized framework.",
+    "-An open-source repository of machine intelligence, accessible to anyone, anywhere, thus creating the conditions for open and permission-less innovation on a global internet scale.",
+    "-Distribution of rewards and network ownership to users in direct proportion to the value they have added."
+   ],
+   "categories": [
+    "Artificial Intelligence (AI)",
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "DePIN",
+    "Bittensor Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://bittensor.com/",
+    "whitepaper": "https://bittensor.com/whitepaper",
+    "explorers": [
+     "https://taostats.io/",
+     "https://intel.arkm.com/explorer/token/bittensor"
+    ],
+    "github": "https://github.com/opentensor/BitTensor"
+   },
+   "contracts": []
+  },
+  "quant-network": {
+   "id": "quant-network",
+   "name": "Quant",
+   "symbol": "QNT",
+   "image": "https://coin-images.coingecko.com/coins/images/3370/large/5ZOu7brX_400x400.jpg?1696504070",
+   "about": [
+    "London-based Quant Network is set to revolutionise blockchain technology with the development of their blockchain operating system Overledger. The experienced team are determined to fulfil the original vision of the internet by creating an open trusted network for people, machines, and data to operate securely and safely.",
+    "Overledger -the first interoperable blockchain operating system that facilitates internet-scale development of decentralised, multi-chain applications. Overledger has the ability to unlock and distribute value and applications across current and future blockchains. It is an agnostic platform that connects the world's networks to blockchains and ensures you're not limited to any single a vendor or technology. Overledger is the only platform that facilitates the development of internet-scales development of decentralised, multi-chain applications."
+   ],
+   "categories": [
+    "Infrastructure",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Energi Ecosystem"
+   ],
+   "genesis": "2018-06-25",
+   "algorithm": "Ethash",
+   "links": {
+    "website": "https://www.quant.network",
+    "explorers": [
+     "https://etherscan.io/token/0x4a220e6096b25eadb88358cb44068a3248254675",
+     "https://intel.arkm.com/explorer/token/quant-network"
+    ],
+    "github": "https://github.com/quantnetwork/Overledger-Interfaces"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x4a220e6096b25eadb88358cb44068a3248254675"
+    ],
+    [
+     "energi",
+     "0x462b35452e552a66b519ecf70aedb1835d434965"
+    ]
+   ]
+  },
+  "crypto-com-chain": {
+   "id": "crypto-com-chain",
+   "name": "Cronos",
+   "symbol": "CRO",
+   "image": "https://coin-images.coingecko.com/coins/images/7310/large/CRO.png?1794186148",
+   "about": [
+    "Cronos is an institutional-grade, high-performance, EVM-compatible Layer-1 blockchain built on the Cosmos SDK and integrated with the Inter-Blockchain Communication (IBC) protocol, designed as the backbone for open, compliant, and AI-accessible tokenized markets. It supports up to 60,000 transactions per second (TPS), 500ms block times, instant finality, and sub-$0.01 fees via Proof of Authority consensus."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Exchange-based Tokens",
+    "Centralized Exchange (CEX) Token",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "Crypto Card Issuer"
+   ],
+   "genesis": "2018-11-14",
+   "algorithm": "Ethash",
+   "links": {
+    "website": "https://cronos.org/",
+    "whitepaper": "https://whitepaper.cronos.org/",
+    "explorers": [
+     "https://etherscan.io/token/0xa0b73e1ff0b80914ab6fe0444e65848c4c34450b",
+     "https://intel.arkm.com/explorer/token/crypto-com-chain"
+    ],
+    "github": "https://github.com/crypto-org-chain/chain-main"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0xa0b73e1ff0b80914ab6fe0444e65848c4c34450b"
+    ]
+   ]
+  },
+  "spiko-amundi-overnight-swap-fund-eur": {
+   "id": "spiko-amundi-overnight-swap-fund-eur",
+   "name": "Spiko Amundi Overnight Swap Fund (EUR)",
+   "symbol": "EURSAFO",
+   "image": "https://coin-images.coingecko.com/coins/images/102172591/large/Fund_eurSAF0.png?1774104814",
+   "about": [
+    "SAFO (Spiko Amundi Overnight Swap Fund) is a tokenized UCITS fund launched by Spiko and Amundi, Europe's largest asset manager. The EUR share class (eurSAFO) allows investors to subscribe from as little as 1 EUR. SAFO generates stable yields above the €STR benchmark through fully collateralized total return swaps with top-tier banks (starting with BNP Paribas), while maintaining overnight liquidity. The shareholder register is hosted on Ethereum, Polygon PoS, Arbitrum One, Starknet, Base, Etherlink, and Stellar. CACEIS (Crédit Agricole group) acts as depositary bank, PwC as auditor, and Chainlink provides on-chain NAV oracle feeds. The fund is supervised by the French AMF."
+   ],
+   "categories": [
+    "Decentralized Finance (DeFi)",
+    "Tokenized Assets",
+    "Polygon Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Base Ecosystem",
+    "Starknet Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.spiko.io/spiko-euro",
+    "explorers": [
+     "https://arbiscan.io/token/0x1412632f2b89e87bfa20c1318a43ced25f1d7b76",
+     "https://intel.arkm.com/explorer/token/spiko-amundi-overnight-swap-fund-eur"
+    ],
+    "github": "https://github.com/spiko-tech"
+   },
+   "contracts": [
+    [
+     "arbitrum-one",
+     "0x1412632f2b89e87bfa20c1318a43ced25f1d7b76"
+    ],
+    [
+     "starknet",
+     "0x0128f41ef8017ab56140ffad6439305a3196ed862841ba61ff4d78e380c346a6"
+    ],
+    [
+     "polygon-pos",
+     "0x272ea767712cc4839f4a27ee35eb73116158c8a2"
+    ],
+    [
+     "base",
+     "0xd879846cbe20751bde8a9342a3cca00a3e56ca47"
+    ],
+    [
+     "etherlink",
+     "0x35dfec1813c43d82e6b87c682f560bbb8ea0c121"
+    ]
+   ]
+  },
+  "hashnote-usyc": {
+   "id": "hashnote-usyc",
+   "name": "Circle USYC",
+   "symbol": "USYC",
+   "image": "https://coin-images.coingecko.com/coins/images/51054/large/Hashnote_SDYC_200x200.png?1730370965",
+   "about": [
+    "USYC: Tokenized Money Market Fund",
+    "Hashnote International Short Duration Yield Fund Ltd. invests in short-term U.S. Treasury Bills and performs repo/reverse repo activities as the underlying asset of the USYC token.",
+    "USYC earns short-term Fed rate returns. Tokenization enables the fund to deliver rapid transactions, onchain transparency, and seamless composability—while maintaining strong controls across regulatory and credit dimensions."
+   ],
+   "categories": [
+    "Tokenized Assets",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Tokenized Treasuries"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://usyc.hashnote.com/",
+    "whitepaper": "https://developers.circle.com/tokenized/usyc/overview?_gl=1*1tinvsh*_gcl_au*MTc2OTc4MTMzNC4xNzcxOTYwMzk0*_ga*MTA4NzQzMjI0MS4xNzcxOTYwMzk0*_ga_GJDVPCQNRV*czE3NzE5NjAzOTIkbzEkZzEkdDE3NzE5NjA0NDkkajQ2JGwwJGgw",
+    "explorers": [
+     "https://etherscan.io/token/0x136471a34f6ef19fe571effc1ca711fdb8e49f2b",
+     "https://intel.arkm.com/explorer/token/hashnote-usyc "
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x136471a34f6ef19fe571effc1ca711fdb8e49f2b"
+    ],
+    [
+     "binance-smart-chain",
+     "0x8d0fa28f221eb5735bc71d3a0da67ee5bc821311"
+    ],
+    [
+     "solana",
+     "7LWanZteUKtvFjv4MHYgKXXdAuCQYFPJysL9pxxdRQGn"
+    ]
+   ]
+  },
+  "memecore": {
+   "id": "memecore",
+   "name": "MemeCore",
+   "symbol": "M",
+   "image": "https://coin-images.coingecko.com/coins/images/53247/large/square-bg-transparent.png?1752637478",
+   "about": [
+    "MemeCore is the first Layer 1 blockchain, built for Meme 2.0 — a new paradigm where meme coins transcend speculation to become engines of culture, value, and community coordination. In this new era, memes are not just content — they are currency, governance, and creative expression.",
+    "Mission\nTo structure and sustain the meme viral economy, empowering anyone to launch tokens, earn from cultural contributions, and build openly in a decentralized, meme-native environment.",
+    "Vision\nMemeCore envisions a world where meme coins are vehicles of shared ownership and viral innovation. Every social post, meme remix, and on-chain action becomes a part of an economic feedback loop — fueling a participatory ecosystem where culture is capital."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "Meme",
+    "Binance Alpha Spotlight",
+    "MemeCore Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://memecore.com/",
+    "whitepaper": "https://docs.memecore.com/",
+    "explorers": [
+     "https://memecorescan.io/",
+     "https://intel.arkm.com/explorer/token/memecore "
+    ]
+   },
+   "contracts": [
+    [
+     "binance-smart-chain",
+     "0x22b1458e780f8fa71e2f84502cee8b5a3cc731fa"
+    ]
+   ]
+  },
+  "falcon-finance": {
+   "id": "falcon-finance",
+   "name": "Falcon USD",
+   "symbol": "USDF",
+   "image": "https://coin-images.coingecko.com/coins/images/54558/large/ff_200_X_200.png?1740741076",
+   "about": [
+    "Falcon, the next-generation platform transforming synthetic dollars into sustainable yield opportunities. Our mission is clear: Your Crypto, Your Yields. Falcon aims to empower users and institutions to unlock the true yield potential of their digital assets.",
+    "Falcon is built on the foundation of trust, transparency, and robust technology. Our team of experienced professionals brings expertise from blockchain, financial engineering, and quantitative analysis to ensure we deliver a protocol that balances reliability with performance. We are committed to enable users to make the most of their assets while adhering to the highest standards of accountability.",
+    "Our mission extends beyond creating a protocol—it’s about fostering a system that prioritizes user returns and sustainable growth."
+   ],
+   "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "XDC Ecosystem",
+    "Crypto-backed Stablecoin",
+    "Synthetic Dollar"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://falcon.finance/",
+    "whitepaper": "https://falcon.finance/whitepaper-en.pdf",
+    "explorers": [
+     "https://etherscan.io/token/0xFa2B947eEc368f42195f24F36d2aF29f7c24CeC2",
+     "https://intel.arkm.com/explorer/token/falcon-finance"
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0xfa2b947eec368f42195f24f36d2af29f7c24cec2"
+    ],
+    [
+     "binance-smart-chain",
+     "0xb3b02e4a9fb2bd28cc2ff97b0ab3f6b3ec1ee9d2"
+    ],
+    [
+     "xdc-network",
+     "0x8210c0634ab8f273806e4b7866e9db353773c44b"
+    ]
+   ]
+  },
+  "okb": {
+   "id": "okb",
+   "name": "OKB",
+   "symbol": "OKB",
+   "image": "https://coin-images.coingecko.com/coins/images/4463/large/WeChat_Image_20220118095654.png?1696505053",
+   "about": [
+    "OKEx, the 2nd most popular cryptocurrency exchange by trading volume, launched its platform token ‘OKB‘ today with 10 trading pairs. On its official support page, OKEx describes OKB is a global utility token issued by the OK Blockchain Foundation. The total available supply of OKB will be one billion tokens (1,000,000,000), with a distribution model that allocates 60% of the supply will be given out to OKEx customers for community building and during marketing campaigns. According to OKEx, the company had officially issued OKB on ERC20 protocol earlier this month.",
+    "The company denied ICO (initial coin offering) and public fundraising. Reportedly the company had stated that it would be soon shifting the token to its official OK chain and subsequently it will be applied not only on OKEx’s platform but also on other related projects. There will be in total 1 billion tokens supplied globally out of which 600 million coins will be distributed to OKEx customers for community building and marketing campaigns. Rest will be locked up for a period of 1 year to 3 years.",
+    "According to OKEx, the company had officially issued OKB on ERC20 protocol earlier this month. The company denied ICO (initial coin offering) and public fundraising. Reportedly the company had stated that it would be soon shifting the token to its official OK chain and subsequently it will be applied not only on OKEx’s platform but also on other related projects. There will be in total 1 billion tokens supplied globally out of which 600 million coins will be distributed to OKEx customers for community building and marketing campaigns. Rest will be locked up for a period of 1 year to 3 years."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Exchange-based Tokens",
+    "Centralized Exchange (CEX) Token",
+    "Ethereum Ecosystem",
+    "Layer 2 (L2)",
+    "Sora Ecosystem",
+    "OKT Chain Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.okx.com/",
+    "explorers": [
+     "https://ethplorer.io/address/0x75231f58b43240c9718dd58b4967c5114342a86c",
+     "https://intel.arkm.com/explorer/token/okb"
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x75231f58b43240c9718dd58b4967c5114342a86c"
+    ],
+    [
+     "okex-chain",
+     "0xdf54b6c6195ea4d948d03bfd818d365cf175cfc2"
+    ],
+    [
+     "sora",
+     "0x0080edc40a944d29562b2dea2de42ed27b9047d16eeea27c5bc1b2e02786abe9"
+    ]
+   ]
+  },
+  "united-stables": {
+   "id": "united-stables",
+   "name": "United Stables",
+   "symbol": "U",
+   "image": "https://coin-images.coingecko.com/coins/images/71157/large/united-stables-logo.jpg?1766061640",
+   "about": [],
+   "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Tron Ecosystem",
+    "Robinhood Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://u.tech/",
+    "explorers": [
+     "https://bscscan.com/token/0xce24439f2d9c6a2289f741120fe202248b666666",
+     "https://intel.arkm.com/explorer/token/united-stables"
+    ]
+   },
+   "contracts": [
+    [
+     "binance-smart-chain",
+     "0xce24439f2d9c6a2289f741120fe202248b666666"
+    ],
+    [
+     "robinhood",
+     "0xce24439f2d9c6a2289f741120fe202248b666666"
+    ],
+    [
+     "ethereum",
+     "0xce24439f2d9c6a2289f741120fe202248b666666"
+    ],
+    [
+     "tron",
+     "TFNirp6PbqYE1ZTtWuCMUKJWLNZkoCoeFJ"
+    ]
+   ]
+  },
+  "aave": {
+   "id": "aave",
+   "name": "Aave",
+   "symbol": "AAVE",
+   "image": "https://coin-images.coingecko.com/coins/images/12645/large/aave-token-round.png?1720472354",
+   "about": [
+    "Aave is a decentralized money market protocol where users can lend and borrow cryptocurrency across 20 different assets as collateral. The protocol has a native token called AAVE, which is also a governance token that lets the community decide the direction of the protocol in a collective manner. Lenders can&nbsp;earn interest by providing liquidity to the market, while borrowers can borrow by collateralizing their cryptoassets to take out loans from the liquidity pools."
+   ],
+   "categories": [
+    "Decentralized Finance (DeFi)",
+    "Yield Farming",
+    "BNB Chain Ecosystem",
+    "Lending/Borrowing Protocols",
+    "Solana Ecosystem",
+    "Avalanche Ecosystem",
+    "Polygon Ecosystem",
+    "Near Protocol Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://aave.com/",
+    "whitepaper": "https://github.com/aave/aave-protocol/blob/master/docs/Aave_Protocol_Whitepaper_v1_0.pdf",
+    "explorers": [
+     "https://etherscan.io/token/0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9",
+     "https://ethplorer.io/address/0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9"
+    ],
+    "github": "https://github.com/aave/aave-protocol"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9"
+    ],
+    [
+     "solana",
+     "AavE1kKKnesPw4MuRJmJ9jZs9QzEE8CPxQ3ViczUDfc1"
+    ],
+    [
+     "base",
+     "0x63706e401c06ac8513145b7687a14804d17f814b"
+    ],
+    [
+     "hydration",
+     "asset_registry%2F1000624"
+    ],
+    [
+     "harmony-shard-0",
+     "0xcf323aad9e522b93f11c352caa519ad0e14eb40f"
+    ]
+   ]
+  },
+  "pax-gold": {
+   "id": "pax-gold",
+   "name": "PAX Gold",
+   "symbol": "PAXG",
+   "image": "https://coin-images.coingecko.com/coins/images/9519/large/asset-paxg.png?1785284785",
+   "about": [
+    "PAX Gold (PAXG) is an asset-backed token where one token should represent one fine troy ounce of a London Good Delivery gold bar, stored in professional vault facilities. Anyone who owns PAXG has ownership rights to that gold under the custody of Paxos Trust Company. Since PAXG represents physical gold, its value is tied directly to the real-time market value of that physical gold.",
+    "PAXG gives customers the benefits of actual physical ownership of specific gold bars with the speed and mobility of a digital asset. Customers are able to have fractional ownership of physical bars. On the Paxos platform, customers can convert their tokens to allocated gold, unallocated gold, or fiat currency (and vice versa) quickly and efficiently, reducing their exposure to settlement risk. PAXG is also available for trading on Paxos’ itBit exchange. PAXG will also be available on other crypto-asset exchanges, wallets, lending platforms and elsewhere within the crypto ecosystem.",
+    "At any time, PAXG holders can lookup the serial number, value and physical characteristics of their vaulted gold just by entering their Ethereum wallet address on the PAXG lookup tool on Paxos.com/paxgold."
+   ],
+   "categories": [
+    "Tokenized Assets",
+    "Tokenized Gold",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Base Ecosystem",
+    "Tokenized Commodities",
+    "Paxos Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.paxg.com/",
+    "whitepaper": "https://www.paxos.com/pax-gold",
+    "explorers": [
+     "https://etherscan.io/token/0x45804880de22913dafe09f4980848ece6ecbaf78",
+     "https://intel.arkm.com/explorer/token/pax-gold"
+    ],
+    "github": "https://github.com/paxosglobal/paxos-gold-contract"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x45804880de22913dafe09f4980848ece6ecbaf78"
+    ],
+    [
+     "base",
+     "0xe904aea5e1b110c9174728fa2effc8aed19e98ef"
+    ],
+    [
+     "solana",
+     "5GgRAEmv8ZxF2PR5hY72Qs5x1bnQ6UK2RbTPoqJ3wSwW"
+    ]
+   ]
+  },
+  "blackrock-usd-institutional-digital-liquidity-fund": {
+   "id": "blackrock-usd-institutional-digital-liquidity-fund",
+   "name": "BlackRock USD Institutional Digital Liquidity Fund",
+   "symbol": "BUIDL",
+   "image": "https://coin-images.coingecko.com/coins/images/36291/large/blackrock.png?1711013223",
+   "about": [],
+   "categories": [
+    "Tokenized Assets",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Avalanche Ecosystem",
+    "Polygon Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.blackrock.com/corporate",
+    "whitepaper": "https://securitize.io/blackrock/buidl",
+    "explorers": [
+     "https://etherscan.io/token/0x7712c34205737192402172409a8f7ccef8aa2aec",
+     "https://intel.arkm.com/explorer/token/blackrock-usd-institutional-digital-liquidity-fund"
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x7712c34205737192402172409a8f7ccef8aa2aec"
+    ],
+    [
+     "tempo",
+     "0xb5ff12bd8010baef823d1bfa2ce6bdc0109cbb24"
+    ],
+    [
+     "binance-smart-chain",
+     "0x2d5bdc96d9c8aabbdb38c9a27398513e7e5ef84f"
+    ],
+    [
+     "solana",
+     "GyWgeqpy5GueU2YbkE8xqUeVEokCMMCEeUrfbtMw6phr"
+    ],
+    [
+     "avalanche",
+     "0x53fc82f14f009009b440a706e31c9021e1196a2f"
+    ]
+   ]
+  },
+  "pepe": {
+   "id": "pepe",
+   "name": "Pepe",
+   "symbol": "PEPE",
+   "image": "https://coin-images.coingecko.com/coins/images/29850/large/pepe-token.jpeg?1696528776",
+   "about": [
+    "What is the project about?\nPepe is a community based meme token surround the iconic meme Pepe the frog. Pepe aims to leverage the power of such an iconic meme to become the most memeable memecoin in existence.",
+    "What makes your project unique?\nPepe is here to make memecoins great again. Ushering in a new paradigm for memecoins, Pepe represents the memecoin in it's purest simplicity. With zero taxes, liquidity locked forever, and contract immutable, Pepe is for the people, forever. Pepe is about culture, rallying together a community to have fun and enjoy memes, fueled purely by memetic power.",
+    "History of your project.\nPepe was stealth launched on Friday, April 14th, 2023.",
+    "What’s next for your project?\nPepe will focus on developing a tight-knit community around the token and building resources to enrich the communities knowledge and success in crypto through a token gated group, newsletter, and more tools.",
+    "What can your token be used for?\nPepe can be used to speculate on the power of memes, and does not pretend to be anything more."
+   ],
+   "categories": [
+    "BNB Chain Ecosystem",
+    "Avalanche Ecosystem",
+    "Meme",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Frog-Themed",
+    "The Boy’s Club",
+    "4chan-Themed"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.pepe.vip/",
+    "explorers": [
+     "https://etherscan.io/token/0x6982508145454ce325ddbe47a25d4ec3d2311933",
+     "https://intel.arkm.com/explorer/token/pepe "
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x6982508145454ce325ddbe47a25d4ec3d2311933"
+    ],
+    [
+     "avalanche",
+     "0xa659d083b677d6bffe1cb704e1473b896727be6d"
+    ],
+    [
+     "binance-smart-chain",
+     "0x25d887ce7a35172c62febfd67a1856f20faebb00"
+    ],
+    [
+     "arbitrum-one",
+     "0x25d887ce7a35172c62febfd67a1856f20faebb00"
+    ]
+   ]
+  },
+  "usdd": {
+   "id": "usdd",
+   "name": "USDD",
+   "symbol": "USDD",
+   "image": "https://coin-images.coingecko.com/coins/images/25380/large/UUSD.jpg?1696524513",
+   "about": [
+    "Decentralized StableCoin USDD on TRON\nThe TRON DAO Reserve manages USDD and guarantees its price stability"
+   ],
+   "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Tron Ecosystem",
+    "Algorithmic Stablecoin",
+    "Crypto-backed Stablecoin"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://usdd.io/",
+    "whitepaper": "https://docs.usdd.io/",
+    "explorers": [
+     "https://tronscan.org/#/token20/TXDk8mbtRbXeYuMNS83CfKPaYYT8XWv9Hz",
+     "https://intel.arkm.com/explorer/token/usdd "
+    ]
+   },
+   "contracts": [
+    [
+     "tron",
+     "TXDk8mbtRbXeYuMNS83CfKPaYYT8XWv9Hz"
+    ],
+    [
+     "ethereum",
+     "0x4f8e5de400de08b164e7421b3ee387f461becd1a"
+    ],
+    [
+     "binance-smart-chain",
+     "0x45e51bc23d592eb2dba86da3985299f7895d66ba"
+    ]
+   ]
+  },
+  "world-liberty-financial": {
+   "id": "world-liberty-financial",
+   "name": "World Liberty Financial",
+   "symbol": "WLFI",
+   "image": "https://coin-images.coingecko.com/coins/images/50767/large/wlfi.png?1756438915",
+   "about": [],
+   "categories": [
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "Stablecoin Issuer",
+    "Trump-Affiliated"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.worldlibertyfinancial.com/",
+    "whitepaper": "https://static.worldlibertyfinancial.com/docs/mica-whitepaper.pdf",
+    "explorers": [
+     "https://etherscan.io/token/0xdA5e1988097297dCdc1f90D4dFE7909e847CBeF6",
+     "https://intel.arkm.com/explorer/token/world-liberty-financial "
+    ],
+    "github": "https://github.com/worldliberty"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0xda5e1988097297dcdc1f90d4dfe7909e847cbef6"
+    ],
+    [
+     "solana",
+     "WLFinEv6ypjkczcS83FZqFpgFZYwQXutRbxGe7oC16g"
+    ],
+    [
+     "binance-smart-chain",
+     "0x47474747477b199288bf72a1d702f7fe0fb1deea"
+    ]
+   ]
+  },
+  "ondo-finance": {
+   "id": "ondo-finance",
+   "name": "Ondo",
+   "symbol": "ONDO",
+   "image": "https://coin-images.coingecko.com/coins/images/26580/large/ONDO.png?1696525656",
+   "about": [
+    "The Ondo Foundation was founded in 2022 as an independently governed and nonprofit Cayman Islands Foundation Company with no beneficial owners. The Ondo Foundation assisted in the launch of the Ondo DAO, which deployed and currently governs Flux Finance, the first lending protocol supporting tokenized securities as collateral.",
+    "ONDO token holders are entrusted with shaping the future of the Ondo DAO so that it continues to pursue its mission to democratize access to institutional-grade finance. The Ondo DAO gives ONDO holders specific rights pertaining to Flux Finance, which is currently governed by the Ondo DAO."
+   ],
+   "categories": [
+    "Decentralized Finance (DeFi)",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "RWA Protocol",
+    "Binance Alpha Spotlight"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://ondo.foundation/",
+    "whitepaper": "https://blog.ondo.foundation/unlocking-ondo-a-proposal-from-the-ondo-foundation/",
+    "explorers": [
+     "https://etherscan.io/address/0xfaba6f8e4a5e8ab82f62fe7c39859fa577269be3",
+     "https://intel.arkm.com/explorer/token/ondo-finance"
+    ],
+    "github": "https://github.com/ondoprotocol/ondo-protocol"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0xfaba6f8e4a5e8ab82f62fe7c39859fa577269be3"
+    ]
+   ]
+  },
+  "ethena": {
+   "id": "ethena",
+   "name": "Ethena",
+   "symbol": "ENA",
+   "image": "https://coin-images.coingecko.com/coins/images/36530/large/ethena.png?1711701436",
+   "about": [],
+   "categories": [
+    "Decentralized Finance (DeFi)",
+    "Binance Launchpool",
+    "Solana Ecosystem",
+    "Avalanche Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Metis Ecosystem",
+    "Optimism Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.ethena.fi/",
+    "whitepaper": "https://ethena-labs.gitbook.io/",
+    "explorers": [
+     "https://etherscan.io/token/0x57e114b691db790c35207b2e685d4a43181e6061",
+     "https://ethplorer.io/address/0x57e114b691db790c35207b2e685d4a43181e6061"
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x57e114b691db790c35207b2e685d4a43181e6061"
+    ],
+    [
+     "mantle",
+     "0x58538e6a46e07434d7e7375bc268d3cb839c0133"
+    ],
+    [
+     "metis-andromeda",
+     "0x58538e6a46e07434d7e7375bc268d3cb839c0133"
+    ],
+    [
+     "fraxtal",
+     "0x58538e6a46e07434d7e7375bc268d3cb839c0133"
+    ],
+    [
+     "kava",
+     "0x58538e6a46e07434d7e7375bc268d3cb839c0133"
+    ]
+   ]
+  },
+  "htx-dao": {
+   "id": "htx-dao",
+   "name": "HTX DAO",
+   "symbol": "HTX",
+   "image": "https://coin-images.coingecko.com/coins/images/35491/large/Frame_1321318576.png?1708908626",
+   "about": [
+    "HTX is the governance token of HTX DAO, a decentralized autonomous organization relying on the collective autonomy of HTX token holders. HTX holders possess the right to vote on proposals and can freely delegate and exercise their voting rights in the decision-making process."
+   ],
+   "categories": [
+    "Exchange-based Tokens",
+    "BNB Chain Ecosystem",
+    "Centralized Exchange (CEX) Token",
+    "Ethereum Ecosystem",
+    "Tron Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "whitepaper": "https://htxdao.gitbook.io/whitepaper/",
+    "explorers": [
+     "https://tronscan.org/#/token20/TUPM7K8REVzD2UdV4R5fe5M8XbnR2DdoJ6",
+     "https://intel.arkm.com/explorer/token/htx-dao "
+    ],
+    "github": "https://github.com/HTX-DAO"
+   },
+   "contracts": [
+    [
+     "tron",
+     "TUPM7K8REVzD2UdV4R5fe5M8XbnR2DdoJ6"
+    ],
+    [
+     "ethereum",
+     "0x61ec85ab89377db65762e234c946b5c25a56e99e"
+    ],
+    [
+     "binance-smart-chain",
+     "0x61ec85ab89377db65762e234c946b5c25a56e99e"
+    ]
+   ]
+  },
+  "bfusd": {
+   "id": "bfusd",
+   "name": "BFUSD",
+   "symbol": "BFUSD",
+   "image": "https://coin-images.coingecko.com/coins/images/68227/large/bfusd.png?1755132827",
+   "about": [
+    "BFUSD is a reward-bearing asset redeemable for USD stablecoin. It offers rewards on qualifying balances and can be used as Margin in Futures Accounts, allowing users to earn rewards simultaneously. Users holding BFUSD in their account will receive a daily reward in USD stablecoin at  the APR for their Qualifying balance."
+   ],
+   "categories": [
+    "Stablecoins",
+    "Yield-Bearing Stablecoin"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.binance.com/en/bfusd",
+    "explorers": []
+   },
+   "contracts": []
+  },
+  "mantle": {
+   "id": "mantle",
+   "name": "Mantle",
+   "symbol": "MNT",
+   "image": "https://coin-images.coingecko.com/coins/images/30980/large/MNT_Token_Logo.png?1765516974",
+   "about": [
+    "Mantle is a pioneering on-chain ecosystem dedicated to revolutionizing the future of finance and blockchain scalability, seamlessly bridging traditional finance (TradFi) and decentralized finance (DeFi). Through innovative products like Mantle Network, mETH Protocol, Function (FBTC), and Mantle Index Four (MI4), Mantle empowers users and institutions with a unified financial services platform, redefining how the world spends, saves, and invests in the Web 3.0 era.",
+    "What is MNT?\n$MNT powers Mantle’s ecosystem, serving as the cornerstone for governance, staking, and driving innovation across the decentralized economy."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Ethereum Ecosystem",
+    "Layer 2 (L2)",
+    "Mantle Ecosystem",
+    "Neobank"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://group.mantle.xyz/",
+    "whitepaper": "https://docs.mantle.xyz/network/introduction/overview",
+    "explorers": [
+     "https://etherscan.io/token/0x3c3a81e81dc49a522a592e7622a7e711c06bf354",
+     "https://intel.arkm.com/explorer/token/mantle"
+    ],
+    "github": "https://github.com/mantlenetworkio"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x3c3a81e81dc49a522a592e7622a7e711c06bf354"
+    ],
+    [
+     "mantle",
+     "0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000"
+    ]
+   ]
+  },
+  "aster-2": {
+   "id": "aster-2",
+   "name": "Aster",
+   "symbol": "ASTER",
+   "image": "https://coin-images.coingecko.com/coins/images/69040/large/_ASTER.png?1757326782",
+   "about": [
+    "Aster is a next-generation decentralized perpetual exchange that combines non-custodial trading with advanced features like hidden orders and multi-chain support. The platform emerged from the merger of Astherus and APX Finance in late 2024, with APX token holders able to migrate their holdings to ASTER.",
+    "Aster addresses the gap between centralized and decentralized exchanges by enabling traders to maintain full control of their assets while accessing deep liquidity and CEX-grade trading tools. The platform supports trading of both cryptocurrency perpetuals and U.S. stocks with up to 100x leverage, all settled on-chain in crypto without requiring traditional financial infrastructure.",
+    "The platform offers two distinct trading modes to accommodate different user needs. Simple Mode provides one-click, MEV-resistant trading with up to 1001x leverage for beginners, while Pro Mode delivers a full order book with advanced features like automated grid trading and hidden orders that remain invisible until execution.",
+    "Aster operates across BNB Chain, Ethereum, Solana, and Arbitrum without requiring bridging, with liquidity pooled across markets to support large trades with minimal slippage. A distinctive feature allows users to deposit yield-generating assets like asBNB or USDF as collateral, earning passive returns while trading, maximizing capital efficiency compared to platforms where collateral sits idle.",
+    "Aster received backing from YZi Labs (formerly Binance Labs), which holds a minority stake through a private fund managing over $10 billion on behalf of early Binance executives. Changpeng Zhao, founder of Binance, serves in an advisory role and has personally invested over $2.5 million worth of ASTER tokens.",
+    "The ASTER token serves multiple functions including governance rights, staking rewards through liquidity provision, and earning incentives through the platform's points program for traders and liquidity providers."
+   ],
+   "categories": [
+    "Decentralized Exchange (DEX)",
+    "Exchange-based Tokens",
+    "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
+    "Perpetuals"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.asterdex.com/en",
+    "whitepaper": "https://docs.asterdex.com/usdaster",
+    "explorers": [
+     "https://bscscan.com/token/0x000Ae314E2A2172a039B26378814C252734f556A",
+     "https://binplorer.com/address/0x000Ae314E2A2172a039B26378814C252734f556A"
+    ],
+    "github": "https://github.com/asterdex/api-docs"
+   },
+   "contracts": [
+    [
+     "binance-smart-chain",
+     "0x000ae314e2a2172a039b26378814c252734f556a"
+    ]
+   ]
+  },
+  "polkadot": {
+   "id": "polkadot",
+   "name": "Polkadot",
+   "symbol": "DOT",
+   "image": "https://coin-images.coingecko.com/coins/images/12171/large/polkadot.jpg?1766533446",
+   "about": [
+    "Polkadot is a platform that allows diverse blockchains to transfer messages, including value, in a trust-free fashion; sharing their unique features while pooling their security. In brief, Polkadot is a scalable heterogeneous multi-chain technology.",
+    "Polkadot is heterogeneous because it is entirely flexible and makes no assumption about the nature or structure of the chains in the network. Even non-blockchain systems or data structures can become parachains if they fulfill a set of criteria.",
+    "Polkadot may be considered equivalent to a set of independent chains (e.g. a set containing Ethereum, Ethereum Classic, Namecoin and Bitcoin) except with important additions: pooled security and trust-free interchain transactability.",
+    "Many of the native parachains of Polkadot will be written using a Polkadot Runtime Environment SDK (e.g. Parity Technologies' Substrate)."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Polkadot Ecosystem",
+    "Proof of Stake (PoS)",
+    "Layer 0 (L0)",
+    "Governance",
+    "Base Native"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://polkadot.com/",
+    "whitepaper": "https://polkadot.com/papers/Polkadot-whitepaper.pdf",
+    "explorers": [
+     "https://polkadot.subscan.io/",
+     "https://3xpl.com/polkadot"
+    ],
+    "github": "https://github.com/paritytech/polkadot-sdk"
+   },
+   "contracts": []
+  },
+  "internet-computer": {
+   "id": "internet-computer",
+   "name": "Internet Computer",
+   "symbol": "ICP",
+   "image": "https://coin-images.coingecko.com/coins/images/14495/large/Internet_Computer_logo.png?1696514180",
+   "about": [
+    "Sovereign frontier cloud for AI that builds",
+    "AI agents are starting to build and operate real software. Agentic organizations are starting to coordinate people, code, data, payments, and governance. Both need a cloud that is sovereign, tamperproof, and always on.",
+    "The Internet Computer is that cloud.",
+    "Built on more than USD 500 million in R&amp;D, ICP uses advanced blockchain technology and cryptography to run entire software systems end-to-end on the network: websites, apps, services, data, payments, and governance. Code and data are protected by the protocol, replicated across independent nodes, and cannot be silently changed by a cloud provider, backend operator, or attacker.",
+    "Cloud engines make this infrastructure sovereign. They let organizations run ICP-powered compute across chosen providers, locations, and jurisdictions while keeping the same tamperproof and always-on guarantees of the network.",
+    "This is the real demand ICP serves: sovereign frontier cloud for AI agents and agentic organizations. Agents can build and update software. Organizations can run rules, assets, and governance as verifiable systems. The result is software that stays online, keeps its data, and remains under the control of its owners."
+   ],
+   "categories": [
+    "Artificial Intelligence (AI)",
+    "Infrastructure",
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "Internet Computer Ecosystem",
+    "Base Ecosystem",
+    "Layer 0 (L0)"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://internetcomputer.org/",
+    "whitepaper": "https://internetcomputer.org/whitepaper.pdf",
+    "explorers": [
+     "https://dashboard.internetcomputer.org/canister/ryjl3-tyaaa-aaaaa-aaaba-cai",
+     "https://intel.arkm.com/explorer/token/internet-computer"
+    ],
+    "github": "https://github.com/dfinity/ic"
+   },
+   "contracts": [
+    [
+     "internet-computer",
+     "ryjl3-tyaaa-aaaaa-aaaba-cai"
+    ],
+    [
+     "base",
+     "0x00f3c42833c3170159af4e92dbb451fb3f708917"
+    ],
+    [
+     "ethereum",
+     "0x00f3c42833c3170159af4e92dbb451fb3f708917"
+    ]
+   ]
+  },
+  "just": {
+   "id": "just",
+   "name": "JUST",
+   "symbol": "JST",
+   "image": "https://coin-images.coingecko.com/coins/images/11095/large/JUST.jpg?1696511035",
+   "about": [
+    "JUST (JST) – CoinGecko Information Update Request",
+    "1. About JUST / What Is JUST (JST)?",
+    "Update Type: Replace Existing Description",
+    "Current Description (To Be Replaced):",
+    "JUST is a decentralized financial platform built on the TRON network, providing various DeFi solutions such as JustStable, JustLend, and cross-chain tokens. It operates through a decentralized stablecoin system comprising USDJ and its governance token, JST. USDJ is a stablecoin paired with the US Dollar.",
+    "Proposed Updated Description:"
+   ],
+   "categories": [
+    "Decentralized Finance (DeFi)",
+    "Tron Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.just.network",
+    "whitepaper": "https://www.just.network/docs/white_paper_en.pdf",
+    "explorers": [
+     "https://tronscan.org/#/token20/TCFLL5dx5ZJdKnWuesXxi1VPwjLVmWZZy9",
+     "https://intel.arkm.com/explorer/token/just"
+    ]
+   },
+   "contracts": [
+    [
+     "tron",
+     "TCFLL5dx5ZJdKnWuesXxi1VPwjLVmWZZy9"
+    ]
+   ]
+  },
+  "pump-fun": {
+   "id": "pump-fun",
+   "name": "Pump.fun",
+   "symbol": "PUMP",
+   "image": "https://coin-images.coingecko.com/coins/images/67164/large/pump.jpg?1751949376",
+   "about": [],
+   "categories": [
+    "Decentralized Exchange (DEX)",
+    "Exchange-based Tokens",
+    "SocialFi",
+    "Decentralized Finance (DeFi)",
+    "Automated Market Maker (AMM)",
+    "Solana Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://pump.fun/board",
+    "explorers": [
+     "https://solscan.io/token/pumpCmXqMfrsAkQ5r49WcJnRayYRqmXz6ae8H7H9Dfn",
+     "https://intel.arkm.com/explorer/token/pump-fun"
+    ],
+    "github": "https://github.com/pump-fun"
+   },
+   "contracts": [
+    [
+     "solana",
+     "pumpCmXqMfrsAkQ5r49WcJnRayYRqmXz6ae8H7H9Dfn"
+    ]
+   ]
+  },
+  "morpho": {
+   "id": "morpho",
+   "name": "Morpho",
+   "symbol": "MORPHO",
+   "image": "https://coin-images.coingecko.com/coins/images/29837/large/Morpho-token-icon.png?1726771230",
+   "about": [
+    "Morpho is an open, efficient, and resilient platform that allows anyone to earn yield and borrow assets.\nLenders can earn on Morpho using Morpho Vaults, noncustodial simple to use lending vaults that optimize yields for depositors. Borrowers can borrow any assets directly from Morpho Markets.",
+    "At the same time, developers or businesses can create markets, curate vaults, and build a range of applications on its flexible, permissionless infrastructure.",
+    "Morpho is really trustless, with immutable contracts, and governance minimized operations allowed by its simplicity.\nMorpho is efficient, it provides higher collateralization factors with its isolated lending markets, Improved interest rates and low gas consumption.\nMorpho is flexible with its permissionless market creation, permissionless risk management and has been designed to be developer-friendly."
+   ],
+   "categories": [
+    "Decentralized Finance (DeFi)",
+    "Lending/Borrowing Protocols",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Morpho Ecosystem",
+    "Binance Alpha Spotlight",
+    "Katana Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://morpho.org/",
+    "whitepaper": "https://github.com/morpho-org/morpho-blue/blob/main/morpho-blue-whitepaper.pdf",
+    "explorers": [
+     "https://etherscan.io/token/0x58D97B57BB95320F9a05dC918Aef65434969c2B2",
+     "https://intel.arkm.com/explorer/token/morpho"
+    ],
+    "github": "https://github.com/morpho-org"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x58d97b57bb95320f9a05dc918aef65434969c2b2"
+    ],
+    [
+     "base",
+     "0xbaa5cc21fd487b8fcc2f632f3f4e8d37262a0842"
+    ],
+    [
+     "katana",
+     "0x1e5efca3d0db2c6d5c67a4491845c43253eb9e4e"
+    ],
+    [
+     "arbitrum-one",
+     "0x40bd670a58238e6e230c430bbb5ce6ec0d40df48"
+    ]
+   ]
+  },
+  "bitget-token": {
+   "id": "bitget-token",
+   "name": "Bitget Token",
+   "symbol": "BGB",
+   "image": "https://coin-images.coingecko.com/coins/images/11610/large/Bitget_logo.png?1736925727",
+   "about": [
+    "What is BGB token?\nBGB is a decentralised token that is the primary token of Morph's blockchain, serving as the gas, governance, and payment token across the layer.",
+    "Who Are the Founders of Bitget Token?\nLaunched in 2021, Bitget Token (BGB) was initially positioned as the platform token for the Bitget exchange and Bitget Wallet. \nBehind Bitget is a team of visionary early adopters dedicated to a blockchain-powered future. The leadership team is comprised of seasoned professionals with experience at global giants like Goldman Sachs, Facebook, and Binance, including CEO Gracy Chen, COO Vugar Usi Zade, and CLO Hon Ng.\nIn September 2025, Bitget agreed to a strategic partnership with the Morph chain. The Morph Foundation, a non-profit decentralized organization, is now solely responsible for the future development of BGB.",
+    "What Makes Bitget Token (BGB) Unique?\nBGB is the gas and governance token of the Morph chain. At the same time, BGB will also get support from its partners, such as exchanges and wallets, serving as a key medium for Launchpool's new token mining, fee discounts, and more.",
+    "How Many Bitget Token (BGB) Coins Are There in Circulation?\nThe initial supply of Bitget Token (BGB) is fixed at 2 billion tokens. As of September 2025, the circulating supply of BGB is 699,992,035. The Morph Foundation will update the BGB burn mechanism, linking it to Morph network activity, until the total BGB supply is reduced to 100 million.",
+    "How Is the Bitget Token Network Secured?\nBitget Token (BGB) initially operates on Ethereum's blockchain using the ERC-20 standard and Proof-of-Stake (PoS) consensus, making it compatible with any Ethereum wallet. \nFollowing the strategic partnership between Bitget and Morph, a growing number of BGB will be migrated to the Morph chain, as the gas and governance token.",
+    "Where Can You Buy Bitget Token (BGB)?\nBitget Token (BGB) can be purchased directly on the Bitget exchange. BGB is also available for trading on MECX, Bitfinex, Uniswap, and BulbaSwap."
+   ],
+   "categories": [
+    "Exchange-based Tokens",
+    "Centralized Exchange (CEX) Token",
+    "Ethereum Ecosystem",
+    "Morph L2 Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://partner.bitget.com/bg/2LAE9K",
+    "whitepaper": "https://www.bitget.com/cdnstatic/files/BGB-whitepaper-en.pdf",
+    "explorers": [
+     "https://etherscan.io/token/0x54d2252757e1672eead234d27b1270728ff90581",
+     "https://intel.arkm.com/explorer/token/bitget-token"
+    ],
+    "github": "https://github.com/BitgetLimited"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x54d2252757e1672eead234d27b1270728ff90581"
+    ],
+    [
+     "morph-l2",
+     "0x389c08bc23a7317000a1fd76c7c5b0cb0b4640b5"
+    ]
+   ]
+  },
+  "sky": {
+   "id": "sky",
+   "name": "Sky",
+   "symbol": "SKY",
+   "image": "https://coin-images.coingecko.com/coins/images/39925/large/sky.jpg?1724827980",
+   "about": [
+    "SKY is a governance token, which is like a digital voting share, for Sky Protocol. This system launched in 2024 as a rebrand and upgrade of the older Maker Protocol. Sky Protocol’s main value lies in giving users a simple, secure way to trade, save, and earn rewards without ever giving up control of their funds. It is built around a stablecoin called USDS, which is always worth one US dollar, but it is completely decentralized.",
+    "The protocol is run by automated agreements called smart contracts, so there’s no middleman controlling users' money. The system uses two main tokens: USDS for stable savings, and SKY for community governance. users can help secure the network and earn rewards by staking their SKY tokens in the Staking Engine, which is like locking them in an interest-bearing account to help the system run. The protocol also uses SkyLink to seamlessly connect users' funds across different blockchains for faster and cheaper transactions.",
+    "The Sky Protocol is unique because it has no single CEO or traditional core team of investors; instead, it is managed entirely by its global community of SKY token holders. This decentralized setup means that SKY is primarily used for two core utilities: it grants essential voting power to decide on all major system changes, and it can be staked in the Staking Engine to help secure the network and earn rewards. Staking also provides holders with the ability to borrow the USDS stablecoin, making SKY the essential key for both governance and income generation within the ecosystem."
+   ],
+   "categories": [
+    "Decentralized Finance (DeFi)",
+    "Ethereum Ecosystem",
+    "Stablecoin Issuer",
+    "Hydration Ecosystem",
+    "Governance"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://sky.money/",
+    "whitepaper": "https://ipfs.io/ipfs/Qmex5coqQPXqo4FvCkPqvKfH2ibBgACTsUV3YrTGaC86LQ",
+    "explorers": [
+     "https://etherscan.io/token/0x56072c95faa701256059aa122697b133aded9279",
+     "https://intel.arkm.com/explorer/token/sky"
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x56072c95faa701256059aa122697b133aded9279"
+    ],
+    [
+     "hydration",
+     "asset_registry%2F1000795"
+    ]
+   ]
+  },
+  "venice-token": {
+   "id": "venice-token",
+   "name": "Venice Token",
+   "symbol": "VVV",
+   "image": "https://coin-images.coingecko.com/coins/images/54023/large/VVV_Token_Transparent.png?1741856877",
+   "about": [
+    "Venice boasts an innovative approach to generative AI with its unique privacy architecture, access to competitive features including multiple leading open-source LLM models such as DeepSeek R1, PDFs analysis, and image and code generation. An unrestricted AI Characters feature is available with its Pro version, Venice Pro.",
+    "VVV is designed to minimize friction and reduce costs for AI agents and developers to access private, reliable, on-demand and perpetual AI inference via Venice.ai's API."
+   ],
+   "categories": [
+    "Artificial Intelligence (AI)",
+    "Base Ecosystem",
+    "AI Agents",
+    "AI Applications",
+    "Binance Alpha Spotlight",
+    "Base Native",
+    "Venice Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://venice.ai/home",
+    "explorers": [
+     "https://basescan.org/token/0xacfe6019ed1a7dc6f7b508c02d1b04ec88cc21bf",
+     "https://intel.arkm.com/explorer/token/venice-token"
+    ]
+   },
+   "contracts": [
+    [
+     "base",
+     "0xacfe6019ed1a7dc6f7b508c02d1b04ec88cc21bf"
+    ]
+   ]
+  },
+  "usdgo": {
+   "id": "usdgo",
+   "name": "USDGO",
+   "symbol": "USDGO",
+   "image": "https://coin-images.coingecko.com/coins/images/102172077/large/USDGO_Primary_Icon.png?1789694084",
+   "about": [
+    "USDGO is a regulated, enterprise-grade U.S. dollar stablecoin launched by OSL Group (a Hong Kong-based digital asset platform listed as 863.HK) in February 2026. It is designed primarily for institutional settlement, corporate payments, and cross-border transactions, particularly serving Asian enterprises and the real economy.",
+    "Key features include:\n1:1 peg to the U.S. dollar, fully backed by high-quality liquid assets such as U.S. Treasuries.\nIssued by Anchorage Digital Bank N.A., the first federally chartered crypto bank in the United States, ensuring federal regulation and compliance (including under frameworks like the GENIUS Act). Subject to stringent third-party audits, strict AML/KYC requirements, and bank-grade treasury management. OSL Group serves as the branding operator and distributor. Initially minted in a $50 million batch on the Solana blockchain, with plans for expansion to additional chains. It aims to provide compliant, efficient, 24/7 on-chain liquidity and low-friction stablecoin-to-fiat settlement for global enterprises.",
+    "Overall, USDGO positions itself as a compliant bridge between traditional finance and blockchain, emphasizing security, scalability, and real-world payment utility over speculative crypto use. For more details, see the official site at usdgo.com."
+   ],
+   "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "Morph L2 Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.usdgo.com/",
+    "explorers": [
+     "https://solscan.io/token/72puLt71H93Z9CzHuBRTwFpL4TG3WZUhnoCC7p8gxigu",
+     "https://intel.arkm.com/explorer/token/usdgo"
+    ]
+   },
+   "contracts": [
+    [
+     "solana",
+     "72puLt71H93Z9CzHuBRTwFpL4TG3WZUhnoCC7p8gxigu"
+    ],
+    [
+     "ethereum",
+     "0x4cf5920df52f5b1f246e2e38e1786ae1cf03ecf5"
+    ],
+    [
+     "morph-l2",
+     "0x4cf5920df52f5b1f246e2e38e1786ae1cf03ecf5"
+    ]
+   ]
+  },
+  "open-usd": {
+   "id": "open-usd",
+   "name": "Open USD",
+   "symbol": "OUSD",
+   "image": "https://coin-images.coingecko.com/coins/images/102174264/large/open_standard.png?1782864430",
+   "about": [
+    "Open USD (OUSD) is the first stablecoin designed as open infrastructure. OUSD gives businesses the economics, governance, and reliability they need to move money. It is built for scale and payments use cases with no artificial limits, and the platforms using it the most receive nearly all of the underlying earnings to continue to grow. OUSD is operated by Open Standard and governed by its partners."
+   ],
+   "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Fiat-backed Stablecoin",
+    "Tempo Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://joinopenstandard.com/",
+    "explorers": [
+     "https://etherscan.io/token/0x9f6F3991D525015a6F8CaF062C83b62fD3AC4436",
+     "https://intel.arkm.com/explorer/token/open-usd"
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x9f6f3991d525015a6f8caf062c83b62fd3ac4436"
+    ],
+    [
+     "base",
+     "0xb2000000000000000000002feb517dfec7415344"
+    ],
+    [
+     "solana",
+     "ousd2mJsPEckLHcSCDxyKD7NDGARZcfLbDZkKiatYHB"
+    ],
+    [
+     "tempo",
+     "0x20c0000000000000000000006a37da5c996874be"
+    ]
+   ]
+  },
+  "worldcoin-wld": {
+   "id": "worldcoin-wld",
+   "name": "Worldcoin",
+   "symbol": "WLD",
+   "image": "https://coin-images.coingecko.com/coins/images/31069/large/worldcoin.jpeg?1696529903",
+   "about": [
+    "The mission of the Worldcoin project is to build the world’s largest identity and financial network as a public utility, giving ownership to everyone. A key component of the Worldcoin project is the development of the foundational infrastructure that will be important for a world where AI plays an increasingly large role.",
+    "The Worldcoin system revolves around World ID, a privacy-preserving global identity network. World ID enables users to verify their humanness online while maintaining their privacy through zero-knowledge proofs.",
+    "Using World ID, individuals will be able to prove that they are a real, unique human to any platform that integrates with the protocol, including to web3 systems, social networking sites, and governmental programs. This will enable fair airdrops or token/NFT sales, provide protection against bots/sybil attacks on social media, and enable the fairer distribution of limited governmental resources. Furthermore, World ID can also enable global democratic processes and novel forms of governance (e.g., via quadratic voting), and it may eventually show a path to AI-funded UBI. The Worldcoin token (WLD), alongside World ID, will let users participate in governing the Worldcoin protocol.",
+    "To engage with the Worldcoin protocol, individuals must first download a first wallet app that supports the creation of a World ID. Users visit a physical imaging device called the Orb to get their World ID Orb-verified. Orbs are operated by a network of independent local businesses called Orb Operators. The Orb uses multispectral sensors to verify humanness and uniqueness to issue an Orb-verified World ID, with all images being promptly deleted on-device per default (absent explicit consent to Data Custody). All Orb-verified World IDs holders are entitled to claim recurring grants of free WLD tokens, subject to certain availability restrictions. The WLD token is designed as a utility token with governance properties."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Ethereum Ecosystem",
+    "Decentralized Identifier (DID)",
+    "Optimism Ecosystem",
+    "Optimism Superchain Ecosystem",
+    "World Chain Ecosystem",
+    "Governance"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://worldcoin.org/",
+    "whitepaper": "https://whitepaper.world.org/",
+    "explorers": [
+     "https://etherscan.io/token/0x163f8c2467924be0ae7b5347228cabf260318753",
+     "https://intel.arkm.com/explorer/token/worldcoin-wld"
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x163f8c2467924be0ae7b5347228cabf260318753"
+    ],
+    [
+     "world-chain",
+     "0x2cfc85d8e48f8eab294be644d9e25c3030863003"
+    ],
+    [
+     "optimistic-ethereum",
+     "0xdc6ff44d5d932cbd77b52e5612ba0529dc6226f1"
+    ]
+   ]
+  },
+  "bitway": {
+   "id": "bitway",
+   "name": "Bitway",
+   "symbol": "BTW",
+   "image": "https://coin-images.coingecko.com/coins/images/71205/large/BTW_Token_200x200.png?1786291907",
+   "about": [
+    "BTW is the native utility and governance token of the Bitway ecosystem. It powers network operations, enables staking and governance participation, and aligns incentives across Bitway’s yield, payment, and financing products. BTW serves as the core asset that unifies the Bitway network and supports its long-term growth."
+   ],
+   "categories": [
+    "Decentralized Finance (DeFi)",
+    "Yield Farming",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "Binance Alpha Spotlight",
+    "Governance"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://bitway.com/",
+    "whitepaper": "https://docs.bitway.com/",
+    "explorers": [
+     "https://bscscan.com/token/0x444045B0EE1ee319A660a5E3d604CA0ffA35ACaA",
+     "https://binplorer.com/address/0x444045B0EE1ee319A660a5E3d604CA0ffA35ACaA"
+    ],
+    "github": "https://github.com/bitwaylabs"
+   },
+   "contracts": [
+    [
+     "binance-smart-chain",
+     "0x444045b0ee1ee319a660a5e3d604ca0ffa35acaa"
+    ],
+    [
+     "ethereum",
+     "0x3a63de3572c69a1307ff08394f3ee7702c16d25d"
+    ]
+   ]
+  },
+  "ethereum-classic": {
+   "id": "ethereum-classic",
+   "name": "Ethereum Classic",
+   "symbol": "ETC",
+   "image": "https://coin-images.coingecko.com/coins/images/453/large/ethereum-classic-logo.png?1696501717",
+   "about": [],
+   "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Proof of Work (PoW)"
+   ],
+   "genesis": "2015-07-30",
+   "algorithm": "Ethash",
+   "links": {
+    "explorers": [
+     "https://etc.tokenview.io/",
+     "https://ethereumclassic.org/development/network-resources"
+    ],
+    "github": "https://github.com/ethereumclassic/ethereumclassic.github.io"
+   },
+   "contracts": []
+  },
+  "kucoin-shares": {
+   "id": "kucoin-shares",
+   "name": "KuCoin",
+   "symbol": "KCS",
+   "image": "https://coin-images.coingecko.com/coins/images/1047/large/sa9z79.png?1696502152",
+   "about": [
+    "KuCoin is an international cryptocurrency exchange based out of Seychelle that currently supports the trading of 250 digital assets. What’s unique about KuCoin is that they share 50% of their overall trading fee revenue with users holding their exchange-based token. In a similar fashion to Binance, KuCoin offers relatively low tradings fees and incentives for holding (or trading) its native cryptocurrency. Back in 2011, the founders started researching blockchain tech and went further to build the technical architecture for KuCoin in 2013. 4 years later, the exchange launched with the ultimate goal of “becoming one of the top 10 worldwide hottest exchange platform[s]” by 2019.",
+    "As stated on their official website which lists 12 core members, “Kucoin aims at providing users digital asset transaction and exchange services which are even more safe and convenient, integrating premium assets worldwide, and constructing state of the art transaction platform”. CEO and founder, Michael Gam, is a former technical expert at Ant Financial, an affiliate company of the Chinese Alibaba Group. He was also a senior partner at Internet giants like MikeCRM and KF5.COM. OO, Eric Don, is referred to as a “senior Internet researcher, systems architect, and Internet industry star”. He is also stated to be the CTO and senior partner of IT companies including YOULIN.COM, KITEME, and REINOT. However, it’s unclear if these websites actually exist as they did not show in a Google search or when entering the website domains.  According to his LinkedIn, he is currently CTO at Youlin Network Technologies, yet there is no mention of KITEME or REINOT.",
+    "With its growing user base and increasing number of cryptocurrencies being offered, KuCoin may be set up for a strong run in the markets. KuCoin Shares volume is expected to grow as the daily trading volume on KuCoin, hence, trading fees collection grows &amp; thus, the size of dividend payout grows. This can lure investors to hold KCS token which may even increase its value. KuCoin faces stiff competition from OKEx, but it expects to continue to grow its community exponentially as it is being projected to be one among the top 5 exchanges in the world."
+   ],
+   "categories": [
+    "Exchange-based Tokens",
+    "Centralized Exchange (CEX) Token"
+   ],
+   "genesis": "2017-08-22",
+   "algorithm": null,
+   "links": {
+    "website": "https://www.kucoin.com/ucenter/signup?rcode=e21sNJ",
+    "explorers": [
+     "https://scan.kcc.io"
+    ]
+   },
+   "contracts": []
+  },
+  "polygon-ecosystem-token": {
+   "id": "polygon-ecosystem-token",
+   "name": "POL (ex-MATIC)",
+   "symbol": "POL",
+   "image": "https://coin-images.coingecko.com/coins/images/32440/large/pol.png?1759114181",
+   "about": [],
+   "categories": [
+    "Smart Contract Platform",
+    "Polygon Ecosystem",
+    "Ethereum Ecosystem",
+    "Layer 2 (L2)",
+    "Zero Knowledge (ZK)"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://polygon.technology/",
+    "whitepaper": "https://polygon.technology/papers/pol-whitepaper",
+    "explorers": [
+     "https://etherscan.io/token/0x455e53cbb86018ac2b8092fdcd39d8444affc3f6",
+     "https://intel.arkm.com/explorer/token/polygon-ecosystem-token"
+    ],
+    "github": "https://github.com/0xpolygon"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x455e53cbb86018ac2b8092fdcd39d8444affc3f6"
+    ],
+    [
+     "polygon-pos",
+     "0x0000000000000000000000000000000000001010"
+    ]
+   ]
+  },
+  "arbitrum": {
+   "id": "arbitrum",
+   "name": "Arbitrum",
+   "symbol": "ARB",
+   "image": "https://coin-images.coingecko.com/coins/images/16547/large/arb.jpg?1721358242",
+   "about": [
+    "Arbitrum is one of the leading Ethereum scaling solutions bringing cheap transactions to tens of thousands of users in an environment that feels very similar to Ethereum. It is an optimistic rollup and the leading L2 in terms of TVL. Some of the largest dApps live on Arbitrum include GMX, Radiant, Uniswap V3, and Gains Network."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Arbitrum Nova Ecosystem",
+    "Layer 2 (L2)",
+    "Rollup",
+    "Governance"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://arbitrum.io/",
+    "explorers": [
+     "https://arbiscan.io/token/0x912ce59144191c1204e64559fe8253a0e49e6548",
+     "https://intel.arkm.com/explorer/token/arbitrum"
+    ],
+    "github": "https://github.com/ArbitrumFoundation/docs"
+   },
+   "contracts": [
+    [
+     "arbitrum-one",
+     "0x912ce59144191c1204e64559fe8253a0e49e6548"
+    ],
+    [
+     "arbitrum-nova",
+     "0xf823c3cd3cebe0a1fa952ba88dc9eef8e0bf46ad"
+    ],
+    [
+     "ethereum",
+     "0xb50721bcf8d664c30412cfbc6cf7a15145234ad1"
+    ]
+   ]
+  },
+  "pieverse": {
+   "id": "pieverse",
+   "name": "Pieverse",
+   "symbol": "PIEVERSE",
+   "image": "https://coin-images.coingecko.com/coins/images/68773/large/pieverse.png?1756546685",
+   "about": [],
+   "categories": [
+    "Artificial Intelligence (AI)",
+    "BNB Chain Ecosystem",
+    "Ethereum Ecosystem",
+    "AI Applications",
+    "Binance Alpha Spotlight",
+    "TimeFi"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.pieverse.io/",
+    "explorers": [
+     "https://bscscan.com/token/0x0e63b9c287e32a05e6b9ab8ee8df88a2760225a9",
+     "https://binplorer.com/address/0x0e63b9c287e32a05e6b9ab8ee8df88a2760225a9"
+    ]
+   },
+   "contracts": [
+    [
+     "binance-smart-chain",
+     "0x0e63b9c287e32a05e6b9ab8ee8df88a2760225a9"
+    ],
+    [
+     "ethereum",
+     "0x0e63b9c287e32a05e6b9ab8ee8df88a2760225a9"
+    ]
+   ]
+  },
+  "jupiter-exchange-solana": {
+   "id": "jupiter-exchange-solana",
+   "name": "Jupiter",
+   "symbol": "JUP",
+   "image": "https://coin-images.coingecko.com/coins/images/34188/large/jup.png?1704266489",
+   "about": [
+    "Jupiter is a cryptocurrency exchange platform on the Solana blockchain, offering features such as token swapping, limit orders, dollar-cost averaging, and a bridge for asset transfers to Solana. It provides users with tools to find the best trading prices and includes a beta version for perpetual futures trading. Jupiter finds the best price route for your swap by aggregating all the major liquidity sources on Solana."
+   ],
+   "categories": [
+    "Decentralized Exchange (DEX)",
+    "Exchange-based Tokens",
+    "Decentralized Finance (DeFi)",
+    "Perpetuals",
+    "Solana Ecosystem",
+    "Dex Aggregator",
+    "Unichain Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "explorers": [
+     "https://solscan.io/token/JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+     "https://intel.arkm.com/explorer/token/jupiter-exchange-solana"
+    ],
+    "github": "https://github.com/jup-ag"
+   },
+   "contracts": [
+    [
+     "solana",
+     "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN"
+    ],
+    [
+     "unichain",
+     "0xbe51a5e8fa434f09663e8fb4cce79d0b2381afad"
+    ]
+   ]
+  },
+  "render-token": {
+   "id": "render-token",
+   "name": "Render",
+   "symbol": "RENDER",
+   "image": "https://coin-images.coingecko.com/coins/images/11636/large/rndr.png?1696511529",
+   "about": [
+    "The Render Network is a leading decentralized GPU compute platform for applications ranging from 3D rendering to machine learning and generative AI.  The network connects node operators looking to monetize their idle GPU compute power with artists and developers looking to scale intensive 3D rendering work and machine learning applications in the cloud. Through a decentralized peer-to-peer network, the Render Network achieves unprecedented levels of scale, speed, and economic efficiency. Facilitated by the Render Network Foundation, the ecosystem empowers artists and developers to build services and applications for the emerging digital economy."
+   ],
+   "categories": [
+    "Artificial Intelligence (AI)",
+    "NFT",
+    "Metaverse",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "DePIN"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "explorers": [
+     "https://solscan.io/token/rndrizkt3mk1iimdxrdwabcf7zg7ar5t4nud4ekhbof",
+     "https://intel.arkm.com/explorer/token/render-token"
+    ],
+    "github": "https://github.com/rendernetwork"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x6de037ef9ad2725eb40118bb1702ebb27e4aeb24"
+    ],
+    [
+     "solana",
+     "rndrizKT3MK1iimdxRdWabcF7Zg7AR5T4nud4EkHBof"
+    ]
+   ]
+  },
+  "kaspa": {
+   "id": "kaspa",
+   "name": "Kaspa",
+   "symbol": "KAS",
+   "image": "https://coin-images.coingecko.com/coins/images/25751/large/kaspa-icon-exchanges.png?1696524837",
+   "about": [
+    "Kaspa was fair-launched in November 2021 with no pre-mine, zero pre-sale, and no coin allocations, and is 100 percent community-managed. Kaspa aims to be the world's global sequencer for traditional finance and decentralized crypto markets by utilizing proof-of-work and its BlockDAG consensus protocol, GHOSTDAG.\nBeing the world's fastest proof-of-work network, Kaspa combines five properties: (1) hard money principles, (2) Bitcoin's ethos of security-first fundamentals (boasting a security threshold of fifty percent with significant market hashrate), (3) decentralization from rapid block rate mining, (4) block speeds faster than any PoW or PoS network, and (5) smart contract development through based-rollups without fragmented liquidity. Ushering in all five properties, Kaspa is on track to fulfill Satoshi Nakamoto's vision of a digital medium of exchange while also advancing global layer-one sequencing and minuscule confirmation times dominated by internet latency (cf. chapter 6 of the the paper for some initial benchmarks). The Kaspa implementation includes a lot of cool features and subprotocols including Reachability to query the DAG's topology, Block data pruning (with near-future plans for block header pruning), SPV proofs, and later subnetwork support which will make future implementation of layer 2 solutions much easier."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Wallets",
+    "Proof of Work (PoW)",
+    "Kaspa Ecosystem",
+    "Directed Acyclic Graph (DAG)"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://kaspa.org/",
+    "whitepaper": "https://eprint.iacr.org/2018/104.pdf",
+    "explorers": [
+     "https://kaspa.stream/",
+     "https://explorer.kaspa.org/"
+    ],
+    "github": "https://github.com/kaspanet/kaspad"
+   },
+   "contracts": []
+  },
+  "pearl-2": {
+   "id": "pearl-2",
+   "name": "Pearl",
+   "symbol": "PEARL",
+   "image": "https://coin-images.coingecko.com/coins/images/102173580/large/pearl.png?1780324634",
+   "about": [
+    "Pearl network — a Proof-of-Useful-Work L1 protocol, where mining is produced natively from AI computations. The heart of the protocol is a new and efficient implementation of the core GPU operation (matrix-multiplication), allowing GPUs to implement proof-of-work as a side-effect of AI training and inference workloads (2-for-1). As such, the Pearl protocol intertwines energy, data, and money into a single atomic digital asset. This document outlines the protocol design, key implementation choices, and various economic aspects of the system."
+   ],
+   "categories": [
+    "Artificial Intelligence (AI)",
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Near Protocol Ecosystem",
+    "Proof of Work (PoW)"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://pearlresearch.ai/",
+    "explorers": [
+     "https://explorer.pearlresearch.ai/",
+     "https://www.pearltrack.io/"
+    ],
+    "github": "https://github.com/pearl-research-labs/pearl"
+   },
+   "contracts": [
+    [
+     "near-protocol",
+     "prl.omft.near"
+    ]
+   ]
+  },
+  "midnight-3": {
+   "id": "midnight-3",
+   "name": "Midnight",
+   "symbol": "NIGHT",
+   "image": "https://coin-images.coingecko.com/coins/images/71015/large/midnight.png?1765193080",
+   "about": [
+    "Midnight is a privacy-first blockchain that blends public verifiability with confidential data handling. You can use Midnight's selective disclosure and ZK proofs to build apps."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "Cardano Ecosystem",
+    "Zero Knowledge (ZK)",
+    "Privacy Blockchain",
+    "Binance Alpha Spotlight",
+    "Binance Wallet IDO"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://docs.midnight.network/",
+    "whitepaper": "https://midnight.network/whitepaper",
+    "explorers": [
+     "https://cardanoscan.io/token/0691b2fecca1ac4f53cb6dfb00b7013e561d1f34403b957cbb5af1fa4e49474854",
+     "https://bscscan.com/token/0xfe930c2d63aed9b82fc4dbc801920dd2c1a3224f"
+    ],
+    "github": "https://github.com/midnightntwrk"
+   },
+   "contracts": [
+    [
+     "cardano",
+     "0691b2fecca1ac4f53cb6dfb00b7013e561d1f34403b957cbb5af1fa4e49474854"
+    ],
+    [
+     "binance-smart-chain",
+     "0xfe930c2d63aed9b82fc4dbc801920dd2c1a3224f"
+    ]
+   ]
+  },
+  "gatechain-token": {
+   "id": "gatechain-token",
+   "name": "Gate",
+   "symbol": "GT",
+   "image": "https://coin-images.coingecko.com/coins/images/8183/large/200X200.png?1735246724",
+   "about": [],
+   "categories": [
+    "Smart Contract Platform",
+    "Exchange-based Tokens",
+    "Centralized Exchange (CEX) Token",
+    "Ethereum Ecosystem",
+    "Proof of Stake (PoS)",
+    "GateLayer Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://gatechain.io/gatelayer",
+    "explorers": [
+     "https://www.gatescan.org/gatelayer",
+     "https://intel.arkm.com/explorer/token/gatechain-token"
+    ],
+    "github": "https://github.com/gatechain"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0xe66747a101bff2dba3697199dcce5b743b454759"
+    ]
+   ]
+  },
+  "gho": {
+   "id": "gho",
+   "name": "GHO",
+   "symbol": "GHO",
+   "image": "https://coin-images.coingecko.com/coins/images/30663/large/gho-token-logo.png?1720517092",
+   "about": [],
+   "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "Avalanche Ecosystem",
+    "Gnosis Chain Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Crypto-backed Stablecoin"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://gho.xyz/",
+    "whitepaper": "https://github.com/aave/gho-core/blob/main/techpaper/GHO_Technical_Paper.pdf",
+    "explorers": [
+     "https://etherscan.io/token/0x40d16fc0246ad3160ccc09b8d0d3a2cd28ae6c2f",
+     "https://intel.arkm.com/explorer/token/gho"
+    ],
+    "github": "https://github.com/aave/gho-core"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x40d16fc0246ad3160ccc09b8d0d3a2cd28ae6c2f"
+    ],
+    [
+     "monad",
+     "0xfc421ad3c883bf9e7c4f42de845c4e4405799e73"
+    ],
+    [
+     "base",
+     "0x6bb7a212910682dcfdbd5bcbb3e28fb4e8da10ee"
+    ],
+    [
+     "ink",
+     "0xfc421ad3c883bf9e7c4f42de845c4e4405799e73"
+    ],
+    [
+     "plasma",
+     "0xb77e872a68c62cfc0dfb02c067ecc3da23b4bbf3"
+    ]
+   ]
+  },
+  "algorand": {
+   "id": "algorand",
+   "name": "Algorand",
+   "symbol": "ALGO",
+   "image": "https://coin-images.coingecko.com/coins/images/4380/large/download.png?1696504978",
+   "about": [
+    "Algorand is a scalable, secure, and decentralized digital currency and smart contract platform. Its protocol uses a variation of Proof-of-Stake (PoS) called Pure PoS (PPoS) to secure the network and reach consensus on block production. Developers can build decentralized applications (dApps) using familiar programming languages, including Python, which Algorand supports natively. Its infrastructure enables various use cases, including payment systems, digital identity solutions, supply-chain tracking, and financial services. The protocol's architecture allows for tokenization of assets and the development of smart contracts, while its technical specifications support both retail users seeking basic transaction capabilities and enterprises requiring more, complex, blockchain solutions."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Algorand Ecosystem",
+    "Real World Assets (RWA)",
+    "Proof of Stake (PoS)",
+    "Quantum-Resistant"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://algorand.foundation/",
+    "whitepaper": "https://www.algorand.com/technology/white-papers",
+    "explorers": [
+     "https://allo.info/",
+     "https://explorer.perawallet.app/"
+    ],
+    "github": "https://github.com/algorand/go-algorand"
+   },
+   "contracts": []
+  },
+  "superstate-short-duration-us-government-securities-fund-ustb": {
+   "id": "superstate-short-duration-us-government-securities-fund-ustb",
+   "name": "Invesco Short Duration US Government Securities Fund",
+   "symbol": "USTB",
+   "image": "https://coin-images.coingecko.com/coins/images/35012/large/Invesco_icon_lg.png?1780816895",
+   "about": [
+    "USTB’s innovative structure and partnership with established service providers breaks new ground in the private funds space.",
+    "The fund invests in short duration U.S. Treasury and U.S. Agency securities, targeting the federal funds rate, with a 0.15% management fee.1",
+    "Accepted U.S. Qualified Purchasers are able to subscribe to and redeem from the Fund using USDC2 at a daily NAV which is calculated by NAV Consulting. USTB’s Ethereum-based Allowlist enables on-chain ownership, transfer, and compliance. Additionally in the future, it is likely that peer-to-peer transactions will be possible, subject to applicable restrictions.",
+    "The Fund’s flexibility carries through to custody; investors can self-custody USTB in the on-chain addresses of their choice, such as an EOA, multi-sig, or MPC wallet. Additionally, investors can choose to utilize Anchorage Digital Bank National Association, a custodian and federally chartered bank, or BitGo, a qualified custodian and New York state chartered trust.",
+    "Superstate, an Exempt Reporting Adviser, serves as the Fund’s investment manager, with Federated Hermes serving as the Fund’s sub-advisor. USTB is a series of a Delaware Trust, which is legally separate from Superstate. For more Fund details, please consult the USTB information page.",
+    "USTB marks the start of our mission to tokenize the world’s assets. We’re committed to developing regulated, modern investing products that enhance investment opportunities for institutions, and, ultimately, all investors."
+   ],
+   "categories": [
+    "Tokenized Assets",
+    "Solana Ecosystem",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Plume Network Ecosystem",
+    "Superstate Ecosystem",
+    "Tokenized Treasuries"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://superstate.com/assets/ustb",
+    "whitepaper": "https://docs.superstate.com/investors/tokenized-funds/invesco-ustb",
+    "explorers": [
+     "https://etherscan.io/token/0x43415eb6ff9db7e26a15b704e7a3edce97d31c4e",
+     "https://intel.arkm.com/explorer/token/superstate-short-duration-us-government-securities-fund-ustb"
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x43415eb6ff9db7e26a15b704e7a3edce97d31c4e"
+    ],
+    [
+     "plume-network",
+     "0xe4fa682f94610ccd170680cc3b045d77d9e528a8"
+    ],
+    [
+     "solana",
+     "CCz3SGVziFeLYk2xfEstkiqJfYkjaSWb2GCABYsVcjo2"
+    ]
+   ]
+  },
+  "cosmos": {
+   "id": "cosmos",
+   "name": "Cosmos Hub",
+   "symbol": "ATOM",
+   "image": "https://coin-images.coingecko.com/coins/images/1481/large/cosmos_hub.png?1696502525",
+   "about": [
+    "The Cosmos network consists of many independent, parallel blockchains, called zones, each powered by classical Byzantine fault-tolerant (BFT) consensus protocols like Tendermint. Some zones act as hubs with respect to other zones, allowing many zones to interoperate through a shared hub. The architecture uses classic BFT and Proof-of-Stake algorithms, instead of Proof-of-Work. Cosmos can interoperate with multiple other applications and cryptocurrencies, something other blockchains can’t do well. By creating a new zone, you can plug any blockchain system into the Cosmos hub and pass tokens back and forth between those zones, without the need for an intermediary.",
+    "While the Cosmos Hub is a multi-asset distributed ledger, there is a special native token called the atom. ATOM have three use cases: as a spam-prevention mechanism, as staking tokens, and as a voting mechanism in governance.",
+    "As a spam prevention mechanism, ATOM are used to pay fees. The fee may be proportional to the amount of computation required by the transaction, similar to Ethereum’s concept of “gas”. Fee distribution is done in-protocol and a protocol specification is described here.",
+    "As staking tokens, ATOM can be “bonded” in order to earn block rewards. The economic security of the Cosmos Hub is a function of the amount of ATOM staked. The more ATOM that are collateralized, the more “skin” there is at stake and the higher the cost of attacking the network. Thus, the more ATOM there are bonded, the greater the economic security of the network.",
+    "Atom holders may govern the Cosmos Hub by voting on proposals with their staked ATOM."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Cosmos Ecosystem",
+    "Terra Ecosystem",
+    "Canto Ecosystem",
+    "Osmosis Ecosystem",
+    "Proof of Stake (PoS)",
+    "Kava Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "whitepaper": "https://docs.cosmos.network/",
+    "explorers": [
+     "https://www.mintscan.io/cosmos",
+     "https://atomscan.com/"
+    ],
+    "github": "https://github.com/cosmos"
+   },
+   "contracts": [
+    [
+     "cosmos",
+     "uatom"
+    ],
+    [
+     "evmos",
+     "0xc5e00d3b04563950941f7137b5afa3a534f0d6d6"
+    ],
+    [
+     "dungeon-chain",
+     "ibc/C3988DBA4BA195F3514EA2E02497B9F66019CE53EFB96D4982CE95CA6A51BBCE"
+    ],
+    [
+     "osmosis",
+     "ibc/27394FB092D2ECCD56123C74F36E4C1F926001CEADA9CA97EA622B25F41E5EB2"
+    ],
+    [
+     "canto",
+     "0xeceeefcee421d8062ef8d6b4d814efe4dc898265"
+    ]
+   ]
+  },
+  "injective-protocol": {
+   "id": "injective-protocol",
+   "name": "Injective",
+   "symbol": "INJ",
+   "image": "https://coin-images.coingecko.com/coins/images/12882/large/Other_200x200.png?1738782212",
+   "about": [
+    "Injective is an interoperable Layer 1 blockchain designed for DeFi applications. It provides developers with on-chain financial infrastructure modules to build dApps such as decentralized exchanges, prediction markets, and lending protocols. Its decentralized cross-chain bridging infrastructure offers compatibility with most blockchains, including EVM chains like Ethereum and non-EVM chains like Solana."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Decentralized Finance (DeFi)",
+    "BNB Chain Ecosystem",
+    "Cosmos Ecosystem",
+    "Solana Ecosystem",
+    "Layer 1 (L1)",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://injective.com",
+    "whitepaper": "https://injective.com/Injective-A-Finance-Native-Layer-1-Blockchain.pdf",
+    "explorers": [
+     "https://explorer.injective.network/",
+     "https://ethplorer.io/address/0xe28b3b32b6c345a34ff64674606124dd5aceca30"
+    ],
+    "github": "https://github.com/InjectiveLabs/injective-helix-demo"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0xe28b3b32b6c345a34ff64674606124dd5aceca30"
+    ],
+    [
+     "cosmos",
+     "ibc/64BA6E31FE887D66C6F8F31C7B1A80C7CA179239677B4088BB55F5EA07DBE273"
+    ],
+    [
+     "injective",
+     "inj"
+    ],
+    [
+     "osmosis",
+     "ibc/64BA6E31FE887D66C6F8F31C7B1A80C7CA179239677B4088BB55F5EA07DBE273"
+    ],
+    [
+     "secret",
+     "secret14706vxakdzkz9a36872cs62vpl5qd84kpwvpew"
+    ]
+   ]
+  },
+  "lighter": {
+   "id": "lighter",
+   "name": "Lighter",
+   "symbol": "LIT",
+   "image": "https://coin-images.coingecko.com/coins/images/71121/large/lighter.png?1765888098",
+   "about": [
+    "Lighter is a decentralized trading platform built for unmatched security and scale. It’s the first exchange to offer verifiable order matching and liquidations while delivering best-in-class performance on par with traditional exchanges."
+   ],
+   "categories": [
+    "Decentralized Exchange (DEX)",
+    "Decentralized Finance (DeFi)",
+    "Derivatives",
+    "Perpetuals",
+    "Ethereum Ecosystem",
+    "Robinhood Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://lighter.xyz/",
+    "whitepaper": "https://docs.lighter.xyz/",
+    "explorers": [
+     "https://etherscan.io/token/0x232ce3bd40fcd6f80f3d55a522d03f25df784ee2",
+     "https://ethplorer.io/address/0x232ce3bd40fcd6f80f3d55a522d03f25df784ee2"
+    ],
+    "github": "https://github.com/elliottech"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x232ce3bd40fcd6f80f3d55a522d03f25df784ee2"
+    ],
+    [
+     "robinhood",
+     "0xeeca2e7dc194a320d349122d88259bb9595a4cb0"
+    ]
+   ]
+  },
+  "nexo": {
+   "id": "nexo",
+   "name": "NEXO",
+   "symbol": "NEXO",
+   "image": "https://coin-images.coingecko.com/coins/images/3695/large/CG-nexo-token-200x200_2x.png?1730414360",
+   "about": [
+    "What is Nexo?",
+    "Nexo (https:/nexo.com) is a premier digital assets wealth platform empowering clients to grow, manage, and preserve their crypto holdings. Our mission is to drive the next generation of wealth by prioritizing customer prosperity and delivering tailored solutions for building long-term value, supported by 24/7 client care.",
+    "Since 2018, Nexo has been delivering unmatched opportunities to forward-thinking clients across more than 200 jurisdictions. Our all-in-one platform combines cutting-edge technology with a client-centric approach, offering high yields on flexible and fixed-term savings, crypto-backed loans, advanced trading tools, and liquidity solutions through the first debit/credit crypto card. Backed by deep industry expertise, a sustainable business model, robust infrastructure, security, and global licensing, Nexo champions innovation and long-lasting prosperity.",
+    "What is the NEXO Token?",
+    "The NEXO Token, is Nexo’s native cryptocurrency, offering a wide range of benefits on the platform. NEXO Token holders can earn up to 12% annual interest on tokens held within both the Savings and Credit Line Wallets in their Nexo accounts. Additionally, owning NEXO Tokens grants entry into the Nexo Loyalty Program (https://nexo.com/loyalty), providing valuable benefits such as higher yields on digital assets, up to 0.5% crypto cashback on purchases or swaps made via the Nexo Exchange, borrowing rates starting from 2.9% annual interest, and up to 2% crypto cashback when using the Nexo crypto credit/debit card.",
+    "Where can you buy NEXO?"
+   ],
+   "categories": [
+    "Exchange-based Tokens",
+    "Centralized Exchange (CEX) Token",
+    "Polygon Ecosystem",
+    "Fantom Ecosystem",
+    "Ethereum Ecosystem",
+    "Energi Ecosystem",
+    "Sora Ecosystem",
+    "Crypto Card Issuer"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://nexo.com/",
+    "whitepaper": "https://nexo.io/assets/downloads/Nexo-Whitepaper.pdf?=1",
+    "explorers": [
+     "https://etherscan.io/token/0xb62132e35a6c13ee1ee0f84dc5d40bad8d815206",
+     "https://intel.arkm.com/explorer/token/nexo"
+    ],
+    "github": "https://github.com/nexofinance/NEXO-Token/"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0xb62132e35a6c13ee1ee0f84dc5d40bad8d815206"
+    ],
+    [
+     "energi",
+     "0x04640dc771edd73cbeb934fb5461674830baea11"
+    ],
+    [
+     "fantom",
+     "0x7c598c96d02398d89fbcb9d41eab3df0c16f227d"
+    ],
+    [
+     "sora",
+     "0x003005b2417b5046455e73f7fc39779a013f1a33b4518bcd83a790900dca49ff"
+    ],
+    [
+     "polygon-pos",
+     "0x41b3966b4ff7b427969ddf5da3627d6aeae9a48e"
+    ]
+   ]
+  },
+  "pi-network": {
+   "id": "pi-network",
+   "name": "Pi Network",
+   "symbol": "PI",
+   "image": "https://coin-images.coingecko.com/coins/images/54342/large/pi_network.jpg?1739347576",
+   "about": [
+    "Pi Network is a social cryptocurrency and developer platform designed to make digital currency mining accessible to everyday people through mobile devices. The project aims to build a widely distributed currency that facilitates transactions for real-world goods and services rather than purely speculative trading. Its main value proposition is a mobile-first mining system that allows users to earn rewards on their phones without requiring specialized hardware, draining battery life, or using excessive data.",
+    "The network operates on the Stellar Consensus Protocol and a Federated Byzantine Agreement, which allows computers to reach agreement by trusting specific groups of other peers. Security is maintained through a global trust graph built from individual user groups called security circles where members vouch for each other. Users participate in four primary roles as pioneers, contributors, ambassadors, or nodes to ensure the network remains decentralized. This meritocratic distribution model rewards consistent engagement and network growth rather than financial wealth or technical power.",
+    "Founded by Dr. Nicolas Kokkalis and Dr. Chengdiao Fan, both of whom hold doctoral degrees from Stanford University, the project is managed by Social Chain Inc. The ecosystem includes a native wallet, a dedicated browser, and a platform for decentralized applications where the PI token is used for peer-to-peer exchange and transaction fees. Additionally, tokens can be used for purchasing goods in an internal marketplace, staking in a launchpad, or voluntary lockups that support market stability while boosting personal mining rates. The project has focused on organic community growth and does not list any external institutional investors in its documentation."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Mobile Mining"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://minepi.com/",
+    "whitepaper": "https://minepi.com/white-paper/",
+    "explorers": [
+     "https://blockexplorer.minepi.com/mainnet/"
+    ],
+    "github": "https://github.com/pi-apps/pi-platform-docs"
+   },
+   "contracts": []
+  },
+  "janus-henderson-anemoy-aaa-clo-fund": {
+   "id": "janus-henderson-anemoy-aaa-clo-fund",
+   "name": "Janus Henderson Anemoy AAA CLO Fund",
+   "symbol": "JAAA",
+   "image": "https://coin-images.coingecko.com/coins/images/70446/large/jaaa.png?1762078666",
+   "about": [
+    "Anemoy is a Web3 native asset manager powered by Centrifuge, offering investors seamless access to a diverse range of real world asset investment opportunities. Through its suite of tokenized funds, Anemoy bridges traditional finance and decentralized markets, enabling transparent, efficient, and secure exposure to institutional-grade assets.\n\t1.\tJanus Henderson Anemoy Treasury Fund\n\t2.\tJanus Henderson Anemoy AAA CLO Fund\n\t3.\tAnemoy Tokenized Apollo Diversified Credit Fund\n\t4.\tJanus Henderson Anemoy S&amp;P500® Fund"
+   ],
+   "categories": [
+    "Tokenized Assets",
+    "BNB Chain Ecosystem",
+    "Solana Ecosystem",
+    "Avalanche Ecosystem",
+    "Ethereum Ecosystem",
+    "Real World Assets (RWA)",
+    "Base Ecosystem",
+    "Monad Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.anemoy.io/",
+    "explorers": [
+     "https://etherscan.io/token/0x5a0f93d040de44e78f251b03c43be9cf317dcf64",
+     "https://intel.arkm.com/explorer/token/janus-henderson-anemoy-aaa-clo-fund "
+    ],
+    "github": "https://github.com/centrifuge"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x5a0f93d040de44e78f251b03c43be9cf317dcf64"
+    ],
+    [
+     "base",
+     "0x5a0f93d040de44e78f251b03c43be9cf317dcf64"
+    ],
+    [
+     "solana",
+     "AAAJXeGjpKu7W3X4QTSU4pm1Wbj4G2LPcdg7A6xJLLyG"
+    ],
+    [
+     "binance-smart-chain",
+     "0x58f93d6b1ef2f44ec379cb975657c132cbed3b6b"
+    ],
+    [
+     "monad",
+     "0xad48f183e586e92a591a610397ebf534609df797"
+    ]
+   ]
+  },
+  "xdce-crowd-sale": {
+   "id": "xdce-crowd-sale",
+   "name": "XDC Network",
+   "symbol": "XDC",
+   "image": "https://coin-images.coingecko.com/coins/images/2912/large/xdc-icon.png?1696503661",
+   "about": [
+    "XDC Network is an enterprise-ready hybrid Blockchain technology company optimized for international trade and finance. The XDC Network is powered by the native coin called XDC. The XDC protocol is architected to support smart contracts, 2000TPS, 2seconds transaction time, KYC to Masternodes (Validator Nodes). The XDC Chain (XinFin Digital Contract) uses XinFin Delegated Proof of Stake (XDPoS), with the intending to create a ‘highly-scalable, secure, permission, and commercial grade’ blockchain network. XinFin mainnet token XDC and also creates an opportunity to utilize the XinFin’s real-world use-cases such as TradeFinex.org, helps small and medium businesses or institutions originate their own financial requirements in a digital, fully structured manner so that they can distribute it to the bank or non-bank funders themselves using a common distribution standard."
+   ],
+   "categories": [
+    "Smart Contract Platform",
+    "Layer 1 (L1)",
+    "Real World Assets (RWA)"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://xinfin.org",
+    "whitepaper": "https://www.xinfin.io/#white-paper",
+    "explorers": [
+     "https://xdc.blocksscan.io/"
+    ],
+    "github": "https://github.com/XinFinOrg/XDPoSChain"
+   },
+   "contracts": []
+  },
+  "beldex": {
+   "id": "beldex",
+   "name": "Beldex",
+   "symbol": "BDX",
+   "image": "https://coin-images.coingecko.com/coins/images/5111/large/Beldex.png?1696505631",
+   "about": [
+    "Beldex building a decentralized confidential ecosystem in Web3 for secure digital interactions.. The concept of the project was developed in 2018, and launched in the same year. The Beldex project is committed to enhancing user data protection and their confidentiality online. BDX is an ecosystem coin that facilitates confidential transactions. \nBeldex's mission is to provide a confidential environment where data can be exchanged securely. The project is focused on individual safety and true data confidentiality with systematic research to ensure the confidentiality of individual transactions, and thus the safety of users and the security of their funds. \nBDX operates on the Beldex decentralized blockchain for performing secure transactions, while the ecosystem supports secure and confidential dApps, among them: BChat, BelNet, Beldex Browser, the Beldex protocol, and the Beldex bridge. Initially, Beldex was developed on a PoW architecture followed by a transition to the PoS consensus model in order to increase the scalability of the BDX token, lower fees and reduce transaction times."
+   ],
+   "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "Masternodes",
+    "BNB Chain Ecosystem",
+    "Layer 1 (L1)",
+    "Wallets",
+    "DePIN",
+    "Proof of Stake (PoS)"
+   ],
+   "genesis": null,
+   "algorithm": "Cryptonight",
+   "links": {
+    "website": "https://www.beldex.io/",
+    "whitepaper": "https://beldex.io/whitepaper.pdf",
+    "explorers": [
+     "https://explorer.beldex.io/",
+     "https://bscscan.com/token/0x9d10a1ec41Fe7878429BB457e31F9b050D38c633"
+    ],
+    "github": "https://github.com/Beldex-Coin/beldex"
+   },
+   "contracts": [
+    [
+     "binance-smart-chain",
+     "0x9d10a1ec41fe7878429bb457e31f9b050d38c633"
+    ]
+   ]
+  },
+  "usual-usd": {
+   "id": "usual-usd",
+   "name": "Usual USD",
+   "symbol": "USD0",
+   "image": "https://coin-images.coingecko.com/coins/images/38272/large/USD0LOGO.png?1716962811",
+   "about": [
+    "USD0 is a stablecoin fully backed 1:1 by Real-World Assets (RWA) like US Treasury Bills. It provides users with a stable, secure asset that is independent of traditional banking systems, fully transferable, and accessible within the DeFi ecosystem. As the core stability asset of Usual, USD0 supports transparency and security by maintaining real-time reserves, offering a non-fractional, reliable alternative to stablecoins like USDT and USDC."
+   ],
+   "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Base Ecosystem",
+    "Fiat-backed Stablecoin"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://usual.money",
+    "whitepaper": "https://docs.usual.money/",
+    "explorers": [
+     "https://etherscan.io/token/0x73a15fed60bf67631dc6cd7bc5b6e8da8190acf5",
+     "https://intel.arkm.com/explorer/token/usual-usd "
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x73a15fed60bf67631dc6cd7bc5b6e8da8190acf5"
+    ],
+    [
+     "arbitrum-one",
+     "0x35f1c5cb7fb977e669fd244c567da99d8a3a6850"
+    ],
+    [
+     "base",
+     "0x758a3e0b1f842c9306b783f8a4078c6c8c03a270"
+    ],
+    [
+     "binance-smart-chain",
+     "0x758a3e0b1f842c9306b783f8a4078c6c8c03a270"
+    ]
+   ]
+  },
+  "pancakeswap-token": {
+   "id": "pancakeswap-token",
+   "name": "PancakeSwap",
+   "symbol": "CAKE",
+   "image": "https://coin-images.coingecko.com/coins/images/12632/large/pancakeswap-cake-logo_%281%29.png?1696512440",
+   "about": [
+    "PancakeSwap is an automated market maker (“AMM”) that allows two tokens to be exchanged on the Binance Smart Chain. It is fast, cheap, and allows anyone to participate."
+   ],
+   "categories": [
+    "Decentralized Exchange (DEX)",
+    "Exchange-based Tokens",
+    "Decentralized Finance (DeFi)",
+    "Yield Farming",
+    "Automated Market Maker (AMM)",
+    "BNB Chain Ecosystem",
+    "Perpetuals",
+    "Solana Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://pancakeswap.finance/affiliates-program?ref=coingecko&user=Coingecko&discount=0&perps=false",
+    "whitepaper": "https://docs.pancakeswap.finance/",
+    "explorers": [
+     "https://bscscan.com/token/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
+     "https://aptscan.ai/coins/0x159df6b7689437016108a019fd5bef736bac692b6d4a1f10c941f6fbb9a74ca6::oft::cakeoft"
+    ],
+    "github": "https://github.com/pancakeswap"
+   },
+   "contracts": [
+    [
+     "binance-smart-chain",
+     "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82"
+    ],
+    [
+     "ethereum",
+     "0x152649ea73beab28c5b49b26eb48f7ead6d4c898"
+    ],
+    [
+     "polygon-zkevm",
+     "0x0d1e753a25ebda689453309112904807625befbe"
+    ],
+    [
+     "opbnb",
+     "0x2779106e4f4a8a28d77a24c18283651a2ae22d1c"
+    ],
+    [
+     "base",
+     "0x3055913c90fcc1a6ce9a358911721eeb942013a1"
+    ]
+   ]
+  },
+  "layerzero": {
+   "id": "layerzero",
+   "name": "LayerZero",
+   "symbol": "ZRO",
+   "image": "https://coin-images.coingecko.com/coins/images/28206/large/ftxG9_TJ_400x400.jpeg?1696527208",
+   "about": [],
+   "categories": [
+    "Smart Contract Platform",
+    "BNB Chain Ecosystem",
+    "Avalanche Ecosystem",
+    "Polygon Ecosystem",
+    "Arbitrum Ecosystem",
+    "Ethereum Ecosystem",
+    "Optimism Ecosystem",
+    "Base Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://layerzero.network/",
+    "whitepaper": "https://layerzero.network/publications/LayerZero_Whitepaper_V2.1.1.pdf",
+    "explorers": [
+     "https://etherscan.io/token/0x6985884c4392d348587b19cb9eaaf157f13271cd",
+     "https://intel.arkm.com/explorer/token/layerzero "
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x6985884c4392d348587b19cb9eaaf157f13271cd"
+    ],
+    [
+     "base",
+     "0x6985884c4392d348587b19cb9eaaf157f13271cd"
+    ],
+    [
+     "polygon-pos",
+     "0x6985884c4392d348587b19cb9eaaf157f13271cd"
+    ],
+    [
+     "binance-smart-chain",
+     "0x6985884c4392d348587b19cb9eaaf157f13271cd"
+    ],
+    [
+     "arbitrum-one",
+     "0x6985884c4392d348587b19cb9eaaf157f13271cd"
+    ]
+   ]
+  },
+  "euro-coin": {
+   "id": "euro-coin",
+   "name": "EURC",
+   "symbol": "EURC",
+   "image": "https://coin-images.coingecko.com/coins/images/26045/large/EURC.png?1769615705",
+   "about": [
+    "Euro Coin is a stablecoin issued by Circle under the same reserve model as USD Coin (USDC). It is designed to be stable and 100% backed by euros held in euro denominated banking accounts. An Euro Coin (EUROC) will be redeemable 1:1 for the euro currency."
+   ],
+   "categories": [
+    "Stablecoins",
+    "EUR Stablecoin",
+    "Solana Ecosystem",
+    "Avalanche Ecosystem",
+    "Ethereum Ecosystem",
+    "Cronos Ecosystem",
+    "Optimism Ecosystem",
+    "Base Ecosystem"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://www.circle.com",
+    "explorers": [
+     "https://etherscan.io/token/0x1abaea1f7c830bd89acc67ec4af516284b1bc33c",
+     "https://intel.arkm.com/explorer/token/euro-coin"
+    ]
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x1abaea1f7c830bd89acc67ec4af516284b1bc33c"
+    ],
+    [
+     "arc",
+     "0xbef5f6d51cb62b58e6a8f77868681825c6fe21c1"
+    ],
+    [
+     "world-chain",
+     "0x1c60ba0a0ed1019e8eb035e6daf4155a5ce2380b"
+    ],
+    [
+     "solana",
+     "HzwqbKZw8HxMN6bF2yFZNrht3c2iXXzpKcFu7uBEDKtr"
+    ],
+    [
+     "base",
+     "0x60a3e35cc302bfa44cb288bc5a4f316fdb1adb42"
+    ]
+   ]
+  },
+  "true-usd": {
+   "id": "true-usd",
+   "name": "TrueUSD",
+   "symbol": "TUSD",
+   "image": "https://coin-images.coingecko.com/coins/images/3449/large/tusd.png?1696504140",
+   "about": [
+    "TUSD is the first digital asset with live on-chain attestations by independent third-party institutions and is backed 1:1 with the U.S. dollar (USD). So far, it has been listed on more than 100 trading platforms such as Binance and Huobi and is live on 12 mainstream public chains, including Ethereum, TRON, Avalanche, BSC, Fantom, and Polygon. TrueUSD is attested to in real-time by an independent, industry-specialized accounting firm in the U.S., to ensure the 1:1 ratio of its USD reserve to the circulating token supply and the 100% collateral rate. With the integration of Chainlink PoR, TrueUSD becomes the first USD-Backed stablecoin to secure minting and further ensure transparency and reliability. Users can access the relevant data via the official website tusd.io at any time. TUSD is granted statutory status as authorized digital currency and medium of exchange in the Commonwealth of Dominica, a country in the Caribbean, effective on October 7th 2022."
+   ],
+   "categories": [
+    "Stablecoins",
+    "USD Stablecoin",
+    "BNB Chain Ecosystem",
+    "Avalanche Ecosystem",
+    "Ethereum Ecosystem",
+    "Tron Ecosystem",
+    "Fiat-backed Stablecoin"
+   ],
+   "genesis": "2018-03-05",
+   "algorithm": null,
+   "links": {
+    "website": "https://tusd.io/",
+    "whitepaper": "https://tusd.io/docs/trueusd-white-paper-202602.pdf",
+    "explorers": [
+     "https://etherscan.io/token/0x0000000000085d4780b73119b644ae5ecd22b376",
+     "https://ethplorer.io/address/0x0000000000085d4780b73119b644ae5ecd22b376"
+    ],
+    "github": "https://github.com/trusttoken/trueUSD"
+   },
+   "contracts": [
+    [
+     "ethereum",
+     "0x0000000000085d4780b73119b644ae5ecd22b376"
+    ],
+    [
+     "tron",
+     "TUpMhErZL2fhh4sVNULAbNKLokS4GjC1F4"
+    ],
+    [
+     "binancecoin",
+     "TUSDB-888"
+    ],
+    [
+     "binance-smart-chain",
+     "0x40af3827f39d0eacbf4a168f8d4ee67c121d11c9"
+    ],
+    [
+     "avalanche",
+     "0x1c20e891bab6b1727d14da358fae2984ed9b59eb"
+    ]
+   ]
+  },
+  "blockstack": {
+   "id": "blockstack",
+   "name": "Stacks",
+   "symbol": "STX",
+   "image": "https://coin-images.coingecko.com/coins/images/2069/large/Stacks_Logo_png.png?1709979332",
+   "about": [
+    "Stacks brings Apps and Smart Contracts to Bitcoin. Apps built on Stacks inherit all of Bitcoin’s powers. They run their logic on the blockchain with smart contracts, are controlled by code instead of companies, and are accessible to anyone. This enables decentralized apps to do things that regular apps can’t."
+   ],
+   "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "Layer 2 (L2)",
+    "Bitcoin Sidechains",
+    "Stacks Ecosystem",
+    "SideChain"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "whitepaper": "https://gaia.blockstack.org/hub/1AxyPunHHAHiEffXWESKfbvmBpGQv138Fp/stacks.pdf",
+    "explorers": [
+     "https://explorer.stacks.co/"
+    ],
+    "github": "https://github.com/stacks-network"
+   },
+   "contracts": []
+  },
+  "filecoin": {
+   "id": "filecoin",
+   "name": "Filecoin",
+   "symbol": "FIL",
+   "image": "https://coin-images.coingecko.com/coins/images/12817/large/filecoin.png?1696512609",
+   "about": [
+    "The Filecoin network achieves staggering economies of scale by allowing anyone worldwide to participate as storage providers. It also makes storage resemble a commodity or utility by decoupling hard-drive space from additional services. On this robust global market the price of storage will be driven by supply and demand, not corporate pricing departments, and miners will compete on factors like reputation for reliability as well as price."
+   ],
+   "categories": [
+    "Infrastructure",
+    "Smart Contract Platform",
+    "Storage",
+    "Layer 1 (L1)",
+    "DePIN"
+   ],
+   "genesis": null,
+   "algorithm": null,
+   "links": {
+    "website": "https://filecoin.io/",
+    "whitepaper": "https://docs.filecoin.io/",
+    "explorers": [
+     "https://filfox.info/en",
+     "https://filscan.io/#/tipset/chain"
+    ],
+    "github": "https://github.com/filecoin-project/lotus"
+   },
+   "contracts": []
+  }
+ }
+}
