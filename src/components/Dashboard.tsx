@@ -308,7 +308,7 @@ export default function Dashboard({ lang }: { lang: Lang }) {
         )
     }
   }
-  const more: Partial<Record<CardId, string>> = { watch: p.portfolio + '#watch', news: p.news, activity: p.portfolio }
+  const more: Partial<Record<CardId, string>> = { watch: p.watchlist, news: p.news, activity: p.portfolio }
   const order = pref.order
   const move = (id: CardId, dir: -1 | 1) => {
     const o = [...order]

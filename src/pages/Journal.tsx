@@ -15,7 +15,8 @@ import { fmtDateTime, nowWall, TIMEZONES, wallToIso } from '../journal/time'
 import TradeForm, { Field, inputCls } from '../journal/TradeForm'
 import { ACCOUNT_CURRENCIES, defaultSettings, emptyState, uid } from '../journal/types'
 import type { Account, AccountCurrency, CashMove, JournalState, Settings, Trade } from '../journal/types'
-import { Card, LinkTabs, PageHeader, btn, pageWrap, tabCls } from '../components/kit'
+import { Card, PageHeader, btn, pageWrap, tabCls } from '../components/kit'
+import MyWinvestTabs from '../components/MyWinvestTabs'
 
 // EvilCharts (Recharts) only downloads when a chart is shown.
 const EquityChart = lazy(() => import('../journal/Charts').then((m) => ({ default: m.EquityChart })))
@@ -457,7 +458,7 @@ export default function Journal({ lang }: { lang: Lang }) {
     <main className="relative overflow-hidden">
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[480px] w-[820px] -translate-x-1/2 rounded-full bg-[var(--wc-red)]/15 blur-[120px]" />
       <div className={pageWrap()}>
-        <LinkTabs className="mb-5" label={lang === 'nl' ? 'Mijn Winvest' : 'My Winvest'} items={[{ href: paths[lang].portfolio, label: 'Portfolio', on: false }, { href: paths[lang].journal, label: 'Journal', on: true }]} />
+        <MyWinvestTabs lang={lang} on="journal" />
         <PageHeader home={paths[lang].home} title={c.h1} intro={c.intro} action={state.accounts.length ? <button type="button" onClick={() => setForm({})} className={btn()}>{c.addTrade}</button> : undefined} />
         {!saveOk ? <p className="mt-4 rounded-xl border border-amber-400/40 bg-amber-400/10 p-3 text-sm text-amber-200">{c.settings.storageFail}</p> : null}
         {autoMsgs.length ? (

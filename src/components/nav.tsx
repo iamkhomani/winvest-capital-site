@@ -17,6 +17,7 @@ const ICONS = {
   home: <path d="M3 10.5 12 3l9 7.5M5 9v11h5v-6h4v6h5V9" />,
   markets: <path d="M3 3v18h18M7 15l4-4 3 3 6-7" />,
   portfolio: <path d="M12 3a9 9 0 1 0 9 9h-9zM14 2.3V10h7.7A8 8 0 0 0 14 2.3z" />,
+  star: <path d="M12 3.5l2.6 5.3 5.9.9-4.25 4.1 1 5.8L12 16.8l-5.25 2.8 1-5.8L3.5 9.7l5.9-.9z" />,
   journal: <path d="M6 3h11a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6zM6 3v18M10 8h6M10 12h6M10 16h4" />,
   scan: <path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4" />,
   calc: <path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8v3H8zM8 14h.01M12 14h.01M16 14h.01M8 17.5h.01M12 17.5h.01M16 17.5h.01" />,
@@ -75,7 +76,8 @@ export function navGroups(lang: Lang): NavGroup[] {
       id: 'mine',
       label: nl ? 'Mijn Winvest' : 'My Winvest',
       items: [
-        { label: 'Portfolio tracker', href: p.portfolio, icon: 'portfolio', hint: nl ? 'Je beleggingen en watchlist op één plek' : 'Your holdings and watchlist in one place', free: true },
+        { label: 'Portfolio tracker', href: p.portfolio, icon: 'portfolio', hint: nl ? 'Je beleggingen op één plek' : 'All your holdings in one place', free: true },
+        { label: 'Watchlist', href: p.watchlist, icon: 'star', hint: nl ? 'Koersen en alerts van wat je volgt' : 'Prices and alerts for what you follow', free: true },
         { label: 'Trading journal', href: p.journal, icon: 'journal', hint: nl ? 'Leg je trades vast en leer ervan' : 'Log your trades and learn from them', free: true },
       ],
     },
@@ -99,6 +101,7 @@ export function toolItems(lang: Lang): NavItem[] {
         { label: nl ? 'Marktnieuws' : 'Market news', href: p.news, icon: 'news', hint: nl ? 'Crypto, forex en aandelen, elke 10 min' : 'Crypto, forex and stocks, every 10 min', free: true },
         { label: nl ? 'Markten' : 'Markets', href: p.markets, icon: 'markets', hint: nl ? 'Koersen, sentiment, trends en heatmaps' : 'Prices, sentiment, trends and heatmaps', free: true },
         { label: 'Portfolio tracker', href: p.portfolio, icon: 'portfolio', hint: nl ? 'Je beleggingen op één plek' : 'All your holdings in one place', free: true },
+        { label: 'Watchlist', href: p.watchlist, icon: 'star', hint: nl ? 'Koersen en alerts van wat je volgt' : 'Prices and alerts for what you follow', free: true },
         { label: 'Trading journal', href: p.journal, icon: 'journal', hint: nl ? 'Leg je trades vast en leer ervan' : 'Log your trades and learn from them', free: true },
         { label: nl ? 'DeFi-scanner' : 'DeFi scanner', href: p.scanner, icon: 'scan', hint: nl ? 'Controleer tokens en wallets op risico’s' : 'Check tokens and wallets for risk', free: true },
         { label: nl ? 'Lotgrootte-calculator' : 'Lot size calculator', href: p.calculator, icon: 'calc', hint: nl ? 'Bereken je positie op basis van je risico' : 'Size positions to your risk', free: true },
@@ -114,7 +117,7 @@ export function tabItems(lang: Lang): (NavItem & { only?: 'web' | 'app' })[] {
   return [
     { label: nl ? 'Overzicht' : 'Overview', href: p.home, icon: 'home' },
     { label: nl ? 'Markten' : 'Markets', href: p.markets, icon: 'markets', also: [p.news] },
-    { label: nl ? 'Mijn Winvest' : 'My Winvest', href: p.portfolio, icon: 'portfolio', also: [p.journal] },
+    { label: nl ? 'Mijn Winvest' : 'My Winvest', href: p.portfolio, icon: 'portfolio', also: [p.journal, p.watchlist] },
     { label: 'Terminal', href: terminalHref(lang), icon: 'terminal', external: !TERMINAL_EMBED },
   ]
 }

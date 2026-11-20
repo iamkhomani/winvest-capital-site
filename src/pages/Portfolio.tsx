@@ -11,10 +11,11 @@ import type { WalletSync, WalletToken } from '../portfolio/wallets'
 import type { Dividend, Found, History, Quote, SectorMap } from '../portfolio/data'
 import { exportCsv, exportJson, load, loadIndex, removeStored, save, saveIndex, storageKey, uid, validate, parseCsv, DEFAULT_ASSETS } from '../portfolio/store'
 import type { Asset, Currency, PortfolioData, PortfolioIndex, PortfolioMeta, Tx } from '../portfolio/store'
-import { Card, LinkTabs, PageHeader, btn, pageWrap, tabCls } from '../components/kit'
+import { Card, PageHeader, btn, pageWrap, tabCls } from '../components/kit'
 import { useWatchlists } from '../shared/watchlist'
 import type { WatchItem } from '../shared/watchlist'
-import { coinHref } from '../markets/coins'
+import { AssetBadge, AssetSearch } from '../shared/AssetPicker'
+import MyWinvestTabs from '../components/MyWinvestTabs'
 
 // EvilCharts (Recharts) only downloads when the portfolio overview is shown.
 const ValueChart = lazy(() => import('../portfolio/Charts').then((m) => ({ default: m.ValueChart })))
@@ -30,7 +31,7 @@ export const portfolioCopy = {
     description: 'Free portfolio tracker for crypto and stocks with live prices: P/L, allocation, performance and drawdown, plus automatic wallet tracking. Stored on your device only.',
     h1: 'Portfolio tracker',
     intro: 'Crypto and stocks in one overview, with live prices. Your data is stored only in this browser on this device, not on our servers. Use export to make a backup or move it to another device.',
-    tabs: { overview: 'Overview', positions: 'Positions', wallets: 'Wallets', txs: 'Transactions', watch: 'Watchlists', settings: 'Backup & settings' },
+    tabs: { overview: 'Overview', positions: 'Positions', wallets: 'Wallets', txs: 'Transactions', settings: 'Backup & settings' },
     w: {
       title: 'Track your wallets automatically',
       intro: 'Add a public wallet address and we read the coins and tokens in it straight from the blockchain. Balances and value update automatically. Read-only: we never need a private key or seed phrase, and you can never sign anything here.',
@@ -113,7 +114,7 @@ export const portfolioCopy = {
     description: 'Gratis portfolio tracker voor crypto en aandelen met live koersen: W/V, allocatie, performance en drawdown, plus automatisch wallets volgen. Alleen op je apparaat.',
     h1: 'Portfolio tracker',
     intro: 'Crypto en aandelen in één overzicht, met actuele prijzen. Je gegevens worden alleen in deze browser op dit apparaat opgeslagen, niet op onze servers. Gebruik export voor een back-up of om ze naar een ander apparaat te zetten.',
-    tabs: { overview: 'Overzicht', positions: 'Posities', wallets: 'Wallets', txs: 'Transacties', watch: 'Watchlists', settings: 'Back-up & instellingen' },
+    tabs: { overview: 'Overzicht', positions: 'Posities', wallets: 'Wallets', txs: 'Transacties', settings: 'Back-up & instellingen' },
     w: {
       title: 'Volg je wallets automatisch',
       intro: 'Voeg een openbaar walletadres toe en we lezen de coins en tokens rechtstreeks van de blockchain. Saldi en waarde worden automatisch bijgewerkt. Alleen-lezen: we hebben nooit een private key of seed phrase nodig en je kunt hier nooit iets ondertekenen.',
@@ -218,70 +219,6 @@ const PALETTE = ['#FE0000', 'var(--wc-text)', '#F59E0B', '#34D399', '#60A5FA', '
 function Label({ children }: { children: ReactNode }) {
   return <div className="text-xs font-medium tracking-wide text-white/50 uppercase">{children}</div>
 }
-function AssetBadge({ a, lang }: { a?: Asset; lang?: Lang }) {
-  if (!a) return <span>?</span>
-  // crypto names link to their coin page (stocks get pages later)
-  const href = lang && a.kind === 'crypto' ? coinHref(lang, a.id) : undefined
-  return (
-    <span className="flex min-w-0 items-center gap-2.5">
-      {a.image ? <img src={a.image} alt="" width={22} height={22} className="size-[22px] shrink-0 rounded-full bg-white/10" /> : <span className="flex size-[22px] shrink-0 items-center justify-center rounded-full bg-white/10 text-[10px] font-bold">{a.symbol.slice(0, 3)}</span>}
-      <span className="min-w-0">
-        {href ? <a href={href} className="block truncate font-semibold hover:text-[var(--wc-red-soft)] hover:underline">{a.symbol}</a> : <span className="block truncate font-semibold">{a.symbol}</span>}
-        <span className="block truncate text-xs text-white/45">{a.name}</span>
-      </span>
-    </span>
-  )
-}
-
-// ---------- asset search ----------
-function AssetSearch({ c, onPick, autoFocus }: { c: C; onPick: (a: Found) => void; autoFocus?: boolean }) {
-  const [kind, setKind] = useState<'crypto' | 'stock'>('crypto')
-  const [q, setQ] = useState('')
-  const [res, setRes] = useState<Found[] | null>(null)
-  const [busy, setBusy] = useState(false)
-  const [err, setErr] = useState(false)
-  useEffect(() => {
-    const s = q.trim()
-    if (s.length < 1) {
-      setRes(null)
-      return
-    }
-    setBusy(true)
-    const t = setTimeout(async () => {
-      try {
-        setRes(kind === 'crypto' ? await searchCrypto(s) : await searchStock(s))
-        setErr(false)
-      } catch {
-        setErr(true)
-        setRes([])
-      } finally {
-        setBusy(false)
-      }
-    }, 350)
-    return () => clearTimeout(t)
-  }, [q, kind])
-  const pill = (on: boolean) => `rounded-full px-4 py-1.5 text-sm font-semibold transition ${on ? 'bg-white text-black' : 'text-white/70 hover:text-white'}`
-  return (
-    <div>
-      <div className="inline-flex rounded-full border border-white/15 p-1">
-        <button type="button" className={pill(kind === 'crypto')} onClick={() => setKind('crypto')}>Crypto</button>
-        <button type="button" className={pill(kind === 'stock')} onClick={() => setKind('stock')}>{c.stocks}</button>
-      </div>
-      <input autoFocus={autoFocus} value={q} onChange={(e) => setQ(e.target.value)} placeholder={c.form.search} className="mt-3 w-full rounded-xl border border-white/15 bg-white/[0.04] px-4 py-2.5 outline-none placeholder:text-white/35 focus:border-[var(--wc-red)]" />
-      <div className="mt-2 max-h-64 overflow-y-auto">
-        {busy ? <p className="px-1 py-2 text-sm text-white/50">{c.form.searching}</p> : null}
-        {!busy && res && !res.length ? <p className="px-1 py-2 text-sm text-white/50">{err ? '⚠ ' : ''}{c.form.none}</p> : null}
-        {!busy && res?.map((r) => (
-          <button key={r.key} type="button" onClick={() => onPick(r)} className="flex w-full items-center justify-between gap-3 rounded-xl px-3 py-2 text-left hover:bg-white/[0.06]">
-            <AssetBadge a={r} />
-            <span className="shrink-0 text-xs text-white/45">{r.kind === 'crypto' ? (r.rank ? `#${r.rank}` : '') : `${r.type ?? ''} · ${r.exchange ?? ''}`}</span>
-          </button>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 // ---------- add transaction ----------
 function TxForm({ c, lang, data, quotesNow, onSave, onClose, preset, held, edit }: { c: C; lang: Lang; data: PortfolioData; quotesNow: Record<string, Quote>; onSave: (a: Asset, t: Tx) => void; onClose: () => void; preset?: Asset; held: Record<string, number>; edit?: Tx }) {
   const [asset, setAsset] = useState<Asset | undefined>(preset)
@@ -335,7 +272,7 @@ function TxForm({ c, lang, data, quotesNow, onSave, onClose, preset, held, edit 
               {!preset ? <button type="button" onClick={() => setAsset(undefined)} className="text-sm text-white/60 hover:text-white">{c.form.change}</button> : null}
             </div>
           ) : (
-            <AssetSearch c={c} onPick={(a) => void pick(a)} autoFocus />
+            <AssetSearch lang={lang} onPick={(a) => void pick(a)} autoFocus />
           )}
         </div>
         {asset ? (
@@ -379,10 +316,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   const [form, setForm] = useState<{ preset?: Asset; edit?: Tx } | null>(null)
   const [msg, setMsg] = useState('')
   const [confirmClear, setConfirmClear] = useState(false)
-  const [wl, setWl] = useState(0)
   const W = useWatchlists() // shared watchlist (whole site); the portfolio's own lists stay as a backup
-  const wlists = W.lists ?? []
-  const [wlSearch, setWlSearch] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
   const csvRef = useRef<HTMLInputElement>(null)
   const [wsync, setWsync] = useState<WalletSync | null>(null)
@@ -405,6 +339,10 @@ export default function Portfolio({ lang }: { lang: Lang }) {
     setPf(ix)
     setData(load(ix.active))
     void cryptoSectors().then(setSectors)
+    if (location.hash === '#watch') {
+      location.replace(paths[lang].watchlist) // the watchlist has its own page now
+      return
+    }
     if (location.hash) {
       const t = location.hash.slice(1) as Tab
       if (t in portfolioCopy.en.tabs) setTab(t)
@@ -505,7 +443,6 @@ export default function Portfolio({ lang }: { lang: Lang }) {
     setData(load(id))
     setHist({})
     setForm(null)
-    setWl(0)
     setMsg('')
     setConfirmClear(false)
     setPfEdit(null)
@@ -531,7 +468,22 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   useEffect(() => {
     if (!ready || !data) return
     const id = new URLSearchParams(location.search).get('add')
-    if (!id || !/^[a-z0-9-]{1,80}$/.test(id)) return
+    if (!id) return
+    // stocks come as stock:<Yahoo symbol> (from the watchlist page)
+    const stock = /^stock:([A-Za-z0-9.^=-]{1,20})$/.exec(id)
+    if (stock) {
+      history.replaceState(null, '', location.pathname + location.hash)
+      const knownStock = data.assets[`stock:${stock[1]}`]
+      if (knownStock) { setForm({ preset: knownStock }); return }
+      void searchStock(stock[1])
+        .then((list) => {
+          const f = list.find((x) => x.id.toUpperCase() === stock[1].toUpperCase())
+          if (f) setForm({ preset: { key: f.key, kind: 'stock', symbol: f.symbol, name: f.name, id: f.id, sector: f.sector } })
+        })
+        .catch(() => {})
+      return
+    }
+    if (!/^[a-z0-9-]{1,80}$/.test(id)) return
     history.replaceState(null, '', location.pathname + location.hash)
     const known = data.assets[`crypto:${id}`]
     if (known) { setForm({ preset: known }); return }
@@ -827,13 +779,12 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   const startDay = pts.length ? new Date(pts[0].t).toISOString().slice(0, 10) : ''
   const investedStart = data.txs.filter((x) => x.date < startDay).reduce((s, x) => s + (x.type === 'buy' ? x.qty * x.price + x.fee : -(x.qty * x.price - x.fee)), 0)
 
-  const list = wlists[Math.min(wl, wlists.length - 1)]
 
   return (
     <main className="relative overflow-hidden">
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[480px] w-[820px] -translate-x-1/2 rounded-full bg-[var(--wc-red)]/15 blur-[120px]" />
       <div className={pageWrap()}>
-        <LinkTabs className="mb-5" label={lang === 'nl' ? 'Mijn Winvest' : 'My Winvest'} items={[{ href: paths[lang].portfolio, label: 'Portfolio', on: true }, { href: paths[lang].journal, label: 'Journal', on: false }]} />
+        <MyWinvestTabs lang={lang} on="portfolio" />
         <PageHeader home={paths[lang].home} title={c.h1} intro={c.intro} action={<button type="button" onClick={() => setForm({})} className={btn()}>{c.add}</button>} />
         {!storageOk ? <p className="mt-4 rounded-xl border border-amber-400/40 bg-amber-400/10 p-3 text-sm text-amber-200">{c.settings.storageFail}</p> : null}
 
@@ -1242,54 +1193,6 @@ export default function Portfolio({ lang }: { lang: Lang }) {
         )}
 
         {/* ---------------- WATCHLISTS ---------------- */}
-        {tab === 'watch' && list && (
-          <div className="mt-6">
-            <div className="flex flex-wrap items-center gap-2">
-              {wlists.map((w, i) => (
-                <button key={w.id} type="button" onClick={() => setWl(i)} className={`rounded-full border px-4 py-1.5 text-sm font-semibold ${i === wl ? 'border-white bg-white text-black' : 'border-white/15 text-white/70 hover:text-white'}`}>{w.name}</button>
-              ))}
-              <button type="button" onClick={() => { W.set((ls) => [...ls, { id: uid(), name: `${c.watch.newList} ${ls.length + 1}`, items: [] }]); setWl(wlists.length) }} className="rounded-full border border-dashed border-white/25 px-4 py-1.5 text-sm text-white/70 hover:text-white">+ {c.watch.newList}</button>
-            </div>
-            <div className="mt-3 flex flex-wrap gap-3 text-sm">
-              <button type="button" className="text-white/60 hover:text-white" onClick={() => { const v = window.prompt(c.watch.name, list.name); if (v && v.trim()) W.set((ls) => ls.map((x, i) => (i === wl ? { ...x, name: v.trim().slice(0, 40) } : x))) }}>{c.watch.rename}</button>
-              {wlists.length > 1 ? <button type="button" className="text-white/60 hover:text-[var(--wc-red-soft)]" onClick={() => { W.set((ls) => ls.filter((_, i) => i !== wl)); setWl(0) }}>{c.watch.delList}</button> : null}
-            </div>
-            <div className="mt-4 overflow-hidden rounded-2xl border border-white/10">
-              <ul className="divide-y divide-white/5">
-                {list.items.map((it) => {
-                  const k = it.key
-                  const a = assetOf(k)
-                  const qt = q[k]
-                  return (
-                    <li key={k} className="flex items-center justify-between gap-3 px-4 py-3">
-                      <AssetBadge lang={lang} a={a ? { ...a, image: a.image ?? qt?.image } : undefined} />
-                      <span className="ml-auto text-right">
-                        <span className="block font-semibold tabular-nums">{qt ? fmtMoney(qt.price, base, lang) : '–'}</span>
-                        <span className={`block text-xs tabular-nums ${tone(qt?.change24h)}`}>{fmtPct(qt?.change24h)} · 24h</span>
-                      </span>
-                      <span className="flex shrink-0 gap-1">
-                        {a ? <button type="button" onClick={() => setForm({ preset: a })} className="rounded-full border border-white/15 px-2.5 py-1 text-xs text-white/70 hover:border-[var(--wc-red)] hover:text-white">{c.buy}</button> : null}
-                        <button type="button" aria-label={c.watch.remove} onClick={() => W.set((ls) => ls.map((x, i) => (i === wl ? { ...x, items: x.items.filter((y) => y.key !== k) } : x)))} className="rounded-full px-2 py-1 text-white/40 hover:text-[var(--wc-red-soft)]">✕</button>
-                      </span>
-                    </li>
-                  )
-                })}
-                {!list.items.length ? <li className="px-4 py-8 text-center text-white/50">{c.watch.empty}</li> : null}
-              </ul>
-            </div>
-            <div className="mt-4">
-              {wlSearch ? (
-                <Card>
-                  <AssetSearch c={c} autoFocus onPick={(a) => { W.set((ls) => ls.map((x, i) => (i === wl && !x.items.some((y) => y.key === a.key) ? { ...x, items: [...x.items, { key: a.key, kind: a.kind, symbol: a.symbol, name: a.name, id: a.id, image: a.image, currency: a.currency }] } : x))); setWlSearch(false) }} />
-                  <button type="button" onClick={() => setWlSearch(false)} className="mt-3 text-sm text-white/60 hover:text-white">{c.form.cancel}</button>
-                </Card>
-              ) : (
-                <button type="button" onClick={() => setWlSearch(true)} className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-white/80 hover:border-white/40">+ {c.watch.add}</button>
-              )}
-            </div>
-          </div>
-        )}
-
         {/* ---------------- SETTINGS ---------------- */}
         {tab === 'settings' && (
           <div className="mt-6 grid gap-4 lg:grid-cols-2">
@@ -1305,6 +1208,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
             <Card>
               <h2 className="text-lg font-bold">{c.settings.exportH}</h2>
               <p className="mt-1 text-sm text-white/60">{c.settings.exportP}</p>
+              <p className="mt-2 text-sm text-white/60">{lang === 'nl' ? 'Alles in één bestand (ook watchlist en journal):' : 'Everything in one file (watchlist and journal too):'} <a href={paths[lang].watchlist + '#backup'} className="font-semibold text-[var(--wc-red-soft)] hover:underline">{lang === 'nl' ? 'volledige back-up' : 'full backup'} →</a></p>
               <div className="mt-3 flex flex-wrap gap-2">
                 <button type="button" onClick={() => exportJson(data)} className={btn('primary', 'sm')}>{c.settings.exportJson}</button>
                 <button type="button" onClick={() => exportCsv(data)} className="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white/80 hover:border-white/40">{c.settings.exportCsv}</button>

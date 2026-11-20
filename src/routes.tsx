@@ -15,6 +15,7 @@ import DefiScanner, { scannerCopy } from './pages/DefiScanner'
 import Markets, { marketsCopy } from './pages/Markets'
 import MarketWhisper, { whisperCopy } from './pages/MarketWhisper'
 import Portfolio, { portfolioCopy } from './pages/Portfolio'
+import Watchlist, { watchlistCopy } from './pages/Watchlist'
 import Products, { productsCopy } from './pages/Products'
 import Terminal, { terminalCopy } from './pages/Terminal'
 import TerminalApp from './pages/TerminalApp'
@@ -198,6 +199,18 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
     ],
     element: wrap(lang, o.portfolio, <Portfolio lang={lang} />),
   }
+  const watchlist: Route = {
+    path: p.watchlist,
+    alternate: o.watchlist,
+    lang,
+    title: watchlistCopy[lang].metaTitle,
+    description: watchlistCopy[lang].description,
+    jsonLd: [
+      { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Winvest Watchlist', url: url(p.watchlist), applicationCategory: 'FinanceApplication', operatingSystem: 'Any', inLanguage: lang, offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' }, publisher: org },
+      crumbs([['Home', p.home], ['Watchlist', p.watchlist]]),
+    ],
+    element: wrap(lang, o.watchlist, <Watchlist lang={lang} />),
+  }
   const journal: Route = {
     path: p.journal,
     alternate: o.journal,
@@ -292,7 +305,7 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
     jsonLd: [crumbs([['Home', p.home], [L ? 'Markten' : 'Markets', p.markets], [x.name, `${p.markets}${x.id}/`]])],
     element: wrap(lang, `${o.markets}${x.id}/`, <Coin lang={lang} id={x.id} />),
   }))
-  return [home, products, calculator, markets, news, coin, ...coinPages, portfolio, journal, whisper, terminal, terminalApp, scanner, partners, learn, ...arts, ...docs, welcome]
+  return [home, products, calculator, markets, news, coin, ...coinPages, portfolio, watchlist, journal, whisper, terminal, terminalApp, scanner, partners, learn, ...arts, ...docs, welcome]
 })
 
 export function findRoute(pathname: string): Route | undefined {
