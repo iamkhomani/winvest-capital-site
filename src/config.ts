@@ -22,8 +22,8 @@ export const TERMINAL_LOGIN_URL = 'https://terminal.winvestcapital.nl'
 // true: links open the terminal inside the site (/terminal/app/). Needs the terminal server that allows
 // winvestcapital.nl to frame it (frame-ancestors). false: links go straight to terminal.winvestcapital.nl.
 export const TERMINAL_EMBED: boolean = true
-// Live Stripe link for later: https://buy.stripe.com/bJe5kDauu75raXAeyRak001
-export const TERMINAL_CHECKOUT_URL: string = ''
+// Stripe payment link (live, €49/month incl. VAT). Empty = "Coming soon" instead of the subscribe button.
+export const TERMINAL_CHECKOUT_URL: string = 'https://buy.stripe.com/bJe5kDauu75raXAeyRak001'
 // Shown next to the subscribe button, for example '€49'. Must match the Stripe price exactly.
 export const TERMINAL_PRICE: string = '€49'
 // Stripe customer portal login link. Empty = no "Manage subscription" link.

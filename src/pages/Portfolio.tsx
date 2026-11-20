@@ -16,6 +16,7 @@ import { useWatchlists } from '../shared/watchlist'
 import type { WatchItem } from '../shared/watchlist'
 import { AssetBadge, AssetSearch } from '../shared/AssetPicker'
 import MyWinvestTabs from '../components/MyWinvestTabs'
+import DataStamp from '../markets/DataStamp'
 import WhisperAsk from '../components/WhisperAsk'
 
 // EvilCharts (Recharts) only downloads when the portfolio overview is shown.
@@ -97,7 +98,6 @@ export const portfolioCopy = {
     histNote: 'Performance uses daily closing prices of the last 12 months. Positions bought earlier are valued from 12 months ago.',
     txH: 'Transactions', del: 'Delete', edit: 'Edit', type: 'Type', buy: 'Buy', sell: 'Sell', date: 'Date', fee: 'Fee', note: 'Note',
     form: { title: 'Add transaction', editTitle: 'Edit transaction', kind: 'Market', search: 'Search a coin or stock (e.g. BTC, Apple, ASML)', searching: 'Searching…', none: 'Nothing found.', chosen: 'Selected', change: 'Change', qty: 'Quantity', price: 'Price per unit', fee: 'Fees (optional)', note: 'Note (optional)', save: 'Save transaction', cancel: 'Cancel', priceHint: 'Prefilled with the current price. Change it to what you actually paid.', sellTooMuch: 'You cannot sell more than you hold.' },
-    watch: { add: 'Add to watchlist', newList: 'New list', rename: 'Rename', remove: 'Remove', delList: 'Delete list', empty: 'This watchlist is empty. Search for an asset to add it.', name: 'List name' },
     settings: {
       base: 'Base currency', baseLocked: 'The base currency is locked because transaction prices are stored in it. Export, clear and re-enter to change it.',
       exportH: 'Export', exportP: 'Download a backup of all your data (JSON) or your transactions as a spreadsheet (CSV).', exportJson: 'Export backup (JSON)', exportCsv: 'Export transactions (CSV)',
@@ -180,7 +180,6 @@ export const portfolioCopy = {
     histNote: 'Performance gebruikt dagelijkse slotkoersen van de laatste 12 maanden. Posities die eerder zijn gekocht, worden gewaardeerd vanaf 12 maanden geleden.',
     txH: 'Transacties', del: 'Verwijderen', edit: 'Bewerken', type: 'Type', buy: 'Koop', sell: 'Verkoop', date: 'Datum', fee: 'Kosten', note: 'Notitie',
     form: { title: 'Transactie toevoegen', editTitle: 'Transactie bewerken', kind: 'Markt', search: 'Zoek een coin of aandeel (bijv. BTC, Apple, ASML)', searching: 'Zoeken…', none: 'Niets gevonden.', chosen: 'Gekozen', change: 'Wijzigen', qty: 'Aantal', price: 'Prijs per stuk', fee: 'Kosten (optioneel)', note: 'Notitie (optioneel)', save: 'Transactie opslaan', cancel: 'Annuleren', priceHint: 'Vooraf ingevuld met de huidige prijs. Pas aan naar wat je echt betaalde.', sellTooMuch: 'Je kunt niet meer verkopen dan je bezit.' },
-    watch: { add: 'Toevoegen aan watchlist', newList: 'Nieuwe lijst', rename: 'Hernoemen', remove: 'Verwijderen', delList: 'Lijst verwijderen', empty: 'Deze watchlist is leeg. Zoek een asset om toe te voegen.', name: 'Naam van de lijst' },
     settings: {
       base: 'Basisvaluta', baseLocked: 'De basisvaluta ligt vast omdat de transactieprijzen daarin zijn opgeslagen. Exporteer, wis en voer opnieuw in om te wijzigen.',
       exportH: 'Exporteren', exportP: 'Download een back-up van al je gegevens (JSON) of je transacties als spreadsheet (CSV).', exportJson: 'Back-up exporteren (JSON)', exportCsv: 'Transacties exporteren (CSV)',
@@ -313,6 +312,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   const [tab, setTab] = useState<Tab>('overview')
   const [q, setQ] = useState<Record<string, Quote>>({})
   const [loadingQ, setLoadingQ] = useState(false)
+  const [qAt, setQAt] = useState<number | null>(null) // time of the last round that returned fresh prices
   const [hist, setHist] = useState<Record<string, History>>({})
   const [form, setForm] = useState<{ preset?: Asset; edit?: Tx } | null>(null)
   const [msg, setMsg] = useState('')
@@ -516,7 +516,13 @@ export default function Portfolio({ lang }: { lang: Lang }) {
       setLoadingQ(true)
       const r = await quotes(neededKeys.map((k) => assetOf(k) as Asset), data.base).catch(() => ({} as Record<string, Quote>))
       if (alive) {
-        setQ(r)
+        // keep the last known price of anything this round could not fetch, instead of blanking it
+        setQ((old) => {
+          const next: Record<string, Quote> = { ...r }
+          for (const k of neededKeys) if (!next[k] && old[k]) next[k] = { ...old[k], stale: true }
+          return next
+        })
+        if (Object.values(r).some((x) => !x.stale)) setQAt(Date.now())
         setLoadingQ(false)
         // some prices missing or stale (rate limit): try again sooner
         if (neededKeys.some((k) => !r[k] || r[k].stale)) retry = setTimeout(() => void run(), 20000)
@@ -892,6 +898,17 @@ export default function Portfolio({ lang }: { lang: Lang }) {
                   <Card><Label>{c.byClass}</Label><div className="mt-2 flex h-3 overflow-hidden rounded-full bg-white/10">{div ? <><span style={{ width: `${div.cryptoPct}%` }} className="bg-[var(--wc-red)]" /><span style={{ width: `${div.stockPct}%` }} className="bg-white" /></> : null}</div><div className="mt-2 flex justify-between text-sm"><span><span className="mr-1.5 inline-block size-2 rounded-full bg-[var(--wc-red)]" />{c.crypto} {fmtPct(div?.cryptoPct, false)}</span><span><span className="mr-1.5 inline-block size-2 rounded-full bg-white" />{c.stocks} {fmtPct(div?.stockPct, false)}</span></div></Card>
                 </div>
                 {loadingQ && !Object.keys(q).length ? <p className="text-sm text-white/50">{c.loadingPrices}</p> : null}
+                {(() => {
+                  const stale = open.filter((h) => q[h.key]?.stale).map((h) => data.assets[h.key]?.symbol).filter(Boolean)
+                  return stale.length ? (
+                    <p className="text-sm text-amber-200/90">
+                      {lang === 'nl'
+                        ? `Laatst bekende prijs voor ${stale.join(', ')}: de koersbron reageerde niet. We proberen het automatisch opnieuw.`
+                        : `Last known price for ${stale.join(', ')}: the price source did not respond. Retrying automatically.`}
+                    </p>
+                  ) : null
+                })()}
+                {qAt ? <DataStamp lang={lang} source={lang === 'nl' ? 'CoinGecko (crypto), Yahoo Finance via onze proxy (aandelen, vertraagd)' : 'CoinGecko (crypto), Yahoo Finance via our proxy (stocks, delayed)'} kind="live" at={qAt} updated /> : null}
                 {missing.length ? <p className="text-sm text-amber-200/90">⚠ {missing.map((h) => data.assets[h.key]?.symbol).join(', ')}: {c.noPrice}. {lang === 'nl' ? 'Waarde berekend op kostprijs; vul een prijs in bij Posities.' : 'Valued at cost; set a price under Positions.'}</p> : null}
 
                 <Card>

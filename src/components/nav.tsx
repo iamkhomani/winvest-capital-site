@@ -70,6 +70,7 @@ export function navGroups(lang: Lang): NavGroup[] {
         { label: nl ? 'Markten' : 'Markets', href: p.markets, icon: 'markets', hint: nl ? 'Koersen, sentiment, trends en heatmaps' : 'Prices, sentiment, trends and heatmaps', free: true },
         { label: nl ? 'Marktnieuws' : 'Market news', href: p.news, icon: 'news', hint: nl ? 'Crypto, forex en aandelen, elke 10 min' : 'Crypto, forex and stocks, every 10 min', free: true },
         { label: nl ? 'Economische kalender' : 'Economic calendar', href: p.markets + '#calendar', icon: 'calendar', hint: nl ? 'Cijfers en besluiten die de markt bewegen' : 'Data and decisions that move markets', free: true },
+        { label: nl ? 'DeFi-scanner' : 'DeFi scanner', href: p.scanner, icon: 'scan', hint: nl ? 'Controleer tokens en wallets op risico’s' : 'Check tokens and wallets for risk', free: true },
       ],
     },
     {
@@ -92,8 +93,8 @@ export function navGroups(lang: Lang): NavGroup[] {
   ]
 }
 
-/** All free tools, for the homepage grid and site search. DeFi scanner and calculator are not menu items
- *  (they open from coin pages: Check contract, Plan trade) but stay one tap away here. */
+/** All free tools, for the homepage grid and site search. The calculator is not a menu item
+ *  (it opens from coin pages: Plan trade) but stays one tap away here. */
 export function toolItems(lang: Lang): NavItem[] {
   const p = paths[lang]
   const nl = lang === 'nl'
@@ -118,7 +119,7 @@ export function tabItems(lang: Lang): (NavItem & { only?: 'web' | 'app' })[] {
     { label: nl ? 'Overzicht' : 'Overview', href: p.home, icon: 'home' },
     { label: nl ? 'Markten' : 'Markets', href: p.markets, icon: 'markets', also: [p.news] },
     { label: nl ? 'Mijn Winvest' : 'My Winvest', href: p.portfolio, icon: 'portfolio', also: [p.journal, p.watchlist] },
-    { label: 'Terminal', href: terminalHref(lang), icon: 'terminal', external: !TERMINAL_EMBED },
+    { label: 'Terminal', href: p.terminal, icon: 'terminal' }, // landing page (subscribe or log in), same as the sidebar
   ]
 }
 

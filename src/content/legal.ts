@@ -8,7 +8,7 @@ export const legal: Record<'terms' | 'privacy' | 'refunds', { en: LegalDoc; nl: 
     en: {
       path: '/legal/terms/',
       title: 'Terms and conditions',
-      description: 'Terms and conditions for the Winvest Capital community, the One Percent Club and Market Whisper AI.',
+      description: 'Terms and conditions for the Winvest Capital community, the One Percent Club, Market Whisper AI and Winvest Terminal.',
       updated: LEGAL_UPDATED.en,
       sections: [
         { h: '1. Who we are', p: ['These terms apply to the website winvestcapital.nl, the Winvest Capital Discord community, the One Percent Club, Market Whisper AI and Winvest Terminal (together: "the services"), offered by Winvest Capital. Our contact details are listed at the bottom of this page.'] },
@@ -28,7 +28,7 @@ export const legal: Record<'terms' | 'privacy' | 'refunds', { en: LegalDoc; nl: 
     nl: {
       path: '/nl/voorwaarden/',
       title: 'Algemene voorwaarden',
-      description: 'Algemene voorwaarden voor de Winvest Capital community, de One Percent Club en Market Whisper AI.',
+      description: 'Algemene voorwaarden voor de Winvest Capital community, de One Percent Club, Market Whisper AI en Winvest Terminal.',
       updated: LEGAL_UPDATED.nl,
       sections: [
         { h: '1. Wie wij zijn', p: ['Deze voorwaarden gelden voor de website winvestcapital.nl, de Winvest Capital Discord-community, de One Percent Club, Market Whisper AI en Winvest Terminal (samen: "de diensten"), aangeboden door Winvest Capital. Onze contactgegevens staan onderaan deze pagina.'] },
