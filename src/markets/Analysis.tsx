@@ -102,7 +102,7 @@ function Sectors({ lang, coins, at }: { lang: Lang; coins: Coin[]; at: number | 
       a.n += 1
       acc.set(s, a)
     }
-    return [...acc.entries()].map(([s, a]) => ({ s, v: a.w / a.cap, n: a.n })).sort((a, b) => b.v - a.v)
+    return [...acc.entries()].filter(([, a]) => a.n >= 2).map(([s, a]) => ({ s, v: a.w / a.cap, n: a.n })).sort((a, b) => b.v - a.v)
   }, [map, coins, win])
   const max = Math.max(1, ...rows.map((r) => Math.abs(r.v)))
   return (
@@ -250,7 +250,7 @@ function History({ lang }: { lang: Lang }) {
           className="min-h-[380px]"
           script="embed-widget-symbol-overview.js"
           config={{
-            symbols: [[t.total, 'CRYPTOCAP:TOTAL|12M'], [t.total2, 'CRYPTOCAP:TOTAL2|12M'], [t.dom, 'CRYPTOCAP:BTC.D|12M']],
+            symbols: [[t.total, 'CRYPTOCAP:TOTAL|1D'], [t.total2, 'CRYPTOCAP:TOTAL2|1D'], [t.dom, 'CRYPTOCAP:BTC.D|1D']],
             chartOnly: false,
             width: '100%',
             height: 380,
@@ -259,18 +259,21 @@ function History({ lang }: { lang: Lang }) {
             isTransparent: true,
             autosize: false,
             showVolume: false,
+            scalePosition: 'right',
+            scaleMode: 'Normal',
             chartType: 'area',
             lineWidth: 2,
+            lineType: 0,
             lineColor: 'rgba(218, 41, 28, 1)',
             topColor: 'rgba(218, 41, 28, 0.25)',
             bottomColor: 'rgba(218, 41, 28, 0)',
             fontColor: 'rgb(106, 109, 120)',
             gridLineColor: 'rgba(242, 242, 242, 0.06)',
-            dateRanges: ['1m|30', '12m|1D', '60m|1W', 'all|1M'],
+            dateRanges: ['12m|1D', '1m|30', '3m|60', '60m|1W', 'all|1M'],
           }}
         />
       </div>
-      <DataStamp className="mt-3" lang={lang} source="TradingView (CRYPTOCAP)" kind="live" />
+      <DataStamp className="mt-3" lang={lang} source="TradingView (CRYPTOCAP)" kind="provider" />
     </div>
   )
 }

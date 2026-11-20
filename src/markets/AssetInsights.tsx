@@ -28,7 +28,7 @@ export function Technicals({ lang, symbol, name }: { lang: Lang; symbol: string;
           config={{ interval: '1D', width: '100%', height: 420, isTransparent: true, symbol: `CRYPTO:${symbol}USD`, showIntervalTabs: true, displayMode: 'single', locale: nl ? 'nl_NL' : 'en', colorTheme: 'dark' }}
         />
       </div>
-      <DataStamp className="mt-2" lang={lang} source="TradingView" kind="live" />
+      <DataStamp className="mt-2" lang={lang} source="TradingView" kind="provider" />
     </section>
   )
 }
@@ -90,7 +90,7 @@ export function CoinNews({ lang, name, symbol }: { lang: Lang; name: string; sym
       ) : (
         <LoadState lang={lang} error={err} />
       )}
-      <DataStamp className="mt-3" lang={lang} source="Cointelegraph, CoinDesk, Decrypt, The Block" kind="delayed" at={at} />
+      <DataStamp className="mt-3" lang={lang} source={rows && rows.length ? [...new Set(rows.map((x) => x.source))].join(', ') : nl ? 'onze nieuwsfeeds' : 'our news feeds'} kind="delayed" at={at} />
     </section>
   )
 }

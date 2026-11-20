@@ -2,11 +2,11 @@
 // it is (live, refreshed every minute; daily; weekly snapshot). Also the shared loading and error text.
 import type { Lang } from '../i18n'
 
-export type Freshness = 'live' | 'delayed' | 'daily' | 'weekly' | 'onload'
+export type Freshness = 'live' | 'delayed' | 'daily' | 'weekly' | 'onload' | 'provider'
 
 const LABEL: Record<Lang, Record<Freshness, string>> = {
-  en: { live: 'live, refreshed every minute', delayed: 'delayed, refreshed every 10 min', daily: 'updated once a day', weekly: 'weekly snapshot', onload: 'loaded when you opened this page' },
-  nl: { live: 'live, elke minuut ververst', delayed: 'vertraagd, elke 10 min ververst', daily: 'één keer per dag bijgewerkt', weekly: 'wekelijkse momentopname', onload: 'geladen bij het openen van deze pagina' },
+  en: { live: 'live, refreshed every minute', delayed: 'delayed, refreshed every 10 min', daily: 'updated once a day', weekly: 'weekly snapshot', onload: 'snapshot when the page opened', provider: 'live chart from the provider' },
+  nl: { live: 'live, elke minuut ververst', delayed: 'vertraagd, elke 10 min ververst', daily: 'één keer per dag bijgewerkt', weekly: 'wekelijkse momentopname', onload: 'momentopname bij openen', provider: 'live grafiek van de aanbieder' },
 }
 
 export const timeOf = (at: number, lang: Lang) => {
@@ -18,7 +18,7 @@ export const timeOf = (at: number, lang: Lang) => {
 
 export default function DataStamp({ lang, source, at, kind, className = '' }: { lang: Lang; source: string; at?: number | null; kind: Freshness; className?: string }) {
   const nl = lang === 'nl'
-  const dot = kind === 'live' ? 'bg-emerald-400' : kind === 'delayed' ? 'bg-amber-300' : 'bg-white/35'
+  const dot = kind === 'live' || kind === 'provider' ? 'bg-emerald-400' : kind === 'delayed' ? 'bg-amber-300' : 'bg-white/35'
   return (
     <p className={`flex flex-wrap items-center gap-x-1.5 text-[11px] text-white/40 ${className}`}>
       <span className={`inline-block size-1.5 rounded-full ${dot}`} aria-hidden="true" />
