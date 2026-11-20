@@ -55,12 +55,19 @@ export async function saveState(state: JournalState): Promise<boolean> {
   }
 }
 
+// SVG images are never stored or shown (other image types are). An SVG or HTML "image" (for example from a crafted
+// backup file) could run script on this site when its blob URL is opened, so it is never kept.
+export const SAFE_IMAGE = /^image\/(?!svg)[\w.+-]+$/i
+export const isSafeImageDataUrl = (u: string) => /^data:image\/(?!svg)[\w.+-]+;base64,/i.test(u)
+
 export async function putImage(id: string, blob: Blob) {
+  if (!SAFE_IMAGE.test(blob.type)) return
   await tx('images', 'readwrite', (s) => s.put(blob, id))
 }
 export async function getImage(id: string): Promise<Blob | undefined> {
   try {
-    return await tx<Blob>('images', 'readonly', (s) => s.get(id))
+    const b = await tx<Blob>('images', 'readonly', (s) => s.get(id))
+    return b && SAFE_IMAGE.test(b.type) ? b : undefined
   } catch {
     return undefined
   }

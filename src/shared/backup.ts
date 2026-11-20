@@ -1,7 +1,7 @@
 // One backup file for everything personal on this device: portfolios, the shared watchlist, alerts,
 // trade ideas, calculator settings, dashboard layout, and the trading journal with its screenshots.
 // Nothing is sent anywhere: the file is made and read in the browser.
-import { allImages, blobToDataUrl, dataUrlToBlob, loadState, putImage, saveState } from '../journal/db'
+import { allImages, blobToDataUrl, dataUrlToBlob, isSafeImageDataUrl, loadState, putImage, saveState } from '../journal/db'
 import type { JournalState } from '../journal/types'
 
 // User data only; caches, theme and layout state are left out.
@@ -60,7 +60,7 @@ export async function importAll(file: File): Promise<ImportResult> {
     await saveState({ ...j.state, cash: Array.isArray(j.state.cash) ? j.state.cash : [] })
     trades = j.state.trades.length
     for (const [id, url] of Object.entries(j.images ?? {})) {
-      if (typeof url !== 'string' || !url.startsWith('data:image/') || !/^[\w-]{1,80}$/.test(id)) continue
+      if (typeof url !== 'string' || !isSafeImageDataUrl(url) || !/^[\w-]{1,80}$/.test(id)) continue
       await putImage(id, await dataUrlToBlob(url))
       images++
     }

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { ClipboardEvent, ReactNode } from 'react'
 import type { JC } from './copy'
-import { compressImage, deleteImage, getImage, putImage } from './db'
+import { SAFE_IMAGE, compressImage, deleteImage, getImage, putImage } from './db'
 import { COMMON_PAIRS, LOT_UNITS, instrument, isUnits, quotePnl, rate, unitsPair } from './fx'
 import type { LotUnit } from './fx'
 import { isoToWall, nowWall, wallToIso } from './time'
@@ -164,6 +164,7 @@ export default function TradeForm({ c, state, accounts, trade, draft, defaultAcc
     for (const file of Array.from(files)) {
       if (!file.type.startsWith('image/')) continue
       const blob = await compressImage(file)
+      if (!SAFE_IMAGE.test(blob.type)) continue // e.g. an SVG that could not be converted
       setShots((xs) => [...xs, { id: uid(), kind, name: file.name, blob, url: URL.createObjectURL(blob), isNew: true }])
     }
   }

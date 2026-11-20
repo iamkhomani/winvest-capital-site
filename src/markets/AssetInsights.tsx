@@ -40,7 +40,7 @@ const loadNews = () => {
   if (newsP && Date.now() - newsP.at < 300_000) return newsP.p
   const p = fetch((DEFI_PROXY_URL || 'https://winvest-defi-proxy.helijl.workers.dev') + '/news', { signal: AbortSignal.timeout(15000) })
     .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
-    .then((j: { items: Item[] }) => ({ items: j.items, at: Date.now() }))
+    .then((j: { items: Item[] }) => ({ items: (j.items ?? []).filter((x) => /^https:\/\//.test(x.url)), at: Date.now() }))
     .catch((e) => {
       newsP = null
       throw e

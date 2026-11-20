@@ -7,7 +7,7 @@ import { cashSign, dayKey, groupBy, infos, periodPnl, psychology, riskStats, sum
 import type { Ctx, Group, TradeInfo } from '../journal/calc'
 import { journalCopy } from '../journal/copy'
 import type { JC } from '../journal/copy'
-import { allImages, blobToDataUrl, clearAll, dataUrlToBlob, deleteImage, loadState, putImage, saveState } from '../journal/db'
+import { allImages, blobToDataUrl, clearAll, dataUrlToBlob, deleteImage, isSafeImageDataUrl, loadState, putImage, saveState } from '../journal/db'
 import { livePrice, pairLabel, rate, isUnits } from '../journal/fx'
 import ImportPanel from '../journal/ImportPanel'
 import { checkTrade } from '../journal/autoclose'
@@ -445,7 +445,7 @@ export default function Journal({ lang }: { lang: Lang }) {
       if (j?.app !== 'winvest-journal' || !Array.isArray(j.accounts) || !Array.isArray(j.trades)) throw new Error('bad')
       const next: JournalState = { ...emptyState(), accounts: j.accounts, cash: Array.isArray(j.cash) ? j.cash : [], trades: j.trades.map((t: Trade) => ({ ...t, links: t.links ?? [], shots: t.shots ?? [], slMoves: t.slMoves ?? [], exits: t.exits ?? [], tps: t.tps ?? [] })), settings: { ...defaultSettings(), ...(j.settings || {}) } }
       await clearAll()
-      for (const [k, v] of Object.entries((j.images || {}) as Record<string, string>)) if (typeof v === 'string' && v.startsWith('data:image/')) await putImage(k, await dataUrlToBlob(v))
+      for (const [k, v] of Object.entries((j.images || {}) as Record<string, string>)) if (typeof v === 'string' && isSafeImageDataUrl(v)) await putImage(k, await dataUrlToBlob(v))
       setSaveOk(await saveState(next))
       setState(next)
       setMsg(c.settings.importOk)
