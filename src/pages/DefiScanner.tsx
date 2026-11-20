@@ -10,6 +10,9 @@ import { paths } from '../paths'
 import { safeUrl } from '../safeUrl'
 import { btn, PageHeader, pageWrap } from '../components/kit'
 import DefiMarket from '../markets/DefiMarket'
+import WhisperAsk from '../components/WhisperAsk'
+import * as W from '../shared/whisperContext'
+import { collect, usePart } from '../shared/whisperContext'
 
 export const scannerCopy = {
   en: {
@@ -187,6 +190,13 @@ function Stat({ label, children }: { label: string; children: ReactNode }) {
 function Token({ pairs, c, lang }: { pairs: Pair[]; c: C; lang: Lang }) {
   const p = pairs[0]
   const explorer = (CHAINS as Record<string, { explorer: string }>)[p.chainId]?.explorer
+  const liqAll = pairs.reduce((s, x) => s + (x.liquidity?.usd ?? 0), 0)
+  usePart('token', [
+    `Token ${p.baseToken.name} (${p.baseToken.symbol}) on ${chainName(p.chainId)}, contract ${p.baseToken.address} (DexScreener, ${W.hhmm()})`,
+    `Price ${p.priceUsd ?? 'n/a'} USD | 1h ${W.p(p.priceChange?.h1)} | 24h ${W.p(p.priceChange?.h24)} | volume 24h ${W.big(p.volume?.h24)} USD`,
+    `Liquidity ${W.big(p.liquidity?.usd)} USD in the main pool, ${W.big(liqAll)} USD across ${pairs.length} pools | market cap ${W.big(p.marketCap)} | FDV ${W.big(p.fdv)}`,
+    `Trades 24h: ${p.txns?.h24 ? `${p.txns.h24.buys} buys / ${p.txns.h24.sells} sells` : 'n/a'} | main pool created ${p.pairCreatedAt ? new Date(p.pairCreatedAt).toISOString().slice(0, 10) : 'n/a'}`,
+  ])
   return (
     <div>
       <div className="flex items-center gap-4">
@@ -214,6 +224,17 @@ function Token({ pairs, c, lang }: { pairs: Pair[]; c: C; lang: Lang }) {
       </div>
 
       <RiskReport key={p.chainId + p.baseToken.address} pairs={pairs} lang={lang} />
+      <div className="mt-4">
+        <WhisperAsk
+          lang={lang}
+          kind="scanner"
+          subject={`${p.baseToken.symbol} on ${chainName(p.chainId)}`}
+          lines={() => collect(['token', 'risk'])}
+          questions={lang === 'nl'
+            ? ['Leg de gevonden risico’s uit en hoe ernstig ze zijn.', `Vat de tokenomics en liquiditeit van ${p.baseToken.symbol} samen.`, 'Waar moet ik op letten voordat ik deze token koop?']
+            : ['Explain the risks that were found and how serious they are.', `Summarise the tokenomics and liquidity of ${p.baseToken.symbol}.`, 'What should I check before buying this token?']}
+        />
+      </div>
 
       {pairs.length > 1 ? (
         <section className="mt-8">
@@ -306,6 +327,16 @@ const SEV_TONE: Record<Sev, string> = {
 function RiskReport({ pairs, lang }: { pairs: Pair[]; lang: Lang }) {
   const t = RC[lang]
   const [r, setR] = useState<Report | null | 'error'>(null)
+  usePart(
+    'risk',
+    r && r !== 'error'
+      ? [
+          `Winvest risk check: grade ${r.grade}, risk score ${r.score}/100 (higher = riskier), ${r.checks} checks, sources ${r.sources.join(', ')}${r.failed.length ? `; failed: ${r.failed.join(', ')}` : ''}`,
+          ...r.findings.slice(0, 10).map((x) => `Finding [${x.sev}, ${x.cat}]: ${x.t.en}${x.d.en ? ` - ${x.d.en}` : ''}`),
+          ...(r.good.length ? [`Passed: ${r.good.slice(0, 6).map((g) => g.en).join('; ')}`] : []),
+        ]
+      : null,
+  )
   useEffect(() => {
     let on = true
     analyzeToken(pairs).then((x) => on && setR(x)).catch(() => on && setR('error'))
@@ -398,7 +429,8 @@ function TokenView({ view, c, lang, onBack }: { view: Extract<View, { s: 'token'
   )
 }
 
-function Results({ results, c }: { results: Result[]; c: C }) {
+const ADDR = /^(0x[0-9a-f]{6,}|[1-9A-HJ-NP-Za-km-z]{25,}|r[1-9A-HJ-NP-Za-km-z]{24,}|bc1[0-9a-z]{20,})/i
+function Results({ results, c, lang }: { results: Result[]; c: C; lang: Lang }) {
   return (
     <div className="grid gap-4">
       {results.map((r) => (
@@ -415,6 +447,19 @@ function Results({ results, c }: { results: Result[]; c: C }) {
               </div>
             ))}
           </dl>
+          <div className="mt-4">
+            <WhisperAsk
+              lang={lang}
+              kind="scanner"
+              subject={`${r.title} on ${CHAINS[r.chain as ChainId].name}`}
+              lines={() => [
+                `${r.title} on ${CHAINS[r.chain as ChainId].name} (public blockchain data, ${W.hhmm()}). Addresses removed.`,
+                ...r.rows.filter(([, v]) => !ADDR.test(String(v).trim())).map(([k, v]) => `${k}: ${v}`),
+                r.txs && r.txs.length ? `Recent transactions shown: ${r.txs.length}${r.txs[0]?.when ? `, latest ${r.txs[0].when}` : ''}` : '',
+              ].filter(Boolean)}
+              questions={lang === 'nl' ? ['Leg uit wat deze gegevens zeggen over de activiteit.', 'Zie je iets ongewoons of risicovols?'] : ['Explain what this data says about the activity.', 'Do you see anything unusual or risky?']}
+            />
+          </div>
           {r.txs && r.txs.length ? (
             <div className="mt-5">
               <h3 className="text-sm font-semibold text-white/80">{c.recent}</h3>
@@ -509,7 +554,7 @@ export default function DefiScanner({ lang }: { lang: Lang }) {
           {view.s === 'xdc-off' && <p className="text-white/60">{c.proxyMissing}</p>}
           {view.s === 'pairs' && <PairList pairs={view.pairs} c={c} onPick={(p) => void pick(p)} />}
           {view.s === 'token' && <TokenView view={view} c={c} lang={lang} onBack={(pairs) => setView({ s: 'pairs', pairs })} />}
-          {view.s === 'results' && <Results results={view.results} c={c} />}
+          {view.s === 'results' && <Results results={view.results} c={c} lang={lang} />}
         </div>
 
         <DefiMarket lang={lang} />

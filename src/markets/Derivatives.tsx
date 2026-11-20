@@ -7,6 +7,7 @@ import { cardBase } from '../components/kit'
 import type { Lang } from '../i18n'
 import DataStamp from './DataStamp'
 import { usdBig } from './pulse'
+import { big, hhmm, p, usePart } from '../shared/whisperContext'
 
 type Deriv = {
   source: 'Binance' | 'OKX'
@@ -106,6 +107,12 @@ export default function Derivatives({ lang, symbol, name }: { lang: Lang; symbol
     void load(sym).then((v) => alive && setD(v))
     return () => { alive = false }
   }, [symbol])
+  usePart(
+    'derivatives',
+    d
+      ? [`Derivatives (${d.source} ${symbol.toUpperCase()}/USDT perpetual, ${hhmm(d.at)}): funding ${p(d.funding * 100, 4)} per ${d.hours}h | open interest ${big(d.oiUsd)} USD${d.oiHist && d.oiHist.length > 7 ? ` (${p((d.oiUsd / d.oiHist[d.oiHist.length - 8] - 1) * 100)} 7d)` : ''}${d.longShare !== undefined ? ` | ${Math.round(d.longShare * 100)}% of accounts net long` : ''}`]
+      : null,
+  )
   if (!d) return null // loading, or no perpetual market for this coin
 
   const ratePct = d.funding * 100

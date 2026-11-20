@@ -17,6 +17,7 @@ import { ACCOUNT_CURRENCIES, defaultSettings, emptyState, uid } from '../journal
 import type { Account, AccountCurrency, CashMove, JournalState, Settings, Trade } from '../journal/types'
 import { Card, PageHeader, btn, pageWrap, tabCls } from '../components/kit'
 import MyWinvestTabs from '../components/MyWinvestTabs'
+import WhisperAsk from '../components/WhisperAsk'
 import IdeasPanel, { ideaDraft } from '../journal/IdeasPanel'
 import { loadIdeas, saveIdeas } from '../shared/ideas'
 
@@ -362,6 +363,19 @@ export default function Journal({ lang }: { lang: Lang }) {
   const pct = (v?: number, d = 1) => (v === undefined || !isFinite(v) ? '–' : `${v.toFixed(d)}%`)
   const per = periodPnl(sum.byDay, s.tz)
   const rk = riskStats(list, s)
+  // Context for "Ask Market Whisper": ratios and R only, never money or account size.
+  const whisperLines = () => {
+    if (!sum) return []
+    const closed = list.filter((x) => x.status === 'closed').slice(-20)
+    const grp = (g: ReturnType<typeof groupBy>) => g.filter((x) => x.n >= 2).slice(0, 6).map((x) => `${x.key} ${x.n} trades, win ${x.winRate === undefined ? 'n/a' : x.winRate.toFixed(0) + '%'}, avg ${x.avgR === undefined ? 'n/a' : x.avgR.toFixed(2) + 'R'}`).join('; ')
+    return [
+      `Trading journal (user's device): ${sum.closed} closed, ${sum.open} open | win rate ${sum.winRate === undefined ? 'n/a' : sum.winRate.toFixed(0) + '%'} (${sum.wins}W/${sum.losses}L/${sum.bes}BE) | profit factor ${sum.profitFactor === undefined ? 'n/a' : isFinite(sum.profitFactor) ? sum.profitFactor.toFixed(2) : 'inf'} | avg result ${sum.avgR === undefined ? 'n/a' : sum.avgR.toFixed(2) + 'R'} | avg planned R:R ${sum.avgPlannedRR === undefined ? 'n/a' : '1:' + sum.avgPlannedRR.toFixed(2)} | max drawdown ${sum.maxDdPct.toFixed(1)}%`,
+      `Last ${closed.length} closed trades: ${closed.map((x) => `${pairLabel(x.t.pair)} ${x.t.direction} ${x.result}${x.r !== undefined ? ' ' + x.r.toFixed(1) + 'R' : ''}${x.t.setup ? ' [' + x.t.setup.slice(0, 30) + ']' : ''}${x.t.emotion ? ' (' + x.t.emotion + ')' : ''}`).join(', ')}`,
+      grp(groupBy(list, (x) => x.t.setup)) ? `By setup: ${grp(groupBy(list, (x) => x.t.setup))}` : '',
+      grp(groupBy(list, (x) => x.t.emotion)) ? `By emotion: ${grp(groupBy(list, (x) => x.t.emotion))}` : '',
+      grp(groupBy(list, (x) => x.t.plan)) ? `By plan: ${grp(groupBy(list, (x) => x.t.plan))}` : '',
+    ].filter(Boolean)
+  }
   const ins = psychology(list)
   const accById = new Map(state.accounts.map((a) => [a.id, a]))
   const conv = (x: TradeInfo) => rates[accById.get(x.t.accountId)?.currency ?? 'USD'] ?? 1
@@ -500,6 +514,19 @@ export default function Journal({ lang }: { lang: Lang }) {
                   <Kpi label={c.kpi.maxDd} value={pct(sum.maxDdPct)} cls={sum.maxDdPct < -20 ? 'text-[var(--wc-red-soft)]' : sum.maxDdPct < -10 ? 'text-amber-300' : ''} sub={money(-sum.maxDdAbs)} />
                 </div>
                 <p className="-mt-1 text-xs text-white/40">{c.kpi.balanceNote}{!sum.floatingKnown ? ` ${c.kpi.floatingUnknown}` : ''}</p>
+                {sum.closed >= 3 ? (
+                  <div className="flex justify-end">
+                    <WhisperAsk
+                      lang={lang}
+                      kind="journal"
+                      subject={lang === 'nl' ? 'Mijn trading journal' : 'My trading journal'}
+                      lines={whisperLines}
+                      questions={lang === 'nl'
+                        ? ['Beoordeel mijn laatste trades: wat gaat goed en wat niet?', 'Welke patronen zie je in mijn setups en emoties?', 'Waar verlies ik het meest en wat kan ik daaraan doen?']
+                        : ['Review my recent trades: what works and what does not?', 'Which patterns do you see in my setups and emotions?', 'Where do I lose most and what can I do about it?']}
+                    />
+                  </div>
+                ) : null}
                 <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
                   {([['today', per.day], ['week', per.week], ['month', per.month], ['year', per.year]] as const).map(([k, v]) => <Kpi key={k} label={c.kpi[k]} value={money(v)} cls={toneCls(v)} />)}
                 </div>

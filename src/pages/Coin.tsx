@@ -16,6 +16,8 @@ import AssetActions from '../components/AssetActions'
 import { CoinNews, Technicals } from '../markets/AssetInsights'
 import DataStamp from '../markets/DataStamp'
 import Derivatives from '../markets/Derivatives'
+import * as W from '../shared/whisperContext'
+import { usePart } from '../shared/whisperContext'
 
 /** Static facts, from the snapshot (prerendered pages) or from the live CoinGecko answer. */
 export type CoinFacts = {
@@ -571,6 +573,18 @@ export default function Coin({ lang, id: fixedId }: { lang: Lang; id?: string })
   const f = facts
   const m = live
   const supplyPct = m && m.max && m.circ ? (m.circ / m.max) * 100 : null
+  // context for "Ask Market Whisper" (no extra requests: the figures shown on this page)
+  usePart(
+    'coin',
+    f && m
+      ? [
+          `Price ${W.n(m.price, m.price < 1 ? 6 : 2)} USD (CoinGecko, ${W.hhmm(liveAt ?? undefined)}) | 24h ${W.p(m.ch24)} | 7d ${W.p(m.ch7)} | 30d ${W.p(m.ch30)} | 1y ${W.p(m.ch1y)}`,
+          `Market cap ${W.big(m.mcap)} USD${m.rank ? ` (rank #${m.rank})` : ''} | Volume 24h ${W.big(m.vol)} USD${m.low && m.high ? ` | 24h range ${W.n(m.low)}-${W.n(m.high)}` : ''}`,
+          `Supply: circulating ${W.big(m.circ)}${m.max ? ` (${W.n(supplyPct, 1)}% of max ${W.big(m.max)})` : m.total ? ` of total ${W.big(m.total)}` : ''}${m.fdv && m.mcap ? ` | FDV/MC ${W.n(m.fdv / m.mcap)}` : ''}`,
+          `All-time high ${W.n(m.ath)} USD (${m.athDate.slice(0, 10)}), now ${W.p(m.athCh)} from it`,
+        ]
+      : null,
+  )
   const dash = '–'
 
   return (

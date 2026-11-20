@@ -16,6 +16,7 @@ import { useWatchlists } from '../shared/watchlist'
 import type { WatchItem } from '../shared/watchlist'
 import { AssetBadge, AssetSearch } from '../shared/AssetPicker'
 import MyWinvestTabs from '../components/MyWinvestTabs'
+import WhisperAsk from '../components/WhisperAsk'
 
 // EvilCharts (Recharts) only downloads when the portfolio overview is shown.
 const ValueChart = lazy(() => import('../portfolio/Charts').then((m) => ({ default: m.ValueChart })))
@@ -743,6 +744,21 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   const secTotal = secSorted.reduce((s, [, v]) => s + v, 0)
   const secParts = secSorted.slice(0, 9).map(([k, value], i) => ({ label: secLabel(k), value, color: PALETTE[i % PALETTE.length] }))
   const secRest = secSorted.slice(9).reduce((s, [, v]) => s + v, 0)
+  // Context for "Ask Market Whisper": shares and returns only, never amounts, wallets or transactions.
+  const whisperLines = () => {
+    const share = (v: number, t: number) => (t > 0 ? ((v / t) * 100).toFixed(1) + '%' : 'n/a')
+    const lastBench = benchRows[benchRows.length - 1]
+    return [
+      `Holdings by weight: ${allocSorted.slice(0, 12).map(([k, v]) => `${k} ${share(v, grandTotal)}`).join(', ')}${allocSorted.length > 12 ? `, ${allocSorted.length - 12} more` : ''}`,
+      `By type: Bitcoin ${share(split.btc, splitTotal)}, altcoins ${share(split.alts, splitTotal)}, stablecoins ${share(split.stables, splitTotal)}, stocks ${share(split.stocks, splitTotal)}`,
+      `By sector: ${secSorted.slice(0, 8).map(([k, v]) => `${secLabel(k)} ${share(v, secTotal)}`).join(', ')}`,
+      div ? `Concentration: ${div.positions} positions, largest ${div.largest.toFixed(1)}%, top 3 ${div.top3.toFixed(1)}%, effective number of positions ${div.effective.toFixed(1)}` : '',
+      `Returns (time-weighted): ${per.map((x) => `${x.label} ${x.pct === undefined ? 'n/a' : (x.pct >= 0 ? '+' : '') + x.pct.toFixed(1) + '%'}`).join(', ')}`,
+      `Max drawdown ${dd.max.toFixed(1)}%, now ${dd.current.toFixed(1)}% from peak${vol !== undefined ? `, volatility ${vol.toFixed(0)}% a year` : ''}`,
+      lastBench ? `Since start vs holding: portfolio ${lastBench.you >= 0 ? '+' : ''}${lastBench.you}%, BTC ${lastBench.btc ?? 'n/a'}%, ETH ${lastBench.eth ?? 'n/a'}%` : '',
+      `Base currency ${base}. Data: Winvest Portfolio Tracker on the user's device.`,
+    ].filter(Boolean)
+  }
   // Dividends received per stock (shares held on the day before the ex-date)
   const nowMs = Date.now()
   const yearAgo = nowMs - 365 * 864e5
@@ -824,6 +840,19 @@ export default function Portfolio({ lang }: { lang: Lang }) {
         {/* ---------------- OVERVIEW ---------------- */}
         {tab === 'overview' && (
           <div className="mt-6 grid gap-4">
+            {grandTotal > 0 ? (
+              <div className="flex justify-end">
+                <WhisperAsk
+                  lang={lang}
+                  kind="portfolio"
+                  subject={lang === 'nl' ? 'Mijn portfolio' : 'My portfolio'}
+                  lines={whisperLines}
+                  questions={lang === 'nl'
+                    ? ['Beoordeel mijn spreiding en concentratierisico.', 'Verklaar mijn rendement en de grootste invloeden.', 'Welke marktontwikkelingen zijn relevant voor mijn grootste posities?']
+                    : ['Review my allocation and concentration risk.', 'Explain my performance and its main drivers.', 'Which market developments matter for my largest holdings?']}
+                />
+              </div>
+            ) : null}
             {!data.txs.length && data.wallets.length ? (
               <>
                 <div className="grid gap-4 sm:grid-cols-2">

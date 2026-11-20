@@ -2,11 +2,12 @@
 // Add to portfolio (prefilled), Plan trade (position size with the live price), Check contract
 // (DeFi scanner), Ask Market Whisper (Discord). Watch is the star in the page header.
 import { useRef, useState } from 'react'
-import { DISCORD_URL } from '../config'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import LotSizeCalculator from './LotSizeCalculator'
 import { Icon } from './nav'
+import WhisperAsk from './WhisperAsk'
+import { collect } from '../shared/whisperContext'
 import { newIdeaId, saveIdeas, loadIdeas } from '../shared/ideas'
 
 const copy = {
@@ -66,9 +67,7 @@ export default function AssetActions({ lang, id, name, symbol, price, contract, 
   const c = copy[lang]
   const p = paths[lang]
   const planRef = useRef<HTMLDialogElement>(null)
-  const askRef = useRef<HTMLDialogElement>(null)
   const [planOpen, setPlanOpen] = useState(false)
-  const [copied, setCopied] = useState(false)
   const levels = useRef<{ entry: number; stop: number; units?: number }>({ entry: NaN, stop: NaN })
   const [tp, setTp] = useState('')
   const [ideaNote, setIdeaNote] = useState('')
@@ -94,11 +93,6 @@ export default function AssetActions({ lang, id, name, symbol, price, contract, 
     document.documentElement.classList.add('wc-modal')
   }
   const onClose = () => document.documentElement.classList.remove('wc-modal')
-  const ask = () => {
-    setCopied(false)
-    void navigator.clipboard?.writeText(c.question(name, symbol)).then(() => setCopied(true)).catch(() => {})
-    open(askRef.current)
-  }
   const dlg = 'wc-dialog m-auto w-[min(34rem,calc(100vw-2rem))] max-h-[90vh] overflow-y-auto rounded-2xl border border-white/15 bg-[var(--wc-panel)] p-5 text-white shadow-2xl shadow-black/60'
 
   return (
@@ -106,7 +100,15 @@ export default function AssetActions({ lang, id, name, symbol, price, contract, 
       <a href={`${p.portfolio}?add=${encodeURIComponent(id)}`} className={chip}><Icon name="portfolio" size={16} className="text-[var(--wc-red)]" />{c.add}</a>
       <button type="button" onClick={() => { setPlanOpen(true); open(planRef.current) }} className={chip}><Icon name="calc" size={16} className="text-[var(--wc-red)]" />{c.plan}</button>
       {contract ? <a href={`${p.scanner}?q=${encodeURIComponent(contract)}`} className={chip}><Icon name="scan" size={16} className="text-[var(--wc-red)]" />{c.check}</a> : null}
-      <button type="button" onClick={ask} className={chip}><Icon name="whisper" size={16} className="text-[var(--wc-red)]" />{c.ask}</button>
+      <WhisperAsk
+        lang={lang}
+        kind="coin"
+        subject={`${name} (${symbol})`}
+        lines={() => collect(['coin', 'derivatives', 'news'])}
+        questions={lang === 'nl'
+          ? [`Analyseer ${name}: trend, drijfveren en risico's.`, `Verklaar de koersbeweging van ${name} in de laatste 24 uur.`, `Vat de laatste ontwikkelingen rond ${name} samen.`, `Vergelijk ${name} met Bitcoin.`]
+          : [`Analyse ${name}: trend, key drivers and risks.`, `Explain the price move of ${name} over the last 24 hours.`, `Summarise the latest developments around ${name}.`, `Compare ${name} with Bitcoin.`]}
+      />
 
       <dialog ref={planRef} onClose={() => { onClose(); setPlanOpen(false) }} aria-label={c.planH(symbol)} className={dlg}>
         <div className="flex items-start justify-between gap-3">
@@ -129,20 +131,6 @@ export default function AssetActions({ lang, id, name, symbol, price, contract, 
         </div>
       </dialog>
 
-      <dialog ref={askRef} onClose={onClose} aria-label={c.askH} className={dlg}>
-        <div className="flex items-start justify-between gap-3">
-          <h2 className="text-lg font-bold">{c.askH}</h2>
-          <button type="button" onClick={() => askRef.current?.close()} className="text-sm font-semibold text-white/60 hover:text-white">{c.close}</button>
-        </div>
-        <p className="mt-2 text-sm text-white/70">{c.askP(name)}</p>
-        <p className="mt-3 rounded-xl border border-white/10 bg-white/[0.04] p-3 text-sm text-white/85">“{c.question(name, symbol)}”</p>
-        {copied ? <p className="mt-2 text-xs text-emerald-300">✓ {c.copied}</p> : null}
-        <div className="mt-4 flex flex-wrap gap-2">
-          <a href={DISCORD_URL} target="_blank" rel="noopener" className="rounded-full bg-[var(--wc-red)] px-5 py-2.5 text-sm font-semibold text-white hover:brightness-110">{c.openDiscord}</a>
-          <a href={p.whisper} className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold hover:border-white/50">{c.what}</a>
-        </div>
-        <p className="mt-3 text-xs text-white/40">{c.note}</p>
-      </dialog>
     </div>
   )
 }

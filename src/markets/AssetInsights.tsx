@@ -8,6 +8,7 @@ import { DEFI_PROXY_URL } from '../config'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import DataStamp, { LoadState, timeOf } from './DataStamp'
+import { usePart } from '../shared/whisperContext'
 
 const card = `${cardBase} p-4 sm:p-5`
 
@@ -68,6 +69,7 @@ export function CoinNews({ lang, name, symbol }: { lang: Lang; name: string; sym
       () => setErr(true),
     )
   }, [name, symbol])
+  usePart('news', rows && rows.length ? rows.slice(0, 3).map((x) => `Headline: "${x.title}" (${x.source}, ${new Date(x.published).toISOString().slice(0, 16).replace('T', ' ')} UTC)`) : null)
   return (
     <section id="news" className={`${card} scroll-mt-24`}>
       <div className="flex items-baseline justify-between gap-3">
