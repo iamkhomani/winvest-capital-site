@@ -32,8 +32,12 @@ async function evmHolders(platform, address) {
   const { chain, host } = EVM[platform]
   const tok = await getJson(`${host}/api/v2/tokens/${address}`)
   const list = await getJson(`${host}/api/v2/tokens/${address}/holders`)
-  const supply = units(tok.total_supply, tok.decimals)
-  const items = (list.items || []).map((i) => ({
+  // Burned tokens (sent to the zero or 0x…dead address) no longer exist: leave them out of holders and supply.
+  const burn = /^0x0{36}(0{4}|dead)$/i
+  const all = list.items || []
+  const burned = all.filter((i) => burn.test(i.address?.hash || '')).reduce((s, i) => s + units(i.value, tok.decimals), 0)
+  const supply = units(tok.total_supply, tok.decimals) - burned
+  const items = all.filter((i) => !burn.test(i.address?.hash || '')).map((i) => ({
     share: supply > 0 ? units(i.value, tok.decimals) / supply : 0,
     label: i.address?.name || (i.address?.public_tags || [])[0]?.display_name || short(i.address?.hash || ''),
     contract: !!i.address?.is_contract,
