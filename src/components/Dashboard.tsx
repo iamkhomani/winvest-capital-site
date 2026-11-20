@@ -14,8 +14,8 @@ import { useAlerts } from '../shared/alerts'
 import { useIdeas } from '../shared/ideas'
 import { alertText } from './AlertWatcher'
 
-type CardId = 'start' | 'myday' | 'alerts' | 'watch' | 'ideas' | 'activity' | 'news'
-const ALL: CardId[] = ['start', 'myday', 'alerts', 'watch', 'ideas', 'activity', 'news']
+type CardId = 'start' | 'myday' | 'brief' | 'alerts' | 'watch' | 'ideas' | 'activity' | 'news'
+const ALL: CardId[] = ['start', 'myday', 'brief', 'alerts', 'watch', 'ideas', 'activity', 'news']
 const PREF = 'wc-dash-v1'
 const ALERT_PCT = 5
 
@@ -28,7 +28,7 @@ const copy = {
     show: 'Show',
     up: 'Move up',
     down: 'Move down',
-    names: { start: 'Getting started', myday: 'My day', alerts: 'Alerts', watch: 'Watchlist', ideas: 'Trade ideas', activity: 'Recent activity', news: 'Headlines' } as Record<CardId, string>,
+    names: { start: 'Getting started', myday: 'My day', brief: 'Market Debrief', alerts: 'Alerts', watch: 'Watchlist', ideas: 'Trade ideas', activity: 'Recent activity', news: 'Headlines' } as Record<CardId, string>,
     steps: ['Follow 3 coins or stocks with ☆', 'Add a first transaction or trade', 'Read a first lesson'],
     stepLinks: ['Go to Markets', 'Open the portfolio', 'Open the lessons'],
     portfolio: 'Portfolio',
@@ -55,7 +55,7 @@ const copy = {
     show: 'Tonen',
     up: 'Omhoog',
     down: 'Omlaag',
-    names: { start: 'Aan de slag', myday: 'Mijn dag', alerts: 'Meldingen', watch: 'Watchlist', ideas: 'Trade-ideeën', activity: 'Recente activiteit', news: 'Nieuws' } as Record<CardId, string>,
+    names: { start: 'Aan de slag', myday: 'Mijn dag', brief: 'Market Debrief', alerts: 'Meldingen', watch: 'Watchlist', ideas: 'Trade-ideeën', activity: 'Recente activiteit', news: 'Nieuws' } as Record<CardId, string>,
     steps: ['Volg 3 munten of aandelen met ☆', 'Voeg een eerste transactie of trade toe', 'Lees een eerste les'],
     stepLinks: ['Naar Markten', 'Open de portfolio', 'Open de lessen'],
     portfolio: 'Portfolio',
@@ -120,6 +120,18 @@ export default function Dashboard({ lang }: { lang: Lang }) {
   const [q, setQ] = useState<Record<string, Quote>>({})
   const [news, setNews] = useState<{ id: string; title: string; url: string; source: string }[] | null>(null)
   const [read, setRead] = useState(false)
+  // Market Whisper Debrief teaser (decision 37): time plus one headline per market, written by the bot
+  // after the 19:00 Debrief. No AI call here; hidden when the file is missing or older than 36 hours.
+  const [brief, setBrief] = useState<{ generated: string; markets: { market: string; headline: string }[]; events?: { time: string; title: string }[] } | null>(null)
+  useEffect(() => {
+    fetch('https://media.winvestcapital.nl/teaser.json', { signal: AbortSignal.timeout(10000) })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => {
+        if (!j || !Array.isArray(j.markets) || Date.now() - Date.parse(j.generated) > 36 * 36e5) return
+        setBrief({ generated: String(j.generated), markets: j.markets.slice(0, 3).filter((x: { market?: unknown; headline?: unknown }) => typeof x.market === 'string' && typeof x.headline === 'string'), events: Array.isArray(j.events) ? j.events.slice(0, 3) : undefined })
+      })
+      .catch(() => {})
+  }, [])
 
   useEffect(() => {
     setPref(loadPref())
@@ -234,6 +246,7 @@ export default function Dashboard({ lang }: { lang: Lang }) {
     ideas: openIdeas.length > 0,
     activity: !!me && (me.recentTx.length > 0 || me.recentTrades.length > 0),
     news: !!news && news.length > 0,
+    brief: !!brief && brief.markets.length > 0,
   }
 
   const body = (id: CardId) => {
@@ -321,6 +334,17 @@ export default function Dashboard({ lang }: { lang: Lang }) {
               <li key={'j' + k} className="flex gap-2"><span className="w-20 shrink-0 text-white/45 tabular-nums">{new Date(t.time).toLocaleDateString(locale, { day: 'numeric', month: 'short' })}</span><span>{c.trade} <a href={p.journal} className="font-semibold hover:underline">{t.pair}</a> · {t.open ? c.open : <span className={t.pnl >= 0 ? 'text-emerald-400' : 'text-[var(--wc-red-soft)]'}>{t.ccy ? money(t.pnl, t.ccy) : t.pnl.toFixed(2)}</span>}</span></li>
             ))}
           </ul>
+        ) : null
+      case 'brief':
+        return brief ? (
+          <div className="mt-2 text-sm">
+            <p className="text-xs text-white/45">{new Date(brief.generated).toLocaleString(locale, { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}</p>
+            <ul className="mt-2 space-y-1.5">
+              {brief.markets.map((m) => <li key={m.market}><span className="font-semibold">{m.market}:</span> <span className="text-white/80">{m.headline}</span></li>)}
+            </ul>
+            {brief.events && brief.events.length ? <p className="mt-2 text-xs text-white/55">{lang === 'nl' ? 'Vandaag op de kalender' : 'On the calendar today'}: {brief.events.map((e) => `${e.time} ${e.title}`).join(' · ')}</p> : null}
+            <a href={p.products} className="mt-3 inline-block text-xs font-semibold text-[var(--wc-red-soft)] hover:underline">{lang === 'nl' ? 'Volledige Debrief in de One Percent Club' : 'Full Debrief in the One Percent Club'} →</a>
+          </div>
         ) : null
       default:
         return (
