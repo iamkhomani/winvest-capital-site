@@ -8,7 +8,7 @@ import type { Ctx, Group, TradeInfo } from '../journal/calc'
 import { journalCopy } from '../journal/copy'
 import type { JC } from '../journal/copy'
 import { allImages, blobToDataUrl, clearAll, dataUrlToBlob, deleteImage, loadState, putImage, saveState } from '../journal/db'
-import { livePrice, pairLabel, rate } from '../journal/fx'
+import { livePrice, pairLabel, rate, isUnits } from '../journal/fx'
 import ImportPanel from '../journal/ImportPanel'
 import { checkTrade } from '../journal/autoclose'
 import { fmtDateTime, nowWall, TIMEZONES, wallToIso } from '../journal/time'
@@ -537,7 +537,7 @@ export default function Journal({ lang }: { lang: Lang }) {
                     <ul className="mt-3 divide-y divide-white/5 text-sm">
                       {openList.map((x) => (
                         <li key={x.t.id} className="flex flex-wrap items-center justify-between gap-3 py-2">
-                          <button type="button" onClick={() => setForm({ trade: x.t })} className="text-left"><span className="font-semibold">{pairLabel(x.t.pair)}</span> <span className="text-white/50">{x.t.direction === 'buy' ? c.buy : c.sell} · {+x.openLots.toFixed(3)} lots @ {x.t.entry}</span></button>
+                          <button type="button" onClick={() => setForm({ trade: x.t })} className="text-left"><span className="font-semibold">{pairLabel(x.t.pair)}</span> <span className="text-white/50">{x.t.direction === 'buy' ? c.buy : c.sell} · {isUnits(x.t.pair) ? `${+x.openLots.toPrecision(6)} ${pairLabel(x.t.pair).split('/')[0]}` : `${+x.openLots.toFixed(3)} lots`} @ {x.t.entry}</span></button>
                           <span className="text-white/60">{c.cols.price}: {live[x.t.pair] ?? x.t.mark ?? '–'}</span>
                           <span className={`font-semibold tabular-nums ${toneCls(x.floating)}`}>{x.floating === undefined ? '–' : money(x.floating * conv(x))}</span>
                         </li>

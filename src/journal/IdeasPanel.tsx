@@ -76,7 +76,7 @@ export default function IdeasPanel({ lang, canRecord, onRecord }: { lang: Lang; 
                 {i.kind === 'crypto' && i.assetId ? <a href={coinHref(lang, i.assetId)} className="font-semibold hover:underline">{i.symbol}</a> : <span className="font-semibold">{i.symbol}</span>}{' '}
                 {isTradeIdea(i) ? (
                   <span className="text-white/70">
-                    <span className={i.direction === 'buy' ? 'text-emerald-400' : 'text-[var(--wc-red-soft)]'}>{i.direction === 'buy' ? c.long : c.short}</span> · entry {fmt(i.entry)} · SL {fmt(i.sl)}{i.tp ? ` · TP ${fmt(i.tp)}` : ''}{i.qty ? ` · ${c.qty(fmt(i.qty))}` : ''} {i.quote}
+                    <span className={i.direction === 'buy' ? 'text-emerald-400' : 'text-[var(--wc-red-soft)]'}>{i.direction === 'buy' ? c.long : c.short}</span> · entry {fmt(i.entry)} · SL {fmt(i.sl)}{i.tp ? ` · TP ${fmt(i.tp)}` : ''} {i.quote}{i.qty ? ` · ${c.qty(`${+i.qty.toPrecision(4)} ${i.symbol}`)}` : ''}
                   </span>
                 ) : (
                   <span className="text-white/50">· {c.note}</span>
