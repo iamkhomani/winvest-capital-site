@@ -19,6 +19,7 @@ import Products, { productsCopy } from './pages/Products'
 import Terminal, { terminalCopy } from './pages/Terminal'
 import TerminalApp from './pages/TerminalApp'
 import Coin from './pages/Coin'
+import News, { newsCopy } from './pages/News'
 import { COIN_INDEX } from './markets/coins'
 import Journal from './pages/Journal'
 import { journalCopy } from './journal/copy'
@@ -141,6 +142,15 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
     description: partnersCopy[lang].description,
     jsonLd: [crumbs([['Home', p.home], ['Partners', p.partners]])],
     element: wrap(lang, o.partners, <Partners lang={lang} />),
+  }
+  const news: Route = {
+    path: p.news,
+    alternate: o.news,
+    lang,
+    title: newsCopy[lang].metaTitle,
+    description: newsCopy[lang].description,
+    jsonLd: [crumbs([['Home', p.home], [newsCopy[lang].h1, p.news]])],
+    element: wrap(lang, o.news, <News lang={lang} />),
   }
   const scanner: Route = {
     path: p.scanner,
@@ -282,7 +292,7 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
     jsonLd: [crumbs([['Home', p.home], [L ? 'Markten' : 'Markets', p.markets], [x.name, `${p.markets}${x.id}/`]])],
     element: wrap(lang, `${o.markets}${x.id}/`, <Coin lang={lang} id={x.id} />),
   }))
-  return [home, products, calculator, markets, coin, ...coinPages, portfolio, journal, whisper, terminal, terminalApp, scanner, partners, learn, ...arts, ...docs, welcome]
+  return [home, products, calculator, markets, news, coin, ...coinPages, portfolio, journal, whisper, terminal, terminalApp, scanner, partners, learn, ...arts, ...docs, welcome]
 })
 
 export function findRoute(pathname: string): Route | undefined {

@@ -28,6 +28,7 @@ const ICONS = {
   partners: <path d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM16 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2 20a6 6 0 0 1 12 0M12 20a6 6 0 0 1 10 0" />,
   discord: <path d="M8 6.5A14 14 0 0 1 12 6c1.4 0 2.8.2 4 .5M5 17c2 1.4 4.4 2 7 2s5-.6 7-2c.6-3.6.2-7.2-1.6-10.4C16.6 5.6 14.3 5 14 5l-.6 1.3M10.6 6.3 10 5c-.3 0-2.6.6-4.4 1.6C3.8 9.8 3.4 13.4 4 17M9 13h.01M15 13h.01" />,
   more: <path d="M5 12h.01M12 12h.01M19 12h.01" />,
+  news: <path d="M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-2 2M8 9h5M8 13h5M8 16h3" />,
   search: <path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4" />,
   menu: <path d="M4 7h16M4 12h16M4 17h16" />,
   close: <path d="M6 6l12 12M18 6 6 18" />,
@@ -73,6 +74,7 @@ export function navGroups(lang: Lang): NavGroup[] {
       id: 'tools',
       label: nl ? 'Gratis tools' : 'Free tools',
       items: [
+        { label: nl ? 'Marktnieuws' : 'Market news', href: p.news, icon: 'news', hint: nl ? 'Crypto, forex en aandelen, elke 10 min' : 'Crypto, forex and stocks, every 10 min', free: true },
         { label: nl ? 'Markten' : 'Markets', href: p.markets, icon: 'markets', hint: nl ? 'Koersen, sentiment, trends en heatmaps' : 'Prices, sentiment, trends and heatmaps', free: true },
         { label: 'Portfolio tracker', href: p.portfolio, icon: 'portfolio', hint: nl ? 'Je beleggingen op één plek' : 'All your holdings in one place', free: true },
         { label: 'Trading journal', href: p.journal, icon: 'journal', hint: nl ? 'Leg je trades vast en leer ervan' : 'Log your trades and learn from them', free: true },

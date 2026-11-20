@@ -6,6 +6,8 @@
 //   POST /rpc/xdc                 -> public XDC nodes (JSON-RPC, read-only methods)
 //   GET  /stock/chart/<symbol>    -> Yahoo Finance daily chart (?range=5d|1mo|1y|2y), for the portfolio tracker
 //   GET  /stock/search?q=<text>   -> Yahoo Finance symbol search
+//   GET  /news                    -> latest headlines from publisher RSS feeds (crypto, forex and macro, stocks),
+//                                    the same feeds Market Whisper posts in Discord. Headline, source, time and link only.
 
 const ALLOWED_ORIGINS = ['https://winvestcapital.nl', 'https://www.winvestcapital.nl', 'http://localhost:5173', 'http://localhost:3000']
 // Several public XDC nodes: the first one that answers is used.
@@ -22,6 +24,75 @@ function cors(origin) {
 
 function json(data, status, origin) {
   return new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json', ...cors(origin) } })
+}
+
+// ---- News: publisher RSS feeds, same list as Market Whisper (news_channels.py) ----
+const NEWS_FEEDS = {
+  crypto: [['Cointelegraph', 'https://cointelegraph.com/rss'], ['CoinDesk', 'https://www.coindesk.com/arc/outboundfeeds/rss/?outputType=xml'], ['Decrypt', 'https://decrypt.co/feed'], ['The Block', 'https://www.theblock.co/rss.xml']],
+  forex: [['FXStreet', 'https://www.fxstreet.com/rss/news'], ['investingLive', 'https://investinglive.com/feed/'], ['Investing.com', 'https://www.investing.com/rss/news_1.rss']],
+  stocks: [['CNBC', 'https://www.cnbc.com/id/100003114/device/rss/rss.html'], ['CNBC Investing', 'https://www.cnbc.com/id/15839069/device/rss/rss.html'], ['MarketWatch', 'https://feeds.content.dowjones.io/public/rss/mw_topstories']],
+}
+const NEWS_TTL = 600 // seconds
+const NEWS_MAX_AGE = 48 * 3600 * 1000
+const NEWS_PER_CATEGORY = 30
+
+const decode = (t) =>
+  t
+    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#0?39;|&apos;|&#8217;/g, "'").replace(/&#8216;/g, "'").replace(/&#8220;|&#8221;/g, '"').replace(/&#8211;/g, '-').replace(/&#8212;/g, '-').replace(/&nbsp;/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+const tag = (xml, name) => {
+  const m = xml.match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)</${name}>`, 'i'))
+  return m ? decode(m[1]) : ''
+}
+async function hashId(text) {
+  const d = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(text.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 80)))
+  return [...new Uint8Array(d)].slice(0, 10).map((b) => b.toString(16).padStart(2, '0')).join('')
+}
+
+async function fetchFeed(category, source, feedUrl) {
+  try {
+    const r = await fetch(feedUrl, { headers: { 'User-Agent': 'winvestcapital.nl news (+https://winvestcapital.nl)', Accept: 'application/rss+xml, application/xml, text/xml' }, cf: { cacheTtl: NEWS_TTL } })
+    if (!r.ok) return []
+    const xml = await r.text()
+    const out = []
+    for (const m of xml.matchAll(/<item[\s>][\s\S]*?<\/item>/gi)) {
+      const it = m[0]
+      const title = tag(it, 'title').slice(0, 220)
+      const link = tag(it, 'link') || (it.match(/<link[^>]*href="([^"]+)"/i) || [])[1] || ''
+      const t = Date.parse(tag(it, 'pubDate') || tag(it, 'dc:date'))
+      if (!title || !/^https:\/\//.test(link) || !Number.isFinite(t)) continue
+      out.push({ id: await hashId(title), category, title, url: link, source, published: t })
+    }
+    return out
+  } catch {
+    return []
+  }
+}
+
+async function news(ctx, origin) {
+  const cache = caches.default
+  const key = new Request('https://cache.winvest/news-v1')
+  const hit = await cache.match(key)
+  if (hit) return new Response(hit.body, { status: 200, headers: { 'Content-Type': 'application/json', 'X-Cache': 'HIT', ...cors(origin) } })
+  const jobs = Object.entries(NEWS_FEEDS).flatMap(([cat, feeds]) => feeds.map(([src, u]) => fetchFeed(cat, src, u)))
+  const all = (await Promise.all(jobs)).flat()
+  const now = Date.now()
+  const seen = new Set()
+  const items = all
+    .filter((x) => x.published > now - NEWS_MAX_AGE && x.published < now + 600000)
+    .sort((a, b) => b.published - a.published)
+    .filter((x) => (seen.has(x.id) ? false : (seen.add(x.id), true)))
+  const per = {}
+  const kept = items.filter((x) => (per[x.category] = (per[x.category] || 0) + 1) <= NEWS_PER_CATEGORY)
+  const body = JSON.stringify({ updated: now, items: kept })
+  if (kept.length) {
+    const res = new Response(body, { headers: { 'Content-Type': 'application/json', 'Cache-Control': `public, max-age=${NEWS_TTL}` } })
+    if (ctx) ctx.waitUntil(cache.put(key, res))
+  }
+  return new Response(body, { status: kept.length ? 200 : 502, headers: { 'Content-Type': 'application/json', ...cors(origin) } })
 }
 
 export default {
@@ -69,6 +140,8 @@ export default {
       }
       return json({ error: 'upstream failed', last }, 502, origin)
     }
+
+    if (request.method === 'GET' && url.pathname === '/news') return news(ctx, origin)
 
     // EVM JSON-RPC (XDC): only read-only methods
     const m = url.pathname.match(/^\/rpc\/([a-z]+)$/)
