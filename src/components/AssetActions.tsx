@@ -7,6 +7,7 @@ import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import LotSizeCalculator from './LotSizeCalculator'
 import { Icon } from './nav'
+import { newIdeaId, saveIdeas, loadIdeas } from '../shared/ideas'
 
 const copy = {
   en: {
@@ -24,6 +25,14 @@ const copy = {
     openDiscord: 'Open Discord',
     what: 'What is Market Whisper?',
     note: 'Educational only, not financial advice.',
+    ideaH: 'Save as trade idea',
+    tp: 'Take profit (optional)',
+    ideaNote: 'Note (optional): why this trade, what invalidates it',
+    saveIdea: 'Save trade idea',
+    saveNote: 'Save note only',
+    saved: 'Saved. Find it in your journal under Trade ideas.',
+    open: 'Open journal',
+    needLevels: 'Fill in entry and stop first, or save the note only.',
   },
   nl: {
     add: 'Toevoegen aan portfolio',
@@ -40,18 +49,46 @@ const copy = {
     openDiscord: 'Open Discord',
     what: 'Wat is Market Whisper?',
     note: 'Uitsluitend educatief, geen financieel advies.',
+    ideaH: 'Bewaren als trade-idee',
+    tp: 'Take profit (optioneel)',
+    ideaNote: 'Notitie (optioneel): waarom deze trade, wat maakt hem ongeldig',
+    saveIdea: 'Trade-idee bewaren',
+    saveNote: 'Alleen notitie bewaren',
+    saved: 'Bewaard. Je vindt het in je journal onder Trade-ideeën.',
+    open: 'Open journal',
+    needLevels: 'Vul eerst entry en stop in, of bewaar alleen de notitie.',
   },
 }
 
 const chip = 'inline-flex shrink-0 items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white/85 transition hover:border-white/40 hover:text-white'
 
-export default function AssetActions({ lang, id, name, symbol, price, contract }: { lang: Lang; id: string; name: string; symbol: string; price?: number; contract?: string }) {
+export default function AssetActions({ lang, id, name, symbol, price, contract, kind = 'crypto' }: { lang: Lang; id: string; name: string; symbol: string; price?: number; contract?: string; kind?: 'crypto' | 'stock' }) {
   const c = copy[lang]
   const p = paths[lang]
   const planRef = useRef<HTMLDialogElement>(null)
   const askRef = useRef<HTMLDialogElement>(null)
   const [planOpen, setPlanOpen] = useState(false)
   const [copied, setCopied] = useState(false)
+  const levels = useRef<{ entry: number; stop: number; units?: number }>({ entry: NaN, stop: NaN })
+  const [tp, setTp] = useState('')
+  const [ideaNote, setIdeaNote] = useState('')
+  const [ideaMsg, setIdeaMsg] = useState<'' | 'saved' | 'need'>('')
+  const saveIdea = (withLevels: boolean) => {
+    const { entry, stop, units } = levels.current
+    if (withLevels && !(entry > 0 && stop > 0 && entry !== stop)) return setIdeaMsg('need')
+    const t = parseFloat(tp.replace(',', '.'))
+    saveIdeas([
+      {
+        id: newIdeaId(), kind, assetId: id, symbol, name, quote: 'USD',
+        ...(withLevels ? { direction: stop < entry ? ('buy' as const) : ('sell' as const), entry, sl: stop, tp: t > 0 ? t : undefined, qty: units } : {}),
+        note: ideaNote.trim() || undefined, created: Date.now(), status: 'open' as const,
+      },
+      ...loadIdeas(),
+    ])
+    setIdeaMsg('saved')
+    setTp('')
+    setIdeaNote('')
+  }
   const open = (d: HTMLDialogElement | null) => {
     d?.showModal()
     document.documentElement.classList.add('wc-modal')
@@ -77,7 +114,19 @@ export default function AssetActions({ lang, id, name, symbol, price, contract }
           <button type="button" onClick={() => planRef.current?.close()} className="text-sm font-semibold text-white/60 hover:text-white">{c.close}</button>
         </div>
         <p className="mt-1 text-sm text-white/60">{c.planP}</p>
-        <div className="mt-4">{planOpen ? <LotSizeCalculator lang={lang} preset={{ entry: price ?? 0, currency: 'USD' }} /> : null}</div>
+        <div className="mt-4">{planOpen ? <LotSizeCalculator lang={lang} preset={{ entry: price ?? 0, currency: 'USD' }} onValues={(v) => { levels.current = v }} /> : null}</div>
+        <div className="mt-4 rounded-xl border border-white/10 p-3">
+          <h3 className="text-sm font-semibold">{c.ideaH}</h3>
+          <div className="mt-2 grid gap-2">
+            <input inputMode="decimal" aria-label={c.tp} placeholder={c.tp} value={tp} onChange={(e) => setTp(e.target.value)} className="w-full rounded-xl border border-white/15 bg-white/[0.04] px-3 py-2 text-sm outline-none focus:border-[var(--wc-red)]" />
+            <textarea aria-label={c.ideaNote} placeholder={c.ideaNote} value={ideaNote} onChange={(e) => setIdeaNote(e.target.value)} rows={2} className="w-full rounded-xl border border-white/15 bg-white/[0.04] px-3 py-2 text-sm outline-none focus:border-[var(--wc-red)]" />
+          </div>
+          <div className="mt-2 flex flex-wrap gap-2">
+            <button type="button" onClick={() => saveIdea(true)} className="rounded-full bg-[var(--wc-red)] px-4 py-2 text-sm font-semibold text-white hover:brightness-110">{c.saveIdea}</button>
+            <button type="button" onClick={() => saveIdea(false)} className="rounded-full border border-white/20 px-4 py-2 text-sm font-semibold hover:border-white/50">{c.saveNote}</button>
+          </div>
+          {ideaMsg === 'saved' ? <p className="mt-2 text-xs text-emerald-300" role="status">✓ {c.saved} <a href={p.journal + '#ideas'} className="font-semibold underline">{c.open}</a></p> : ideaMsg === 'need' ? <p className="mt-2 text-xs text-[var(--wc-red-soft)]" role="status">{c.needLevels}</p> : null}
+        </div>
       </dialog>
 
       <dialog ref={askRef} onClose={onClose} aria-label={c.askH} className={dlg}>

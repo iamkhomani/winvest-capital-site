@@ -11,10 +11,11 @@ import type { WatchItem } from '../shared/watchlist'
 import type { Asset, Currency } from '../portfolio/store'
 import { cardBase } from './kit'
 import { useAlerts } from '../shared/alerts'
+import { useIdeas } from '../shared/ideas'
 import { alertText } from './AlertWatcher'
 
-type CardId = 'start' | 'myday' | 'alerts' | 'watch' | 'activity' | 'news'
-const ALL: CardId[] = ['start', 'myday', 'alerts', 'watch', 'activity', 'news']
+type CardId = 'start' | 'myday' | 'alerts' | 'watch' | 'ideas' | 'activity' | 'news'
+const ALL: CardId[] = ['start', 'myday', 'alerts', 'watch', 'ideas', 'activity', 'news']
 const PREF = 'wc-dash-v1'
 const ALERT_PCT = 5
 
@@ -27,7 +28,7 @@ const copy = {
     show: 'Show',
     up: 'Move up',
     down: 'Move down',
-    names: { start: 'Getting started', myday: 'My day', alerts: 'Alerts', watch: 'Watchlist', activity: 'Recent activity', news: 'Headlines' } as Record<CardId, string>,
+    names: { start: 'Getting started', myday: 'My day', alerts: 'Alerts', watch: 'Watchlist', ideas: 'Trade ideas', activity: 'Recent activity', news: 'Headlines' } as Record<CardId, string>,
     steps: ['Follow 3 coins or stocks with ☆', 'Add a first transaction or trade', 'Read a first lesson'],
     stepLinks: ['Go to Markets', 'Open the portfolio', 'Open the lessons'],
     portfolio: 'Portfolio',
@@ -54,7 +55,7 @@ const copy = {
     show: 'Tonen',
     up: 'Omhoog',
     down: 'Omlaag',
-    names: { start: 'Aan de slag', myday: 'Mijn dag', alerts: 'Meldingen', watch: 'Watchlist', activity: 'Recente activiteit', news: 'Nieuws' } as Record<CardId, string>,
+    names: { start: 'Aan de slag', myday: 'Mijn dag', alerts: 'Meldingen', watch: 'Watchlist', ideas: 'Trade-ideeën', activity: 'Recente activiteit', news: 'Nieuws' } as Record<CardId, string>,
     steps: ['Volg 3 munten of aandelen met ☆', 'Voeg een eerste transactie of trade toe', 'Lees een eerste les'],
     stepLinks: ['Naar Markten', 'Open de portfolio', 'Open de lessen'],
     portfolio: 'Portfolio',
@@ -111,6 +112,8 @@ export default function Dashboard({ lang }: { lang: Lang }) {
   const locale = lang === 'nl' ? 'nl-NL' : 'en-US'
   const W = useWatchlists()
   const PA = useAlerts()
+  const IDS = useIdeas()
+  const openIdeas = (IDS.ideas ?? []).filter((i) => i.status === 'open').slice(0, 4)
   const [pref, setPref] = useState<Pref | null>(null)
   const [edit, setEdit] = useState(false)
   const [me, setMe] = useState<Personal | null>(null)
@@ -228,6 +231,7 @@ export default function Dashboard({ lang }: { lang: Lang }) {
     myday: !!me && (me.hasPortfolio || me.tradeCount > 0),
     alerts: alerts.length > 0 || firedAlerts.length > 0 || (me?.openTrades ?? 0) > 0,
     watch: watch.length > 0,
+    ideas: openIdeas.length > 0,
     activity: !!me && (me.recentTx.length > 0 || me.recentTrades.length > 0),
     news: !!news && news.length > 0,
   }
@@ -295,6 +299,18 @@ export default function Dashboard({ lang }: { lang: Lang }) {
             })}
           </ul>
         )
+      case 'ideas':
+        return (
+          <ul className="mt-3 space-y-2 text-sm">
+            {openIdeas.map((i) => (
+              <li key={i.id} className="flex flex-wrap gap-x-2">
+                <span className="font-semibold">{i.symbol}</span>
+                {i.direction ? <span className={i.direction === 'buy' ? 'text-emerald-400' : 'text-[var(--wc-red-soft)]'}>{i.direction === 'buy' ? 'Long' : 'Short'} @ {+(i.entry ?? 0).toPrecision(8)}</span> : <span className="text-white/50">{lang === 'nl' ? 'notitie' : 'note'}</span>}
+                {i.note ? <span className="min-w-0 basis-full truncate text-xs text-white/50">{i.note}</span> : null}
+              </li>
+            ))}
+          </ul>
+        )
       case 'activity':
         return me ? (
           <ul className="mt-2 space-y-1.5 text-sm text-white/80">
@@ -316,7 +332,7 @@ export default function Dashboard({ lang }: { lang: Lang }) {
         )
     }
   }
-  const more: Partial<Record<CardId, string>> = { watch: p.watchlist, news: p.news, activity: p.portfolio }
+  const more: Partial<Record<CardId, string>> = { watch: p.watchlist, ideas: p.journal + '#ideas', news: p.news, activity: p.portfolio }
   const order = pref.order
   const move = (id: CardId, dir: -1 | 1) => {
     const o = [...order]

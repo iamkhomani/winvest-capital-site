@@ -3,7 +3,7 @@
 // candles from the trade's open time and takes whichever level was reached first. When one
 // candle reaches both levels, or the level could have been reached before the entry inside the
 // first candle, the trade stays open and the user is asked to close it by hand.
-import { instrument, quotePnl, rate } from './fx'
+import { instrument, isUnits, quotePnl, rate } from './fx'
 import { uid } from './types'
 import type { Exit, ExitKind, Trade } from './types'
 
@@ -60,6 +60,7 @@ function stopAt(t: Trade, sec: number): number | undefined {
 export async function checkTrade(t: Trade, accountCurrency: string): Promise<AutoOutcome> {
   const remaining = openLots(t)
   const tp = finalTp(t)
+  if (isUnits(t.pair)) return { kind: 'none' } // candles come from a forex source; crypto and stocks are closed by hand
   const inst = instrument(t.pair)
   if (remaining <= 1e-9 || (!(t.sl && t.sl > 0) && tp === undefined) || unsupported.has(inst.pair)) return { kind: 'none' }
   const lastExit = t.exits.reduce((m, e) => (e.time > m ? e.time : m), t.openTime)

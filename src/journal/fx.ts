@@ -20,13 +20,23 @@ export const COMMON_PAIRS = [
   'AUDJPY', 'AUDCAD', 'AUDCHF', 'AUDNZD', 'CADJPY', 'CHFJPY', 'NZDJPY', 'NZDCAD', 'NZDCHF', 'CADCHF', 'XAUUSD', 'XAGUSD',
 ]
 
+// Crypto and stocks ("units" mode: 1 unit = 1 coin or 1 share) are stored as C:<symbol>/<quote> or
+// S:<Yahoo symbol>/<quote>, e.g. C:LINK/USD, S:ASML.AS/EUR. Forex and metals keep the 6-letter form.
+const UNITS = /^([CS]):([A-Z0-9.^=-]{1,15})\/([A-Z]{3})$/
+export const isUnits = (p: string) => UNITS.test(p)
+export const unitsPair = (kind: 'crypto' | 'stock', symbol: string, quote: string) =>
+  `${kind === 'stock' ? 'S' : 'C'}:${symbol.toUpperCase().replace(/[^A-Z0-9.^=-]/g, '').slice(0, 15)}/${quote.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 3) || 'USD'}`
+
 export function normPair(s: string): string {
+  if (UNITS.test(s.toUpperCase())) return s.toUpperCase()
   // "EUR/USD", "eurusd.pro", "EURUSDm" -> "EURUSD"
   return s.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 6)
 }
 
 export function instrument(pairRaw: string, contract?: number, pip?: number): Instrument {
   const pair = normPair(pairRaw)
+  const u = UNITS.exec(pair)
+  if (u) return { pair, base: u[2], quote: u[3], contract: contract || 1, pip: pip || 1 }
   const base = pair.slice(0, 3)
   const quote = pair.slice(3, 6) || 'USD'
   const metal = METALS[base]
@@ -39,7 +49,11 @@ export function instrument(pairRaw: string, contract?: number, pip?: number): In
   }
 }
 
-export const pairLabel = (p: string) => (p.length === 6 ? `${p.slice(0, 3)}/${p.slice(3)}` : p)
+export const pairLabel = (p: string) => {
+  const u = UNITS.exec(p)
+  if (u) return u[1] === 'C' ? `${u[2]}/${u[3]}` : u[2]
+  return p.length === 6 ? `${p.slice(0, 3)}/${p.slice(3)}` : p
+}
 
 /** Profit in the quote currency for a price move on `lots` standard lots. */
 export function quotePnl(inst: Instrument, direction: 'buy' | 'sell', entry: number, exit: number, lots: number) {
@@ -75,7 +89,8 @@ export async function rate(from: string, to: string, date?: string): Promise<num
 /** Live price of a pair (Yahoo Finance via the worker). */
 export async function livePrice(pair: string): Promise<number> {
   const inst = instrument(pair)
-  const sym = inst.base === 'XAU' ? 'GC=F' : inst.base === 'XAG' ? 'SI=F' : `${inst.pair}=X`
+  const u = UNITS.exec(inst.pair)
+  const sym = u ? (u[1] === 'C' ? `${u[2]}-${u[3]}` : u[2]) : inst.base === 'XAU' ? 'GC=F' : inst.base === 'XAG' ? 'SI=F' : `${inst.pair}=X`
   const k = `live-${sym}`
   const r = await fetch(`${STOCK_API}/chart/${encodeURIComponent(sym)}?range=5d`, { signal: AbortSignal.timeout(12000) })
   if (!r.ok) throw new Error(String(r.status))

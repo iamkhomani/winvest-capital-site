@@ -108,7 +108,7 @@ function Select({ label, value, onChange, options, id }: { label: string; value:
 
 /** `preset`: opened from an asset page (Plan trade): crypto/stock mode with the live price as entry, in that
  *  price's currency; the shared settings are then read but not overwritten. */
-export default function LotSizeCalculator({ lang, preset }: { lang: Lang; preset?: { entry: number; currency: string } }) {
+export default function LotSizeCalculator({ lang, preset, onValues }: { lang: Lang; preset?: { entry: number; currency: string }; onValues?: (v: { entry: number; stop: number; units?: number }) => void }) {
   const c = copy[lang]
   const locale = lang === 'nl' ? 'nl-NL' : 'en-US'
   const [mode, setMode] = useState<'fx' | 'units'>('fx')
@@ -179,6 +179,10 @@ export default function LotSizeCalculator({ lang, preset }: { lang: Lang; preset
     const u = riskAmount / Math.abs(e - s)
     return { u, value: u * e, exposure: (u * e) / num(balance) }
   }, [riskAmount, entry, stopPrice, balance])
+  // the plan-trade dialog reads the levels and size to save them as a trade idea
+  useEffect(() => {
+    if (onValues && mode === 'units') onValues({ entry: num(entry), stop: num(stopPrice), units: units && units !== 'same' ? units.u : undefined })
+  }, [entry, stopPrice, units, mode]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const tab = (m: 'fx' | 'units', label: string) => (
     <button type="button" onClick={() => setMode(m)} aria-pressed={mode === m} className={`flex-1 rounded-full px-4 py-2 text-sm font-semibold transition ${mode === m ? 'bg-[var(--wc-red)] text-white' : 'text-white/60 hover:text-white'}`}>

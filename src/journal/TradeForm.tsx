@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import type { ClipboardEvent, ReactNode } from 'react'
 import type { JC } from './copy'
 import { compressImage, deleteImage, getImage, putImage } from './db'
-import { COMMON_PAIRS, LOT_UNITS, instrument, quotePnl, rate } from './fx'
+import { COMMON_PAIRS, LOT_UNITS, instrument, isUnits, quotePnl, rate, unitsPair } from './fx'
 import type { LotUnit } from './fx'
 import { isoToWall, nowWall, wallToIso } from './time'
 import { CONDITIONS, EMOTIONS, TIMEFRAMES, uid } from './types'
@@ -29,23 +29,32 @@ export function Field({ label, children, hint, className = '' }: { label: string
   )
 }
 
-export default function TradeForm({ c, state, accounts, trade, defaultAccount, locale, onSave, onDelete, onClose }: {
-  c: JC; state: JournalState; accounts: Account[]; trade?: Trade; defaultAccount?: string; locale: string
+export default function TradeForm({ c, state, accounts, trade, draft, defaultAccount, locale, onSave, onDelete, onClose }: {
+  c: JC; state: JournalState; accounts: Account[]; trade?: Trade; draft?: Partial<Trade>; defaultAccount?: string; locale: string
   onSave: (t: Trade) => void; onDelete: (t: Trade) => void; onClose: () => void
 }) {
   const tz = state.settings.tz
   const f = c.form
   const [accountId, setAccountId] = useState(trade?.accountId ?? defaultAccount ?? accounts[0]?.id ?? '')
   const acc = accounts.find((a) => a.id === accountId)
-  const [pair, setPair] = useState(trade?.pair ?? 'EURUSD')
-  const [direction, setDirection] = useState<'buy' | 'sell'>(trade?.direction ?? 'buy')
-  const [timeframe, setTimeframe] = useState(trade?.timeframe ?? 'H1')
+  // a draft (from a trade idea) fills a NEW trade; `trade` means editing an existing one
+  const init: Partial<Trade> | undefined = trade ?? draft
+  const nlUi = locale.startsWith('nl')
+  const startPair = init?.pair ?? 'EURUSD'
+  const um = /^([CS]):(.+)\/([A-Z]{3})$/.exec(startPair)
+  const [market, setMarket] = useState<'fx' | 'units'>(isUnits(startPair) ? 'units' : 'fx')
+  const [ukind, setUkind] = useState<'crypto' | 'stock'>(um?.[1] === 'S' ? 'stock' : 'crypto')
+  const [usym, setUsym] = useState(um?.[2] ?? '')
+  const [uquote, setUquote] = useState(um?.[3] ?? 'USD')
+  const [pair, setPair] = useState(isUnits(startPair) ? 'EURUSD' : startPair)
+  const [direction, setDirection] = useState<'buy' | 'sell'>(init?.direction ?? 'buy')
+  const [timeframe, setTimeframe] = useState(init?.timeframe ?? 'H1')
   const [openTime, setOpenTime] = useState(trade ? isoToWall(trade.openTime, tz) : nowWall(tz))
-  const [entry, setEntry] = useState(s2(trade?.entry))
-  const [sl, setSl] = useState(s2(trade?.sl))
-  const [tps, setTps] = useState<string[]>(trade?.tps.length ? trade.tps.map((x) => s2(x)) : [''])
+  const [entry, setEntry] = useState(s2(init?.entry))
+  const [sl, setSl] = useState(s2(init?.sl))
+  const [tps, setTps] = useState<string[]>(init?.tps?.length ? init.tps.map((x) => s2(x)) : [''])
   const [unit, setUnit] = useState<LotUnit>('standard')
-  const [lots, setLots] = useState(trade ? s2(trade.lots) : '')
+  const [lots, setLots] = useState(init?.lots ? s2(init.lots) : '')
   const [leverage, setLeverage] = useState(s2(trade?.leverage ?? acc?.leverage))
   const [riskPct, setRiskPct] = useState(s2(trade?.riskPct))
   const [setup, setSetup] = useState(trade?.setup ?? '')
@@ -53,7 +62,7 @@ export default function TradeForm({ c, state, accounts, trade, defaultAccount, l
   const [plan, setPlan] = useState<Plan | ''>(trade?.plan ?? '')
   const [emotion, setEmotion] = useState<Emotion | ''>(trade?.emotion ?? '')
   const [revenge, setRevenge] = useState(!!trade?.revenge)
-  const [notes, setNotes] = useState(trade?.notes ?? '')
+  const [notes, setNotes] = useState(init?.notes ?? '')
   const [links, setLinks] = useState((trade?.links ?? []).join('\n'))
   const [slMoves, setSlMoves] = useState(trade?.slMoves.map((m) => ({ time: isoToWall(m.time, tz), price: s2(m.price) })) ?? [])
   const [exits, setExits] = useState<ExitDraft[]>(trade?.exits.map((e) => ({ id: e.id, time: isoToWall(e.time, tz), price: s2(e.price), lots: s2(e.lots), kind: e.kind, kindSet: true, pnl: s2(e.pnl), override: e.pnlSource === 'broker', commission: s2(e.commission), swap: s2(e.swap), source: e.pnlSource, auto: e.auto })) ?? [])
@@ -68,10 +77,11 @@ export default function TradeForm({ c, state, accounts, trade, defaultAccount, l
   const [confirmDel, setConfirmDel] = useState(false)
   const [adv, setAdv] = useState(false)
   // "More details" starts open only when an existing trade already uses one of its fields.
-  const [more, setMore] = useState(Boolean(trade && (trade.setup || trade.notes || trade.condition || trade.plan || trade.emotion || trade.revenge || trade.leverage || trade.riskPct
-    || trade.links.length || trade.shots.length || trade.slMoves.length || trade.tps.length > 1 || (trade.timeframe && trade.timeframe !== 'H1'))))
+  const [more, setMore] = useState(Boolean(init && (trade.setup || trade.notes || trade.condition || trade.plan || trade.emotion || trade.revenge || trade.leverage || trade.riskPct
+    || init.links?.length || init.shots?.length || init.slMoves?.length || (init.tps?.length ?? 0) > 1 || (init.timeframe && init.timeframe !== 'H1'))))
 
-  const inst = useMemo(() => instrument(pair, n(contract) || undefined, n(pipSize) || undefined), [pair, contract, pipSize])
+  const pairEff = market === 'units' ? unitsPair(ukind, usym, uquote) : pair
+  const inst = useMemo(() => instrument(pairEff, n(contract) || undefined, n(pipSize) || undefined), [pairEff, contract, pipSize])
   const mult = LOT_UNITS[unit]
   const toStd = (s: string) => n(s) * mult
   const fromStd = (v: number) => s2(v / mult)
@@ -180,7 +190,7 @@ export default function TradeForm({ c, state, accounts, trade, defaultAccount, l
   const save = async () => {
     const open = wallToIso(openTime, tz)
     const en = n(entry), lt = toStd(lots)
-    if (!acc || pair.length < 6 || !(en > 0) || !(lt > 0) || !open) return setErr(f.required)
+    if (!acc || (market === 'fx' ? pair.length < 6 : !usym.trim()) || !(en > 0) || !(lt > 0) || !open) return setErr(f.required)
     if (closedStd > lt + 1e-9) return setErr(f.tooMuch)
     for (const s of shots) if (s.isNew && s.blob) await putImage(s.id, s.blob)
     for (const id of removedShots) await deleteImage(id).catch(() => undefined)
@@ -237,10 +247,32 @@ export default function TradeForm({ c, state, accounts, trade, defaultAccount, l
         {/* Essentials: only what a trade needs. Everything else sits under "More details". */}
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
           {accounts.length > 1 ? <Field label={f.account}>{sel(accountId, setAccountId, accounts.map((a) => [a.id, `${a.name} (${a.currency}${a.type === 'demo' ? ', demo' : ''})`]))}</Field> : null}
-          <Field label={f.pair}>
-            <input list="wc-pairs" value={pair} onChange={(e) => setPair(e.target.value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 6))} className={inputCls} />
-            <datalist id="wc-pairs">{COMMON_PAIRS.map((p) => <option key={p} value={p} />)}</datalist>
-          </Field>
+          <div className="grid gap-1 text-xs text-white/60 sm:col-span-3">
+            <span>{nlUi ? 'Markt' : 'Market'}</span>
+            <div className="flex w-fit rounded-full border border-white/15 p-1">
+              <button type="button" className={pill(market === 'fx')} onClick={() => setMarket('fx')}>{nlUi ? 'Forex & metalen' : 'Forex & metals'}</button>
+              <button type="button" className={pill(market === 'units')} onClick={() => { setMarket('units'); setUnit('standard') }}>{nlUi ? 'Crypto & aandelen' : 'Crypto & stocks'}</button>
+            </div>
+          </div>
+          {market === 'fx' ? (
+            <Field label={f.pair}>
+              <input list="wc-pairs" value={pair} onChange={(e) => setPair(e.target.value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 6))} className={inputCls} />
+              <datalist id="wc-pairs">{COMMON_PAIRS.map((p) => <option key={p} value={p} />)}</datalist>
+            </Field>
+          ) : (
+            <Field label={nlUi ? 'Symbool en valuta' : 'Symbol and currency'} hint={ukind === 'stock' ? (nlUi ? 'Yahoo-symbool, bijv. AAPL of ASML.AS' : 'Yahoo symbol, e.g. AAPL or ASML.AS') : undefined}>
+              <div className="flex gap-2">
+                <select value={ukind} onChange={(e) => setUkind(e.target.value as 'crypto' | 'stock')} className={`${inputCls} w-auto`}>
+                  <option value="crypto" className="bg-[var(--wc-panel)]">Crypto</option>
+                  <option value="stock" className="bg-[var(--wc-panel)]">{nlUi ? 'Aandeel' : 'Stock'}</option>
+                </select>
+                <input value={usym} onChange={(e) => setUsym(e.target.value.toUpperCase().replace(/[^A-Z0-9.^=-]/g, '').slice(0, 15))} placeholder={ukind === 'crypto' ? 'BTC' : 'AAPL'} className={inputCls} />
+                <select value={uquote} onChange={(e) => setUquote(e.target.value)} className={`${inputCls} w-auto`}>
+                  {['USD', 'EUR', 'GBP', 'CHF', 'JPY', 'CAD', 'AUD'].map((q) => <option key={q} value={q} className="bg-[var(--wc-panel)]">{q}</option>)}
+                </select>
+              </div>
+            </Field>
+          )}
           <Field label={f.direction}>
             <div className="flex rounded-full border border-white/15 p-1">
               <button type="button" className={pill(direction === 'buy')} onClick={() => setDirection('buy')}>{c.buy}</button>
@@ -250,20 +282,26 @@ export default function TradeForm({ c, state, accounts, trade, defaultAccount, l
           <Field label={f.entry}><input inputMode="decimal" value={entry} onChange={(e) => setEntry(e.target.value)} className={inputCls} /></Field>
           <Field label={`${f.sl.replace(/ \(.*\)$/, '')} (${f.optional})`}><input inputMode="decimal" value={sl} onChange={(e) => setSl(e.target.value)} className={inputCls} /></Field>
           <Field label={`${f.tp} (${f.optional})`}><input inputMode="decimal" value={tps[0] ?? ''} onChange={(e) => setTps((xs) => [e.target.value, ...xs.slice(1)])} className={inputCls} /></Field>
-          <Field label={f.lots} hint={toStd(lots) > 0 ? `= ${(toStd(lots) * inst.contract).toLocaleString(locale)} ${f.units}` : undefined}>
-            <div className="flex gap-2">
+          {market === 'units' ? (
+            <Field label={nlUi ? (ukind === 'crypto' ? 'Aantal munten' : 'Aantal aandelen') : ukind === 'crypto' ? 'Number of coins' : 'Number of shares'}>
               <input inputMode="decimal" value={lots} onChange={(e) => setLots(e.target.value)} className={inputCls} />
-              <select value={unit} onChange={(e) => setUnit(e.target.value as LotUnit)} className={`${inputCls} w-auto`}>
-                {(Object.keys(LOT_UNITS) as LotUnit[]).map((u) => <option key={u} value={u} className="bg-[var(--wc-panel)]">{f.lotUnit[u]}</option>)}
-              </select>
-            </div>
-          </Field>
+            </Field>
+          ) : (
+            <Field label={f.lots} hint={toStd(lots) > 0 ? `= ${(toStd(lots) * inst.contract).toLocaleString(locale)} ${f.units}` : undefined}>
+              <div className="flex gap-2">
+                <input inputMode="decimal" value={lots} onChange={(e) => setLots(e.target.value)} className={inputCls} />
+                <select value={unit} onChange={(e) => setUnit(e.target.value as LotUnit)} className={`${inputCls} w-auto`}>
+                  {(Object.keys(LOT_UNITS) as LotUnit[]).map((u) => <option key={u} value={u} className="bg-[var(--wc-panel)]">{f.lotUnit[u]}</option>)}
+                </select>
+              </div>
+            </Field>
+          )}
           <Field label={f.openTime}><input type="datetime-local" value={openTime} onChange={(e) => setOpenTime(e.target.value)} className={inputCls} /></Field>
         </div>
         <p className="mt-2 text-xs text-white/50">
-          {rr !== undefined ? `${f.rr}: 1:${rr.toFixed(2)} · ` : ''}{riskAmount !== undefined && acc ? `${f.riskAmount}: ${money(riskAmount)} · ` : ''}{pipValue !== undefined && acc ? f.pipValue(money(pipValue)) : ''}
+          {rr !== undefined ? `${f.rr}: 1:${rr.toFixed(2)} · ` : ''}{riskAmount !== undefined && acc ? `${f.riskAmount}: ${money(riskAmount)} · ` : ''}{market === 'fx' && pipValue !== undefined && acc ? f.pipValue(money(pipValue)) : ''}
         </p>
-        {(n(sl) > 0 || n(tps[0] ?? '') > 0) && openStd > 1e-9 ? <p className="mt-1 text-xs text-white/40">{f.autoHint}</p> : null}
+        {market === 'fx' && (n(sl) > 0 || n(tps[0] ?? '') > 0) && openStd > 1e-9 ? <p className="mt-1 text-xs text-white/40">{f.autoHint}</p> : null}
 
         {/* Result */}
         {exits.length === 0 ? (
@@ -287,7 +325,7 @@ export default function TradeForm({ c, state, accounts, trade, defaultAccount, l
                   <details className="mt-2 text-xs text-white/55">
                     <summary className="cursor-pointer hover:text-white">{f.exitMore}</summary>
                     <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
-                      <Field label={`${f.exitLots} (${f.lotUnit[unit].split(' ')[0].toLowerCase()})`}><input inputMode="decimal" value={e.lots} onChange={(ev) => set({ lots: ev.target.value })} className={inputCls} /></Field>
+                      <Field label={market === 'units' ? f.exitLots : `${f.exitLots} (${f.lotUnit[unit].split(' ')[0].toLowerCase()})`}><input inputMode="decimal" value={e.lots} onChange={(ev) => set({ lots: ev.target.value })} className={inputCls} /></Field>
                       <Field label={c.cols.result}>{sel(e.kindSet ? e.kind : deriveKind(e), (v) => set({ kind: v as ExitKind, kindSet: true }), (['tp', 'partial', 'sl', 'be', 'manual'] as ExitKind[]).map((k) => [k, f.kind[k]]))}</Field>
                       <Field label={f.commission}><input inputMode="decimal" value={e.commission} onChange={(ev) => set({ commission: ev.target.value })} className={inputCls} /></Field>
                       <Field label={f.swap}><input inputMode="decimal" value={e.swap} onChange={(ev) => set({ swap: ev.target.value })} className={inputCls} /></Field>

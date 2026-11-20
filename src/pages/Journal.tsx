@@ -17,6 +17,8 @@ import { ACCOUNT_CURRENCIES, defaultSettings, emptyState, uid } from '../journal
 import type { Account, AccountCurrency, CashMove, JournalState, Settings, Trade } from '../journal/types'
 import { Card, PageHeader, btn, pageWrap, tabCls } from '../components/kit'
 import MyWinvestTabs from '../components/MyWinvestTabs'
+import IdeasPanel, { ideaDraft } from '../journal/IdeasPanel'
+import { loadIdeas, saveIdeas } from '../shared/ideas'
 
 // EvilCharts (Recharts) only downloads when a chart is shown.
 const EquityChart = lazy(() => import('../journal/Charts').then((m) => ({ default: m.EquityChart })))
@@ -247,7 +249,7 @@ export default function Journal({ lang }: { lang: Lang }) {
   const [saveOk, setSaveOk] = useState(true)
   const [tab, setTab] = useState<Tab>('dash')
   const [acct, setAcct] = useState<string>('all')
-  const [form, setForm] = useState<{ trade?: Trade } | null>(null)
+  const [form, setForm] = useState<{ trade?: Trade; draft?: Partial<Trade>; ideaId?: string } | null>(null)
   const [rates, setRates] = useState<Record<string, number>>({})
   const [live, setLive] = useState<Record<string, number>>({})
   const [liveMsg, setLiveMsg] = useState('')
@@ -384,6 +386,8 @@ export default function Journal({ lang }: { lang: Lang }) {
       if (i >= 0) st.trades[i] = t
       else st.trades.push(t)
     })
+    const ideaId = form?.ideaId
+    if (ideaId) saveIdeas(loadIdeas().map((x) => (x.id === ideaId ? { ...x, status: 'taken', tradeId: t.id } : x)))
     setForm(null)
   }
   const deleteTrade = (t: Trade) => {
@@ -467,6 +471,8 @@ export default function Journal({ lang }: { lang: Lang }) {
             <button type="button" onClick={() => setAutoMsgs([])} aria-label={c.form.cancel} className="text-white/50 hover:text-white">✕</button>
           </div>
         ) : null}
+
+        <IdeasPanel lang={lang} canRecord={state.accounts.length > 0} onRecord={(i) => setForm({ draft: ideaDraft(i), ideaId: i.id })} />
 
         {!state.accounts.length ? (
           <div className="mt-8"><p className="mb-4 max-w-2xl text-white/70">{c.noAccount}</p><AccountsPanel c={c} state={state} update={update} /></div>
@@ -734,7 +740,7 @@ export default function Journal({ lang }: { lang: Lang }) {
         </aside>
       </div>
 
-      {form ? <TradeForm c={c} state={state} accounts={state.accounts} trade={form.trade} defaultAccount={acct !== 'all' ? acct : undefined} locale={locale} onSave={saveTrade} onDelete={deleteTrade} onClose={() => setForm(null)} /> : null}
+      {form ? <TradeForm c={c} state={state} accounts={state.accounts} trade={form.trade} draft={form.draft} defaultAccount={acct !== 'all' ? acct : undefined} locale={locale} onSave={saveTrade} onDelete={deleteTrade} onClose={() => setForm(null)} /> : null}
     </main>
   )
 }
