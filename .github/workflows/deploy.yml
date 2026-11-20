@@ -4,9 +4,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Weekly market data snapshot (coin pages, DefiLlama map). Monday 04:17 UTC.
+  schedule:
+    - cron: '17 4 * * 1'
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -24,6 +27,15 @@ jobs:
           node-version: 22
       # npm ci installs exactly the versions in package-lock.json (no surprise updates)
       - run: npm ci
+      - name: Refresh market data snapshot (schedule and manual runs only)
+        if: github.event_name != 'push'
+        continue-on-error: true
+        run: |
+          node scripts/fetch-data.mjs
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add src/data/coin-index.json data/coins.json public/data/llama.json
+          git diff --cached --quiet || (git commit -m "Weekly market data snapshot" && git push)
       - name: Security audit of production dependencies (report only)
         run: npm audit --omit=dev || true
       - name: Build
