@@ -126,7 +126,7 @@ export default {
       let last = 'no upstream'
       for (const host of ['https://query1.finance.yahoo.com', 'https://query2.finance.yahoo.com']) {
         try {
-          const up = await fetch(host + upstreamPath, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36', Accept: 'application/json' } })
+          const up = await fetch(host + upstreamPath, { headers: { 'User-Agent': 'winvestcapital.nl portfolio (+https://winvestcapital.nl)', Accept: 'application/json' } })
           const text = await up.text()
           if (up.ok && text.trim().startsWith('{')) {
             const res = new Response(text, { headers: { 'Content-Type': 'application/json', 'Cache-Control': `public, max-age=${ttl}` } })
