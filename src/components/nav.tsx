@@ -73,7 +73,7 @@ export function navGroups(lang: Lang): NavGroup[] {
       id: 'tools',
       label: nl ? 'Gratis tools' : 'Free tools',
       items: [
-        { label: nl ? 'Markten' : 'Markets', href: p.markets, icon: 'markets', hint: nl ? 'Live koersen en heatmaps' : 'Live prices and heatmaps', free: true },
+        { label: nl ? 'Markten' : 'Markets', href: p.markets, icon: 'markets', hint: nl ? 'Koersen, sentiment, trends en heatmaps' : 'Prices, sentiment, trends and heatmaps', free: true },
         { label: 'Portfolio tracker', href: p.portfolio, icon: 'portfolio', hint: nl ? 'Je beleggingen op één plek' : 'All your holdings in one place', free: true },
         { label: 'Trading journal', href: p.journal, icon: 'journal', hint: nl ? 'Leg je trades vast en leer ervan' : 'Log your trades and learn from them', free: true },
         { label: nl ? 'DeFi-scanner' : 'DeFi scanner', href: p.scanner, icon: 'scan', hint: nl ? 'Controleer tokens en wallets op risico’s' : 'Check tokens and wallets for risk', free: true },

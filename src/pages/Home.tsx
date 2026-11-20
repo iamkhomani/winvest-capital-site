@@ -5,6 +5,7 @@ import { articles } from '../content/articles'
 import TradingViewWidget from '../components/TradingViewWidget'
 import { Candles, Check, Stars, ThemedImage } from '../components/ui'
 import { Icon, navGroups, terminalHref } from '../components/nav'
+import { PulseStrip } from '../markets/Overview'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
 
@@ -326,6 +327,7 @@ function Overview({ lang }: { lang: Lang }) {
             <h2 className="text-base font-semibold">{c.dMarkets}</h2>
             <a href={p.markets} className="text-sm text-white/55 hover:text-white">{c.dMarketsAll} →</a>
           </div>
+          <PulseStrip lang={lang} />
           <TradingViewWidget
             className="min-h-[420px]"
             script="embed-widget-market-overview.js"

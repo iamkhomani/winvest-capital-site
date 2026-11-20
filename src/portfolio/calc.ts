@@ -156,7 +156,7 @@ export function volatility(pts: Point[], lookback = 90): number | undefined {
   return Math.sqrt(v) * Math.sqrt(365) * 100
 }
 
-const STABLES = new Set(['USDT', 'USDC', 'DAI', 'FDUSD', 'TUSD', 'USDE', 'PYUSD', 'EURC', 'USDS', 'RLUSD'])
+export const STABLES = new Set(['USDT', 'USDC', 'DAI', 'FDUSD', 'TUSD', 'USDE', 'PYUSD', 'EURC', 'USDS', 'RLUSD'])
 
 export function diversification(d: PortfolioData, hs: Holding[]) {
   const live = hs.filter((h) => h.value > 0)

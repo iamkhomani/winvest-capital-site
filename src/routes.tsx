@@ -18,6 +18,7 @@ import Portfolio, { portfolioCopy } from './pages/Portfolio'
 import Products, { productsCopy } from './pages/Products'
 import Terminal, { terminalCopy } from './pages/Terminal'
 import TerminalApp from './pages/TerminalApp'
+import Coin from './pages/Coin'
 import Journal from './pages/Journal'
 import { journalCopy } from './journal/copy'
 import Welcome from './pages/Welcome'
@@ -257,7 +258,17 @@ export const routes: Route[] = LANGS.flatMap((lang): Route[] => {
       </Layout>
     ),
   }
-  return [home, products, calculator, markets, portfolio, journal, whisper, terminal, terminalApp, scanner, partners, learn, ...arts, ...docs, welcome]
+  // One page for every coin; the coin comes from ?id=, so the page is not indexed (it has no fixed content).
+  const coin: Route = {
+    path: p.markets + 'coin/',
+    alternate: o.markets + 'coin/',
+    lang,
+    noindex: true,
+    title: L ? 'Cryptomunt: koers, market cap en aanbod | Winvest Capital' : 'Coin: price, market cap and supply | Winvest Capital',
+    description: L ? 'Koers, grafiek, market cap, aanbod, all-time high en projectinformatie van een cryptomunt.' : 'Price, chart, market cap, supply, all-time high and project information for a cryptocurrency.',
+    element: wrap(lang, o.markets + 'coin/', <Coin lang={lang} />),
+  }
+  return [home, products, calculator, markets, coin, portfolio, journal, whisper, terminal, terminalApp, scanner, partners, learn, ...arts, ...docs, welcome]
 })
 
 export function findRoute(pathname: string): Route | undefined {

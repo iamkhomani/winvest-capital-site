@@ -3,6 +3,9 @@ import TradingViewWidget from '../components/TradingViewWidget'
 import { DISCORD_URL } from '../config'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
+import { topCoins } from '../markets/pulse'
+import type { Coin } from '../markets/pulse'
+import { MarketOverview, coinHref } from '../markets/Overview'
 
 export const marketsCopy = {
   en: {
@@ -53,23 +56,6 @@ export const marketsCopy = {
   },
 }
 
-type Coin = {
-  id: string
-  symbol: string
-  name: string
-  image: string
-  current_price: number
-  market_cap: number
-  market_cap_rank: number
-  total_volume: number
-  price_change_percentage_1h_in_currency?: number
-  price_change_percentage_24h_in_currency?: number
-  price_change_percentage_7d_in_currency?: number
-  sparkline_in_7d?: { price: number[] }
-}
-
-const API = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d'
-
 const price = (v: number) => (v >= 1 ? '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '$' + v.toPrecision(4))
 const big = (v: number) => (v >= 1e12 ? '$' + (v / 1e12).toFixed(2) + 'T' : v >= 1e9 ? '$' + (v / 1e9).toFixed(2) + 'B' : '$' + (v / 1e6).toFixed(1) + 'M')
 function Pct({ v }: { v?: number }) {
@@ -101,9 +87,7 @@ function CryptoTable({ lang }: { lang: Lang }) {
     let alive = true
     const load = async () => {
       try {
-        const r = await fetch(API, { signal: AbortSignal.timeout(15000) })
-        if (!r.ok) throw new Error(String(r.status))
-        const data = (await r.json()) as Coin[]
+        const data = (await topCoins()).slice(0, 50)
         if (!alive) return
         setCoins(data)
         setError(false)
@@ -160,7 +144,7 @@ function CryptoTable({ lang }: { lang: Lang }) {
                   <td className="px-3 py-2.5">
                     <span className="flex items-center gap-2.5">
                       <img src={x.image} alt="" width={22} height={22} loading="lazy" className="size-[22px] rounded-full" />
-                      <span className="font-semibold">{x.name}</span>
+                      <a href={coinHref(lang, x.id)} className="font-semibold hover:text-[var(--wc-red-soft)] hover:underline">{x.name}</a>
                       <span className="hidden text-xs uppercase text-white/45 sm:inline">{x.symbol}</span>
                     </span>
                   </td>
@@ -252,7 +236,8 @@ export default function Markets({ lang }: { lang: Lang }) {
         <div className="mt-6">
           {tab === 'crypto' ? (
             <>
-              <h2 className="mb-4 text-2xl font-bold tracking-tight">{c.crypto}</h2>
+              <MarketOverview lang={lang} />
+              <h2 className="mt-10 mb-4 text-2xl font-bold tracking-tight">{c.crypto}</h2>
               <CryptoTable lang={lang} />
               <h2 className="mt-10 text-2xl font-bold tracking-tight">{c.cHeatH}</h2>
               <p className="mt-2 text-sm text-white/55">{c.cHeatP}</p>

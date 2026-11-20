@@ -3,7 +3,7 @@ import type { ChangeEvent, ReactNode } from 'react'
 import { DISCORD_URL } from '../config'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
-import { diversification, drawdown, holdings, periods, series, volatility } from '../portfolio/calc'
+import { STABLES, diversification, drawdown, holdings, periods, series, volatility } from '../portfolio/calc'
 import type { Holding } from '../portfolio/calc'
 import { history as fetchHistory, fxNow, quotes, searchCrypto, searchStock } from '../portfolio/data'
 import { cachedSync, detectWallet, syncAll } from '../portfolio/wallets'
@@ -49,6 +49,7 @@ export const portfolioCopy = {
     monthly: 'Monthly return',
     monthlyNote: 'Time-weighted: deposits and withdrawals do not count as gains or losses.',
     alloc: 'Allocation', byClass: 'By asset class', crypto: 'Crypto', stocks: 'Stocks',
+    split: { h: 'Spread by type', p: 'How your portfolio, including wallets, is split between Bitcoin, other coins, stablecoins and stocks.', btc: 'Bitcoin', alts: 'Altcoins', stables: 'Stablecoins', stocks: 'Stocks', altWarn: 'More than 60% is in altcoins. Altcoins usually move harder than Bitcoin, in both directions.', chains: 'Wallets per blockchain' },
     risk: 'Risk exposure', maxDd: 'Max drawdown (1y)', curDd: 'Current drawdown', vol: 'Volatility (annualised, 90d)', largest: 'Largest position', top3: 'Top 3 positions', effective: 'Effective number of positions', stable: 'Stablecoins',
     divLow: 'Concentrated', divMid: 'Moderately diversified', divHigh: 'Well diversified',
     cols: { asset: 'Asset', qty: 'Quantity', avg: 'Avg. cost', price: 'Price', value: 'Value', pnl: 'P/L', weight: 'Weight', d24: '24h' },
@@ -102,7 +103,8 @@ export const portfolioCopy = {
     monthly: 'Rendement per maand',
     monthlyNote: 'Tijdgewogen: stortingen en opnames tellen niet als winst of verlies.',
     alloc: 'Allocatie', byClass: 'Per categorie', crypto: 'Crypto', stocks: 'Aandelen',
-    risk: 'Risk exposure', maxDd: 'Max drawdown (1j)', curDd: 'Huidige drawdown', vol: 'Volatiliteit (per jaar, 90d)', largest: 'Grootste positie', top3: 'Top 3 posities', effective: 'Effectief aantal posities', stable: 'Stablecoins',
+    split: { h: 'Verdeling naar soort', p: 'Hoe je portfolio, inclusief wallets, verdeeld is over Bitcoin, andere munten, stablecoins en aandelen.', btc: 'Bitcoin', alts: 'Altcoins', stables: 'Stablecoins', stocks: 'Aandelen', altWarn: 'Meer dan 60% zit in altcoins. Altcoins bewegen meestal harder dan Bitcoin, in beide richtingen.', chains: 'Wallets per blockchain' },
+    risk: 'Risico', maxDd: 'Max drawdown (1j)', curDd: 'Huidige drawdown', vol: 'Volatiliteit (per jaar, 90d)', largest: 'Grootste positie', top3: 'Top 3 posities', effective: 'Effectief aantal posities', stable: 'Stablecoins',
     divLow: 'Geconcentreerd', divMid: 'Redelijk gespreid', divHigh: 'Goed gespreid',
     cols: { asset: 'Asset', qty: 'Aantal', avg: 'Gem. kostprijs', price: 'Prijs', value: 'Waarde', pnl: 'W/V', weight: 'Gewicht', d24: '24u' },
     emptyH: 'Start je portfolio',
@@ -145,6 +147,7 @@ const fmtNum = (v: number, lang: Lang) => new Intl.NumberFormat(lang === 'nl' ? 
 const fmtPct = (v: number | undefined, sign = true) => (v === undefined || !isFinite(v) ? '–' : `${sign && v > 0 ? '+' : ''}${v.toFixed(2)}%`)
 const tone = (v: number | undefined) => (v === undefined || Math.abs(v) < 1e-9 ? 'text-white/70' : v > 0 ? 'text-emerald-400' : 'text-[var(--wc-red-soft)]')
 const todayStr = () => new Date().toISOString().slice(0, 10)
+const SPLIT_COLORS = { btc: '#F7931A', alts: '#8B5CF6', stables: '#94A3B8', stocks: '#38BDF8' }
 const PALETTE = ['#FE0000', 'var(--wc-text)', '#F59E0B', '#34D399', '#60A5FA', '#A78BFA', '#F472B6', '#94A3B8', '#FB7185', '#2DD4BF']
 
 // ---------- small UI pieces ----------
@@ -513,6 +516,15 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   const allocParts = allocSorted.slice(0, 9).map(([label, value], i) => ({ label, value, color: PALETTE[i % PALETTE.length] }))
   const rest = allocSorted.slice(9).reduce((s, [, v]) => s + v, 0)
   if (rest > 0) allocParts.push({ label: lang === 'nl' ? 'Overig' : 'Other', value: rest, color: '#475569' })
+  // Split by type (incl. wallets) and wallet value per blockchain, for the spread card.
+  const split = { btc: 0, alts: 0, stables: 0, stocks: 0 }
+  const kindOf = (sym: string, stock: boolean) => (stock ? 'stocks' : sym.toUpperCase() === 'BTC' ? 'btc' : STABLES.has(sym.toUpperCase()) ? 'stables' : 'alts') as keyof typeof split
+  for (const h of open) if (h.value > 0) { const a = data.assets[h.key]; if (a) split[kindOf(a.symbol, a.kind === 'stock')] += h.value }
+  for (const t of wTokens) if (t.value > 0) split[kindOf(t.symbol, false)] += t.value
+  const splitTotal = split.btc + split.alts + split.stables + split.stocks
+  const chainMap = new Map<string, number>()
+  for (const t of wTokens) if (t.value > 0) chainMap.set(t.chain, (chainMap.get(t.chain) ?? 0) + t.value)
+  const chains = [...chainMap.entries()].sort((a, b) => b[1] - a[1])
   const locale = lang === 'nl' ? 'nl-NL' : 'en-GB'
   const money = (v: number) => fmtMoney(v, base, lang)
   const moneyCompact = (v: number) => new Intl.NumberFormat(locale, { style: 'currency', currency: base, notation: 'compact', maximumFractionDigits: 1 }).format(v)
@@ -642,6 +654,39 @@ export default function Portfolio({ lang }: { lang: Lang }) {
                     </dl>
                   </Card>
                 </div>
+
+                {splitTotal > 0 ? (
+                  <Card>
+                    <h2 className="text-lg font-bold">{c.split.h}</h2>
+                    <p className="mt-1 text-sm text-white/55">{c.split.p}</p>
+                    <div className="mt-4 flex h-3 overflow-hidden rounded-full bg-white/10" aria-hidden="true">
+                      {(['btc', 'alts', 'stables', 'stocks'] as const).map((k) => split[k] > 0 ? <div key={k} style={{ width: `${(split[k] / splitTotal) * 100}%`, background: SPLIT_COLORS[k] }} /> : null)}
+                    </div>
+                    <dl className="mt-4 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
+                      {(['btc', 'alts', 'stables', 'stocks'] as const).map((k) => (
+                        <div key={k} className="rounded-xl bg-white/[0.04] p-3">
+                          <dt className="flex items-center gap-2 text-xs text-white/50"><span className="inline-block size-2.5 rounded-full" style={{ background: SPLIT_COLORS[k] }} />{c.split[k]}</dt>
+                          <dd className="mt-1 text-lg font-bold tabular-nums">{fmtPct((split[k] / splitTotal) * 100, false)}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                    {split.alts / splitTotal > 0.6 ? <p className="mt-3 text-sm text-amber-300">{c.split.altWarn}</p> : null}
+                    {chains.length ? (
+                      <div className="mt-5">
+                        <h3 className="text-sm font-semibold">{c.split.chains}</h3>
+                        <ul className="mt-2 space-y-1.5 text-sm">
+                          {chains.map(([name, v]) => (
+                            <li key={name} className="flex items-center gap-3">
+                              <span className="w-28 shrink-0 truncate text-white/70">{name}</span>
+                              <span className="h-2 flex-1 overflow-hidden rounded-full bg-white/10"><span className="block h-full rounded-full bg-[var(--wc-red)]" style={{ width: `${(v / walletValue) * 100}%` }} /></span>
+                              <span className="w-14 shrink-0 text-right tabular-nums text-white/70">{fmtPct((v / walletValue) * 100, false)}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+                  </Card>
+                ) : null}
               </>
             )}
           </div>
