@@ -35,15 +35,18 @@ const [protocols, dexs, pools] = await Promise.all([
 const proto = (p) => ({ name: p.name, slug: p.slug, category: p.category, chains: Array.isArray(p.chains) ? p.chains.length : 0, tvl: big(p.tvl), ch1d: round(p.change_1d), ch7d: round(p.change_7d), logo: p.logo })
 const defi = protocols.filter((p) => !NOT_DEFI.has(p.category) && typeof p.tvl === 'number' && p.tvl > 0).sort((a, b) => b.tvl - a.tvl)
 
+const dexOnly = (dexs.protocols ?? []).filter((p) => p.category === 'Dexs' && typeof p.total24h === 'number' && p.total24h > 0)
+
 const out = {
   generated: new Date().toISOString(),
   totalTvl: big(defi.reduce((s, p) => s + p.tvl, 0)),
   protocols: defi.slice(0, 12).map(proto),
   lending: defi.filter((p) => p.category === 'Lending').slice(0, 8).map(proto),
+  // DefiLlama's overview also counts prediction markets and other non-DEX volume; sum real DEXes only.
   dex: {
-    total24h: big(dexs.total24h),
-    ch1d: round(dexs.change_1d),
-    ch7d: round(dexs.change_7dover7d),
+    total24h: big(dexOnly.reduce((t, p) => t + p.total24h, 0)),
+    ch1d: round((dexOnly.reduce((t, p) => t + p.total24h, 0) / dexOnly.reduce((t, p) => t + (p.total48hto24h || 0), 0) - 1) * 100),
+    ch7d: null,
     top: (dexs.protocols ?? [])
       .filter((p) => p.category === 'Dexs' && typeof p.total24h === 'number' && p.total24h > 0)
       .sort((a, b) => b.total24h - a.total24h)
