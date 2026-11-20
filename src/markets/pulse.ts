@@ -88,11 +88,12 @@ export const trending = () =>
 export function useLive<T>(load: () => Promise<T>, everyMs = 60_000) {
   const [value, setValue] = useState<T | null>(null)
   const [error, setError] = useState(false)
+  const [at, setAt] = useState<number | null>(null)
   useEffect(() => {
     let alive = true
     const run = () =>
       load().then(
-        (v) => alive && (setValue(v), setError(false)),
+        (v) => alive && (setValue(v), setError(false), setAt(Date.now())),
         () => alive && setError(true),
       )
     void run()
@@ -102,7 +103,7 @@ export function useLive<T>(load: () => Promise<T>, everyMs = 60_000) {
       clearInterval(t)
     }
   }, [load, everyMs])
-  return { value, error }
+  return { value, error, at }
 }
 
 // Stablecoins and wrapped or staked versions of other coins say nothing about altcoins versus Bitcoin.

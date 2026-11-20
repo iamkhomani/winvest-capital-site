@@ -13,6 +13,8 @@ import { usd, usdBig } from '../markets/pulse'
 import { cardBase } from '../components/kit'
 import WatchStar from '../shared/WatchStar'
 import AssetActions from '../components/AssetActions'
+import { CoinNews, Technicals } from '../markets/AssetInsights'
+import DataStamp from '../markets/DataStamp'
 
 /** Static facts, from the snapshot (prerendered pages) or from the live CoinGecko answer. */
 export type CoinFacts = {
@@ -529,6 +531,7 @@ export default function Coin({ lang, id: fixedId }: { lang: Lang; id?: string })
   const [id, setId] = useState<string | null>(fixedId ?? null)
   const [facts, setFacts] = useState<CoinFacts | null>(snapshot)
   const [live, setLive] = useState<Live | null>(null)
+  const [liveAt, setLiveAt] = useState<number | null>(null)
   const [state, setState] = useState<'loading' | 'ok' | 'notfound' | 'error'>('loading')
   const [attempt, setAttempt] = useState(0)
 
@@ -550,6 +553,7 @@ export default function Coin({ lang, id: fixedId }: { lang: Lang; id?: string })
       .then((d) => {
         if (!alive) return
         setLive(liveFrom(d))
+        setLiveAt(Date.now())
         if (!snapshot) {
           setFacts(factsFrom(d))
           document.title = `${d.name} (${d.symbol.toUpperCase()}) | Winvest Capital`
@@ -604,8 +608,22 @@ export default function Coin({ lang, id: fixedId }: { lang: Lang; id?: string })
               </div>
             </header>
             <AssetActions lang={lang} id={f.id} name={f.name} symbol={f.symbol} price={m?.price} contract={f.contracts.find(([pl]) => pl === 'ethereum')?.[1] ?? f.contracts[0]?.[1]} />
+            {m ? <DataStamp className="mt-3" lang={lang} source="CoinGecko" kind="onload" at={liveAt} /> : null}
+            <nav aria-label={lang === 'nl' ? 'Op deze pagina' : 'On this page'} className="mt-4 flex gap-1 overflow-x-auto border-b border-white/10 pb-2 text-sm">
+              {([
+                ['chart', lang === 'nl' ? 'Koers' : 'Price'],
+                ['technical', lang === 'nl' ? 'Technisch' : 'Technical'],
+                ['news', lang === 'nl' ? 'Nieuws' : 'News'],
+                ['supply', lang === 'nl' ? 'Aanbod' : 'Supply'],
+                ['fundamentals', lang === 'nl' ? 'Fundamenteel' : 'Fundamentals'],
+                ['onchain', 'On-chain'],
+                ['whisper', 'Market Whisper'],
+              ] as const).map(([id, label]) => (
+                <a key={id} href={`#${id}`} className="shrink-0 rounded-full px-3 py-1.5 font-semibold text-white/60 transition hover:bg-white/[0.06] hover:text-white">{label}</a>
+              ))}
+            </nav>
 
-            <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            <div id="chart" className="mt-6 grid scroll-mt-24 gap-4 lg:grid-cols-3">
               <div className={`${card} lg:col-span-2`}>
                 <h2 className="sr-only">{c.chart}</h2>
                 <TradingViewWidget
@@ -657,7 +675,12 @@ export default function Coin({ lang, id: fixedId }: { lang: Lang; id?: string })
               </div>
             </div>
 
-            <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <div className="mt-4 grid gap-4 lg:grid-cols-2">
+              <Technicals lang={lang} symbol={f.symbol} name={f.name} />
+              <CoinNews lang={lang} name={f.name} symbol={f.symbol} />
+            </div>
+
+            <div id="supply" className="mt-4 grid scroll-mt-24 gap-4 md:grid-cols-2">
               <section className={card}>
                 <h2 className="font-semibold">{c.supply}</h2>
                 <dl className="mt-2 divide-y divide-white/5">
@@ -684,7 +707,7 @@ export default function Coin({ lang, id: fixedId }: { lang: Lang; id?: string })
               </section>
             </div>
 
-            <div className="mt-4 grid gap-4 lg:grid-cols-3">
+            <div id="fundamentals" className="mt-4 grid scroll-mt-24 gap-4 lg:grid-cols-3">
               <div className="grid content-start gap-4 lg:col-span-2">
                 <section className={card}>
                   <h2 className="font-semibold">
@@ -695,7 +718,7 @@ export default function Coin({ lang, id: fixedId }: { lang: Lang; id?: string })
                     {f.about.length ? f.about.map((x, i) => <p key={i}>{x}</p>) : <p>{c.noAbout}</p>}
                   </div>
                 </section>
-                <div className="grid gap-4 md:grid-cols-2">
+                <div id="onchain" className="grid scroll-mt-24 gap-4 md:grid-cols-2">
                   <DefiCard id={f.id} lang={lang} />
                   <DevCard github={f.links.github} lang={lang} />
                 </div>
@@ -752,7 +775,7 @@ export default function Coin({ lang, id: fixedId }: { lang: Lang; id?: string })
               </div>
             </div>
 
-            <section className="mt-6 flex flex-col items-start justify-between gap-4 rounded-2xl border border-[var(--wc-red)]/40 bg-[var(--wc-red)]/[0.06] p-6 sm:flex-row sm:items-center">
+            <section id="whisper" className="mt-6 flex scroll-mt-24 flex-col items-start justify-between gap-4 rounded-2xl border border-[var(--wc-red)]/40 bg-[var(--wc-red)]/[0.06] p-6 sm:flex-row sm:items-center">
               <div>
                 <h2 className="text-lg font-semibold">{c.askH}</h2>
                 <p className="mt-1 max-w-2xl text-sm text-white/65">{c.askP}</p>

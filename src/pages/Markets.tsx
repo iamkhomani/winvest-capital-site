@@ -6,6 +6,7 @@ import { paths } from '../paths'
 import { topCoins } from '../markets/pulse'
 import type { Coin } from '../markets/pulse'
 import { MarketOverview, coinHref } from '../markets/Overview'
+import MarketAnalysis from '../markets/Analysis'
 import { btn, PageHeader, pageWrap, tabCls } from '../components/kit'
 import WatchStar from '../shared/WatchStar'
 
@@ -241,6 +242,7 @@ export default function Markets({ lang }: { lang: Lang }) {
           {tab === 'crypto' ? (
             <>
               <MarketOverview lang={lang} />
+              <MarketAnalysis lang={lang} />
               <h2 className="mt-10 mb-4 text-2xl font-bold tracking-tight">{c.crypto}</h2>
               <CryptoTable lang={lang} />
               <h2 className="mt-10 text-2xl font-bold tracking-tight">{c.cHeatH}</h2>
