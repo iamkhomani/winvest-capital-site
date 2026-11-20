@@ -111,14 +111,16 @@ export default function Derivatives({ lang, symbol, name }: { lang: Lang; symbol
   const ratePct = d.funding * 100
   const yearPct = ratePct * (24 / d.hours) * 365
   const f2 = (v: number, dec: number) => v.toFixed(dec).replace('.', nl ? ',' : '.')
-  const fundTone = ratePct > 0.03 ? 'text-amber-300' : ratePct < 0 ? 'text-sky-300' : 'text-white'
+  const fundTone = ratePct > 0.03 ? 'text-amber-300' : ratePct < -0.005 ? 'text-sky-300' : 'text-white'
   const oiCh = d.oiHist && d.oiHist.length > 7 ? (d.oiUsd / d.oiHist[d.oiHist.length - 8] - 1) * 100 : undefined
   const fundRead =
     ratePct > 0.03
       ? nl ? 'Hoog: longs betalen veel om hun positie open te houden. De markt leunt sterk naar long.' : 'High: longs pay a lot to keep their positions. The market leans heavily long.'
-      : ratePct > 0
+      : ratePct > 0.005
         ? nl ? 'Positief: longs betalen shorts. Normaal in een rustige of stijgende markt.' : 'Positive: longs pay shorts. Normal in a calm or rising market.'
-        : nl ? 'Negatief: shorts betalen longs. Er wordt meer op een daling gespeculeerd.' : 'Negative: shorts pay longs. More traders are betting on a fall.'
+        : ratePct >= -0.005
+          ? nl ? 'Rond nul: geen duidelijke voorkeur voor long of short.' : 'Around zero: no clear lean to long or short.'
+          : nl ? 'Negatief: shorts betalen longs. Er wordt meer op een daling gespeculeerd.' : 'Negative: shorts pay longs. More traders are betting on a fall.'
   return (
     <section id="derivatives" className={`${cardBase} scroll-mt-24 p-4 sm:p-5`}>
       <h2 className="font-semibold">{nl ? `Derivaten: ${name}-perpetual` : `Derivatives: ${name} perpetual`}</h2>
