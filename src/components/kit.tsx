@@ -65,3 +65,16 @@ export function PageHeader({ home, title, intro, action, crumb }: { home: string
 
 /** Standard page container: same widths and spacing on every tool page. */
 export const pageWrap = (wide = true) => `relative mx-auto ${wide ? 'max-w-6xl' : 'max-w-5xl'} px-4 py-8 sm:px-6 sm:py-16`
+
+/** Tabs that are links to other pages (Markets: Crypto · Stocks · News · Calendar; My Winvest: Portfolio · Journal). */
+export function LinkTabs({ items, label, className = '' }: { items: { href: string; label: ReactNode; on: boolean }[]; label: string; className?: string }) {
+  return (
+    <nav aria-label={label} className={`flex gap-1 overflow-x-auto rounded-full border border-white/15 p-1 sm:inline-flex ${className}`}>
+      {items.map((t) => (
+        <a key={t.href} href={t.href} aria-current={t.on ? 'page' : undefined} className={tabCls(t.on)}>
+          {t.label}
+        </a>
+      ))}
+    </nav>
+  )
+}

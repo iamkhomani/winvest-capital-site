@@ -215,10 +215,14 @@ const STOCK_GROUPS = [
 
 export default function Markets({ lang }: { lang: Lang }) {
   const c = marketsCopy[lang]
-  const [tab, setTab] = useState<'crypto' | 'stocks'>('crypto')
+  const [tab, setTab] = useState<'crypto' | 'stocks' | 'calendar'>('crypto')
   useEffect(() => {
-    if (location.hash === '#stocks') setTab('stocks')
+    const read = () => setTab(location.hash === '#stocks' ? 'stocks' : location.hash === '#calendar' ? 'calendar' : 'crypto')
+    read()
+    window.addEventListener('hashchange', read)
+    return () => window.removeEventListener('hashchange', read)
   }, [])
+  const nl = lang === 'nl'
   const tv = lang === 'nl' ? 'nl_NL' : 'en'
   return (
     <main className="relative overflow-hidden">
@@ -229,6 +233,8 @@ export default function Markets({ lang }: { lang: Lang }) {
         <div role="tablist" className="mt-6 flex gap-1 overflow-x-auto rounded-full border border-white/15 p-1 sm:mt-8 sm:inline-flex">
           <button role="tab" aria-selected={tab === 'crypto'} type="button" onClick={() => { setTab('crypto'); history.replaceState(null, '', '#crypto') }} className={tabCls(tab === 'crypto')}>{c.crypto}</button>
           <button role="tab" aria-selected={tab === 'stocks'} type="button" onClick={() => { setTab('stocks'); history.replaceState(null, '', '#stocks') }} className={tabCls(tab === 'stocks')}>{c.stocks}</button>
+          <a href={paths[lang].news} className={tabCls(false)}>{nl ? 'Nieuws' : 'News'}</a>
+          <button role="tab" aria-selected={tab === 'calendar'} type="button" onClick={() => { setTab('calendar'); history.replaceState(null, '', '#calendar') }} className={tabCls(tab === 'calendar')}>{nl ? 'Kalender' : 'Calendar'}</button>
         </div>
 
         <div className="mt-6">
@@ -245,6 +251,14 @@ export default function Markets({ lang }: { lang: Lang }) {
                   script="embed-widget-crypto-coins-heatmap.js"
                   config={{ dataSource: 'Crypto', blockSize: 'market_cap_calc', blockColor: 'change', locale: tv, colorTheme: 'dark', hasTopBar: false, isDataSetEnabled: false, isZoomEnabled: true, hasSymbolTooltip: true, isMonoSize: false, width: '100%', height: 520 }}
                 />
+              </div>
+            </>
+          ) : tab === 'calendar' ? (
+            <>
+              <h2 className="text-2xl font-bold tracking-tight">{nl ? 'Economische kalender' : 'Economic calendar'}</h2>
+              <p className="mt-2 text-sm text-white/55">{nl ? 'Rentebesluiten en cijfers over inflatie en werkgelegenheid bewegen de markten. Tijden in jouw tijdzone.' : 'Rate decisions and data on inflation and jobs move markets. Times in your time zone.'}</p>
+              <div className="mt-4 overflow-hidden rounded-2xl border border-white/10">
+                <TradingViewWidget className="h-[560px]" script="embed-widget-events.js" config={{ colorTheme: 'dark', isTransparent: true, width: '100%', height: 560, locale: tv, importanceFilter: '0,1', countryFilter: 'us,eu,gb,jp,ch,ca,au,nz,cn' }} />
               </div>
             </>
           ) : (

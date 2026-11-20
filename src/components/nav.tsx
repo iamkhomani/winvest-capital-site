@@ -46,7 +46,7 @@ export function Icon({ name, size = 20, className }: { name: IconName; size?: nu
   )
 }
 
-export type NavItem = { label: string; href: string; icon: IconName; hint?: string; external?: boolean; free?: boolean }
+export type NavItem = { label: string; href: string; icon: IconName; hint?: string; external?: boolean; free?: boolean; also?: string[] }
 export type NavGroup = { id?: string; label: string | null; items: NavItem[] }
 
 export function navGroups(lang: Lang): NavGroup[] {
@@ -63,26 +63,46 @@ export function navGroups(lang: Lang): NavGroup[] {
       ],
     },
     {
-      label: nl ? 'Community en leren' : 'Community and learning',
+      id: 'markets',
+      label: nl ? 'Markten' : 'Markets',
       items: [
-        { label: nl ? 'Discord (gratis)' : 'Discord (free)', href: DISCORD_URL, icon: 'discord', external: true, hint: nl ? 'Word gratis lid' : 'Join for free' },
-        { label: nl ? 'Gratis lessen' : 'Free lessons', href: p.learn, icon: 'learn', hint: nl ? `${ARTICLE_IDS.length} lessen, van de basis tot SMC` : `${ARTICLE_IDS.length} lessons, from the basics to SMC`, free: true },
-        { label: 'Partners', href: p.partners, icon: 'partners', hint: nl ? 'Exchanges en tools die we gebruiken' : 'Exchanges and tools we use' },
+        { label: nl ? 'Markten' : 'Markets', href: p.markets, icon: 'markets', hint: nl ? 'Koersen, sentiment, trends en heatmaps' : 'Prices, sentiment, trends and heatmaps', free: true },
+        { label: nl ? 'Marktnieuws' : 'Market news', href: p.news, icon: 'news', hint: nl ? 'Crypto, forex en aandelen, elke 10 min' : 'Crypto, forex and stocks, every 10 min', free: true },
+        { label: nl ? 'Economische kalender' : 'Economic calendar', href: p.markets + '#calendar', icon: 'calendar', hint: nl ? 'Cijfers en besluiten die de markt bewegen' : 'Data and decisions that move markets', free: true },
       ],
     },
     {
-      id: 'tools',
-      label: nl ? 'Gratis tools' : 'Free tools',
+      id: 'mine',
+      label: nl ? 'Mijn Winvest' : 'My Winvest',
       items: [
+        { label: 'Portfolio tracker', href: p.portfolio, icon: 'portfolio', hint: nl ? 'Je beleggingen en watchlist op één plek' : 'Your holdings and watchlist in one place', free: true },
+        { label: 'Trading journal', href: p.journal, icon: 'journal', hint: nl ? 'Leg je trades vast en leer ervan' : 'Log your trades and learn from them', free: true },
+      ],
+    },
+    {
+      label: nl ? 'Leren en community' : 'Learn and community',
+      items: [
+        { label: nl ? 'Gratis lessen' : 'Free lessons', href: p.learn, icon: 'learn', hint: nl ? `${ARTICLE_IDS.length} lessen, van de basis tot SMC` : `${ARTICLE_IDS.length} lessons, from the basics to SMC`, free: true },
+        { label: nl ? 'Discord (gratis)' : 'Discord (free)', href: DISCORD_URL, icon: 'discord', external: true, hint: nl ? 'Word gratis lid' : 'Join for free' },
+        { label: 'Partners', href: p.partners, icon: 'partners', hint: nl ? 'Exchanges en tools die we gebruiken' : 'Exchanges and tools we use' },
+      ],
+    },
+  ]
+}
+
+/** All free tools, for the homepage grid and site search. DeFi scanner and calculator are not menu items
+ *  (they open from coin pages: Check contract, Plan trade) but stay one tap away here. */
+export function toolItems(lang: Lang): NavItem[] {
+  const p = paths[lang]
+  const nl = lang === 'nl'
+  return [
         { label: nl ? 'Marktnieuws' : 'Market news', href: p.news, icon: 'news', hint: nl ? 'Crypto, forex en aandelen, elke 10 min' : 'Crypto, forex and stocks, every 10 min', free: true },
         { label: nl ? 'Markten' : 'Markets', href: p.markets, icon: 'markets', hint: nl ? 'Koersen, sentiment, trends en heatmaps' : 'Prices, sentiment, trends and heatmaps', free: true },
         { label: 'Portfolio tracker', href: p.portfolio, icon: 'portfolio', hint: nl ? 'Je beleggingen op één plek' : 'All your holdings in one place', free: true },
         { label: 'Trading journal', href: p.journal, icon: 'journal', hint: nl ? 'Leg je trades vast en leer ervan' : 'Log your trades and learn from them', free: true },
         { label: nl ? 'DeFi-scanner' : 'DeFi scanner', href: p.scanner, icon: 'scan', hint: nl ? 'Controleer tokens en wallets op risico’s' : 'Check tokens and wallets for risk', free: true },
         { label: nl ? 'Lotgrootte-calculator' : 'Lot size calculator', href: p.calculator, icon: 'calc', hint: nl ? 'Bereken je positie op basis van je risico' : 'Size positions to your risk', free: true },
-        { label: nl ? 'Economische kalender' : 'Economic calendar', href: p.home + '#calendar', icon: 'calendar', hint: nl ? 'Cijfers en besluiten die de markt bewegen' : 'Data and decisions that move markets', free: true },
-      ],
-    },
+        { label: nl ? 'Economische kalender' : 'Economic calendar', href: p.markets + '#calendar', icon: 'calendar', hint: nl ? 'Cijfers en besluiten die de markt bewegen' : 'Data and decisions that move markets', free: true },
   ]
 }
 
@@ -93,14 +113,15 @@ export function tabItems(lang: Lang): (NavItem & { only?: 'web' | 'app' })[] {
   const nl = lang === 'nl'
   return [
     { label: nl ? 'Overzicht' : 'Overview', href: p.home, icon: 'home' },
-    { label: 'Journal', href: p.journal, icon: 'journal' },
+    { label: nl ? 'Markten' : 'Markets', href: p.markets, icon: 'markets', also: [p.news] },
+    { label: nl ? 'Mijn Winvest' : 'My Winvest', href: p.portfolio, icon: 'portfolio', also: [p.journal] },
     { label: 'Terminal', href: terminalHref(lang), icon: 'terminal', external: !TERMINAL_EMBED },
-    { label: 'Portfolio', href: p.portfolio, icon: 'portfolio' },
   ]
 }
 
 /** Is `href` the page being shown? Home only matches itself; other pages also match their sub pages. */
-export function isActive(current: string, href: string, lang: Lang) {
+export function isActive(current: string, href: string, lang: Lang, also?: string[]) {
+  if (also?.some((a) => current.startsWith(a))) return true
   if (href.includes('#') || /^https?:/.test(href)) return false
   if (href === paths[lang].home) return current === href
   return current.startsWith(href)

@@ -11,7 +11,7 @@ import type { WalletSync, WalletToken } from '../portfolio/wallets'
 import type { Dividend, Found, History, Quote, SectorMap } from '../portfolio/data'
 import { exportCsv, exportJson, load, loadIndex, removeStored, save, saveIndex, storageKey, uid, validate, parseCsv, DEFAULT_ASSETS } from '../portfolio/store'
 import type { Asset, Currency, PortfolioData, PortfolioIndex, PortfolioMeta, Tx } from '../portfolio/store'
-import { Card, PageHeader, btn, pageWrap, tabCls } from '../components/kit'
+import { Card, LinkTabs, PageHeader, btn, pageWrap, tabCls } from '../components/kit'
 import { useWatchlists } from '../shared/watchlist'
 import type { WatchItem } from '../shared/watchlist'
 import { coinHref } from '../markets/coins'
@@ -833,6 +833,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
     <main className="relative overflow-hidden">
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[480px] w-[820px] -translate-x-1/2 rounded-full bg-[var(--wc-red)]/15 blur-[120px]" />
       <div className={pageWrap()}>
+        <LinkTabs className="mb-5" label={lang === 'nl' ? 'Mijn Winvest' : 'My Winvest'} items={[{ href: paths[lang].portfolio, label: 'Portfolio', on: true }, { href: paths[lang].journal, label: 'Journal', on: false }]} />
         <PageHeader home={paths[lang].home} title={c.h1} intro={c.intro} action={<button type="button" onClick={() => setForm({})} className={btn()}>{c.add}</button>} />
         {!storageOk ? <p className="mt-4 rounded-xl border border-amber-400/40 bg-amber-400/10 p-3 text-sm text-amber-200">{c.settings.storageFail}</p> : null}
 

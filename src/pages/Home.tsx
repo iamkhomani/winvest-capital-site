@@ -4,7 +4,7 @@ import { reviews } from '../content/reviews'
 import { articles } from '../content/articles'
 import TradingViewWidget from '../components/TradingViewWidget'
 import { Candles, Check, Stars, ThemedImage } from '../components/ui'
-import { Icon, navGroups } from '../components/nav'
+import { Icon, toolItems } from '../components/nav'
 import { PulseStrip } from '../markets/Overview'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
@@ -279,7 +279,7 @@ function Overview({ lang }: { lang: Lang }) {
   const c = homeCopy[lang]
   const p = paths[lang]
   const nl = lang === 'nl'
-  const tools = navGroups(lang).find((g) => g.id === 'tools')!.items
+  const tools = toolItems(lang)
   const lessons = articles.slice(0, 5)
   const tv = nl ? 'nl_NL' : 'en'
   return (

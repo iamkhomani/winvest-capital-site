@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { DEFI_PROXY_URL, DISCORD_URL } from '../config'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
-import { PageHeader, pageWrap, tabCls } from '../components/kit'
+import { LinkTabs, PageHeader, pageWrap, tabCls } from '../components/kit'
 
 const API = (DEFI_PROXY_URL || 'https://winvest-defi-proxy.helijl.workers.dev') + '/news'
 
@@ -90,6 +90,7 @@ export default function News({ lang }: { lang: Lang }) {
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-[var(--wc-red)]/12 blur-[120px]" />
       <div className={pageWrap()}>
         <PageHeader home={p.home} title={c.h1} intro={c.intro} />
+        <LinkTabs className="mt-6" label={lang === 'nl' ? 'Markten' : 'Markets'} items={[{ href: p.markets + '#crypto', label: 'Crypto', on: false }, { href: p.markets + '#stocks', label: lang === 'nl' ? 'Aandelen' : 'Stocks', on: false }, { href: p.news, label: lang === 'nl' ? 'Nieuws' : 'News', on: true }, { href: p.markets + '#calendar', label: lang === 'nl' ? 'Kalender' : 'Calendar', on: false }]} />
 
         <div className="mt-8 grid gap-6 lg:grid-cols-3">
           <section className="lg:col-span-2">

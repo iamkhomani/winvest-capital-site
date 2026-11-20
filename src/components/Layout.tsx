@@ -5,7 +5,7 @@ import { articles } from '../content/articles'
 import { COIN_INDEX, coinHref } from '../markets/coins'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
-import { Icon, isActive, navGroups, tabItems, useCurrentPath } from './nav'
+import { Icon, isActive, navGroups, tabItems, toolItems, useCurrentPath } from './nav'
 import type { NavItem } from './nav'
 import SmoothScroll from './SmoothScroll'
 import Ticker from './Ticker'
@@ -171,7 +171,9 @@ function SearchDialog({ lang, dialog }: { lang: Lang; dialog: ReturnType<typeof 
   const [q, setQ] = useState('')
   const input = useRef<HTMLInputElement>(null)
   const all = useMemo(() => {
-    const pages = navGroups(lang).flatMap((g) => g.items.map((i) => ({ ...i, group: g.label ?? (nl ? 'Pagina' : 'Page') })))
+    const fromMenu = navGroups(lang).flatMap((g) => g.items.map((i) => ({ ...i, group: g.label ?? (nl ? 'Pagina' : 'Page') })))
+    const tools = toolItems(lang).filter((t) => !fromMenu.some((m) => m.href === t.href)).map((t) => ({ ...t, group: nl ? 'Tool' : 'Tool' }))
+    const pages = [...fromMenu, ...tools]
     const lessons = articles.map((a) => ({ label: a[lang].title, href: a[lang].path, icon: 'learn' as const, hint: a[lang].description, group: nl ? 'Les' : 'Lesson', external: false }))
     return [...pages, ...lessons]
   }, [lang, nl])
@@ -333,14 +335,14 @@ function TabBar({ lang, onMore }: { lang: Lang; onMore: () => void }) {
   const current = useCurrentPath()
   const nl = lang === 'nl'
   const tabs = tabItems(lang)
-  const onTab = tabs.some((t) => isActive(current, t.href, lang))
+  const onTab = tabs.some((t) => isActive(current, t.href, lang, t.also))
   const cls = 'flex flex-col items-center gap-1 pt-2 pb-1.5 text-[11px] font-medium text-white/55 transition active:scale-95 aria-[current=page]:text-white'
   return (
     <nav aria-label={nl ? 'Snelmenu' : 'Quick menu'} className="wc-tabbar fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[var(--wc-black)]/95 backdrop-blur-xl lg:hidden">
       <ul className="mx-auto grid max-w-md grid-cols-5">
         {tabs.map((t) => (
           <li key={t.href} className={t.only ? `wc-only-${t.only}` : undefined}>
-            <a href={t.href} {...ext(t)} aria-current={isActive(current, t.href, lang) ? 'page' : undefined} className={cls}>
+            <a href={t.href} {...ext(t)} aria-current={isActive(current, t.href, lang, t.also) ? 'page' : undefined} className={cls}>
               <Icon name={t.icon} size={22} />
               {t.label}
             </a>
