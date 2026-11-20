@@ -14,10 +14,14 @@ const ORDER = ['ethereum', 'solana', 'base', 'arbitrum-one', 'optimistic-ethereu
 const SOLANA_RPC = 'https://api.mainnet-beta.solana.com'
 
 const headers = { accept: 'application/json', 'user-agent': 'winvestcapital.nl data snapshot' }
-async function getJson(url, init) {
-  const r = await fetch(url, { ...init, headers: { ...headers, ...(init?.headers || {}) }, signal: AbortSignal.timeout(30000) })
-  if (!r.ok) throw new Error(`${r.status} ${url}`)
-  return r.json()
+async function getJson(url, init, tries = 4) {
+  for (let i = 1; ; i++) {
+    const r = await fetch(url, { ...init, headers: { ...headers, ...(init?.headers || {}) }, signal: AbortSignal.timeout(30000) })
+    if (r.ok) return r.json()
+    // The public Solana RPC answers 429 when busy: wait and try again
+    if (r.status !== 429 || i >= tries) throw new Error(`${r.status} ${url}`)
+    await new Promise((res) => setTimeout(res, 15000 * i))
+  }
 }
 
 // Big integer string with `dec` decimals -> number (precision is fine for percentages)
