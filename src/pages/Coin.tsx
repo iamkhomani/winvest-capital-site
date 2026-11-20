@@ -15,6 +15,7 @@ import WatchStar from '../shared/WatchStar'
 import AssetActions from '../components/AssetActions'
 import { CoinNews, Technicals } from '../markets/AssetInsights'
 import DataStamp from '../markets/DataStamp'
+import Derivatives from '../markets/Derivatives'
 
 /** Static facts, from the snapshot (prerendered pages) or from the live CoinGecko answer. */
 export type CoinFacts = {
@@ -679,6 +680,7 @@ export default function Coin({ lang, id: fixedId }: { lang: Lang; id?: string })
               <Technicals lang={lang} symbol={f.symbol} name={f.name} />
               <CoinNews lang={lang} name={f.name} symbol={f.symbol} />
             </div>
+            <div className="mt-4"><Derivatives lang={lang} symbol={f.symbol} name={f.name} /></div>
 
             <div id="supply" className="mt-4 grid scroll-mt-24 gap-4 md:grid-cols-2">
               <section className={card}>
@@ -695,7 +697,24 @@ export default function Coin({ lang, id: fixedId }: { lang: Lang; id?: string })
                     </div>
                     <p className="mt-1.5 text-xs text-white/50">{c.ofMax(supplyPct.toFixed(1).replace('.', lang === 'nl' ? ',' : '.') + '%')}</p>
                   </>
+                ) : m && !m.max && m.total && m.circ ? (
+                  <p className="mt-3 text-xs text-white/50">{lang === 'nl' ? `${((m.circ / m.total) * 100).toFixed(1).replace('.', ',')}% van het totale aanbod is in omloop (geen maximum).` : `${((m.circ / m.total) * 100).toFixed(1)}% of the total supply is in circulation (no maximum).`}</p>
                 ) : null}
+                {m?.fdv && m.mcap ? (() => {
+                  const ratio = m.fdv / m.mcap
+                  const nl = lang === 'nl'
+                  return (
+                    <div className="mt-3 rounded-xl bg-white/[0.04] p-3 text-sm">
+                      <p className="flex items-baseline justify-between gap-3"><span className="text-white/60">{nl ? 'FDV / market cap' : 'FDV / market cap'}</span><span className={`font-semibold tabular-nums ${ratio >= 2 ? 'text-amber-300' : ''}`}>{ratio.toFixed(2).replace('.', nl ? ',' : '.')}×</span></p>
+                      <p className="mt-1 text-xs text-white/50">
+                        {ratio < 1.05
+                          ? nl ? 'Vrijwel alle tokens zijn al in omloop: weinig verwatering door nieuwe tokens.' : 'Nearly all tokens are already circulating: little dilution from new tokens.'
+                          : nl ? `Komen alle tokens in omloop, dan is de waarde bij dezelfde koers ${ratio.toFixed(1).replace('.', ',')}× zo groot. Nieuwe tokens (unlocks, beloningen) kunnen de koers drukken. Een unlock-kalender hebben we niet: daar is geen betrouwbare gratis bron voor.` : `If all tokens circulate, the value at the same price is ${ratio.toFixed(1)}× larger. New tokens (unlocks, rewards) can weigh on the price. We have no unlock calendar: there is no reliable free source.`}
+                      </p>
+                    </div>
+                  )
+                })() : null}
+                {f.holders ? <a href="#onchain" className="mt-2 inline-block text-xs font-semibold text-[var(--wc-red-soft)] hover:underline">{lang === 'nl' ? 'Houdersverdeling bekijken ↓' : 'See holder distribution ↓'}</a> : null}
               </section>
               <section className={card}>
                 <h2 className="font-semibold">{c.history}</h2>

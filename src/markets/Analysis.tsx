@@ -187,17 +187,29 @@ function Breadth({ lang, coins, at }: { lang: Lang; coins: Coin[]; at: number | 
   )
 }
 
-type Stable = { now: number; d1: number; d7: number; d30: number }
+type ChainFlow = { chain: string; now: number; w: number; m: number }
+type Stable = { now: number; d1: number; d7: number; d30: number; chains: ChainFlow[] }
 let stableP: { at: number; p: Promise<Stable> } | null = null
 const loadStable = () => {
   if (stableP && Date.now() - stableP.at < 3_600_000) return stableP.p
   const p = fetch('https://stablecoins.llama.fi/stablecoins?includePrices=false', { signal: AbortSignal.timeout(20000) })
     .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
-    .then((j: { peggedAssets: { pegType: string; circulating?: { peggedUSD?: number }; circulatingPrevDay?: { peggedUSD?: number }; circulatingPrevWeek?: { peggedUSD?: number }; circulatingPrevMonth?: { peggedUSD?: number } }[] }) => {
+    .then((j: { peggedAssets: { pegType: string; circulating?: { peggedUSD?: number }; circulatingPrevDay?: { peggedUSD?: number }; circulatingPrevWeek?: { peggedUSD?: number }; circulatingPrevMonth?: { peggedUSD?: number }; chainCirculating?: Record<string, { current?: { peggedUSD?: number }; circulatingPrevWeek?: { peggedUSD?: number }; circulatingPrevMonth?: { peggedUSD?: number } }> }[] }) => {
       const usdOnly = j.peggedAssets.filter((a) => a.pegType === 'peggedUSD')
       const sum = (k: 'circulating' | 'circulatingPrevDay' | 'circulatingPrevWeek' | 'circulatingPrevMonth') => usdOnly.reduce((s, a) => s + (a[k]?.peggedUSD ?? 0), 0)
       const now = sum('circulating')
-      return { now, d1: now / sum('circulatingPrevDay') - 1, d7: now / sum('circulatingPrevWeek') - 1, d30: now / sum('circulatingPrevMonth') - 1 }
+      // per chain: where dollar stablecoins are added (inflow) or taken out (outflow)
+      const byChain = new Map<string, ChainFlow>()
+      for (const a of usdOnly)
+        for (const [chain, v] of Object.entries(a.chainCirculating ?? {})) {
+          const x = byChain.get(chain) ?? { chain, now: 0, w: 0, m: 0 }
+          x.now += v.current?.peggedUSD ?? 0
+          x.w += v.circulatingPrevWeek?.peggedUSD ?? 0
+          x.m += v.circulatingPrevMonth?.peggedUSD ?? 0
+          byChain.set(chain, x)
+        }
+      const chains = [...byChain.values()].filter((x) => x.now > 0).sort((a, b) => b.now - a.now).slice(0, 8)
+      return { now, d1: now / sum('circulatingPrevDay') - 1, d7: now / sum('circulatingPrevWeek') - 1, d30: now / sum('circulatingPrevMonth') - 1, chains }
     })
     .catch((e) => {
       stableP = null
@@ -230,6 +242,27 @@ function Stablecoins({ lang }: { lang: Lang }) {
               </div>
             ))}
           </dl>
+          <h4 className="mt-4 text-xs font-semibold text-white/70">{lang === 'nl' ? 'Per chain: in- en uitstroom' : 'By chain: inflow and outflow'}</h4>
+          <table className="mt-1 w-full text-xs tabular-nums">
+            <thead className="text-white/40">
+              <tr><th className="py-1 text-left font-normal">Chain</th><th className="py-1 text-right font-normal">{lang === 'nl' ? 'Voorraad' : 'Supply'}</th><th className="py-1 text-right font-normal">7d</th><th className="py-1 text-right font-normal">30d</th></tr>
+            </thead>
+            <tbody>
+              {d.chains.map((x) => {
+                const dw = x.now - x.w, dm = x.now - x.m
+                const sign = (v: number) => (v >= 0 ? '+' : '−') + usdBig(Math.abs(v))
+                return (
+                  <tr key={x.chain} className="border-t border-white/5">
+                    <td className="py-1">{x.chain}</td>
+                    <td className="py-1 text-right">{usdBig(x.now)}</td>
+                    <td className={`py-1 text-right ${tone(dw)}`}>{x.w ? sign(dw) : '–'}</td>
+                    <td className={`py-1 text-right ${tone(dm)}`}>{x.m ? sign(dm) : '–'}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+          <p className="mt-1 text-[11px] text-white/40">{lang === 'nl' ? 'Instroom op een chain betekent meestal meer handels- of DeFi-activiteit daar. Alleen dollar-stablecoins; bruggen tussen chains kunnen dubbel lijken.' : 'Inflow to a chain usually means more trading or DeFi activity there. Dollar stablecoins only; bridged coins can look like double counting.'}</p>
         </>
       ) : (
         <LoadState lang={lang} error={err} />

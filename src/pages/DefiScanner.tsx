@@ -9,6 +9,7 @@ import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import { safeUrl } from '../safeUrl'
 import { btn, PageHeader, pageWrap } from '../components/kit'
+import DefiMarket from '../markets/DefiMarket'
 
 export const scannerCopy = {
   en: {
@@ -510,6 +511,8 @@ export default function DefiScanner({ lang }: { lang: Lang }) {
           {view.s === 'token' && <TokenView view={view} c={c} lang={lang} onBack={(pairs) => setView({ s: 'pairs', pairs })} />}
           {view.s === 'results' && <Results results={view.results} c={c} />}
         </div>
+
+        <DefiMarket lang={lang} />
 
         <a href={paths[lang].markets} className="mt-10 inline-block rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white/80 hover:border-[var(--wc-red)] hover:text-white">{lang === 'nl' ? 'Bekijk de top 50 crypto en populaire aandelen →' : 'See the top 50 crypto and popular stocks →'}</a>
         <p className="mt-6 max-w-3xl text-sm text-white/45">{c.supports}</p>

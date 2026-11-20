@@ -16,7 +16,7 @@ export const timeOf = (at: number, lang: Lang) => {
   return today ? d.toLocaleTimeString(loc, { hour: '2-digit', minute: '2-digit' }) : d.toLocaleDateString(loc, { day: 'numeric', month: 'short' }) + ' ' + d.toLocaleTimeString(loc, { hour: '2-digit', minute: '2-digit' })
 }
 
-export default function DataStamp({ lang, source, at, kind, className = '' }: { lang: Lang; source: string; at?: number | null; kind: Freshness; className?: string }) {
+export default function DataStamp({ lang, source, at, kind, className = '', updated = false }: { lang: Lang; source: string; at?: number | null; kind: Freshness; className?: string; updated?: boolean }) {
   const nl = lang === 'nl'
   const dot = kind === 'live' || kind === 'provider' ? 'bg-emerald-400' : kind === 'delayed' ? 'bg-amber-300' : 'bg-white/35'
   return (
@@ -28,7 +28,7 @@ export default function DataStamp({ lang, source, at, kind, className = '' }: { 
       {at ? (
         <>
           <span aria-hidden="true">·</span>
-          <span>{nl ? 'geladen' : 'loaded'} {timeOf(at, lang)}</span>
+          <span>{updated ? (nl ? 'bijgewerkt' : 'updated') : nl ? 'geladen' : 'loaded'} {timeOf(at, lang)}</span>
         </>
       ) : null}
     </p>
