@@ -15,6 +15,7 @@ export type Asset = {
   id: string // CoinGecko id or Yahoo symbol
   image?: string
   currency?: string // native trading currency (stocks), e.g. USD, EUR
+  sector?: string // stocks: Yahoo sector (English), 'fund' for ETFs and funds, '' when unknown
 }
 
 export type Tx = {
@@ -42,6 +43,48 @@ export type PortfolioData = {
 }
 
 const KEY = 'wc-portfolio-v1'
+const INDEX_KEY = 'wc-portfolios'
+
+// Several portfolios: the first one ('main') keeps the original storage key, so existing data stays
+// where it was. Extra portfolios are stored under their own key, listed in a small index.
+export type PortfolioMeta = { id: string; name: string }
+export type PortfolioIndex = { active: string; list: PortfolioMeta[] }
+
+export const storageKey = (id = 'main') => (id === 'main' ? KEY : `${KEY}:${id}`)
+
+export function loadIndex(): PortfolioIndex {
+  const fallback: PortfolioIndex = { active: 'main', list: [{ id: 'main', name: '' }] }
+  try {
+    const raw = localStorage.getItem(INDEX_KEY)
+    if (!raw) return fallback
+    const o = JSON.parse(raw) as PortfolioIndex
+    const list = (Array.isArray(o.list) ? o.list : [])
+      .filter((p) => p && typeof p.id === 'string' && /^[a-z0-9]{1,20}$/.test(p.id))
+      .map((p) => ({ id: p.id, name: typeof p.name === 'string' ? p.name.slice(0, 40) : '' }))
+    if (!list.some((p) => p.id === 'main')) list.unshift({ id: 'main', name: '' })
+    const active = list.some((p) => p.id === o.active) ? o.active : 'main'
+    return { active, list }
+  } catch {
+    return fallback
+  }
+}
+
+export function saveIndex(ix: PortfolioIndex): boolean {
+  try {
+    localStorage.setItem(INDEX_KEY, JSON.stringify(ix))
+    return true
+  } catch {
+    return false
+  }
+}
+
+export function removeStored(id: string) {
+  try {
+    localStorage.removeItem(storageKey(id))
+  } catch {
+    /* ignore */
+  }
+}
 
 export const empty = (): PortfolioData => ({
   app: 'winvest-portfolio',
@@ -59,9 +102,9 @@ export const DEFAULT_ASSETS: Record<string, Asset> = {
   'crypto:ethereum': { key: 'crypto:ethereum', kind: 'crypto', symbol: 'ETH', name: 'Ethereum', id: 'ethereum' },
 }
 
-export function load(): PortfolioData {
+export function load(id = 'main'): PortfolioData {
   try {
-    const raw = localStorage.getItem(KEY)
+    const raw = localStorage.getItem(storageKey(id))
     if (raw) {
       const d = validate(JSON.parse(raw))
       if (d) return d
@@ -74,9 +117,9 @@ export function load(): PortfolioData {
   return d
 }
 
-export function save(d: PortfolioData): boolean {
+export function save(d: PortfolioData, id = 'main'): boolean {
   try {
-    localStorage.setItem(KEY, JSON.stringify(d))
+    localStorage.setItem(storageKey(id), JSON.stringify(d))
     return true
   } catch {
     return false
@@ -94,7 +137,7 @@ export function validate(x: unknown): PortfolioData | null {
   const assets = (o.assets && typeof o.assets === 'object' ? o.assets : {}) as Record<string, Asset>
   for (const [k, a] of Object.entries(assets)) {
     if (!a || (a.kind !== 'crypto' && a.kind !== 'stock') || typeof a.id !== 'string' || typeof a.symbol !== 'string') continue
-    d.assets[k] = { key: k, kind: a.kind, symbol: String(a.symbol).slice(0, 20), name: String(a.name || a.symbol).slice(0, 80), id: a.id.slice(0, 60), image: typeof a.image === 'string' && a.image.startsWith('https://') ? a.image : undefined, currency: typeof a.currency === 'string' ? a.currency.slice(0, 5) : undefined }
+    d.assets[k] = { key: k, kind: a.kind, symbol: String(a.symbol).slice(0, 20), name: String(a.name || a.symbol).slice(0, 80), id: a.id.slice(0, 60), image: typeof a.image === 'string' && a.image.startsWith('https://') ? a.image : undefined, currency: typeof a.currency === 'string' ? a.currency.slice(0, 5) : undefined, sector: typeof a.sector === 'string' ? a.sector.slice(0, 40) : undefined }
   }
   const txs = Array.isArray(o.txs) ? o.txs : []
   for (const t of txs as Tx[]) {

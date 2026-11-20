@@ -5,12 +5,12 @@ import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import { STABLES, diversification, drawdown, holdings, periods, series, volatility } from '../portfolio/calc'
 import type { Holding } from '../portfolio/calc'
-import { history as fetchHistory, fxNow, priceAt, quotes, searchCrypto, searchStock } from '../portfolio/data'
+import { cryptoSectors, history as fetchHistory, fxNow, priceAt, quotes, searchCrypto, searchStock, stockSector } from '../portfolio/data'
 import { cachedSync, detectWallet, syncAll } from '../portfolio/wallets'
 import type { WalletSync, WalletToken } from '../portfolio/wallets'
-import type { Found, History, Quote } from '../portfolio/data'
-import { exportCsv, exportJson, load, save, uid, validate, parseCsv, DEFAULT_ASSETS } from '../portfolio/store'
-import type { Asset, Currency, PortfolioData, Tx } from '../portfolio/store'
+import type { Found, History, Quote, SectorMap } from '../portfolio/data'
+import { exportCsv, exportJson, load, loadIndex, removeStored, save, saveIndex, storageKey, uid, validate, parseCsv, DEFAULT_ASSETS } from '../portfolio/store'
+import type { Asset, Currency, PortfolioData, PortfolioIndex, PortfolioMeta, Tx } from '../portfolio/store'
 
 // EvilCharts (Recharts) only downloads when the portfolio overview is shown.
 const ValueChart = lazy(() => import('../portfolio/Charts').then((m) => ({ default: m.ValueChart })))
@@ -52,6 +52,16 @@ export const portfolioCopy = {
     monthlyNote: 'Time-weighted: deposits and withdrawals do not count as gains or losses.',
     alloc: 'Allocation', byClass: 'By asset class', crypto: 'Crypto', stocks: 'Stocks',
     split: { h: 'Spread by type', p: 'How your portfolio, including wallets, is split between Bitcoin, other coins, stablecoins and stocks.', btc: 'Bitcoin', alts: 'Altcoins', stables: 'Stablecoins', stocks: 'Stocks', altWarn: 'More than 60% is in altcoins. Altcoins usually move harder than Bitcoin, in both directions.', chains: 'Wallets per blockchain' },
+    sector: {
+      h: 'Spread by sector',
+      p: 'Which parts of the market your money is in, including wallets.',
+      note: 'Crypto sectors are based on CoinGecko categories for the top 100 coins; other coins count as Other crypto. Stock sectors come from Yahoo Finance.',
+      fund: 'ETFs and funds',
+      unknown: 'Stocks, sector unknown',
+      crypto: { l1: 'Layer 1', l2: 'Layer 2', defi: 'DeFi', stable: 'Stablecoins', meme: 'Meme coins', exchange: 'Exchange tokens', ai: 'AI', privacy: 'Privacy', infra: 'Infrastructure', rwa: 'Real-world assets', other: 'Other crypto' } as Record<string, string>,
+      stocks: {} as Record<string, string>,
+    },
+    pf: { label: 'Your portfolios', main: 'Main portfolio', new: 'New portfolio', rename: 'Rename', del: 'Delete', delConfirm: (n: string) => `Delete “${n}” and all its transactions from this device?`, name: 'Portfolio name', create: 'Create', save: 'Save', cancel: 'Cancel', defaultName: (n: number) => `Portfolio ${n}` },
     risk: 'Risk exposure', maxDd: 'Max drawdown (1y)', curDd: 'Current drawdown', vol: 'Volatility (annualised, 90d)', largest: 'Largest position', top3: 'Top 3 positions', effective: 'Effective number of positions', stable: 'Stablecoins',
     divLow: 'Concentrated', divMid: 'Moderately diversified', divHigh: 'Well diversified',
     cols: { asset: 'Asset', qty: 'Quantity', avg: 'Avg. cost', price: 'Price', value: 'Value', pnl: 'P/L', weight: 'Weight', d24: '24h' },
@@ -108,6 +118,16 @@ export const portfolioCopy = {
     monthlyNote: 'Tijdgewogen: stortingen en opnames tellen niet als winst of verlies.',
     alloc: 'Allocatie', byClass: 'Per categorie', crypto: 'Crypto', stocks: 'Aandelen',
     split: { h: 'Verdeling naar soort', p: 'Hoe je portfolio, inclusief wallets, verdeeld is over Bitcoin, andere munten, stablecoins en aandelen.', btc: 'Bitcoin', alts: 'Altcoins', stables: 'Stablecoins', stocks: 'Aandelen', altWarn: 'Meer dan 60% zit in altcoins. Altcoins bewegen meestal harder dan Bitcoin, in beide richtingen.', chains: 'Wallets per blockchain' },
+    sector: {
+      h: 'Verdeling naar sector',
+      p: 'In welke delen van de markt je geld zit, inclusief wallets.',
+      note: 'Crypto-sectoren komen uit de categorieën van CoinGecko voor de top 100; andere munten tellen als Overige crypto. Sectoren van aandelen komen van Yahoo Finance.',
+      fund: 'ETF’s en fondsen',
+      unknown: 'Aandelen, sector onbekend',
+      crypto: { l1: 'Layer 1', l2: 'Layer 2', defi: 'DeFi', stable: 'Stablecoins', meme: 'Memecoins', exchange: 'Exchangetokens', ai: 'AI', privacy: 'Privacy', infra: 'Infrastructuur', rwa: 'Echte activa (RWA)', other: 'Overige crypto' } as Record<string, string>,
+      stocks: { Technology: 'Technologie', Healthcare: 'Gezondheidszorg', 'Financial Services': 'Financiële diensten', 'Consumer Cyclical': 'Cyclische consumptie', 'Communication Services': 'Communicatiediensten', Industrials: 'Industrie', 'Consumer Defensive': 'Basisconsumptie', Energy: 'Energie', 'Basic Materials': 'Grondstoffen', 'Real Estate': 'Vastgoed', Utilities: 'Nutsbedrijven' } as Record<string, string>,
+    },
+    pf: { label: 'Je portfolio’s', main: 'Hoofdportfolio', new: 'Nieuw portfolio', rename: 'Naam wijzigen', del: 'Verwijderen', delConfirm: (n: string) => `“${n}” en alle transacties ervan van dit apparaat verwijderen?`, name: 'Naam van het portfolio', create: 'Aanmaken', save: 'Opslaan', cancel: 'Annuleren', defaultName: (n: number) => `Portfolio ${n}` },
     risk: 'Risico', maxDd: 'Max drawdown (1j)', curDd: 'Huidige drawdown', vol: 'Volatiliteit (per jaar, 90d)', largest: 'Grootste positie', top3: 'Top 3 posities', effective: 'Effectief aantal posities', stable: 'Stablecoins',
     divLow: 'Geconcentreerd', divMid: 'Redelijk gespreid', divHigh: 'Goed gespreid',
     cols: { asset: 'Asset', qty: 'Aantal', avg: 'Gem. kostprijs', price: 'Prijs', value: 'Waarde', pnl: 'W/V', weight: 'Gewicht', d24: '24u' },
@@ -331,9 +351,18 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   const [wAddr, setWAddr] = useState('')
   const [wLabel, setWLabel] = useState('')
   const [wErr, setWErr] = useState('')
+  const [pf, setPf] = useState<PortfolioIndex>({ active: 'main', list: [{ id: 'main', name: '' }] })
+  const pidRef = useRef('main')
+  const [pfEdit, setPfEdit] = useState<null | 'new' | 'rename' | 'delete'>(null)
+  const [pfName, setPfName] = useState('')
+  const [sectors, setSectors] = useState<SectorMap | null>(null)
 
   useEffect(() => {
-    setData(load())
+    const ix = loadIndex()
+    pidRef.current = ix.active
+    setPf(ix)
+    setData(load(ix.active))
+    void cryptoSectors().then(setSectors)
     if (location.hash) {
       const t = location.hash.slice(1) as Tab
       if (t in portfolioCopy.en.tabs) setTab(t)
@@ -370,10 +399,60 @@ export default function Portfolio({ lang }: { lang: Lang }) {
     setData((prev) => {
       if (!prev) return prev
       const next = fn(structuredClone(prev))
-      setStorageOk(save(next))
+      setStorageOk(save(next, pidRef.current))
       return next
     })
   }, [])
+
+  // Stocks added before sectors were stored: look up their sector once (Yahoo search via our Worker).
+  const sectorTodo = data ? Object.values(data.assets).filter((a) => a.kind === 'stock' && a.sector === undefined && data.txs.some((t) => t.asset === a.key)).map((a) => a.symbol) : []
+  const sectorSig = sectorTodo.join('|')
+  useEffect(() => {
+    if (!sectorTodo.length) return
+    let alive = true
+    void (async () => {
+      const found: Record<string, string> = {}
+      for (const sym of sectorTodo.slice(0, 8)) {
+        try {
+          found[`stock:${sym}`] = await stockSector(sym)
+        } catch {
+          return // offline or source down: try again next visit
+        }
+      }
+      if (alive) update((d) => { for (const [k, v] of Object.entries(found)) if (d.assets[k]) d.assets[k].sector = v; return d })
+    })()
+    return () => { alive = false }
+  }, [sectorSig]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ---- several portfolios ----
+  const switchTo = (id: string, ix: PortfolioIndex = pf) => {
+    const next = { ...ix, active: id }
+    pidRef.current = id
+    setPf(next)
+    saveIndex(next)
+    setData(load(id))
+    setHist({})
+    setForm(null)
+    setWl(0)
+    setMsg('')
+    setConfirmClear(false)
+    setPfEdit(null)
+  }
+  const createPf = (name: string) => {
+    const id = uid().replace(/[^a-z0-9]/g, '').slice(0, 12) || 'p' + Date.now().toString(36)
+    switchTo(id, { ...pf, list: [...pf.list, { id, name: name.trim().slice(0, 40) }] })
+  }
+  const renamePf = (name: string) => {
+    const next = { ...pf, list: pf.list.map((p) => (p.id === pf.active ? { ...p, name: name.trim().slice(0, 40) } : p)) }
+    setPf(next)
+    saveIndex(next)
+    setPfEdit(null)
+  }
+  const deletePf = () => {
+    if (pf.active === 'main') return
+    removeStored(pf.active)
+    switchTo('main', { ...pf, list: pf.list.filter((p) => p.id !== pf.active) })
+  }
 
   // assets that need prices: held assets + watchlist assets
   const neededKeys = useMemo(() => {
@@ -513,7 +592,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
 
   const saveTx = (a: Asset, t: Tx) => {
     update((d) => {
-      d.assets[a.key] = { key: a.key, kind: a.kind, symbol: a.symbol, name: a.name, id: a.id, image: a.image ?? d.assets[a.key]?.image, currency: a.currency }
+      d.assets[a.key] = { key: a.key, kind: a.kind, symbol: a.symbol, name: a.name, id: a.id, image: a.image ?? d.assets[a.key]?.image, currency: a.currency, sector: a.sector ?? d.assets[a.key]?.sector }
       const i = d.txs.findIndex((x) => x.id === t.id)
       if (i >= 0) d.txs[i] = t
       else d.txs.push(t)
@@ -531,7 +610,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
       const d = validate(JSON.parse(await f.text()))
       if (!d) throw new Error('bad')
       setData(d)
-      setStorageOk(save(d))
+      setStorageOk(save(d, pidRef.current))
       setHist({})
       setMsg(c.settings.importOk)
     } catch {
@@ -606,6 +685,25 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   const chainMap = new Map<string, number>()
   for (const t of wTokens) if (t.value > 0) chainMap.set(t.chain, (chainMap.get(t.chain) ?? 0) + t.value)
   const chains = [...chainMap.entries()].sort((a, b) => b[1] - a[1])
+  // Spread by sector: crypto from the weekly CoinGecko category snapshot, stocks from Yahoo.
+  const cryptoSec = (id: string | undefined, sym: string) => (STABLES.has(sym.toUpperCase()) ? 'stable' : (id && sectors?.byId[id]) || sectors?.bySymbol[sym.toUpperCase()] || 'other')
+  const secMap = new Map<string, number>()
+  const addSec = (k: string, v: number) => secMap.set(k, (secMap.get(k) ?? 0) + v)
+  for (const h of open) {
+    const a = data.assets[h.key]
+    if (!a || !(h.value > 0)) continue
+    addSec(a.kind === 'stock' ? (a.sector === 'fund' ? 's:fund' : a.sector ? 's:' + a.sector : 's:unknown') : 'c:' + cryptoSec(a.id, a.symbol), h.value)
+  }
+  for (const t of wTokens) if (t.value > 0) addSec('c:' + cryptoSec(undefined, t.symbol), t.value)
+  const secLabel = (k: string) => (k.startsWith('c:') ? c.sector.crypto[k.slice(2)] ?? k.slice(2) : k === 's:fund' ? c.sector.fund : k === 's:unknown' ? c.sector.unknown : c.sector.stocks[k.slice(2)] ?? k.slice(2))
+  const secSorted = [...secMap.entries()].sort((a, b) => b[1] - a[1])
+  const secTotal = secSorted.reduce((s, [, v]) => s + v, 0)
+  const secParts = secSorted.slice(0, 9).map(([k, value], i) => ({ label: secLabel(k), value, color: PALETTE[i % PALETTE.length] }))
+  const secRest = secSorted.slice(9).reduce((s, [, v]) => s + v, 0)
+  if (secRest > 0) secParts.push({ label: lang === 'nl' ? 'Overig' : 'Other', value: secRest, color: '#475569' })
+  const pfLabel = (p: PortfolioMeta) => p.name || (p.id === 'main' ? c.pf.main : c.pf.defaultName(pf.list.indexOf(p) + 1))
+  const activePf = pf.list.find((p) => p.id === pf.active) ?? pf.list[0]
+  const pill = (on: boolean) => `shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition ${on ? 'bg-white text-black' : 'border border-white/15 text-white/75 hover:border-white/40 hover:text-white'}`
   const locale = lang === 'nl' ? 'nl-NL' : 'en-GB'
   const money = (v: number) => fmtMoney(v, base, lang)
   const moneyCompact = (v: number) => new Intl.NumberFormat(locale, { style: 'currency', currency: base, notation: 'compact', maximumFractionDigits: 1 }).format(v)
@@ -630,7 +728,36 @@ export default function Portfolio({ lang }: { lang: Lang }) {
         </div>
         {!storageOk ? <p className="mt-4 rounded-xl border border-amber-400/40 bg-amber-400/10 p-3 text-sm text-amber-200">{c.settings.storageFail}</p> : null}
 
-        <div role="tablist" className="mt-8 flex gap-1 overflow-x-auto rounded-full border border-white/15 p-1 sm:inline-flex">
+        <section aria-label={c.pf.label} className="mt-6">
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            {pf.list.map((p) => (
+              <button key={p.id} type="button" aria-pressed={p.id === pf.active} onClick={() => p.id !== pf.active && switchTo(p.id)} className={pill(p.id === pf.active)}>{pfLabel(p)}</button>
+            ))}
+            {pfEdit === null ? (
+              <button type="button" onClick={() => { setPfName(c.pf.defaultName(pf.list.length + 1)); setPfEdit('new') }} className="shrink-0 rounded-full border border-dashed border-white/25 px-4 py-2 text-sm font-semibold text-white/70 hover:border-white/50 hover:text-white">+ {c.pf.new}</button>
+            ) : null}
+          </div>
+          {pfEdit === 'new' || pfEdit === 'rename' ? (
+            <form onSubmit={(e) => { e.preventDefault(); if (!pfName.trim()) return; if (pfEdit === 'new') createPf(pfName); else renamePf(pfName) }} className="mt-3 flex flex-wrap items-center gap-2">
+              <input autoFocus aria-label={c.pf.name} value={pfName} maxLength={40} onChange={(e) => setPfName(e.target.value)} className="min-w-0 flex-1 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-sm outline-none focus:border-[var(--wc-red)] sm:max-w-xs" />
+              <button type="submit" className="rounded-full bg-[var(--wc-red)] px-4 py-2 text-sm font-semibold text-white hover:brightness-110">{pfEdit === 'new' ? c.pf.create : c.pf.save}</button>
+              <button type="button" onClick={() => setPfEdit(null)} className="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white/80 hover:border-white/40">{c.pf.cancel}</button>
+            </form>
+          ) : pfEdit === 'delete' ? (
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <p className="text-sm text-white/75">{c.pf.delConfirm(pfLabel(activePf))}</p>
+              <button type="button" onClick={deletePf} className="rounded-full bg-[var(--wc-red)] px-4 py-2 text-sm font-semibold text-white">{c.pf.del}</button>
+              <button type="button" onClick={() => setPfEdit(null)} className="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white/80 hover:border-white/40">{c.pf.cancel}</button>
+            </div>
+          ) : (
+            <div className="mt-2 flex gap-4 text-sm">
+              <button type="button" onClick={() => { setPfName(pfLabel(activePf)); setPfEdit('rename') }} className="font-semibold text-white/55 hover:text-white">{c.pf.rename}</button>
+              {pf.active !== 'main' ? <button type="button" onClick={() => setPfEdit('delete')} className="font-semibold text-white/55 hover:text-[var(--wc-red-soft)]">{c.pf.del}</button> : null}
+            </div>
+          )}
+        </section>
+
+        <div role="tablist" className="mt-6 flex gap-1 overflow-x-auto rounded-full border border-white/15 p-1 sm:inline-flex">
           {(Object.keys(c.tabs) as Tab[]).map(tabBtn)}
         </div>
 
@@ -772,6 +899,26 @@ export default function Portfolio({ lang }: { lang: Lang }) {
                         </ul>
                       </div>
                     ) : null}
+                  </Card>
+                ) : null}
+                {secTotal > 0 ? (
+                  <Card>
+                    <h2 className="text-lg font-bold">{c.sector.h}</h2>
+                    <p className="mt-1 text-sm text-white/55">{c.sector.p}</p>
+                    <div className="mt-4 flex h-3 overflow-hidden rounded-full bg-white/10" aria-hidden="true">
+                      {secParts.map((p) => <div key={p.label} style={{ width: `${(p.value / secTotal) * 100}%`, background: p.color }} />)}
+                    </div>
+                    <ul className="mt-4 grid gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
+                      {secParts.map((p) => (
+                        <li key={p.label} className="flex items-center gap-2">
+                          <span className="inline-block size-2.5 shrink-0 rounded-full" style={{ background: p.color }} aria-hidden="true" />
+                          <span className="min-w-0 flex-1 truncate text-white/75">{p.label}</span>
+                          <span className="tabular-nums text-white/60">{moneyCompact(p.value)}</span>
+                          <span className="w-14 text-right font-semibold tabular-nums">{fmtPct((p.value / secTotal) * 100, false)}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="mt-3 text-xs text-white/40">{c.sector.note}</p>
                   </Card>
                 ) : null}
               </>
@@ -1033,7 +1180,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
               <p className="mt-1 text-sm text-white/60">{c.settings.clearP}</p>
               {confirmClear ? (
                 <div className="mt-3 flex gap-2">
-                  <button type="button" onClick={() => { try { localStorage.removeItem('wc-portfolio-v1') } catch { /* ignore */ } setData(load()); setHist({}); setQ({}); setConfirmClear(false) }} className="rounded-full bg-[var(--wc-red)] px-4 py-2 text-sm font-semibold text-white">{c.settings.confirm}</button>
+                  <button type="button" onClick={() => { try { localStorage.removeItem(storageKey(pidRef.current)) } catch { /* ignore */ } setData(load(pidRef.current)); setHist({}); setQ({}); setConfirmClear(false) }} className="rounded-full bg-[var(--wc-red)] px-4 py-2 text-sm font-semibold text-white">{c.settings.confirm}</button>
                   <button type="button" onClick={() => setConfirmClear(false)} className="rounded-full border border-white/15 px-4 py-2 text-sm text-white/80">{c.form.cancel}</button>
                 </div>
               ) : (

@@ -187,5 +187,29 @@ export async function searchStock(q: string): Promise<Found[]> {
     .slice(0, 10)
     .map((x) => ({
       key: `stock:${x.symbol}`, kind: 'stock' as const, symbol: x.symbol, name: x.shortname || x.longname || x.symbol, id: x.symbol, exchange: x.exchDisp, type: x.quoteType,
+      sector: x.quoteType === 'EQUITY' ? String(x.sectorDisp || x.sector || '') : x.quoteType === 'INDEX' ? '' : 'fund',
     }))
+}
+
+/** Sector of one stock symbol (exact match in the Yahoo search), '' when unknown. */
+export async function stockSector(symbol: string): Promise<string> {
+  const list = await searchStock(symbol)
+  return list.find((x) => x.symbol.toUpperCase() === symbol.toUpperCase())?.sector ?? ''
+}
+
+/** Crypto sectors for the top 100 coins (weekly snapshot): CoinGecko id or symbol -> sector code. */
+export type SectorMap = { byId: Record<string, string>; bySymbol: Record<string, string> }
+let sectorMap: Promise<SectorMap> | null = null
+async function fetchSectors(): Promise<SectorMap> {
+  try {
+    const r = await fetch('/data/sectors.json')
+    if (r.ok) return (await r.json()) as SectorMap
+  } catch {
+    /* offline: everything counts as other crypto */
+  }
+  return { byId: {}, bySymbol: {} }
+}
+export const cryptoSectors = (): Promise<SectorMap> => {
+  if (!sectorMap) sectorMap = fetchSectors()
+  return sectorMap
 }

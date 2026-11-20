@@ -5,12 +5,14 @@
 //   src/data/coin-index.json  small list of the top 100 coins (id, name, symbol, rank) -> routes
 //   data/coins.json           facts per coin (description, links, categories) -> prerendered coin pages only
 //   public/data/llama.json    CoinGecko id -> DefiLlama protocol slug, so coin pages can show TVL and fees
+//   public/data/sectors.json  crypto sector per coin (from CoinGecko categories) for the portfolio tracker
 //
 // Free public APIs only (CoinGecko, DefiLlama). CoinGecko allows roughly 30 requests a minute,
 // so detail requests are spaced out and retried after a pause when it says 429.
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { buildSectors } from './sectors.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const CG = 'https://api.coingecko.com/api/v3'
@@ -89,3 +91,4 @@ for (const p of protocols) {
 write('src/data/coin-index.json', index.filter((c) => coins[c.id]).map(({ id, name, symbol, rank }) => ({ id, name, symbol, rank })))
 write('data/coins.json', { updated: new Date().toISOString().slice(0, 10), coins })
 write('public/data/llama.json', llama)
+write('public/data/sectors.json', buildSectors(coins))
