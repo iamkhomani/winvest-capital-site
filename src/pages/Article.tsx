@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { DISCORD_URL } from '../config'
 import { articles, MODULES } from '../content/articles'
 import type { Lang } from '../i18n'
@@ -6,6 +7,8 @@ import Prose from './Prose'
 import { btn } from '../components/kit'
 
 export default function Article({ id, lang }: { id: string; lang: Lang }) {
+  // mark 'read a first lesson' for the getting-started checklist on the homepage (device only)
+  useEffect(() => { try { localStorage.setItem('wc-read-lesson', '1') } catch { /* ignore */ } }, [])
   const idx = articles.findIndex((a) => a.id === id)
   const a = articles[idx][lang]
   const prev = idx > 0 ? articles[idx - 1][lang] : null

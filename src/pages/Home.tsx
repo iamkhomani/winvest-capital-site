@@ -1,14 +1,15 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
 import { DISCORD_URL, NEWSLETTER_EMAIL_FIELD, NEWSLETTER_FORM_ACTION, NEWSLETTER_LIST_UUID, PRICE, STRIPE_PAYMENT_LINK, TRUSTPILOT_URL } from '../config'
 import { reviews } from '../content/reviews'
 import { articles } from '../content/articles'
 import TradingViewWidget from '../components/TradingViewWidget'
 import { Candles, Check, Stars, ThemedImage } from '../components/ui'
-import { Icon, navGroups, terminalHref } from '../components/nav'
+import { Icon, navGroups } from '../components/nav'
 import { PulseStrip } from '../markets/Overview'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import { btn, cardBase } from '../components/kit'
+import Dashboard from '../components/Dashboard'
 
 const FREE_URL = DISCORD_URL
 const PAID_URL = STRIPE_PAYMENT_LINK
@@ -274,47 +275,6 @@ function Newsletter({ lang }: { lang: Lang }) {
 
 const card = cardBase
 
-/** Personal numbers from the journal (IndexedDB) and portfolio (localStorage). Read on the client only. */
-function MySpace({ lang }: { lang: Lang }) {
-  const c = homeCopy[lang]
-  const p = paths[lang]
-  const [d, setD] = useState<{ trades: number; tx: number; wallets: number } | null>(null)
-  useEffect(() => {
-    let alive = true
-    Promise.all([
-      import('../journal/db').then((m) => m.loadState()).then((s) => s.trades.length).catch(() => 0),
-      import('../portfolio/store').then((m) => m.load()).then((x) => [x.txs.length, x.wallets.length] as const).catch(() => [0, 0] as const),
-    ]).then(([trades, [tx, wallets]]) => alive && setD({ trades, tx, wallets }))
-    return () => {
-      alive = false
-    }
-  }, [])
-  const has = d && (d.trades || d.tx || d.wallets)
-  return (
-    <div className={`${card} flex flex-col p-5`}>
-      <h2 className="text-base font-semibold">{c.dMine}</h2>
-      <p className="text-xs text-white/45">{c.dMineP}</p>
-      {has ? (
-        <ul className="mt-4 space-y-2 text-sm text-white/80">
-          {d.trades > 0 && <li className="flex items-center gap-2"><Icon name="journal" size={16} className="text-[var(--wc-red)]" />{c.dTrades(d.trades)}</li>}
-          {d.tx > 0 && <li className="flex items-center gap-2"><Icon name="portfolio" size={16} className="text-[var(--wc-red)]" />{c.dTx(d.tx)}</li>}
-          {d.wallets > 0 && <li className="flex items-center gap-2"><Icon name="portfolio" size={16} className="text-[var(--wc-red)]" />{c.dWallets(d.wallets)}</li>}
-        </ul>
-      ) : (
-        <p className="mt-4 text-sm text-white/60">{c.dEmpty}</p>
-      )}
-      <div className="mt-auto grid grid-cols-2 gap-2 pt-5">
-        <a href={p.journal} className="rounded-full border border-white/15 px-3 py-2 text-center text-sm font-semibold transition hover:border-white/40">{c.dOpenJournal}</a>
-        <a href={p.portfolio} className="rounded-full border border-white/15 px-3 py-2 text-center text-sm font-semibold transition hover:border-white/40">{c.dOpenPortfolio}</a>
-        <a href={terminalHref(lang)} className="col-span-2 flex items-center justify-center gap-2 rounded-full border border-[var(--wc-red)]/60 px-3 py-2 text-center text-sm font-semibold transition hover:bg-[var(--wc-red)]/10">
-          <Icon name="terminal" size={16} className="text-[var(--wc-red)]" />
-          {c.dTerminal}
-        </a>
-      </div>
-    </div>
-  )
-}
-
 function Overview({ lang }: { lang: Lang }) {
   const c = homeCopy[lang]
   const p = paths[lang]
@@ -354,7 +314,7 @@ function Overview({ lang }: { lang: Lang }) {
           />
         </div>
         <div className="order-1 grid gap-4 lg:order-2">
-          <MySpace lang={lang} />
+          <Dashboard lang={lang} />
           <div className="flex flex-col rounded-2xl border border-[var(--wc-red)]/50 bg-[var(--wc-red)]/[0.07] p-5">
             <div className="flex items-center justify-between gap-3">
               <h2 className="text-base font-semibold">One Percent Club</h2>

@@ -206,7 +206,7 @@ function SearchDialog({ lang, dialog }: { lang: Lang; dialog: ReturnType<typeof 
       if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || (e.key === '/' && !typing)) {
         e.preventDefault()
         dialog.open()
-        setTimeout(() => input.current?.focus(), 0)
+        setTimeout(() => { input.current?.focus(); input.current?.select() }, 0)
       }
     }
     document.addEventListener('keydown', onKey)
@@ -366,7 +366,7 @@ export default function Layout({ lang, alternate, bare, children }: Props) {
   const more = useDialog()
   const openSearch = () => {
     search.open()
-    setTimeout(() => search.ref.current?.querySelector('input')?.focus(), 0)
+    setTimeout(() => { const i = search.ref.current?.querySelector('input'); i?.focus(); i?.select() }, 0)
   }
   return (
     <div className="min-h-screen bg-[var(--wc-black)] text-white antialiased">
