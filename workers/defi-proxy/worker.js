@@ -107,12 +107,15 @@ export default {
     // Stocks, ETFs, indices and FX (Yahoo Finance), read-only and cached
     if (request.method === 'GET' && url.pathname.startsWith('/stock/')) {
       let upstreamPath, ttl, chart2
-      const chart = url.pathname.match(/^\/stock\/chart\/([A-Za-z0-9.^=\-]{1,20})$/)
+      // Symbols like EURUSD=X arrive URL-encoded (%3D); match on the decoded path.
+      let path = url.pathname
+      try { path = decodeURIComponent(url.pathname) } catch { /* keep raw */ }
+      const chart = path.match(/^\/stock\/chart\/([A-Za-z0-9.^=\-]{1,20})$/)
       if (chart) {
         const range = ['5d', '1mo', '1y', '2y'].includes(url.searchParams.get('range')) ? url.searchParams.get('range') : '5d'
         upstreamPath = `/v8/finance/chart/${encodeURIComponent(chart[1])}?range=${range}&interval=1d`
         ttl = range === '5d' ? 120 : 3600
-      } else if ((chart2 = url.pathname.match(/^\/stock\/dividends\/([A-Za-z0-9.^=\-]{1,20})$/))) {
+      } else if ((chart2 = path.match(/^\/stock\/dividends\/([A-Za-z0-9.^=\-]{1,20})$/))) {
         // Dividend history (ex-dates and amounts) for the portfolio tracker
         upstreamPath = `/v8/finance/chart/${encodeURIComponent(chart2[1])}?range=10y&interval=1mo&events=div`
         ttl = 86400
