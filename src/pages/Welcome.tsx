@@ -1,5 +1,6 @@
 import { DISCORD_URL } from '../config'
 import type { Lang } from '../i18n'
+import { btn } from '../components/kit'
 
 const copy = {
   en: {
@@ -48,7 +49,7 @@ export default function Welcome({ lang }: { lang: Lang }) {
             </li>
           ))}
         </ol>
-        <a href={DISCORD_URL} className="mt-8 inline-block rounded-full bg-[var(--wc-red)] px-8 py-3 font-semibold transition hover:brightness-110">{c.btn}</a>
+        <a href={DISCORD_URL} className={`mt-8 ${btn()}`}>{c.btn}</a>
         <p className="mt-6 text-sm"><a href={lang === 'nl' ? '/nl/' : '/'} className="text-white/50 hover:text-white">{c.back}</a></p>
       </div>
     </main>

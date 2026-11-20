@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { DEFI_PROXY_URL, DISCORD_URL } from '../config'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
+import { PageHeader, pageWrap, tabCls } from '../components/kit'
 
 const API = (DEFI_PROXY_URL || 'https://winvest-defi-proxy.helijl.workers.dev') + '/news'
 
@@ -83,17 +84,12 @@ export default function News({ lang }: { lang: Lang }) {
   }, [])
 
   const shown = (items ?? []).filter((x) => cat === 'all' || x.category === cat)
-  const tabCls = (on: boolean) => `shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition ${on ? 'bg-white text-black' : 'text-white/70 hover:text-white'}`
 
   return (
     <main className="relative overflow-hidden">
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-[var(--wc-red)]/12 blur-[120px]" />
-      <div className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-        <nav aria-label="Breadcrumb" className="text-sm text-white/45">
-          <a href={p.home} className="hover:text-white">Home</a> <span aria-hidden="true">/</span> {c.h1}
-        </nav>
-        <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">{c.h1}</h1>
-        <p className="mt-4 max-w-2xl text-lg text-white/70">{c.intro}</p>
+      <div className={pageWrap()}>
+        <PageHeader home={p.home} title={c.h1} intro={c.intro} />
 
         <div className="mt-8 grid gap-6 lg:grid-cols-3">
           <section className="lg:col-span-2">

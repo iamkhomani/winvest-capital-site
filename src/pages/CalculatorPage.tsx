@@ -3,6 +3,7 @@ import LotSizeCalculator from '../components/LotSizeCalculator'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import Prose from './Prose'
+import { btn, PageHeader, pageWrap } from '../components/kit'
 
 export const calcCopy = {
   en: {
@@ -57,12 +58,8 @@ export default function CalculatorPage({ lang }: { lang: Lang }) {
   return (
     <main className="relative overflow-hidden">
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[480px] w-[820px] -translate-x-1/2 rounded-full bg-[var(--wc-red)]/15 blur-[120px]" />
-      <div className="relative mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
-        <nav aria-label="Breadcrumb" className="text-sm text-white/45">
-          <a href={paths[lang].home} className="hover:text-white">Home</a> <span aria-hidden="true">/</span> {c.h1}
-        </nav>
-        <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">{c.h1}</h1>
-        <p className="mt-4 max-w-2xl text-lg text-white/70">{c.intro}</p>
+      <div className={pageWrap(false)}>
+        <PageHeader home={paths[lang].home} title={c.h1} intro={c.intro} />
         <div className="mt-10">
           <LotSizeCalculator lang={lang} />
         </div>
@@ -83,7 +80,7 @@ export default function CalculatorPage({ lang }: { lang: Lang }) {
           <aside className="mt-12 rounded-2xl border border-[var(--wc-red)]/50 bg-gradient-to-b from-[var(--wc-red)]/15 to-white/[0.02] p-6 sm:p-8">
             <h2 className="text-xl font-bold">{c.ctaH}</h2>
             <p className="mt-2 text-white/70">{c.ctaP}</p>
-            <a href={DISCORD_URL} className="mt-5 inline-block rounded-full bg-[var(--wc-red)] px-6 py-3 font-semibold transition hover:brightness-110">{c.ctaBtn}</a>
+            <a href={DISCORD_URL} className={`mt-5 ${btn()}`}>{c.ctaBtn}</a>
           </aside>
         </div>
       </div>

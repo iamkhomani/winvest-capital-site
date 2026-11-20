@@ -11,6 +11,7 @@ import type { WalletSync, WalletToken } from '../portfolio/wallets'
 import type { Dividend, Found, History, Quote, SectorMap } from '../portfolio/data'
 import { exportCsv, exportJson, load, loadIndex, removeStored, save, saveIndex, storageKey, uid, validate, parseCsv, DEFAULT_ASSETS } from '../portfolio/store'
 import type { Asset, Currency, PortfolioData, PortfolioIndex, PortfolioMeta, Tx } from '../portfolio/store'
+import { Card, PageHeader, btn, pageWrap, tabCls } from '../components/kit'
 
 // EvilCharts (Recharts) only downloads when the portfolio overview is shown.
 const ValueChart = lazy(() => import('../portfolio/Charts').then((m) => ({ default: m.ValueChart })))
@@ -211,9 +212,6 @@ const SPLIT_COLORS = { btc: '#F7931A', alts: '#8B5CF6', stables: '#94A3B8', stoc
 const PALETTE = ['#FE0000', 'var(--wc-text)', '#F59E0B', '#34D399', '#60A5FA', '#A78BFA', '#F472B6', '#94A3B8', '#FB7185', '#2DD4BF']
 
 // ---------- small UI pieces ----------
-function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <div className={`min-w-0 rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:p-5 ${className}`}>{children}</div>
-}
 function Label({ children }: { children: ReactNode }) {
   return <div className="text-xs font-medium tracking-wide text-white/50 uppercase">{children}</div>
 }
@@ -354,7 +352,7 @@ function TxForm({ c, lang, data, quotesNow, onSave, onClose, preset, held, edit 
             {qty && price ? <p className="text-sm text-white/60">= {fmtMoney(n(qty) * n(price) + (fee ? n(fee) : 0), data.base, lang)}</p> : null}
             {err ? <p className="text-sm text-[var(--wc-red-soft)]">{err}</p> : null}
             <div className="mt-1 flex gap-2">
-              <button type="button" onClick={submit} className="flex-1 rounded-full bg-[var(--wc-red)] px-5 py-3 font-semibold text-white transition hover:brightness-110">{c.form.save}</button>
+              <button type="button" onClick={submit} className={`flex-1 ${btn()}`}>{c.form.save}</button>
               <button type="button" onClick={onClose} className="rounded-full border border-white/15 px-5 py-3 font-semibold text-white/80 hover:border-white/40">{c.form.cancel}</button>
             </div>
           </div>
@@ -730,7 +728,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   }
 
   const tabBtn = (t: Tab) => (
-    <button key={t} type="button" role="tab" aria-selected={tab === t} onClick={() => { setTab(t); history.replaceState(null, '', '#' + t) }} className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition ${tab === t ? 'bg-white text-black' : 'text-white/70 hover:text-white'}`}>
+    <button key={t} type="button" role="tab" aria-selected={tab === t} onClick={() => { setTab(t); history.replaceState(null, '', '#' + t) }} className={tabCls(tab === t)}>
       {c.tabs[t]}
     </button>
   )
@@ -808,17 +806,8 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   return (
     <main className="relative overflow-hidden">
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[480px] w-[820px] -translate-x-1/2 rounded-full bg-[var(--wc-red)]/15 blur-[120px]" />
-      <div className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-        <nav aria-label="Breadcrumb" className="text-sm text-white/45">
-          <a href={paths[lang].home} className="hover:text-white">Home</a> <span aria-hidden="true">/</span> {c.h1}
-        </nav>
-        <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">{c.h1}</h1>
-            <p className="mt-3 max-w-2xl text-white/65">{c.intro}</p>
-          </div>
-          <button type="button" onClick={() => setForm({})} className="rounded-full bg-[var(--wc-red)] px-5 py-3 font-semibold text-white transition hover:brightness-110">{c.add}</button>
-        </div>
+      <div className={pageWrap()}>
+        <PageHeader home={paths[lang].home} title={c.h1} intro={c.intro} action={<button type="button" onClick={() => setForm({})} className={btn()}>{c.add}</button>} />
         {!storageOk ? <p className="mt-4 rounded-xl border border-amber-400/40 bg-amber-400/10 p-3 text-sm text-amber-200">{c.settings.storageFail}</p> : null}
 
         <section aria-label={c.pf.label} className="mt-6">
@@ -833,13 +822,13 @@ export default function Portfolio({ lang }: { lang: Lang }) {
           {pfEdit === 'new' || pfEdit === 'rename' ? (
             <form onSubmit={(e) => { e.preventDefault(); if (!pfName.trim()) return; if (pfEdit === 'new') createPf(pfName); else renamePf(pfName) }} className="mt-3 flex flex-wrap items-center gap-2">
               <input autoFocus aria-label={c.pf.name} value={pfName} maxLength={40} onChange={(e) => setPfName(e.target.value)} className="min-w-0 flex-1 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-sm outline-none focus:border-[var(--wc-red)] sm:max-w-xs" />
-              <button type="submit" className="rounded-full bg-[var(--wc-red)] px-4 py-2 text-sm font-semibold text-white hover:brightness-110">{pfEdit === 'new' ? c.pf.create : c.pf.save}</button>
+              <button type="submit" className={btn('primary', 'sm')}>{pfEdit === 'new' ? c.pf.create : c.pf.save}</button>
               <button type="button" onClick={() => setPfEdit(null)} className="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white/80 hover:border-white/40">{c.pf.cancel}</button>
             </form>
           ) : pfEdit === 'delete' ? (
             <div className="mt-3 flex flex-wrap items-center gap-2">
               <p className="text-sm text-white/75">{c.pf.delConfirm(pfLabel(activePf))}</p>
-              <button type="button" onClick={deletePf} className="rounded-full bg-[var(--wc-red)] px-4 py-2 text-sm font-semibold text-white">{c.pf.del}</button>
+              <button type="button" onClick={deletePf} className={btn('primary', 'sm')}>{c.pf.del}</button>
               <button type="button" onClick={() => setPfEdit(null)} className="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white/80 hover:border-white/40">{c.pf.cancel}</button>
             </div>
           ) : (
@@ -1289,7 +1278,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
               <h2 className="text-lg font-bold">{c.settings.exportH}</h2>
               <p className="mt-1 text-sm text-white/60">{c.settings.exportP}</p>
               <div className="mt-3 flex flex-wrap gap-2">
-                <button type="button" onClick={() => exportJson(data)} className="rounded-full bg-[var(--wc-red)] px-4 py-2 text-sm font-semibold text-white hover:brightness-110">{c.settings.exportJson}</button>
+                <button type="button" onClick={() => exportJson(data)} className={btn('primary', 'sm')}>{c.settings.exportJson}</button>
                 <button type="button" onClick={() => exportCsv(data)} className="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white/80 hover:border-white/40">{c.settings.exportCsv}</button>
               </div>
             </Card>
@@ -1308,7 +1297,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
               <p className="mt-1 text-sm text-white/60">{c.settings.clearP}</p>
               {confirmClear ? (
                 <div className="mt-3 flex gap-2">
-                  <button type="button" onClick={() => { try { localStorage.removeItem(storageKey(pidRef.current)) } catch { /* ignore */ } setData(load(pidRef.current)); setHist({}); setQ({}); setConfirmClear(false) }} className="rounded-full bg-[var(--wc-red)] px-4 py-2 text-sm font-semibold text-white">{c.settings.confirm}</button>
+                  <button type="button" onClick={() => { try { localStorage.removeItem(storageKey(pidRef.current)) } catch { /* ignore */ } setData(load(pidRef.current)); setHist({}); setQ({}); setConfirmClear(false) }} className={btn('primary', 'sm')}>{c.settings.confirm}</button>
                   <button type="button" onClick={() => setConfirmClear(false)} className="rounded-full border border-white/15 px-4 py-2 text-sm text-white/80">{c.form.cancel}</button>
                 </div>
               ) : (
@@ -1326,7 +1315,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
         <aside className="mt-8 max-w-3xl rounded-2xl border border-[var(--wc-red)]/50 bg-gradient-to-b from-[var(--wc-red)]/15 to-white/[0.02] p-6 sm:p-8">
           <h2 className="text-xl font-bold">{c.ctaH}</h2>
           <p className="mt-2 text-white/70">{c.ctaP}</p>
-          <a href={DISCORD_URL} className="mt-5 inline-block rounded-full bg-[var(--wc-red)] px-5 py-2.5 font-semibold text-white transition hover:brightness-110">{c.ctaBtn}</a>
+          <a href={DISCORD_URL} className={`mt-5 ${btn()}`}>{c.ctaBtn}</a>
         </aside>
       </div>
 

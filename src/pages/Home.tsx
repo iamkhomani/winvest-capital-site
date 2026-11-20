@@ -8,6 +8,7 @@ import { Icon, navGroups, terminalHref } from '../components/nav'
 import { PulseStrip } from '../markets/Overview'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
+import { btn, cardBase } from '../components/kit'
 
 const FREE_URL = DISCORD_URL
 const PAID_URL = STRIPE_PAYMENT_LINK
@@ -271,7 +272,7 @@ function Newsletter({ lang }: { lang: Lang }) {
   )
 }
 
-const card = 'rounded-2xl border border-white/10 bg-white/[0.03]'
+const card = cardBase
 
 /** Personal numbers from the journal (IndexedDB) and portfolio (localStorage). Read on the client only. */
 function MySpace({ lang }: { lang: Lang }) {
@@ -578,7 +579,7 @@ export default function Home({ lang }: { lang: Lang }) {
           <img src="/logo.jpeg" alt="" width={64} height={64} className="mx-auto size-16 rounded-full object-cover ring-2 ring-[var(--wc-red)]/50" />
           <h2 className="mt-6 text-3xl font-bold tracking-tight sm:text-4xl">{c.endH2}</h2>
           <p className="mx-auto mt-3 max-w-xl text-white/60">{c.endP}</p>
-          <a href={FREE_URL} className="mt-8 inline-block rounded-full bg-[var(--wc-red)] px-8 py-3 font-semibold transition hover:brightness-110">{c.joinFree}</a>
+          <a href={FREE_URL} className={`mt-8 ${btn()}`}>{c.joinFree}</a>
         </div>
       </section>
     </main>

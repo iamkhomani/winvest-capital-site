@@ -8,6 +8,7 @@ import type { Cat, Grade, Report, Sev } from '../risk'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import { safeUrl } from '../safeUrl'
+import { btn, PageHeader, pageWrap } from '../components/kit'
 
 export const scannerCopy = {
   en: {
@@ -478,12 +479,8 @@ export default function DefiScanner({ lang }: { lang: Lang }) {
   return (
     <main className="relative overflow-hidden">
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[480px] w-[820px] -translate-x-1/2 rounded-full bg-[var(--wc-red)]/15 blur-[120px]" />
-      <div className="relative mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
-        <nav aria-label="Breadcrumb" className="text-sm text-white/45">
-          <a href={paths[lang].home} className="hover:text-white">Home</a> <span aria-hidden="true">/</span> {c.h1}
-        </nav>
-        <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">{c.h1}</h1>
-        <p className="mt-4 max-w-2xl text-lg text-white/70">{c.intro}</p>
+      <div className={pageWrap(false)}>
+        <PageHeader home={paths[lang].home} title={c.h1} intro={c.intro} />
 
         <form onSubmit={submit} className="mt-8 flex gap-2">
           <input
@@ -495,7 +492,7 @@ export default function DefiScanner({ lang }: { lang: Lang }) {
             spellCheck={false}
             className="min-w-0 flex-1 rounded-full border border-white/15 bg-white/[0.04] px-5 py-3 text-base outline-none placeholder:text-white/35 focus:border-[var(--wc-red)]"
           />
-          <button type="submit" className="shrink-0 rounded-full bg-[var(--wc-red)] px-6 py-3 font-semibold text-white transition hover:brightness-110">{c.search}</button>
+          <button type="submit" className={`shrink-0 ${btn()}`}>{c.search}</button>
         </form>
         <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-white/50">
           <span>{c.examples}</span>
@@ -521,7 +518,7 @@ export default function DefiScanner({ lang }: { lang: Lang }) {
         <aside className="mt-10 max-w-3xl rounded-2xl border border-[var(--wc-red)]/50 bg-gradient-to-b from-[var(--wc-red)]/15 to-white/[0.02] p-6 sm:p-8">
           <h2 className="text-xl font-bold">{c.ctaH}</h2>
           <p className="mt-2 text-white/70">{c.ctaP}</p>
-          <a href={DISCORD_URL} className="mt-5 inline-block rounded-full bg-[var(--wc-red)] px-5 py-2.5 font-semibold text-white transition hover:brightness-110">{c.ctaBtn}</a>
+          <a href={DISCORD_URL} className={`mt-5 ${btn()}`}>{c.ctaBtn}</a>
         </aside>
       </div>
     </main>

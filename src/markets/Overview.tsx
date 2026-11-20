@@ -5,6 +5,7 @@ import type { Lang } from '../i18n'
 import { coinHref } from './coins'
 import { altSeason, fearGreed, globalData, realAlts, topCoins, trending, useLive, usdBig } from './pulse'
 import type { Coin } from './pulse'
+import { cardBase } from '../components/kit'
 
 export { coinHref }
 
@@ -74,7 +75,7 @@ function Meter({ value, from = 'var(--wc-red-soft)', to = '#34D399' }: { value: 
   )
 }
 
-const card = 'rounded-2xl border border-white/10 bg-white/[0.03] p-4'
+const card = `${cardBase} p-4`
 
 function Stat({ label, value, sub }: { label: string; value: string; sub?: ReactNode }) {
   return (

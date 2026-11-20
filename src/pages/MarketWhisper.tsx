@@ -3,6 +3,7 @@ import { DISCORD_URL, PRICE, STRIPE_PAYMENT_LINK } from '../config'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import { homeCopy } from './Home'
+import { btn } from '../components/kit'
 
 type Shot = { src: string; w: number; h: number; alt: { en: string; nl: string } }
 type Showcase = { id: string; tier: 'free' | 'paid' | null; shots: Shot[] }
@@ -127,7 +128,7 @@ export default function MarketWhisper({ lang }: { lang: Lang }) {
             <h1 className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">{c.h1}</h1>
             <p className="mt-5 max-w-xl text-lg text-white/70">{c.intro}</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href={DISCORD_URL} className="rounded-full bg-[var(--wc-red)] px-6 py-3 font-semibold text-white transition hover:brightness-110">{c.ctaFree}</a>
+              <a href={DISCORD_URL} className={btn()}>{c.ctaFree}</a>
               <a href={STRIPE_PAYMENT_LINK} className="rounded-full border border-white/20 px-6 py-3 font-semibold text-white transition hover:border-white/50">{c.ctaPaid} · {PRICE}</a>
             </div>
           </div>
@@ -231,7 +232,7 @@ export default function MarketWhisper({ lang }: { lang: Lang }) {
           <h2 className="mt-5 text-3xl font-bold tracking-tight">{c.endH}</h2>
           <p className="mt-3 text-white/70">{c.endP}</p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
-            <a href={DISCORD_URL} className="rounded-full bg-[var(--wc-red)] px-6 py-3 font-semibold text-white transition hover:brightness-110">{c.ctaFree}</a>
+            <a href={DISCORD_URL} className={btn()}>{c.ctaFree}</a>
             <a href={STRIPE_PAYMENT_LINK} className="rounded-full border border-white/20 px-6 py-3 font-semibold text-white transition hover:border-white/50">{c.ctaPaid}</a>
           </div>
           <p className="mt-8 text-xs text-white/40">{c.note}</p>

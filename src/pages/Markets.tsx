@@ -6,6 +6,7 @@ import { paths } from '../paths'
 import { topCoins } from '../markets/pulse'
 import type { Coin } from '../markets/pulse'
 import { MarketOverview, coinHref } from '../markets/Overview'
+import { btn, PageHeader, pageWrap, tabCls } from '../components/kit'
 
 export const marketsCopy = {
   en: {
@@ -217,18 +218,13 @@ export default function Markets({ lang }: { lang: Lang }) {
     if (location.hash === '#stocks') setTab('stocks')
   }, [])
   const tv = lang === 'nl' ? 'nl_NL' : 'en'
-  const tabCls = (on: boolean) => `rounded-full px-5 py-2 text-sm font-semibold transition ${on ? 'bg-white text-black' : 'text-white/70 hover:text-white'}`
   return (
     <main className="relative overflow-hidden">
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[480px] w-[820px] -translate-x-1/2 rounded-full bg-[var(--wc-red)]/15 blur-[120px]" />
-      <div className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-        <nav aria-label="Breadcrumb" className="text-sm text-white/45">
-          <a href={paths[lang].home} className="hover:text-white">Home</a> <span aria-hidden="true">/</span> {c.h1}
-        </nav>
-        <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">{c.h1}</h1>
-        <p className="mt-4 max-w-2xl text-lg text-white/70">{c.intro}</p>
+      <div className={pageWrap()}>
+        <PageHeader home={paths[lang].home} title={c.h1} intro={c.intro} />
 
-        <div role="tablist" className="mt-8 inline-flex rounded-full border border-white/15 p-1">
+        <div role="tablist" className="mt-6 flex gap-1 overflow-x-auto rounded-full border border-white/15 p-1 sm:mt-8 sm:inline-flex">
           <button role="tab" aria-selected={tab === 'crypto'} type="button" onClick={() => { setTab('crypto'); history.replaceState(null, '', '#crypto') }} className={tabCls(tab === 'crypto')}>{c.crypto}</button>
           <button role="tab" aria-selected={tab === 'stocks'} type="button" onClick={() => { setTab('stocks'); history.replaceState(null, '', '#stocks') }} className={tabCls(tab === 'stocks')}>{c.stocks}</button>
         </div>
@@ -277,7 +273,7 @@ export default function Markets({ lang }: { lang: Lang }) {
         <aside className="mt-10 max-w-3xl rounded-2xl border border-[var(--wc-red)]/50 bg-gradient-to-b from-[var(--wc-red)]/15 to-white/[0.02] p-6 sm:p-8">
           <h2 className="text-xl font-bold">{c.ctaH}</h2>
           <p className="mt-2 text-white/70">{c.ctaP}</p>
-          <a href={DISCORD_URL} className="mt-5 inline-block rounded-full bg-[var(--wc-red)] px-5 py-2.5 font-semibold text-white transition hover:brightness-110">{c.ctaBtn}</a>
+          <a href={DISCORD_URL} className={`mt-5 ${btn()}`}>{c.ctaBtn}</a>
         </aside>
       </div>
     </main>

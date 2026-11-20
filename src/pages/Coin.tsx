@@ -10,6 +10,7 @@ import type { Lang } from '../i18n'
 import { usePageData } from '../pageData'
 import { paths } from '../paths'
 import { usd, usdBig } from '../markets/pulse'
+import { cardBase } from '../components/kit'
 
 /** Static facts, from the snapshot (prerendered pages) or from the live CoinGecko answer. */
 export type CoinFacts = {
@@ -248,7 +249,7 @@ async function json<T>(url: string): Promise<T> {
   return (await r.json()) as T
 }
 
-const card = 'rounded-2xl border border-white/10 bg-white/[0.03] p-5'
+const card = `${cardBase} p-5`
 
 function Row({ k, v }: { k: string; v: ReactNode }) {
   return (

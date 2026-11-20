@@ -15,6 +15,7 @@ import { fmtDateTime, nowWall, TIMEZONES, wallToIso } from '../journal/time'
 import TradeForm, { Field, inputCls } from '../journal/TradeForm'
 import { ACCOUNT_CURRENCIES, defaultSettings, emptyState, uid } from '../journal/types'
 import type { Account, AccountCurrency, CashMove, JournalState, Settings, Trade } from '../journal/types'
+import { Card, PageHeader, btn, pageWrap, tabCls } from '../components/kit'
 
 // EvilCharts (Recharts) only downloads when a chart is shown.
 const EquityChart = lazy(() => import('../journal/Charts').then((m) => ({ default: m.EquityChart })))
@@ -27,9 +28,6 @@ type Tab = keyof JC['tabs']
 
 const toneCls = (v?: number) => (v === undefined || !isFinite(v) || Math.abs(v) < 1e-9 ? 'text-white' : v > 0 ? 'text-emerald-400' : 'text-[var(--wc-red-soft)]')
 
-function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <div className={`min-w-0 rounded-2xl border border-white/10 bg-white/[0.03] p-4 sm:p-5 ${className}`}>{children}</div>
-}
 function Kpi({ label, value, sub, cls = '' }: { label: string; value: ReactNode; sub?: ReactNode; cls?: string }) {
   return (
     <div className="min-w-0 rounded-2xl border border-white/10 bg-white/[0.03] p-3.5 sm:p-4">
@@ -458,15 +456,8 @@ export default function Journal({ lang }: { lang: Lang }) {
   return (
     <main className="relative overflow-hidden">
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[480px] w-[820px] -translate-x-1/2 rounded-full bg-[var(--wc-red)]/15 blur-[120px]" />
-      <div className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-        <nav aria-label="Breadcrumb" className="text-sm text-white/45"><a href={paths[lang].home} className="hover:text-white">Home</a> <span aria-hidden="true">/</span> {c.h1}</nav>
-        <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">{c.h1}</h1>
-            <p className="mt-3 max-w-2xl text-white/65">{c.intro}</p>
-          </div>
-          {state.accounts.length ? <button type="button" onClick={() => setForm({})} className="rounded-full bg-[var(--wc-red)] px-5 py-3 font-semibold text-white transition hover:brightness-110">{c.addTrade}</button> : null}
-        </div>
+      <div className={pageWrap()}>
+        <PageHeader home={paths[lang].home} title={c.h1} intro={c.intro} action={state.accounts.length ? <button type="button" onClick={() => setForm({})} className={btn()}>{c.addTrade}</button> : undefined} />
         {!saveOk ? <p className="mt-4 rounded-xl border border-amber-400/40 bg-amber-400/10 p-3 text-sm text-amber-200">{c.settings.storageFail}</p> : null}
         {autoMsgs.length ? (
           <div role="status" className="mt-4 flex items-start justify-between gap-3 rounded-xl border border-white/15 bg-white/[0.04] p-3 text-sm text-white/80">
@@ -486,9 +477,9 @@ export default function Journal({ lang }: { lang: Lang }) {
               </select>
               {ratesMissing ? <span className="text-xs text-amber-300">FX ⚠</span> : null}
             </div>
-            <div role="tablist" className="mt-4 flex gap-1 overflow-x-auto rounded-full border border-white/15 p-1">
+            <div role="tablist" className="mt-4 flex gap-1 overflow-x-auto rounded-full border border-white/15 p-1 sm:inline-flex">
               {tabs.map((t) => (
-                <button key={t} type="button" role="tab" aria-selected={tab === t} onClick={() => { setTab(t); history.replaceState(null, '', '#' + t) }} className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition ${tab === t ? 'bg-white text-black' : 'text-white/70 hover:text-white'}`}>{c.tabs[t]}</button>
+                <button key={t} type="button" role="tab" aria-selected={tab === t} onClick={() => { setTab(t); history.replaceState(null, '', '#' + t) }} className={tabCls(tab === t)}>{c.tabs[t]}</button>
               ))}
             </div>
 
@@ -710,7 +701,7 @@ export default function Journal({ lang }: { lang: Lang }) {
                   <h2 className="text-lg font-bold">{c.settings.exportH}</h2>
                   <label className="mt-2 flex items-center gap-2 text-sm text-white/70"><input type="checkbox" checked={withImages} onChange={(e) => setWithImages(e.target.checked)} className="accent-[var(--wc-red)]" />{c.settings.withImages}</label>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    <button type="button" onClick={() => void exportJson()} className="rounded-full bg-[var(--wc-red)] px-4 py-2 text-sm font-semibold text-white">{c.settings.exportJson}</button>
+                    <button type="button" onClick={() => void exportJson()} className={btn('primary', 'sm')}>{c.settings.exportJson}</button>
                     <button type="button" onClick={exportCsv} className="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white/80 hover:border-white/40">{c.settings.exportCsv}</button>
                   </div>
                   <h2 className="mt-6 text-lg font-bold">{c.settings.importH}</h2>
@@ -722,7 +713,7 @@ export default function Journal({ lang }: { lang: Lang }) {
                   <p className="mt-1 text-sm text-white/55">{c.settings.delP}</p>
                   {confirmDel ? (
                     <div className="mt-3 flex gap-2">
-                      <button type="button" onClick={async () => { await clearAll().catch(() => undefined); setState(emptyState()); setConfirmDel(false) }} className="rounded-full bg-[var(--wc-red)] px-4 py-2 text-sm font-semibold text-white">{c.settings.delConfirm}</button>
+                      <button type="button" onClick={async () => { await clearAll().catch(() => undefined); setState(emptyState()); setConfirmDel(false) }} className={btn('primary', 'sm')}>{c.settings.delConfirm}</button>
                       <button type="button" onClick={() => setConfirmDel(false)} className="rounded-full border border-white/15 px-4 py-2 text-sm text-white/80">{c.form.cancel}</button>
                     </div>
                   ) : <button type="button" onClick={() => setConfirmDel(true)} className="mt-3 rounded-full border border-[var(--wc-red)]/60 px-4 py-2 text-sm font-semibold text-[var(--wc-red-soft)]">{c.settings.del}</button>}
@@ -737,7 +728,7 @@ export default function Journal({ lang }: { lang: Lang }) {
         <aside className="mt-8 max-w-3xl rounded-2xl border border-[var(--wc-red)]/50 bg-gradient-to-b from-[var(--wc-red)]/15 to-white/[0.02] p-6 sm:p-8">
           <h2 className="text-xl font-bold">{c.ctaH}</h2>
           <p className="mt-2 text-white/70">{c.ctaP}</p>
-          <a href={DISCORD_URL} className="mt-5 inline-block rounded-full bg-[var(--wc-red)] px-5 py-2.5 font-semibold text-white transition hover:brightness-110">{c.ctaBtn}</a>
+          <a href={DISCORD_URL} className={`mt-5 ${btn()}`}>{c.ctaBtn}</a>
         </aside>
       </div>
 

@@ -7,6 +7,7 @@ import type { LotUnit } from './fx'
 import { isoToWall, nowWall, wallToIso } from './time'
 import { CONDITIONS, EMOTIONS, TIMEFRAMES, uid } from './types'
 import type { Account, Condition, Emotion, ExitKind, JournalState, Plan, Shot, Trade } from './types'
+import { btn } from '../components/kit'
 
 type ExitDraft = { id: string; time: string; price: string; lots: string; kind: ExitKind; kindSet: boolean; pnl: string; override: boolean; commission: string; swap: string; source: 'calc' | 'broker'; auto?: boolean }
 type ShotDraft = Shot & { url?: string; blob?: Blob; isNew?: boolean }
@@ -358,7 +359,7 @@ export default function TradeForm({ c, state, accounts, trade, defaultAccount, l
 
         {err ? <p className="mt-3 text-sm text-[var(--wc-red-soft)]">{err}</p> : null}
         <div className="mt-5 flex flex-wrap gap-2">
-          <button type="button" onClick={() => void save()} className="flex-1 rounded-full bg-[var(--wc-red)] px-5 py-3 font-semibold text-white transition hover:brightness-110">{f.save}</button>
+          <button type="button" onClick={() => void save()} className={`flex-1 ${btn()}`}>{f.save}</button>
           <button type="button" onClick={onClose} className="rounded-full border border-white/15 px-5 py-3 font-semibold text-white/80 hover:border-white/40">{f.cancel}</button>
           {trade ? (confirmDel
             ? <button type="button" onClick={() => onDelete(trade)} className="rounded-full bg-[var(--wc-red)]/20 px-5 py-3 font-semibold text-[var(--wc-red-soft)]">{f.delConfirm}</button>

@@ -3,6 +3,7 @@ import { articles, MODULES } from '../content/articles'
 import type { Lang } from '../i18n'
 import { paths } from '../paths'
 import Prose from './Prose'
+import { btn } from '../components/kit'
 
 export default function Article({ id, lang }: { id: string; lang: Lang }) {
   const idx = articles.findIndex((a) => a.id === id)
@@ -53,7 +54,7 @@ export default function Article({ id, lang }: { id: string; lang: Lang }) {
             ? 'In de gratis Winvest Capital Discord bespreken we dagelijks setups op aandelen, crypto en FX.'
             : 'In the free Winvest Capital Discord we discuss setups on stocks, crypto and FX every day.'}
         </p>
-        <a href={DISCORD_URL} className="mt-5 inline-block rounded-full bg-[var(--wc-red)] px-6 py-3 font-semibold transition hover:brightness-110">
+        <a href={DISCORD_URL} className={`mt-5 ${btn()}`}>
           {L ? 'Gratis lid worden' : 'Join free'}
         </a>
       </aside>
