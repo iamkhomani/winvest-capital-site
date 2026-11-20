@@ -106,8 +106,8 @@ export default function AssetActions({ lang, id, name, symbol, price, contract, 
         subject={`${name} (${symbol})`}
         lines={() => collect(['coin', 'derivatives', 'news'])}
         questions={lang === 'nl'
-          ? [`Analyseer ${name}: trend, drijfveren en risico's.`, `Verklaar de koersbeweging van ${name} in de laatste 24 uur.`, `Vat de laatste ontwikkelingen rond ${name} samen.`, `Vergelijk ${name} met Bitcoin.`]
-          : [`Analyse ${name}: trend, key drivers and risks.`, `Explain the price move of ${name} over the last 24 hours.`, `Summarise the latest developments around ${name}.`, `Compare ${name} with Bitcoin.`]}
+          ? [`Analyseer ${name}: trend, drijfveren en risico's.`, `Verklaar de koersbeweging van ${name} in de laatste 24 uur.`, `Vat de laatste ontwikkelingen rond ${name} samen.`, `Vergelijk ${name} met ${id === 'bitcoin' ? 'Ethereum' : 'Bitcoin'}.`]
+          : [`Analyse ${name}: trend, key drivers and risks.`, `Explain the price move of ${name} over the last 24 hours.`, `Summarise the latest developments around ${name}.`, `Compare ${name} with ${id === 'bitcoin' ? 'Ethereum' : 'Bitcoin'}.`]}
       />
 
       <dialog ref={planRef} onClose={() => { onClose(); setPlanOpen(false) }} aria-label={c.planH(symbol)} className={dlg}>
