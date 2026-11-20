@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { loadSettings, saveSettings } from '../shared/settings'
 import type { Lang } from '../i18n'
 
 // Instruments: pip size and contract size per standard lot. Pip value per lot is in the quote currency.
@@ -120,7 +121,17 @@ export default function LotSizeCalculator({ lang }: { lang: Lang }) {
   const [rateFail, setRateFail] = useState(false)
   const [rateOverride, setRateOverride] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
+  useEffect(() => {
+    // shared settings (account size, currency, risk) saved on this device
+    const st = loadSettings()
+    if (st.balance) setBalance(st.balance)
+    if (st.currency) setCurrency(st.currency)
+    if (st.risk) setRisk(st.risk)
+    setMounted(true)
+  }, [])
+  useEffect(() => {
+    if (mounted) saveSettings({ balance, currency, risk })
+  }, [mounted, balance, currency, risk])
 
   useEffect(() => {
     fetch('https://api.frankfurter.dev/v1/latest?base=USD&symbols=EUR,GBP,JPY,CHF,CAD,AUD,NZD')

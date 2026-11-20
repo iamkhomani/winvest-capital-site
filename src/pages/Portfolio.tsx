@@ -12,6 +12,8 @@ import type { Dividend, Found, History, Quote, SectorMap } from '../portfolio/da
 import { exportCsv, exportJson, load, loadIndex, removeStored, save, saveIndex, storageKey, uid, validate, parseCsv, DEFAULT_ASSETS } from '../portfolio/store'
 import type { Asset, Currency, PortfolioData, PortfolioIndex, PortfolioMeta, Tx } from '../portfolio/store'
 import { Card, PageHeader, btn, pageWrap, tabCls } from '../components/kit'
+import { useWatchlists } from '../shared/watchlist'
+import type { WatchItem } from '../shared/watchlist'
 
 // EvilCharts (Recharts) only downloads when the portfolio overview is shown.
 const ValueChart = lazy(() => import('../portfolio/Charts').then((m) => ({ default: m.ValueChart })))
@@ -375,6 +377,8 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   const [msg, setMsg] = useState('')
   const [confirmClear, setConfirmClear] = useState(false)
   const [wl, setWl] = useState(0)
+  const W = useWatchlists() // shared watchlist (whole site); the portfolio's own lists stay as a backup
+  const wlists = W.lists ?? []
   const [wlSearch, setWlSearch] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
   const csvRef = useRef<HTMLInputElement>(null)
@@ -519,13 +523,15 @@ export default function Portfolio({ lang }: { lang: Lang }) {
     switchTo('main', { ...pf, list: pf.list.filter((p) => p.id !== pf.active) })
   }
 
-  // assets that need prices: held assets + watchlist assets
+  // assets that need prices: held assets + shared watchlist assets
+  const watchMap = useMemo(() => new Map<string, WatchItem>((W.lists ?? []).flatMap((l) => l.items.map((i) => [i.key, i] as [string, WatchItem]))), [W.lists])
+  const assetOf = (k: string): Asset | undefined => data?.assets[k] ?? watchMap.get(k)
   const neededKeys = useMemo(() => {
     if (!data) return [] as string[]
     const s = new Set<string>(data.txs.map((t) => t.asset))
-    for (const w of data.watchlists) for (const k of w.assets) s.add(k)
-    return [...s].filter((k) => data.assets[k])
-  }, [data])
+    for (const k of watchMap.keys()) s.add(k)
+    return [...s].filter((k) => data.assets[k] || watchMap.get(k))
+  }, [data, watchMap])
   const neededSig = neededKeys.join('|') + '|' + (data?.base ?? '')
 
   useEffect(() => {
@@ -535,7 +541,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
     const run = async () => {
       if (retry) clearTimeout(retry)
       setLoadingQ(true)
-      const r = await quotes(neededKeys.map((k) => data.assets[k]), data.base).catch(() => ({} as Record<string, Quote>))
+      const r = await quotes(neededKeys.map((k) => assetOf(k) as Asset), data.base).catch(() => ({} as Record<string, Quote>))
       if (alive) {
         setQ(r)
         setLoadingQ(false)
@@ -801,7 +807,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
   const startDay = pts.length ? new Date(pts[0].t).toISOString().slice(0, 10) : ''
   const investedStart = data.txs.filter((x) => x.date < startDay).reduce((s, x) => s + (x.type === 'buy' ? x.qty * x.price + x.fee : -(x.qty * x.price - x.fee)), 0)
 
-  const list = data.watchlists[Math.min(wl, data.watchlists.length - 1)]
+  const list = wlists[Math.min(wl, wlists.length - 1)]
 
   return (
     <main className="relative overflow-hidden">
@@ -1218,19 +1224,20 @@ export default function Portfolio({ lang }: { lang: Lang }) {
         {tab === 'watch' && list && (
           <div className="mt-6">
             <div className="flex flex-wrap items-center gap-2">
-              {data.watchlists.map((w, i) => (
+              {wlists.map((w, i) => (
                 <button key={w.id} type="button" onClick={() => setWl(i)} className={`rounded-full border px-4 py-1.5 text-sm font-semibold ${i === wl ? 'border-white bg-white text-black' : 'border-white/15 text-white/70 hover:text-white'}`}>{w.name}</button>
               ))}
-              <button type="button" onClick={() => { update((d) => { d.watchlists.push({ id: uid(), name: `${c.watch.newList} ${d.watchlists.length + 1}`, assets: [] }); return d }); setWl(data.watchlists.length) }} className="rounded-full border border-dashed border-white/25 px-4 py-1.5 text-sm text-white/70 hover:text-white">+ {c.watch.newList}</button>
+              <button type="button" onClick={() => { W.set((ls) => [...ls, { id: uid(), name: `${c.watch.newList} ${ls.length + 1}`, items: [] }]); setWl(wlists.length) }} className="rounded-full border border-dashed border-white/25 px-4 py-1.5 text-sm text-white/70 hover:text-white">+ {c.watch.newList}</button>
             </div>
             <div className="mt-3 flex flex-wrap gap-3 text-sm">
-              <button type="button" className="text-white/60 hover:text-white" onClick={() => { const v = window.prompt(c.watch.name, list.name); if (v && v.trim()) update((d) => { d.watchlists[wl].name = v.trim().slice(0, 40); return d }) }}>{c.watch.rename}</button>
-              {data.watchlists.length > 1 ? <button type="button" className="text-white/60 hover:text-[var(--wc-red-soft)]" onClick={() => { update((d) => { d.watchlists.splice(wl, 1); return d }); setWl(0) }}>{c.watch.delList}</button> : null}
+              <button type="button" className="text-white/60 hover:text-white" onClick={() => { const v = window.prompt(c.watch.name, list.name); if (v && v.trim()) W.set((ls) => ls.map((x, i) => (i === wl ? { ...x, name: v.trim().slice(0, 40) } : x))) }}>{c.watch.rename}</button>
+              {wlists.length > 1 ? <button type="button" className="text-white/60 hover:text-[var(--wc-red-soft)]" onClick={() => { W.set((ls) => ls.filter((_, i) => i !== wl)); setWl(0) }}>{c.watch.delList}</button> : null}
             </div>
             <div className="mt-4 overflow-hidden rounded-2xl border border-white/10">
               <ul className="divide-y divide-white/5">
-                {list.assets.map((k) => {
-                  const a = data.assets[k]
+                {list.items.map((it) => {
+                  const k = it.key
+                  const a = assetOf(k)
                   const qt = q[k]
                   return (
                     <li key={k} className="flex items-center justify-between gap-3 px-4 py-3">
@@ -1241,18 +1248,18 @@ export default function Portfolio({ lang }: { lang: Lang }) {
                       </span>
                       <span className="flex shrink-0 gap-1">
                         {a ? <button type="button" onClick={() => setForm({ preset: a })} className="rounded-full border border-white/15 px-2.5 py-1 text-xs text-white/70 hover:border-[var(--wc-red)] hover:text-white">{c.buy}</button> : null}
-                        <button type="button" aria-label={c.watch.remove} onClick={() => update((d) => { d.watchlists[wl].assets = d.watchlists[wl].assets.filter((x) => x !== k); return d })} className="rounded-full px-2 py-1 text-white/40 hover:text-[var(--wc-red-soft)]">✕</button>
+                        <button type="button" aria-label={c.watch.remove} onClick={() => W.set((ls) => ls.map((x, i) => (i === wl ? { ...x, items: x.items.filter((y) => y.key !== k) } : x)))} className="rounded-full px-2 py-1 text-white/40 hover:text-[var(--wc-red-soft)]">✕</button>
                       </span>
                     </li>
                   )
                 })}
-                {!list.assets.length ? <li className="px-4 py-8 text-center text-white/50">{c.watch.empty}</li> : null}
+                {!list.items.length ? <li className="px-4 py-8 text-center text-white/50">{c.watch.empty}</li> : null}
               </ul>
             </div>
             <div className="mt-4">
               {wlSearch ? (
                 <Card>
-                  <AssetSearch c={c} autoFocus onPick={(a) => { update((d) => { d.assets[a.key] = d.assets[a.key] ?? { key: a.key, kind: a.kind, symbol: a.symbol, name: a.name, id: a.id, image: a.image }; if (!d.watchlists[wl].assets.includes(a.key)) d.watchlists[wl].assets.push(a.key); return d }); setWlSearch(false) }} />
+                  <AssetSearch c={c} autoFocus onPick={(a) => { W.set((ls) => ls.map((x, i) => (i === wl && !x.items.some((y) => y.key === a.key) ? { ...x, items: [...x.items, { key: a.key, kind: a.kind, symbol: a.symbol, name: a.name, id: a.id, image: a.image, currency: a.currency }] } : x))); setWlSearch(false) }} />
                   <button type="button" onClick={() => setWlSearch(false)} className="mt-3 text-sm text-white/60 hover:text-white">{c.form.cancel}</button>
                 </Card>
               ) : (
